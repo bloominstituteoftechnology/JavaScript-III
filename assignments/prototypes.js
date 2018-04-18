@@ -8,16 +8,6 @@
   Each class has unique properites and methods that are defined in their block comments below:
 */
 
-const Humanoid = function(faction, weapons, langauge) {
-  this.faction = faction;
-  this.weapons = weapons;
-  this.langauge = language;
-};
-
-Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.langauge}.`
-}
-
 /*
   === GameObject ===
   * createdAt
@@ -49,9 +39,46 @@ Humanoid.prototype.greet = function() {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// HUMANOID CLASS
+
+const Humanoid = function(faction, weapons, language) {
+  this.faction = faction;
+  this.weapons = weapons;
+  this.language = language;
+};
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.langauge}.`;
+};
+
+// CHARACTERSTATS CLASS
+
+const CharacterStats = function(hp, name) {
+  this.hp = hp;
+  this.name = name;
+};
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+};
+
+CharacterStats.prototype.destroy = function() {
+  return `Object was removed from the game.`;
+};
+
+// GAMEOBJECT CLASS
+
+const GameObject = function(createdAt, dimensions) {
+  this.createdAt = createdAt;
+  this.dimensions = dimensions;
+};
+
+GameObject.prototype.destroy = function() {
+  return 'Object was removed from the game.';
+};
+
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -67,7 +94,7 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'Common Toungue',
   });
-
+  
   const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -101,18 +128,18 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'Elvish',
   });
+  
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
