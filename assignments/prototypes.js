@@ -45,15 +45,15 @@ function GameObject(gObjAttribute) {
 }
 
 GameObject.prototype.destroy = function() {
-  return `Object was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 };
 
 function CharacterStats(crtsAttribute) {
-  GameObject.call(this.crtsAttribute);
+  GameObject.call(this, crtsAttribute);
   this.hp = crtsAttribute.hp;
   this.name = crtsAttribute.name;
   this.destroy = function() {
-    return `Object was removed from the game.`;
+    return `${this.name} was removed from the game.`;
   };
 }
 
@@ -64,12 +64,12 @@ CharacterStats.prototype.takeDamage = function() {
 };
 
 function Humanoid(hmAttribute) {
-  CharacterStats.call(this.hmAttribute);
+  CharacterStats.call(this, hmAttribute);
   this.faction = hmAttribute.faction;
-  this.weapon = hmAttribute.weapon;
+  this.weapons = hmAttribute.weapons;
   this.language = hmAttribute.language;
   this.destroy = function() {
-    return `Object was removed from the game.`;
+    return `${this.name} was removed from the game.`;
   };
   this.takeDamage = function() {
     return `${this.name} took damage.`;
