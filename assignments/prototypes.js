@@ -63,7 +63,7 @@ class Humanoid extends CharacterStats{
 }
 
 Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}`;
+  return `${this.name} offers a greeting in ${this.language}.`;
 };
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
