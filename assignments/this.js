@@ -18,7 +18,7 @@ console.log(this);
 
 // code example for Implicit Binding
 var dog = {
-  name: "loopi",
+  name: "Loopi",
   bark: function () {
     console.log(this);
     return this.name + " says woof!";
@@ -30,6 +30,8 @@ console.log(dog.bark());
 // Principle 3
 
 // code example for New Binding
+
+// constructor function
 function Animal(options) {
   this.species = options.species;
   this.legs = options.legs;
@@ -42,8 +44,14 @@ const bear = new Animal({
   legs: 4,
   species: 'bear',
 });
-// this is given to the new instance of
+
+const bird = new Animal({
+  legs: 2,
+  species: 'bird'
+})
+// this is given to the new instance of Animal
 console.log(bear.legNumber());
+console.log(bird.legNumber());
 
 
 // Principle 4
@@ -64,7 +72,7 @@ const calamarious = {
   name: "Calamarious",
   word: "arrr"
 };
-// call invokes function! juanitos this
+// call invokes function. juanitos this
 // console.log(sound.word.call(juanito));
 console.log(sound.word.call(juanito));
 
