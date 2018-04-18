@@ -8,12 +8,22 @@
   Each class has unique properites and methods that are defined in their block comments below:
 */
   
+
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(gameProps) {
+  this.createdAt = gameProps.createdAt;
+  this.dimensions = gameProps.dimensions;
+};
+
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`;
+};
+
 
 /*
   === CharacterStats ===
@@ -22,6 +32,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(characterProps) {
+  GameObject.call(this, characterProps);
+  this.hp = characterProps.hp;
+  this.name = characterProps.name;
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+};
+
 
 /*
   === Humanoid ===
@@ -32,6 +54,18 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+function Humanoid(humanoidProps) {
+  CharacterStats.call(this, humanoidProps);
+  this.faction = humanoidProps.faction;
+  this.weapons = humanoidProps.weapons;
+  this.language = humanoidProps.language;
+};
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -41,7 +75,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +136,97 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero(heroProps) {
+    Humanoid.call(this, heroProps);
+    this.strength = heroProps.strength;
+  };
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.fastAttack = function (target) {
+    if (this.hp > 0) {
+      target.hp -= Math.floor(Math.random() * ((this.strength/2) - 0 + 1));
+      console.log(`${target.name} now has ${target.hp}hp`);
+      if (target.hp < 1) console.log(target.destroy());
+    } else {
+      console.log(`${this.name} is no longer in the game.`)
+    };
+  };
+
+  function Villain(villainProps) {
+    Humanoid.call(this, villainProps);
+    this.strength = villainProps.strength;
+  };
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.fastAttack = function (target) {
+    if (this.hp > 0) {
+      target.hp -= Math.floor(Math.random() * ((this.strength/2) - 0 + 1));
+      console.log(`${target.name} now has ${target.hp}hp`);
+      if (target.hp < 1) console.log(target.destroy());
+    } else {
+      console.log(`${this.name} is no longer in the game and can't attack.`)
+    };
+  };
+
+  const superMan = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 5,
+      height: 7,
+    },
+    hp: 100,
+    strength: 20,
+    name: 'Superman',
+    faction: 'Kal-El',
+    weapons: [
+      'Fist1',
+      'Fist2',
+    ],
+    language: 'English',
+  });
+
+  const dirtyBubble = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 4,
+      height: 4,
+    },
+    hp: 50,
+    strength: 5,
+    name: 'The Dirty Bubble',
+    faction: 'E.V.I.L.',
+    weapons: [
+      'bubble blast',
+    ],
+    language: 'English',
+  });
+
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
+  superMan.fastAttack(dirtyBubble);
+  dirtyBubble.fastAttack(superMan);
