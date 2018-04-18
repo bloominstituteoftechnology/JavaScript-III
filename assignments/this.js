@@ -19,11 +19,11 @@
 // code example for Window Binding
 let me = "Andrew";
 
-function sayName(name) {
+function whoThis(name) {
     return name;
 };
 
-console.log(sayName(me));
+console.log(whoThis(me));
 
 // Principle 2
 
@@ -41,12 +41,39 @@ jerkStore.person('George Costanza');
 
 // code example for New Binding
 
-let bestFriend = 'Elaine';
+function LosersClub(member) {
+    this.greeting = 'Hey ';
+    this.member = member;
+    this.speak = function() {
+      console.log(this.greeting + this.member);
+      console.log(this);
+    };
+  }
+  
+  const bill = new LosersClub('Beverly');
+  const beverly = new LosersClub('Bill');
 
-let Friend = {
-    
-}
+  console.log(beverly.speak());
 
 // Principle 4
 
 // code example for Explicit Binding
+
+// let favFood = () => {
+//     console.log('My favorite foods are: ' + this.name);
+//   };
+  
+  let my = {
+    name: 'Andrew',
+    age: 29
+  };
+  
+  let favFoods = function(food1, food2, food3) {
+    console.log('My name is: ' + my.name + ' I like to eat: ' + food1 + ', ' + food2 + ', ' + food3 );
+  }
+  
+  let food = ['pizza','pasta','salt in large quatities'];
+  
+  favFoods.call(my);
+  
+  favFoods.call(my, ...food );
