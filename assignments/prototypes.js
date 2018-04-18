@@ -1,13 +1,13 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment
-  you will be implementing several classes with their correct inheritance heirarchy.
+  you will be implementing several prototypes with their correct inheritance heirarchy.
 
-  In this file you will be creating three classes: GameObject, CharacterStats, Humanoid.  
-  At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your classes.
-  
-  Each class has unique properites and methods that are defined in their block comments below:
+  In this file you will be creating three prototypes: GameObject, CharacterStats, Humanoid.
+  At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your prototypes.
+
+  Each prototype has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
@@ -32,7 +32,7 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -104,7 +104,7 @@
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
 
-  // Stretch task: 
-  // * Create Villian and Hero classes that inherit from the Humanoid class.  
+  // Stretch task:
+  // * Create Villian and Hero prototypes that inherit from the Humanoid prototype.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
