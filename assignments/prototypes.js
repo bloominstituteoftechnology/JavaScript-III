@@ -24,6 +24,8 @@ const GameObject = function (options) {
   }
 }
 GameObject.prototype.destroy = function() {
+  console.log(`${this.name} was removed from the game.`);
+  // this = null;
   return `${this.name} was removed from the game.`;
 }
 const game = new GameObject({
@@ -83,6 +85,10 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.constructor = Humanoid;
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
+}
+Humanoid.prototype.isAlive = function() {
+  console.log(`from is ${this.name}.alive()`);
+  this.health === 0 ? this.destroy() : console.log(`${this.name} continues alive!`);
 }
 
 /*
@@ -174,5 +180,76 @@ Hero.prototype.constructor = Hero;
   be used to remove health points from objects which could 
   result in destruction if health gets to 0 or drops below 0;
 */
+Villan.prototype.darkness = function(hero) {
+  if(hero.health===0) {
+    console.log(`${hero.name} is death.`);
+  } else { 
+    hero.health -= 1;
+    console.log(`${this.name} strikes ${hero.name}`);
+    hero.isAlive();
+  }
+}
 
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+Hero.prototype.brightness = function(villan) {
+  if(villan.health===0) {
+    console.log(`${villan.name} is death.`)
+  } else { 
+    --villan.health;
+    console.log(`${this.name} strikes ${villan.name}`);
+    villan.isAlive();
+  }
+}
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+const superVillan = new Villan({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Bad-boy',
+  faction: 'Darkness',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
+console.log(superVillan.health);
+
+const superHero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'The-savior',
+  faction: 'Good ones',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+});
+console.log(superHero.health);
+
+/** BATTEL FIELD */
+superVillan.darkness(superHero);
+console.log(superHero.health);
+superVillan.darkness(superHero);
+console.log(superHero.health);
+superVillan.darkness(superHero);
+console.log(superHero.health);
+superVillan.darkness(superHero);
+console.log(superHero.health);
+
+superHero.brightness(superVillan);
+console.log(superVillan.health);
+superHero.brightness(superVillan);
+console.log(superVillan.health);
+superHero.brightness(superVillan);
+console.log(superVillan.health);
+superHero.brightness(superVillan);
+console.log(superVillan.health);
