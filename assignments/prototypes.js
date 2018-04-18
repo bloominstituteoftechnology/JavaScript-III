@@ -145,3 +145,85 @@ Humanoid.prototype.greet = function() {
   // * Give the Hero and Villians different methods that could be used to remove health 
   //   points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+// Villain
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+  this.points = villainAttributes.points;
+  this.health = villainAttributes.health;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.gainPoints = function() {
+  this.points ++;
+  console.log(`${this.points} total points for ${this.name}!`);
+}
+
+Villain.prototype.loseHealth = function() {
+  this.health --;
+  if (this.health <= 0) {
+    this.destroy();
+    console.log(`${this.name} lost`);
+    return
+  }
+  console.log(`${this.name} has ${this.health} health left!`)
+}
+
+Villain.prototype.hit = function(opponent) {
+  console.log(`\n${this.name} hit ${opponent.name} with ${this.weapons[0]}!`)
+  this.gainPoints();
+  console.log(opponent.takeDamage());
+  opponent.loseHealth();
+}
+
+// Hero
+function Hero(heroAttributes) {
+  Villain.call(this, heroAttributes);
+}
+
+Hero.prototype = Object.create(Villain.prototype);
+
+
+const badGuy = new Villain({
+  createdAt: new Date(),
+  dimensions: mage.dimensions,
+  hp: mage.hp,
+  name: mage.name,
+  faction: mage.faction,
+  weapons: mage.weapons,
+  language: mage.language,
+  points: 0,
+  health: 10
+});
+
+const goodGuy = new Hero({
+  createdAt: new Date(),
+  dimensions: swordsman.dimensions,
+  hp: swordsman.hp,
+  name: swordsman.name,
+  faction: swordsman.faction,
+  weapons: swordsman.weapons,
+  language: swordsman.language,
+  points: 0,
+  health: 10
+});
+
+console.log(`\n*****************************\nNew Game: ${badGuy.name} vs ${goodGuy.name}\n*****************************`)
+badGuy.hit(goodGuy);
+goodGuy.hit(badGuy);
+goodGuy.hit(badGuy);
+badGuy.hit(goodGuy);
+goodGuy.hit(badGuy);
+goodGuy.hit(badGuy);
+badGuy.hit(goodGuy);
+badGuy.hit(goodGuy);
+goodGuy.hit(badGuy);
+goodGuy.hit(badGuy);
+goodGuy.hit(badGuy);
+badGuy.hit(goodGuy);
+goodGuy.hit(badGuy);
+badGuy.hit(goodGuy);
+goodGuy.hit(badGuy);
+badGuy.hit(goodGuy);
+goodGuy.hit(badGuy);
