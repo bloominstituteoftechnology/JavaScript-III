@@ -67,8 +67,11 @@ function Humanoid (humanoidAttributes) {
   this.language = humanoidAttributes.language
 }
 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
 Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}.`
+  return `${this.name} offers a greeting in ${this.language}.`;
 }
 
 Humanoid.prototype.destroy = CharacterStats.prototype.destroy;
@@ -150,3 +153,87 @@ Humanoid.prototype.takeDamage = CharacterStats.prototype.takeDamage;
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+// Hero
+function Hero (heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.attack = function() {
+  return `${this.name} deals 2 points of damage with ${this.weapons}!`
+}
+
+// Villian 
+function Villian (villanAttributes) {
+  Humanoid.call(this, villanAttributes);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.attack = function() {
+  return `${this.name} deals 3 points of damage with ${this.weapons}!`
+}
+
+Villian.prototype.dies = function() {
+  return this.name + ' has died!'
+}
+
+// Hero and Villian Objects
+
+const King = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 3,
+    height: 4,
+  },
+  hp: 20,
+  name: 'Arthur',
+  faction: 'Kights of the Round Table',
+  weapons: [
+    'Excaliber',
+  ],
+  language: 'Old English',
+});
+
+
+const Dragon = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 30,
+    width: 30,
+    height: 40
+  },
+  hp: 40,
+  name: 'Leviathan',
+  faction: 'Dragons have no factions',
+  weapons: [
+    'Fire Breath',
+  ],
+  language: 'Dragon Language',
+});
+
+
+console.log(King.attack());
+console.log(Dragon.takeDamage());
+console.log(King.attack());
+console.log(Dragon.takeDamage());
+console.log(King.attack());
+console.log(Dragon.takeDamage());
+console.log(King.attack());
+console.log(Dragon.takeDamage());
+console.log(King.attack());
+console.log(Dragon.takeDamage());
+console.log(Dragon.attack());
+console.log(King.takeDamage());
+console.log(Dragon.attack());
+console.log(King.takeDamage());
+console.log(Dragon.attack());
+console.log(King.takeDamage());
+console.log(King.attack());
+console.log(Dragon.dies());
+console.log(Dragon.destroy());
