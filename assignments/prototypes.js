@@ -80,7 +80,6 @@ Humanoid.prototype.greet = function() {
 
 //--------------------------------------------------------------------------------------------
 // Stretch task:
-// * Create Villian and Hero classes that inherit from the Humanoid class.
 
 function Villain (attributes) {
   Humanoid.call(this, attributes);
@@ -95,16 +94,16 @@ function Hero (attributes) {
 Villain.prototype= Object.create(Humanoid.prototype);
 
 Villain.prototype.lostEP= function () {
-  this.evil--;
+  this.evil=this.evil - 1;
+  return this.evil;
 };
 
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.lostGP = function () {
-  this.good--;
+  this.good=this.good - 1;
+  return this.good;
 };
 
-
-// * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 //------------------------------------------------------------------------------------------------
 
@@ -213,4 +212,3 @@ Hero.prototype.lostGP = function () {
   console.log(knight.good);
   console.log(zombie.lostEP());
   console.log(knight.lostGP());
-  
