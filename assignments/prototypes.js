@@ -21,7 +21,7 @@ function GameObject(attributes){
 };
 
 GameObject.prototype.destroy = function(){
-  return `Object was removed from the game.`
+  return `${this.name} was removed from the game.`
 };
 
 /*
@@ -40,7 +40,11 @@ function CharacterStats(attributes){
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage!`
+  --this.hp
+  if(this.hp === 0){
+    return `${this.name} died. :-(`
+  }
+  return `${this.name} took damage and now has ${this.hp} hp`
 };
 
 /*
@@ -87,6 +91,7 @@ Humanoid.prototype.greet = function(){
     faction: 'Mage Guild',
     weapons: [
       'Staff of Shamalama',
+      'Broken Sword'
     ],
     language: 'Common Toungue',
   });
@@ -130,9 +135,13 @@ Humanoid.prototype.greet = function(){
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
   console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
+  console.log(mage.weapons.join(', ')); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage());
+  console.log(mage.takeDamage());
+  console.log(mage.takeDamage());
+  console.log(mage.takeDamage());
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
