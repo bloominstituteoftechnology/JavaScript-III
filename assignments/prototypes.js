@@ -38,6 +38,13 @@ const CharacterStats = function(parameter) {
   this.takeDamage = function() {
     return `${this.name} took damage.`;
   }
+  this.harm = function() {
+    this.hp -= 5;
+  }
+  this.status = function() {
+    if (this.hp > 0) return `${this.name} has ${this.hp} hit points left.`;
+    else return `${this.name} is dead!`;
+  }
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -62,6 +69,7 @@ const Humanoid = function(parameter) {
   this.greet = function() {
     return `${this.name} offers a greeting in ${this.language}.`;
   }
+
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
@@ -141,3 +149,70 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   // * Create Villian and Hero prototypes that inherit from the Humanoid prototype.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+const Hero = function(parameter) {
+    Humanoid.call(this, parameter);
+    this.smite = function(target) {
+      this.harm.call(target);
+      return `${this.name} rightously smites ${target.name} for 5 damage!`;
+    }
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
+const Villain = function(parameter) {
+    Humanoid.call(this, parameter);
+    this.bash = function(target) {
+      this.harm.call(target);
+      return `${this.name} brutally bashes ${target.name} for 5 damage!`;
+    }
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+const Mr_Hero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 15,
+  name: 'Mister Heroic',
+  faction: 'The Good Guys',
+  weapons: [
+    'Shiny Sword',
+  ],
+  language: 'Common Toungue',
+});
+
+const Mr_Villain = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 20,
+  name: 'Mister Villainous',
+  faction: 'The Bad Guys',
+  weapons: [
+    'Demonic Sword',
+  ],
+  language: 'Orcish',
+});
+
+
+console.log(Mr_Villain.status());
+console.log(Mr_Hero.status());
+console.log(Mr_Hero.smite(Mr_Villain));
+console.log(Mr_Villain.status());
+console.log(Mr_Villain.bash(Mr_Hero));
+console.log(Mr_Hero.status());
+console.log(Mr_Hero.smite(Mr_Villain));
+console.log(Mr_Villain.status());
+console.log(Mr_Villain.bash(Mr_Hero));
+console.log(Mr_Hero.status());
+console.log(Mr_Hero.smite(Mr_Villain));
+console.log(Mr_Villain.status());
+console.log(Mr_Villain.bash(Mr_Hero));
+console.log(Mr_Hero.status());
