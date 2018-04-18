@@ -62,7 +62,7 @@ function Humanoid (attributes) {
   this.language = attributes.language;
 }
 
-Humanoid.prototype = Object.create(GameObject.prototype);
+/*Humanoid.prototype = Object.create(GameObject.prototype);*/
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
@@ -77,6 +77,36 @@ Humanoid.prototype.greet = function() {
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+
+//--------------------------------------------------------------------------------------------
+// Stretch task:
+// * Create Villian and Hero classes that inherit from the Humanoid class.
+
+function Villain (attributes) {
+  Humanoid.call(this, attributes);
+  this.evil = attributes.evil;
+};
+
+function Hero (attributes) {
+  Humanoid.call(this, attributes);
+  this.good = attributes.good;
+};
+
+Villain.prototype= Object.create(Humanoid.prototype);
+
+Villain.prototype.lostEP= function () {
+  this.evil--;
+};
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.lostGP = function () {
+  this.good--;
+};
+
+
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+//------------------------------------------------------------------------------------------------
 
 //Test your work by uncommenting these 3 objects and the list of console logs below:
 
@@ -131,6 +161,44 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const zombie = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'name1',
+    evil: 5,
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+
+    language: 'Elvish',
+  });
+
+  const knight = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'name2',
+    good: 5,
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -141,9 +209,8 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
-
-  // Stretch task:
-  // * Create Villian and Hero classes that inherit from the Humanoid class.
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  console.log(zombie.evil);
+  console.log(knight.good);
+  console.log(zombie.lostEP());
+  console.log(knight.lostGP());
+  
