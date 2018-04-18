@@ -57,6 +57,6 @@ const greet = function(skill1, skill2, skill3) {
     return `Hello my name is ${this.name} and I am ${this.age} and I like to ${skill1}, ${skill2} and ${skill3}`;
 };
 
-const skills  = ['walking', 'talk', 'chew gum'];
+const skills  = ['walk', 'talk', 'chew gum'];
 
 console.log(greet.call(brandon, ...skills));
