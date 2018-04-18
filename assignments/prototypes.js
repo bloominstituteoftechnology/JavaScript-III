@@ -1,19 +1,27 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment
-  you will be implementing several classes with their correct inheritance heirarchy.
+  you will be implementing several prototypes with their correct inheritance heirarchy.
 
-  In this file you will be creating three classes: GameObject, CharacterStats, Humanoid.  
-  At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your classes.
-  
-  Each class has unique properites and methods that are defined in their block comments below:
+  In this file you will be creating three prototypes: GameObject, CharacterStats, Humanoid.
+  At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your prototypes.
+
+  Each prototype has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+
+const GameObject = function(parameter) {
+  this.createdAt = parameter.createdAt;
+  this.dimensions = parameter.dimensions;
+  this.destroy = function() {
+    return `${this.name} was removed from the game.`;
+  }
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +30,26 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+const CharacterStats = function(parameter) {
+  this.hp = parameter.hp;
+  this.name = parameter.name;
+  GameObject.call(this, parameter);
+  this.takeDamage = function() {
+    return `${this.name} took damage.`;
+  }
+  this.harm = function() {
+    this.hp -= 5;
+  }
+  this.status = function() {
+    if (this.hp > 0) return `${this.name} has ${this.hp} hit points left.`;
+    else return `${this.name} is dead!`;
+  }
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+
 
 /*
   === Humanoid ===
@@ -32,7 +60,20 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+const Humanoid = function(parameter) {
+  this.faction = parameter.faction;
+  this.weapons = parameter.weapons;
+  this.language = parameter.language;
+  CharacterStats.call(this, parameter);
+  this.greet = function() {
+    return `${this.name} offers a greeting in ${this.language}.`;
+  }
+
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +82,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +143,76 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
-  // Stretch task: 
-  // * Create Villian and Hero classes that inherit from the Humanoid class.  
+
+  // Stretch task:
+  // * Create Villian and Hero prototypes that inherit from the Humanoid prototype.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+const Hero = function(parameter) {
+    Humanoid.call(this, parameter);
+    this.smite = function(target) {
+      this.harm.call(target);
+      return `${this.name} rightously smites ${target.name} for 5 damage!`;
+    }
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
+const Villain = function(parameter) {
+    Humanoid.call(this, parameter);
+    this.bash = function(target) {
+      this.harm.call(target);
+      return `${this.name} brutally bashes ${target.name} for 5 damage!`;
+    }
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+const Mr_Hero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 15,
+  name: 'Mister Heroic',
+  faction: 'The Good Guys',
+  weapons: [
+    'Shiny Sword',
+  ],
+  language: 'Common Toungue',
+});
+
+const Mr_Villain = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 20,
+  name: 'Mister Villainous',
+  faction: 'The Bad Guys',
+  weapons: [
+    'Demonic Sword',
+  ],
+  language: 'Orcish',
+});
+
+
+console.log(Mr_Villain.status());
+console.log(Mr_Hero.status());
+console.log(Mr_Hero.smite(Mr_Villain));
+console.log(Mr_Villain.status());
+console.log(Mr_Villain.bash(Mr_Hero));
+console.log(Mr_Hero.status());
+console.log(Mr_Hero.smite(Mr_Villain));
+console.log(Mr_Villain.status());
+console.log(Mr_Villain.bash(Mr_Hero));
+console.log(Mr_Hero.status());
+console.log(Mr_Hero.smite(Mr_Villain));
+console.log(Mr_Villain.status());
+console.log(Mr_Villain.bash(Mr_Hero));
+console.log(Mr_Hero.status());
