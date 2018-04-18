@@ -54,4 +54,20 @@ let someguy = new Person("brown", "green", 5);
 console.log(someguy.introduce());
 // Principle 4
 
+const animal = {
+  name: "Mr. Fluffy",
+  species: "dog",
+  hair_length: "long",
+  woof: function() {
+    return "woof woof woof!";
+  }
+}
+
+const haircut = function() {
+  this.hair_length = "short";
+}
+
+haircut.call(animal);
+console.log(animal.hair_length);
+
 // code example for Explicit Binding
