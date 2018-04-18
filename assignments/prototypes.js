@@ -14,6 +14,16 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+// GameObject.prototype.destroy = function() {
+//   return `Object was removed from the game.`;
+// }
+
+GameObject.prototype.destroy = () => `Object was removed from the game.`;
 
 /*
   === CharacterStats ===
@@ -22,7 +32,23 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(attributes) {
+  GameObject.call(this, attributes);
+  this.hp = attributes.hp;
+  this.name = attributes.name;
+}
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+const character = new CharacterStats(`4-18-18`, `3`, 100, "Merlin");
+
+console.log(character);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
+
+console.log(character.takeDamage());
 /*
   === Humanoid ===
   * faction
@@ -32,7 +58,28 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(attributes) {
+  CharacterStats.call(this, attributes);
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+}
+// Humanoid.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+const humanAttributes = {
+  "faction":'Stormwind',
+  "weapons": 'Longsword', 
+  "language": 'Common'};
+
+const human = new Humanoid(humanAttributes);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting a in ${this.language}.`
+}
+
+console.log(human);
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +88,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +149,12 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+
