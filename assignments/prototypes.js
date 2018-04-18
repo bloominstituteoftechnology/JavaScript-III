@@ -8,30 +8,72 @@
   Each class has unique properites and methods that are defined in their block comments below:
 */
   
-/*
-  === GameObject ===
-  * createdAt
-  * dimensions
-  * destroy() // prototype method -> returns the string 'Object was removed from the game.'
-*/
 
-/*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+  this.destroy = function (){
+    return `${this.name} was removed from the game`;
+  };
+}
 
-/*
-  === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
-*/
+CharacterStats.prototype = Object.create(GameObject.prototype);
+function CharacterStats(characterStatsAttributes){
+  GameObject.call(this, characterStatsAttributes);
+    this.hp = characterStatsAttributes.hp;
+    this.name = characterStatsAttributes.name;
+    this.takeDamage = function (){
+      `${this.name} took damage.`
+    };
+}
+
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+function Humanoid(humanoidAttributes){
+  CharacterStats.call(this, humanoidAttributes);
+    this.faction = humanoidAttributes.faction;
+    this.weapons = humanoidAttributes.weapons;
+    this.language = humanoidAttributes.language;
+    this.greet = function (){
+      return `${this.name} offers a greeting in ${this.language}.`;
+    };
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+function Hero(heroAttributes){
+  Humanoid.call(this, heroAttributes);
+    this.magic = heroAttributes.magic;
+    this.defenseMechanisms = heroAttributes.defenseMechanisms;
+    this.allies = heroAttributes.allies;
+    this.attack = function (){
+      //causes 3 dmg to villain
+    };
+    this.masterAttack = function (){
+      //causes super awesome 5dmg attack to villain
+    };
+    this.usesMagic = function (){
+      //uses magic to cause 4 dmg to villain
+    };
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+function Villain(villainAttributes){
+  Humanoid.call(this, villainAttributes);
+    this.magic = villainAttributes.magic;
+    this.defenseMechanisms = villainAttributes.defenseMechanisms;
+    this.allies = villainAttributes.allies;
+    this.firstAttack = function (){
+      //causes 1 dmg to hero
+    };
+    this.secondAttack = function (){
+      //causes super awesome 5dmg attack to hero
+    };
+    this.thirdAttack = function (){
+      //causes 2 dmg to hero
+    }
+    this.usesMagic = function (){
+      //uses magic to cause 3 dmg to hero
+    };
+}
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -41,7 +83,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -55,7 +97,7 @@
     weapons: [
       'Staff of Shamalama',
     ],
-    language: 'Common Toungue',
+    language: 'Common Tongue',
   });
 
   const swordsman = new Humanoid({
@@ -72,7 +114,7 @@
       'Giant Sword',
       'Shield',
     ],
-    language: 'Common Toungue',
+    language: 'Common Tongue',
   });
 
   const archer = new Humanoid({
@@ -92,6 +134,43 @@
     language: 'Elvish',
   });
 
+  const link = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 4,
+    },
+    hp: 18,
+    name: 'Link',
+    faction: 'Hyrule',
+    weapons: [
+      'Master Sword',
+      'Bombs',
+      'Bow and Arrows',
+    ],
+    language: 'Elvish',
+    defenseMechanisms: ['shield', 'armor'],
+    allies: ['Zelda', 'Forest Kingdom faction'],
+    magic: 'magic wand',
+  });
+
+  const evil = new Villain({
+   createdAt: new Date(),
+   dimensions: {
+      length: 3,
+      width: 1,
+      height:6,
+    },
+   hp:35,
+   name: 'Ganondorf',
+   weapons: [
+    'Sword',
+      ],
+   defenseMechanisms: ['shield', 'armor'],
+   allies: ['Mage Guild',],
+   magic: 'magic staff',
+  })
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -102,7 +181,9 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(link.language);
+  console.log(evil.defenseMechanisms)
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
