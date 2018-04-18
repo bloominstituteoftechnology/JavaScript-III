@@ -89,8 +89,8 @@ Humanoid.prototype.greet = function(){
 // Additional for stretch
 Humanoid.prototype.equipWeapon = function(weapon){
   if(this.weapons[weapon] !== undefined){
-    this.equippedWeapon = weapon
-    return `${this.name} has equipped the ${this.weapons[weapon].name}`;
+    this.equippedWeapon = this.weapons[weapon];
+    return `${this.name} has equipped the ${this.equippedWeapon.name}`;
   }
 
   return `${this.name} is unarmed.`
