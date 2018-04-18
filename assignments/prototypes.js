@@ -142,6 +142,73 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+// ----------VILLAIN-----------
 
+function Villian(vilObj) {
+  Humanoid.call(this, vilObj);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.removeHealth = function () {
+  this.hp--;
+  if (this.hp <= 0) {
+    return this.destroy()
+  }
+  return `${this.name}'s health point is ${this.hp}`
+}
+
+// ----------HERO-----------
+
+function Hero(vilObj) {
+  Humanoid.call(this, vilObj);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.removeHealth = function () {
+  this.hp--;
+  if (this.hp <= 0) {
+    return this.destroy()
+  }
+  return `${this.name}'s health point is ${this.hp}.`
+}
+
+const hulk = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 10,
+    width: 42,
+    height: 40,
+  },
+  hp: 1,
+  name: 'Hulk',
+  faction: 'Marvel Kingdom',
+  weapons: [
+    'Punch',
+    'Flying kick',
+  ],
+  language: 'Hulkish',
+});
+
+const batman = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 11,
+    width: 32,
+    height: 14,
+  },
+  hp: 30,
+  name: 'Batman',
+  faction: 'Gotham',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'English',
+});
+
+console.log(batman.removeHealth())
+console.log(hulk.removeHealth())
 
 
