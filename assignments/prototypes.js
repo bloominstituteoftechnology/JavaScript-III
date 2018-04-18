@@ -78,7 +78,57 @@ Humanoid.prototype.greet = function () {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+ // Stretch task: 
+  // * Create Villian and Hero classes that inherit from the Humanoid class.
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
 //Test you work by uncommenting these 3 objects and the list of console logs below:
+
+/*
+  === Villian ===
+  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
+  * should inherit destroy() from GameObject through CharacterStats
+  * should inherit takeDamage() from CharacterStats
+*/
+
+// Constructor
+function Villian(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.getShot = function () {
+  this.hp-=2;
+  if(this.hp > 1){
+    return `${this.name} Get shot - ${this.hp} points`;
+  } else {
+    this.destroy();
+    return `${this.name} Is dead`;
+  }
+};
+
+// Constructor
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.getShot = function () {
+  this.hp-=1;
+  if(this.hp > 1){
+    return `${this.name} Get shot - ${this.hp} points`;
+  } else {
+    this.destroy();
+    return `${this.name} Is dead`;
+  }
+};
+
+
+
 
 
   const mage = new Humanoid({
@@ -131,6 +181,40 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
+  const badGuy = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'Scare Face',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Cloake',
+  });
+
+  const goodGuy = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'El Chapulin Colorado',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Spanish',
+  });
+
   
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -142,9 +226,22 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
+  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
+
 
 
   // Stretch task: 
-  // * Create Villian and Hero classes that inherit from the Humanoid class.  
+  // * Create Villian and Hero classes that inherit from the Humanoid class.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
