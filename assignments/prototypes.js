@@ -41,8 +41,8 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
   --this.hp
-  if(this.hp === 0){
-    return `${this.name} died. :-(`
+  if(this.hp < 1){
+    return this.destroy()
   }
   return `${this.name} took damage and now has ${this.hp} hp`
 };
@@ -70,6 +70,12 @@ Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}`
 };
  
+Humanoid.prototype.attack = function(hitWho){
+  // hitWho.takeDamage();
+  return `${this.name} attacked ${hitWho.name}. ${hitWho.takeDamage()}`;
+};
+
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -139,14 +145,29 @@ Humanoid.prototype.greet = function(){
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage());
+  // console.log(mage.takeDamage());
   console.log(mage.takeDamage());
-  console.log(mage.takeDamage());
-  console.log(mage.takeDamage());
+  // console.log(mage.takeDamage());
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(swordsman.attack(mage))
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  let me = {
+  name: 'Josh',
+  age: 33
+};
+
+let sayName = function(skill1, skill2, skill3) {
+  console.log('My name is: ' + this.name + ' I like to program with this stuff: ' + skill1 + ', ' + skill2 + ', ' + skill3 );
+}
+
+let skills = ['HTML','CSS','JS'];
+
+// sayName.call(me, skills);
+// sayName();
+sayName.call(me, ...skills );
