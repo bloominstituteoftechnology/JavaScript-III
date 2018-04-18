@@ -31,12 +31,19 @@ console.log(dog.bark());
 
 // code example for New Binding
 function Animal(options) {
-  this.species = species;
-  this.legs = legs;
+  this.species = options.species;
+  this.legs = options.legs;
 }
 Animal.prototype.legNumber = function () {
-  
+  return this.species + " has this many legs: " + this.legs;
 };
+
+const bear = new Animal({
+  legs: 4,
+  species: 'bear',
+});
+// this is given to the new instance of
+console.log(bear.legNumber());
 
 
 // Principle 4
