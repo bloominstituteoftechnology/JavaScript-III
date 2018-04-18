@@ -142,18 +142,19 @@ function Hero(attributes) {
   Humanoid.call(this, attributes);
 }
 Hero.prototype = Object.create(Humanoid.prototype);
+
 Hero.prototype.healing = () => {
   orchaldaer.hp += 5;
   return "Not this time genericBadGuy!!"
-}
-Hero.prototype.heavenlyIntervention = () => {
-  console.log("A bright light blinding everyone decends from the sky and blesses mankinds Hero!");
-  orchaldaer.hp = 30;
-}
+};
+Hero.prototype.heaven = () => {
+  orchaldaer.hp += 5;
+  return "The light has touched our hero!"
+};
 Hero.prototype.fistOfLight = () => {
   genericBadGuy.hp -= 3;
   return `A huge first of light smacks genericBadGuy in the face!`
-}
+};
 
 const genericBadGuy = new Villain({
   createdAt: new Date(),
@@ -162,7 +163,7 @@ const genericBadGuy = new Villain({
     width: 2,
     height: 2,
   },
-  hp: 30,
+  hp: 50,
   name: 'Sir Mustachio',
   faction: 'The Round Table',
   weapons: [
@@ -179,7 +180,7 @@ const orchaldaer = new Hero({
     width: 2,
     height: 2,
   },
-  hp: 30,
+  hp: 50,
   name: 'Sir Mustachio',
   faction: 'The Round Table',
   weapons: [
@@ -189,30 +190,32 @@ const orchaldaer = new Hero({
   language: 'Common Toungue',
 });
 
-genericBadGuy.unspeakableHorror(); //?
-
 function fight() {
+  let chance = 0;
   while (orchaldaer.hp > 0 && genericBadGuy.hp > 0) {
+    chance = Math.random();
     console.log(orchaldaer.fistOfLight());
     console.log(orchaldaer.healing());
     console.log(genericBadGuy.unspeakableHorror());
-    if (orchaldaer.hp <= 7) {
-      if (Math.random < 0.21) {
-        orchaldaer.heavenlyIntervention;
-      } else {
-        continue;
-      }
-      continue;
+    if (orchaldaer.hp <= 45 && chance <= 0.2) {
+      orchaldaer.heaven;
+      console.log("it works");
+      console.log(orchaldaer.hp)
     }
-    
-    if (orchaldaer.hp <= 0) {
-      return "The forces of darkness have reigned surpreme again! ";
-      break;
-    }
-    else if (genericBadGuy.hp <= 0) {
-      return genericBadGuy.destroy();
-      break;
-    }
+    //   continue;
+    // }
+
+    // if (orchaldaer.hp <= 0) {
+    //   return "The forces of darkness have reigned surpreme again! ";
+    // }
+    // else if (genericBadGuy.hp <= 0) {
+    //   return genericBadGuy.destroy();
+    // }
+  }
+  if (orchaldaer.hp <= 0) {
+    return "The forces of darkness have reigned surpreme again! ";
+  } else if (genericBadGuy.hp <= 0) {
+    return "The forces of light have reigned surpreme again! ";
   }
 }
 
