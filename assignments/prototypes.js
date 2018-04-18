@@ -87,7 +87,9 @@ class Hero extends Humanoid {
 }
 Hero.prototype.attack = function(obj) {
   obj.hp -= 5;
+  obj.takeDamage(); //?
   if (obj.hp <= 0) {
+    obj.destroy(); //?
     return 'The villian has been slain.';
   }
 }
