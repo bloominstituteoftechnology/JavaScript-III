@@ -1,11 +1,11 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment
-  you will be implementing several classes with their correct inheritance heirarchy.
+  you will be implementing several prototypes with their correct inheritance heirarchy.
 
-  In this file you will be creating three classes: GameObject, CharacterStats, Humanoid.  
+  In this file you will be creating three prototypes: GameObject, CharacterStats, Humanoid.  
   At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your classes.
   
-  Each class has unique properites and methods that are defined in their block comments below:
+  Each prototype has unique properites and methods that are defined in their block comments below:
 */
   
 /*
@@ -15,6 +15,14 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+const GameObject = function (parameter) {
+  this.createdAt = parameter.createdAt;
+  this.dimensions = parameter.dimensions;
+  this.destroy = function() {
+    return `${this.name} was removed from the game.`;
+  }
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -23,6 +31,15 @@
   * should inherit destroy() from GameObject's prototype
 */
 
+const CharacterStats = function (parameter) {
+  this.hp = parameter.hp;
+  this.name = parameter.name;
+  GameObject.call(this, parameter);
+  this.takeDamage = function() {
+return `${this.name} took damage.`;
+  }
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
 /*
   === Humanoid ===
   * faction
@@ -32,7 +49,21 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+ const Humanoid = function (parameter) {
+   this.faction = parameter.faction;
+   this.weapons = parameter.weapons;
+   this.language = parameter.language;
+   CharacterStats.call(this, parameter);
+   this.greet = function () {
+     return `${this.name} offers a greeting in ${this.language}`;
+   }
+ }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
+
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +72,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +133,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  

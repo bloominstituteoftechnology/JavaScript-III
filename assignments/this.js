@@ -11,25 +11,25 @@
 
 // Principle 1
 
-// let myobject = () => {
-//     this.name = "Billy";
-// }
-// myobject();
-// console.log(window.name);
-//
+let myobject = () => {
+    this.name = "Billy";
+}
+myobject();
+console.log(window.name);
+
 
 
 // Principle 2
 
-// let myObject = {
-// name: 'Anne',
-// color: 'red',
-// number: 11,
-// speak: function () {
-//  return `I'm an object and my name is ${this.name} and my favorite color is ${this.color} and my favortie number is ${this.number}`
-// } 
-// }
-// console.log(myObject.speak());
+let myObject = {
+name: 'Anne',
+color: 'red',
+number: 11,
+speak: function () {
+ return `I'm an object and my name is ${this.name} and my favorite color is ${this.color} and my favortie number is ${this.number}`
+} 
+}
+console.log(myObject.speak());
 
 
 // Principle 3
@@ -47,21 +47,19 @@ console.log(newGuy.sayHi());
 
 
 
-function CordialPerson(greeter) {
-    this.greeting = 'Hello ';
-    this.greeter = greeter;
-    this.speak = function() {
-      console.log(this.greeting + this.greeter);
-      console.log(this);
-    };
-  }
-  
-  const jerry = new CordialPerson('Newman');
-  const newman = new CordialPerson('Jerry');
-  
-  newman.speak();
-  newman.speak();
-
 // Principle 4
 
-// code example for Explicit Binding
+let human = {
+    name: 'Anne',
+    species: 'human',
+    speak: function () {
+        return `Hi, I'm ${this.name} and im a ${this.human}`
+    }
+}
+
+let newName = function () {
+this.name = 'Sarah';
+}
+
+newName.call(human);
+console.log(human.name); 
