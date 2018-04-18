@@ -14,7 +14,7 @@
 * write out a code example of each explanation above
 */
 
-// Principle 1
+// Principle 1 ////////////////////////////////////////////////////////
 
 // code example for Window Binding
 let me = "Andrew";
@@ -25,7 +25,7 @@ function whoThis(name) {
 
 console.log(whoThis(me));
 
-// Principle 2
+// Principle 2 ////////////////////////////////////////////////////////
 
 // code example for Implicit Binding
 
@@ -37,7 +37,7 @@ const jerkStore = {
 };
 jerkStore.person('George Costanza');
 
-// Principle 3
+// Principle 3 ////////////////////////////////////////////////////////
 
 // code example for New Binding
 
@@ -55,7 +55,7 @@ function LosersClub(member) {
 
   console.log(beverly.speak());
 
-// Principle 4
+// Principle 4 ////////////////////////////////////////////////////////
 
 // code example for Explicit Binding
 
