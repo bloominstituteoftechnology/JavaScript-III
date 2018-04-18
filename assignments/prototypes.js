@@ -20,7 +20,6 @@ function GameObject(myObj) {
 }
 
 GameObject.prototype.destroy = function() {
-  console.log(this)
   return `${this.name} was removed from the game.`
 }
 /*
@@ -144,3 +143,47 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(myObj) {
+    Humanoid.call(this, myObj)
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype)
+
+  Villian.prototype.removeHealth = function() {
+    this.hp--
+  }
+
+  function Hero(myObj) {
+    Humanoid.call(this, myObj)
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype)
+
+  Hero.prototype.removeHealth = function() {
+    if (this.hp <= 0) {
+      return this.destroy();
+      // return GameObject.prototype.destroy.apply(this)
+    }
+    return --this.hp
+  }
+
+  const hercules = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 0,
+    name: 'Hercules',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  })
+
+  console.log("********Strech Test********");
+  console.log(hercules.removeHealth());
