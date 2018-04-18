@@ -15,9 +15,9 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 class GameObject{
-  constructor(op) {
-    this.createdAt = op.createdAt;
-    this.dimensions = op.dimensions;
+  constructor(obj) {
+    this.createdAt = obj.createdAt;
+    this.dimensions = obj.dimensions;
   }
 }
 
@@ -33,10 +33,10 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 class CharacterStats extends GameObject{
-  constructor(op) {
-    super(op);
-    this.hp = op.hp;
-    this.name = op.name;
+  constructor(obj) {
+    super(obj);
+    this.hp = obj.hp;
+    this.name = obj.name;
   }
 }
 
@@ -54,17 +54,46 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 class Humanoid extends CharacterStats{
-  constructor(op) {
-    super(op);
-    this.faction = op.faction;
-    this.weapons = op.weapons;
-    this.language = op.language;
+  constructor(obj) {
+    super(obj);
+    this.faction = obj.faction;
+    this.weapons = obj.weapons;
+    this.language = obj.language;
   }
 }
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 };
+
+// Villian Class
+class Villian extends Humanoid {
+  constructor(obj) {
+    super(obj);
+  }
+}
+Villian.prototype.attack = function(obj) {
+  obj.hp -= 3;
+  if (obj.hp <= 0) {
+    return 'The hero has been slain.';
+  } 
+}
+
+// Hero Class
+class Hero extends Humanoid {
+  constructor(obj) {
+    super(obj);
+  }
+}
+Hero.prototype.attack = function(obj) {
+  obj.hp -= 5;
+  if (obj.hp <= 0) {
+    return 'The villian has been slain.';
+  }
+}
+
+
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -90,7 +119,7 @@ const mage = new Humanoid({
   language: 'Common Toungue',
 });
 
-const swordsman = new Humanoid({
+const swordsman = new Villian({
   createdAt: new Date(),
   dimensions: {
     length: 2,
@@ -107,7 +136,7 @@ const swordsman = new Humanoid({
   language: 'Common Toungue',
 });
 
-const archer = new Humanoid({
+const archer = new Hero({
   createdAt: new Date(),
   dimensions: {
     length: 1,
@@ -124,6 +153,9 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
+console.log(archer.attack(swordsman));
+console.log(archer.attack(swordsman));
+console.log(archer.attack(swordsman));
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.hp); // 15
