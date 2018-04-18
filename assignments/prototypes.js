@@ -74,9 +74,13 @@ class Villian extends Humanoid {
 }
 Villian.prototype.attack = function(obj) {
   obj.hp -= 3;
+  obj.takeDamage(); //?
   if (obj.hp <= 0) {
-    return 'The hero has been slain.';
-  } 
+    obj.destroy(); //?
+    return 'The villian has been slain.';
+  } else {
+    return `${obj.name} took 3 points of damage and now has ${obj.hp} hp left.`
+  }
 }
 
 // Hero Class
@@ -91,6 +95,8 @@ Hero.prototype.attack = function(obj) {
   if (obj.hp <= 0) {
     obj.destroy(); //?
     return 'The villian has been slain.';
+  } else {
+    return `${obj.name} took 5 points of damage and now has ${obj.hp} hp left.`
   }
 }
 
@@ -156,6 +162,7 @@ const archer = new Hero({
 });
 
 console.log(archer.attack(swordsman));
+console.log(swordsman.attack(archer));
 console.log(archer.attack(swordsman));
 console.log(archer.attack(swordsman));
 console.log(mage.createdAt); // Today's date
