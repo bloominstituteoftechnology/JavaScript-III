@@ -15,7 +15,7 @@
 // code example for Window Binding
 
 function whereAmI(where, cb) {
-    console.log(this);
+    console.log(this.process.version);
     return where;
   }
   whereAmI("D'Artagnan", 'inside');
