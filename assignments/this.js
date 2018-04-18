@@ -14,17 +14,56 @@
 
 // code example for Window Binding
 
-console.log(this);
+function globalScope() {
+    console.log(this);
+}
+
+globalScope();
 
 // Principle 2
 
 // code example for Implicit Binding
+
+const mySchool = {
+    school: 'Lambda',
+    gpa: function(gpa) {
+        console.log(`My gpa at ${this.school} is ${gpa}`);
+    }
+};
+mySchool.gpa('4.0');
 
 
 // Principle 3
 
 // code example for New Binding
 
+function LambdaStudent(studentName, studentAge) {
+
+  this.name = studentName;
+  this.age = studentAge;
+  this.speak = function() {
+    console.log(`${this.name} is ${this.age} years old`);
+  };
+}
+
+const samarvir = new LambdaStudent('Samarvir', 21);
+const sam = new LambdaStudent('Sam', 27);
+
+samarvir.speak();
+sam.speak();
+
 // Principle 4
 
 // code example for Explicit Binding
+
+console.log(samarvir);
+
+let skills = ['HTML','CSS','JS'];
+  
+let sayName = function(skill1, skill2, skill3) {
+    console.log(this.name + ' can code in: ' + skill1 + ', ' + skill2 + ', ' + skill3 );
+  }
+  
+let newFunction = sayName.bind(samarvir, ...skills);
+  
+newFunction();
