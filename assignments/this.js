@@ -1,7 +1,7 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Window/Global Object Binding - "this" pointer isnt pointing towards anuthing so it defults to a global scope/window object
+* 1. Window/Global Object Binding - When in the global scope, the value of “this” will be the window/console Object.
 
 * 2. Implicit Binding - Whenever a function is called by a preceding dot, the object before that dot is "this"
 
