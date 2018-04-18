@@ -14,9 +14,9 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
-function GameObject(attributes) {
-  this.createdAt = attributes.createdAt;
-  this.dimensions = attributes.dimensions;
+function GameObject({createdAt, dimensions}) {
+  this.createdAt = createdAt;
+  this.dimensions = dimensions;
 }
 
 // GameObject.prototype.destroy = function() {
@@ -25,6 +25,15 @@ function GameObject(attributes) {
 
 GameObject.prototype.destroy = () => `Object was removed from the game.`;
 
+const attributes = {
+  createdAt: `4-18`,
+  dimensions: {length: 3},
+}
+
+const newObject = new GameObject(attributes);
+
+console.log(newObject);
+
 /*
   === CharacterStats ===
   * hp
@@ -32,18 +41,24 @@ GameObject.prototype.destroy = () => `Object was removed from the game.`;
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(attributes) {
-  GameObject.call(this, attributes);
-  this.hp = attributes.hp;
-  this.name = attributes.name;
+function CharacterStats({hp, name}) {
+  GameObject.call(this, {hp, name});
+  this.hp = hp;
+  this.name = name;
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
-
-const character = new CharacterStats(`4-18-18`, `3`, 100, "Merlin");
+//Testing Area//
+const attributes2 = {
+  createdAt: `4-18`,
+  dimensions: {length: 3},
+  hp: 100,
+  name: 'Gorlok',
+}
+const character = new CharacterStats(attributes2);
 
 console.log(character);
-
+//End Testing Area//
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 }
@@ -58,27 +73,22 @@ console.log(character.takeDamage());
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid(attributes) {
-  CharacterStats.call(this, attributes);
-  this.faction = attributes.faction;
-  this.weapons = attributes.weapons;
-  this.language = attributes.language;
+function Humanoid({faction, weapons, language}) {
+  CharacterStats.call(this, {faction, weapons, language});
+  this.faction = faction;
+  this.weapons = weapons;
+  this.language = language;
 }
 // Humanoid.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-const humanAttributes = {
-  "faction":'Stormwind',
-  "weapons": 'Longsword', 
-  "language": 'Common'};
-
-const human = new Humanoid(humanAttributes);
+const human = new Humanoid('Stormwind', 'Longsword', 'Common');
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting a in ${this.language}.`
 }
 
-console.log(human);
+console.log(human.greet());
 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -149,7 +159,7 @@ console.log(human);
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
