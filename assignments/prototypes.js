@@ -2,7 +2,7 @@
   Object oriented design is commonly used in video games.  For this part of the assignment
   you will be implementing several classes with their correct inheritance heirarchy.
 
-  In this file you will be creating three classes: GameObject, NPC, Humanoid.  
+  In this file you will be creating three classes: GameObject, CharacterStats, Humanoid.  
   At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your classes.
   
   Each class has unique properites and methods that are defined in their block comments below:
@@ -16,7 +16,7 @@
 */
 
 /*
-  === NPC ===
+  === CharacterStats ===
   * hp
   * name
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
@@ -29,14 +29,14 @@
   * weapons
   * language
   * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through NPC
-  * should inherit takeDamage() from NPC
+  * should inherit destroy() from GameObject through CharacterStats
+  * should inherit takeDamage() from CharacterStats
 */
  
 /*
-  * Inheritance chain: Humanoid -> NPC -> GameObject
-  * Instances of Humanoid should have all of the same properties as NPC and GameObject.
-  * Instances of NPC should have all of the same properties as GameObject.
+  * Inheritance chain: Humanoid -> CharacterStats -> GameObject
+  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+  * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
