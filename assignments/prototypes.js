@@ -76,7 +76,8 @@ const Humanoid = function(options) {
   CharacterStats.call(this, options);
   this.faction = options.faction;
   this.weapons = options.weapons;
-  this.language = options.language
+  this.language = options.language;
+  this.health = options.health || 3;
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.constructor = Humanoid;
@@ -160,12 +161,18 @@ Humanoid.prototype.greet = function() {
 const Villan = function(options) {
   Humanoid.call(this, options);
 }
+Villan.prototype = Object.create(Humanoid.prototype);
+Villan.prototype.constructor = Villan;
+
 const Hero = function(options) {
   Humanoid.call(this, options);
 }
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.constructor = Hero;
 
 /* Give the Hero and Villians different methods that could 
   be used to remove health points from objects which could 
   result in destruction if health gets to 0 or drops below 0;
 */
+
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
