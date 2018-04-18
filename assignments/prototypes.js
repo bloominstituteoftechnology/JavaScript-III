@@ -7,7 +7,17 @@
   
   Each class has unique properites and methods that are defined in their block comments below:
 */
-  
+
+const Humanoid = function(faction, weapons, langauge) {
+  this.faction = faction;
+  this.weapons = weapons;
+  this.langauge = language;
+};
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.langauge}.`
+}
+
 /*
   === GameObject ===
   * createdAt
