@@ -71,7 +71,7 @@ Humanoid.prototype.greet = function(){
 }
 
 
-
+console.log(CharacterStats.prototype);
 
 
 /*
@@ -151,3 +151,108 @@ Humanoid.prototype.greet = function(){
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(args){
+    Humanoid.call(this, args);
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  Villian.prototype.punch = function(){
+    let newhp = this.hp - 10;
+    if(newhp < 0){
+      this.destroy();
+    }
+    else{
+      return `your Hp is ${this.hp - 10}`;
+    }
+    
+  }
+
+  Villian.prototype.kick = function(){
+    let newhp = this.hp - 20;
+    if(newhp < 0){
+      this.destroy();
+    }
+    else{
+      return `your Hp is ${this.hp - 20}`;
+    }
+  }
+
+
+  function Hero(args){
+    Humanoid.call(this, args);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.punch = function(){
+    let newhp = this.hp - 10;
+    if(newhp < 0){
+      this.destroy();
+    }
+    else{
+      return `your Hp is ${this.hp - 10}`;
+    }
+    
+  }
+
+  Hero.prototype.kick = function(){
+    let newhp = this.hp - 20;
+    if(newhp < 0){
+      this.destroy();
+    }
+    else{
+      return `your Hp is ${this.hp - 20}`;
+    }
+  }
+
+
+
+  const archer2 = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 100,
+    name: 'Lilith',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  console.log(archer2)
+
+  const swordsman2 = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 90,
+    name: 'Sir Mustachio',
+    faction: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+  });
+
+  console.log(swordsman2)
+
+
+console.log(archer2.punch());
+
+console.log(archer2.kick());
+
+console.log(swordsman2.punch());
+
+console.log(swordsman2.kick());
+
