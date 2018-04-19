@@ -239,7 +239,7 @@ console.log(me.destroy());
       'arrow'
     ],
     language: 'Thai',
-    speed: 19,
+    speed: 14,
     power: 17
   };
 
@@ -270,8 +270,22 @@ function displayAttackEnemy(attacker, attacked) {  // display attack enemy
       attacker.attack(attacked);
       let villianAfterDamageHp = villianBeforeDamageHp - attacked.hp;
       console.log(`${attacked.takeDamage()} ${attacked.name} took ${villianAfterDamageHp} damage from ${attacker.name} and now ${attacked.name} hp is now ${attacked.hp}`);
-      // heroRandomAttack = Math.floor((Math.random() * 50) + 1) + attacker.speed;
-      // villianRandomAttack = Math.floor((Math.random() * 50) + 1) + attacked.speed;
+}
+
+function calculateFight(hero, villian) { //  see who attacks first and how much damage
+  let heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
+  let villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
+  while(hero.hp > 0 && villian.hp > 0) {
+    if(heroRandomAttack >= villianRandomAttack) {
+      displayAttackEnemy(hero, villian);  // hero attacking villian
+       heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
+       villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
+    } else {
+      displayAttackEnemy(villian, hero);  // villian attacking hero
+      heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
+      villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
+    }
+  }
 }
 
 function displayGameOver(hero, villian) { /// display game over
@@ -287,20 +301,8 @@ function displayGameOver(hero, villian) { /// display game over
 }
 
 function fight(hero, villian) {
-  let heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
-  let villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
   displayFightIntro(hero, villian);  // displaying fight intro
-  while(hero.hp > 0 && villian.hp > 0) {
-    if(heroRandomAttack >= villianRandomAttack) {
-      displayAttackEnemy(hero, villian);  // hero attacking villian
-       heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
-       villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
-    } else {
-      displayAttackEnemy(villian, hero);  // villian attacking hero
-      heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
-      villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
-    }
-  }
+  calculateFight(hero, villian); // algorithum to see who attacks first and how much damage
   displayGameOver(hero, villian);   // display the winner between hero and villan
 }
 
