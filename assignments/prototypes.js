@@ -134,3 +134,56 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero classes that inherit from the Humanoid class.  
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Villian(vilOption){
+  Humanoid.call(this, vilOption);
+  // this.healthDamage = function(){
+  //   return `${this.hp} - 1`;
+  // }
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+Villian.prototype.healthDamage = function(){
+  return `${this.hp} - 1`;
+}
+
+function Hero(herOption){
+  Humanoid.call(this, herOption);
+  this.attack = function(){
+    return `${this.hp} - 2`;
+  }
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+const groke = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 2,
+  },
+  hp: 6,
+  name: 'Kote',
+  faction: 'Same Guild',
+  weapons: [
+    'Batut',
+  ],
+  language: 'Common Toungue',
+});
+
+const glory = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 3,
+  },
+  hp: 12,
+  name: 'Artur',
+  faction: 'Glory Guild',
+  weapons: [
+    'Praga',
+  ],
+  language: 'Common Toungue',
+});
+
+console.log(glory.attack());
