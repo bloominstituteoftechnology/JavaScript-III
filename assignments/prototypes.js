@@ -368,11 +368,15 @@ const dragonborn = new Hero({
   }
 });
 
-// console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
-console.log(vampire.checkStats());
-console.log(dragonborn.castSpell('restore', dragonborn));
+console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
+console.log(vampire.equipWeapon('daedric-sword-of-the-vampire'));
+
 console.log(dragonborn.castSpell('lightning', vampire));
 console.log(vampire.checkStats());
+
+console.log(vampire.castSpell('vampire-drain', dragonborn));
+console.log(dragonborn.checkStats());
+
 console.log(dragonborn.dragonShout(vampire));
 console.log(vampire.checkStats());
 console.log(dragonborn.dragonShout(vampire)); 
@@ -381,5 +385,3 @@ console.log(dragonborn.attack(vampire));
 console.log(vampire.checkStats());
 console.log(dragonborn.powerAttack(vampire));
 console.log(vampire.checkStats());
-
-
