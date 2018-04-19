@@ -342,7 +342,7 @@ const dragonborn = new Hero({
     height: 2,
   },
   hp: 100,
-  mp: 125,
+  mp: 225,
   sp: 100,
   name: 'Dovahkinn',
   faction: 'Dawnguard',
