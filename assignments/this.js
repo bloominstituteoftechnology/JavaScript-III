@@ -16,7 +16,7 @@ function windowThis() {
   console.log(this);
 }
 
-windowThis();
+//windowThis();  Don't uncomment this unless you want to logout the global or window object depending on the tool you are using
 
 // Principle 2
 
