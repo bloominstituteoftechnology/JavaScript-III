@@ -124,18 +124,106 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  // HERO CLASS
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.swordStrike = function() {
+    return `Remove 50% from life of opponent.`
+  };
+
+  // VILLAIN CLASS
+
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.axeAttack = function() {
+    return `Remove 30% from life of opponent.`
+  };
+
+  // CREATING NEW OBJECTS
+
+  const white_knight = new Humanoid ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 2,
+    },
+    hp: 8,
+    name: 'Sir Luke',
+    faction: 'The White Kingdom',
+    weapons: [
+      'Sword of Truth',
+    ],
+    language: 'Medieval English',
+  });
+
+  const white_princess = new Humanoid ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 7,
+    name: 'Lady Lizzy',
+    faction: 'The White Kingdom',
+    weapons: [
+      'Crystal bow and arrow',
+    ],
+    language: 'Medieval English',
+  });
+
+  const black_knight = new Humanoid ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 5,
+      width: 3,
+      height: 4,
+    },
+    hp: 8,
+    name: 'Vikror',
+    faction: 'The Black Kingdom',
+    weapons: [
+      'Venom Sword',
+    ],
+    langauge: 'Medieval Swedish',
+  }); 
+
+  console.log(white_knight.createdAt);
+  console.log(white_knight.dimensions);
+  console.log(white_knight.name);
+  console.log(white_princess.name);
+  console.log(white_princess.weapons);
+  console.log(white_knight.weapons);
+  console.log(black_knight.name);
+  console.log(black_knight.weapons);
+  console.log(white_knight.greet());
+  console.log(white_princess.greet());
+  console.log(white_knight.swordStrike());
+  console.log(black_knight.axeAttack());
+  console.log(black_knight.destroy());
