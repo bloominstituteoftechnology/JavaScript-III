@@ -136,7 +136,7 @@ Humanoid.prototype.castSpell = function(spell, target){
   if(this.mp >= this.spells[spell].cost){
     this.mp += this.spells[spell].cost;
     target.hp += this.spells[spell].damage;
-    return `${this.name} cast ${this.spells[spell].name}. ${target.name}'s health is now ${target.hp}.`;
+    return `${this.name} cast ${this.spells[spell].name}.`;
   }
 
   return `${this.name} does not have enough Magic Points to cast ${this.spells[spell].name}.`;
@@ -282,7 +282,15 @@ function Hero(heroAttributes){
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
-// Hero's special ability
+Hero.prototype.checkStats = function () {
+  if (this.hp > 0) {
+    return `${this.name} has ${this.hp} health points.`;
+  }
+
+  this.alive = false;
+  return `${this.name} has been defeated. Game over.`;
+};
+
 Hero.prototype.dragonShout = function(target){
   if(this.mp >= -this.dragonShoutCost){
     const shout = this.dragonShouts[Math.floor(Math.random() * this.dragonShouts.length)];
