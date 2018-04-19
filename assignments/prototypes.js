@@ -76,7 +76,11 @@ function Humanoid(humanoidAtributes){
   this.weapons = humanoidAtributes.weapons;
   this.spells = humanoidAtributes.spells; // Additional for stretch
   this.language = humanoidAtributes.language;
-  this.equippedWeapon = 'Unarmed'; // Additional for stretch
+  this.equippedWeapon = {
+    'name': 'Unarmed',
+    'damage': -5,
+    'weight': 5
+  }; // Additional for stretch
   this.defaultAttackDamage = -5; // Additional for stretch
 }
 
@@ -93,21 +97,28 @@ Humanoid.prototype.equipWeapon = function(weapon){
     return `${this.name} has equipped the ${this.equippedWeapon.name}`;
   }
 
-  return `${this.name} is unarmed.`
+  return `${this.name} is unarmed.`;
 };
 
 Humanoid.prototype.attack = function(target){
-  if(this.equippedWeapon === 'Unarmed'){
-    target.hp += -5;
+  target.hp += this.equippedWeapon.damage;
+
+  if(this.equippedWeapon.name === 'Unarmed'){
     return `${this.name} engages in hand to hand combat with ${target.name}.`;
   } else {
-    target.hp += this.weapons[this.equippedWeapon].damage;
-    return `${this.name} attacked ${target.name} with the ${this.equippedWeapon}`;
+    return `${this.name} attacked ${target.name} with the ${this.equippedWeapon.name}`;
   }
 };
 
-Humanoid.prototype.powerAttack = function(){
+Humanoid.prototype.powerAttack = function(target){
+  const requiredStamina = this.equippedWeapon.weight * 2;
 
+  if (this.sp >= requiredStamina) {
+    target.hp += (this.equippedWeapon.damage * 1.5);
+    return `${this.name} performs a power attack on ${target.name}${(this.equippedWeapon.name !== 'Unarmed') ? ' with the ' + this.equippedWeapon.name + '.' : '.'}`;
+  } else {
+    return this.attack(target);
+  }
 };
 
 Humanoid.prototype.castSpell = function(spell, target){
@@ -280,13 +291,14 @@ const dragonborn = new Hero({
   },
   hp: 315,
   mp: 225,
-  sp: 300,
+  sp: 200,
   name: 'Dovahkinn',
   faction: 'Dawnguard',
   weapons: {
     'dawnguard-warhammer': {
       'name': 'Dawnguard Warhammer',
-      'damage': -22
+      'damage': -22,
+      'weight': 26
     }
   },
   language: 'Common Tongue',
@@ -304,13 +316,13 @@ const dragonborn = new Hero({
   }
 });
 
-//console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
+console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
 console.log(dragonborn.castSpell('restore', dragonborn));
-console.log(dragonborn.castSpell('restore', dragonborn));
-console.log(dragonborn.castSpell('restore', dragonborn));
+console.log(dragonborn.castSpell('lightning', vampire));
 console.log(dragonborn.dragonShout(vampire));
 console.log(dragonborn.dragonShout(vampire));
 console.log(dragonborn.attack(vampire));
+console.log(dragonborn.powerAttack(vampire))
 
 console.log(dragonborn);
 console.log(vampire);
