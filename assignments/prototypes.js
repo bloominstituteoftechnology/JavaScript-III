@@ -139,3 +139,16 @@ Humanoid.prototype.greet = function(){
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  function Villian(attributes){
+    Humanoid.call(this, attributes);
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype.attack = function(){
+    
+  }
+  function Hero(attributes){
+    Humanoid.call(this, attributes);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
