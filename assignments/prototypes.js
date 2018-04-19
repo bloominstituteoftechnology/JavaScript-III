@@ -77,6 +77,14 @@ GameObject.prototype.destroy = function() {
   return 'Object was removed from the game.';
 };
 
+const Date = function(date) {
+  this.date = date;  
+};
+
+Date.prototype.dateToday = function() {
+  return `Today is April 19, 2018.`
+}
+
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
   const mage = new Humanoid({
@@ -129,7 +137,7 @@ GameObject.prototype.destroy = function() {
     language: 'Elvish',
   });
   
-  // console.log(mage.createdAt); // Today's date
+  console.log(mage.createdAt); // Today's date
   // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   // console.log(swordsman.hp); // 15
   // console.log(mage.name); // Bruce
