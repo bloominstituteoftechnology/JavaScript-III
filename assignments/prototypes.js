@@ -38,7 +38,7 @@ const CharacterStats = function(options) {
 };
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function () {
-  return this.name + " " + 'took damage';
+  return `${this.name} took damage`;
 }
 
 /*
@@ -59,7 +59,7 @@ const Humanoid = function (options) {
 };
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function () {
-  return this.name + " would like to say " + this.language;
+  return `${this.name} would like to say ${this.language}`;
 }
 
 /*
