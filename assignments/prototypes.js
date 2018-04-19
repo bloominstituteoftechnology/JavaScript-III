@@ -312,14 +312,26 @@ const vampire = new Villian({
     width: 1,
     height: 2,
   },
-  hp: 50,
-  mp: 400,
+  hp: 400,
+  mp: 375,
+  sp: 450,
   name: 'Harkon',
   faction: 'Volkihar',
-  weapons: [
-    'Sword'
-  ],
-  language: 'Common Tongue'
+  weapons: {
+    'daedric-sword-of-the-vampire': {
+      'name': 'Daedric Sword of the Vampire',
+      'damage': 14,
+      'weight': 16
+    }
+  },
+  language: 'Common Tongue',
+  spells: {
+    'vampire-drain' : {
+      'name': 'Vampire Drain',
+      'cost': -5,
+      'damage': -5 * Math.floor(Math.random() * 10)
+    }
+  }
 });
 
 const dragonborn = new Hero({
@@ -370,6 +382,4 @@ console.log(vampire.checkStats());
 console.log(dragonborn.powerAttack(vampire));
 console.log(vampire.checkStats());
 
-console.log(dragonborn);
-console.log(vampire);
 
