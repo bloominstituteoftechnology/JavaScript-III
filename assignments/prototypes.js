@@ -55,8 +55,11 @@ GameObject.prototype.destroy = function(){
 function CharacterStats(characterAttributes){
   GameObject.call(this, characterAttributes);
   this.hp = characterAttributes.hp;
+  this.maxHp = characterAttributes.hp;
   this.mp = characterAttributes.mp; // Additional for stretch task
+  this.maxMp = characterAttributes.mp; // Additional for stretch task
   this.sp = characterAttributes.sp; // Additional for stretch task
+  this.maxSp = characterAttributes.sp; // Additional for stretch task
   this.name = characterAttributes.name;
 }
 
@@ -208,12 +211,22 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // ===============
 function Villian(villianAttributes){
   Humanoid.call(this, villianAttributes);
+  this.maxRegenerations = 3;
 }
 
 Villian.prototype = Object.create(Humanoid.prototype);
 
-Villian.prototype.resurrection = function(){
-  // when health reaches 0 villain randomly resurrects or dies
+// Villian's special ability
+Villian.prototype.regeneration = function(){
+  const regenerate = Math.floor(Math.random() * 2);
+
+  if (regenerate){
+    this.hp = this.maxHp;
+    this.mp = this.maxMp;
+    this.sp = this.maxSp;
+
+    return `Tough luck. Regeneration activated. ${this.name}'s health, stamina and magic have been restored.`;
+  }
 };
 
 // ============
@@ -258,6 +271,7 @@ function Hero(heroAttributes){
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
+// Hero's special ability
 Hero.prototype.dragonShout = function(target){
   if(this.mp >= -this.dragonShoutCost){
     const shout = this.dragonShouts[Math.floor(Math.random() * this.dragonShouts.length)];
