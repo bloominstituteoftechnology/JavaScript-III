@@ -269,7 +269,7 @@ function displayAttackEnemy(attacker, attacked) {  // display attack enemy
       console.log(`${attacked.name} current hp is ${attacked.hp}`);
       attacker.attack(attacked);
       let villianAfterDamageHp = villianBeforeDamageHp - attacked.hp;
-      console.log(`${attacked.takeDamage()} ${attacked.name} took ${villianAfterDamageHp} damage from ${attacker.name} and now ${attacked.name} hp is now ${attacked.hp}`);
+      console.log(`${attacked.name} took ${villianAfterDamageHp} damage from ${attacker.name} and now ${attacked.name} hp is now ${attacked.hp}`);
 }
 
 function calculateFight(hero, villian) { //  see who attacks first and how much damage
@@ -306,4 +306,26 @@ function fight(hero, villian) {
   displayGameOver(hero, villian);   // display the winner between hero and villan
 }
 
+   var valdAttr = {
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 6,
+    },
+    hp: 1200,
+    name: 'Vald',
+    faction: 'Lost Kingdom',
+    weapons: [
+      'fire'
+    ],
+    language: 'Thai',
+    speed: 10,
+    power: 13
+  };
+
+const vald = new Villian(valdAttr);
+
 fight(ashe, golemn); // start the fight....
+
+// fight(ashe, vald);
