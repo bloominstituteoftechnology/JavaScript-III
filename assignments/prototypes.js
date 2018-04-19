@@ -253,13 +253,14 @@ function displayLengendStats(hero, villian) { // display stats
 }
 
 function displayFightIntro(hero, villian) { // display fight intro
-  console.log("==========================================================");
+  console.log("\n\n==========================================================");
   console.log("================= Welcome To Legend Fight ================");
   console.log("==========================================================\n\n")
 
   displayLengendStats(hero, villian); // displaying lengends stats
 
   console.log("\n\n==========================================================");
+  console.log("==========================================================");
   console.log("==========================================================\n\n");
 }
 
@@ -269,8 +270,8 @@ function displayAttackEnemy(attacker, attacked) {  // display attack enemy
       attacker.attack(attacked);
       let villianAfterDamageHp = villianBeforeDamageHp - attacked.hp;
       console.log(`${attacked.takeDamage()} ${attacked.name} took ${villianAfterDamageHp} damage from ${attacker.name} and now ${attacked.name} hp is now ${attacked.hp}`);
-      heroRandomAttack = Math.floor((Math.random() * 50) + 1) + attacker.speed;
-      villianRandomAttack = Math.floor((Math.random() * 50) + 1) + attacked.speed;
+      // heroRandomAttack = Math.floor((Math.random() * 50) + 1) + attacker.speed;
+      // villianRandomAttack = Math.floor((Math.random() * 50) + 1) + attacked.speed;
 }
 
 function displayGameOver(hero, villian) { /// display game over
@@ -292,8 +293,12 @@ function fight(hero, villian) {
   while(hero.hp > 0 && villian.hp > 0) {
     if(heroRandomAttack >= villianRandomAttack) {
       displayAttackEnemy(hero, villian);  // hero attacking villian
+       heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
+       villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
     } else {
       displayAttackEnemy(villian, hero);  // villian attacking hero
+      heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
+      villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
     }
   }
   displayGameOver(hero, villian);   // display the winner between hero and villan
