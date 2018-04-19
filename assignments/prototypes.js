@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+function GameObject(args){
+  this.createdAt = args.createdAt;
+  this.dimensions = args.dimensions;
+}
+
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`;
+};
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +31,20 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(args){
+  this.hp = args.hp;
+  this.name = args.name;
+  GameObject.call(this, args);
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage= function(){
+  return `$ ${this.name} took damage.`;
+}
+
+
 
 /*
   === Humanoid ===
@@ -32,7 +55,25 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(args){
+  this.faction = args.faction;
+  this.weapons = args.weapons;
+  this.language = args.language;
+  CharacterStats.call(this, args);
+}
+
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`
+}
+
+
+console.log(CharacterStats.prototype);
+
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +82,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +133,7 @@
     language: 'Elvish',
   });
 
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -102,9 +144,115 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
+  
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(args){
+    Humanoid.call(this, args);
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  Villian.prototype.punch = function(){
+    let newhp = this.hp - 10;
+    if(newhp < 0){
+      this.destroy();
+    }
+    else{
+      return `your Hp is ${this.hp - 10}`;
+    }
+    
+  }
+
+  Villian.prototype.kick = function(){
+    let newhp = this.hp - 20;
+    if(newhp < 0){
+      this.destroy();
+    }
+    else{
+      return `your Hp is ${this.hp - 20}`;
+    }
+  }
+
+
+  function Hero(args){
+    Humanoid.call(this, args);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.punch = function(){
+    let newhp = this.hp - 10;
+    if(newhp < 0){
+      this.destroy();
+    }
+    else{
+      return `your Hp is ${this.hp - 10}`;
+    }
+    
+  }
+
+  Hero.prototype.kick = function(){
+    let newhp = this.hp - 20;
+    if(newhp < 0){
+      this.destroy();
+    }
+    else{
+      return `your Hp is ${this.hp - 20}`;
+    }
+  }
+
+
+
+  const archer2 = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 100,
+    name: 'Lilith',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  console.log(archer2)
+
+  const swordsman2 = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 90,
+    name: 'Sir Mustachio',
+    faction: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+  });
+
+  console.log(swordsman2)
+
+
+console.log(archer2.punch());
+
+console.log(archer2.kick());
+
+console.log(swordsman2.punch());
+
+console.log(swordsman2.kick());
+
