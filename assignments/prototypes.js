@@ -22,7 +22,7 @@ function GameObject(attributes) {
 }
 
 GameObject.prototype.destroy = function () {
-  return 'Object was removed from the game';
+  return `${this.name} was removed from the game`;
 };
 
 
@@ -103,10 +103,13 @@ Villian.prototype = Object.create(Humanoid.prototype);
 Villian.prototype.getShot = function () {
   this.hp-=2;
   if(this.hp > 1){
-    return `${this.name} Get shot - ${this.hp} points`;
+    console.log(`${this.name} Get shot - ${this.hp} points`);
+    return this.hp;
   } else {
-    this.destroy();
-    return `${this.name} Is dead`;
+    console.log(`${this.name} Is dead and ${this.destroy()}`);
+    return 0;
+
+    // return `${this.name} Is dead`;
   }
 };
 
@@ -120,15 +123,12 @@ Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.getShot = function () {
   this.hp-=1;
   if(this.hp > 1){
-    return `${this.name} Get shot - ${this.hp} points`;
-  } else {
-    this.destroy();
-    return `${this.name} Is dead`;
-  }
+    console.log(`${this.name} Get shot - ${this.hp} points`);
+    return this.hp;
+    } else {
+      console.log(`${this.name} Is dead and ${this.destroy()}`);
+      return 0;  }
 };
-
-
-
 
 
   const mage = new Humanoid({
@@ -188,7 +188,7 @@ Hero.prototype.getShot = function () {
       width: 2,
       height: 4,
     },
-    hp: 10,
+    hp: 200,
     name: 'Scare Face',
     faction: 'Forest Kingdom',
     weapons: [
@@ -205,7 +205,7 @@ Hero.prototype.getShot = function () {
       width: 2,
       height: 4,
     },
-    hp: 10,
+    hp: 100,
     name: 'El Chapulin Colorado',
     faction: 'Forest Kingdom',
     weapons: [
@@ -214,6 +214,7 @@ Hero.prototype.getShot = function () {
     ],
     language: 'Spanish',
   });
+
 
   
   console.log(mage.createdAt); // Today's date
@@ -226,22 +227,33 @@ Hero.prototype.getShot = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(goodGuy.getShot()); // Sir Mustachio was removed from the game.
-  console.log(badGuy.getShot()); // Sir Mustachio was removed from the game.
-
-
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function fight () {
+    let gameOver = true;
+    let goodGuyScore = 0;
+    let badGuyScore = 0;
+    do {
+      do {
+        if( Math.random() > 0.5 ){
+          gameOver = badGuy.getShot(); // Bad Guy getShot
+          if(gameOver === 0) {
+            goodGuyScore++;
+          }
+        } else {
+          gameOver = goodGuy.getShot(); // Good Guy getShot
+          if(gameOver === 0) {
+            badGuyScore++;
+          }
+        }
+      } while (gameOver);
+    } while (badGuyScore < 100 && goodGuyScore < 100);
+    console.log(badGuyScore, goodGuyScore)
+  }
+
+  fight();
