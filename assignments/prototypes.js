@@ -198,19 +198,10 @@ function fight() {
     console.log(orchaldaer.healing());
     console.log(genericBadGuy.unspeakableHorror());
     console.log(orchaldaer.hp)
-    if (orchaldaer.hp <= 45 && chance <= 0.05) {
+    if (orchaldaer.hp <= 45 && chance <= 0.1) {
       orchaldaer.heaven();
       console.log("it works");
     }
-    //   continue;
-    // }
-
-    // if (orchaldaer.hp <= 0) {
-    //   return "The forces of darkness have reigned surpreme again! ";
-    // }
-    // else if (genericBadGuy.hp <= 0) {
-    //   return genericBadGuy.destroy();
-    // }
   }
   if (orchaldaer.hp <= 0) {
     return "The forces of darkness have reigned surpreme again! ";
