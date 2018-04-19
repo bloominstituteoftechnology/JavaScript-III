@@ -124,16 +124,16 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
-  // console.log(mage.createdAt); // Today's date
-  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  // console.log(swordsman.hp); // 15
-  // console.log(mage.name); // Bruce
-  // console.log(swordsman.faction); // The Round Table
-  // console.log(mage.weapons); // Staff of Shamalama
-  // console.log(archer.language); // Elvish
-  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // console.log(mage.takeDamage()); // Bruce took damage.
-  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(mage.createdAt); // Today's date
+  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  console.log(swordsman.hp); // 15
+  console.log(mage.name); // Bruce
+  console.log(swordsman.faction); // The Round Table
+  console.log(mage.weapons); // Staff of Shamalama
+  console.log(archer.language); // Elvish
+  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
@@ -166,7 +166,7 @@ Humanoid.prototype.greet = function() {
 
   // CREATING NEW OBJECTS
 
-  const white_knight = new Humanoid ({
+  const white_knight = new Hero ({
     createdAt: new Date(),
     dimensions: {
       length: 3,
@@ -182,7 +182,7 @@ Humanoid.prototype.greet = function() {
     language: 'Medieval English',
   });
 
-  const white_princess = new Humanoid ({
+  const white_princess = new Hero ({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -198,7 +198,7 @@ Humanoid.prototype.greet = function() {
     language: 'Medieval English',
   });
 
-  const black_knight = new Humanoid ({
+  const black_knight = new Villain ({
     createdAt: new Date(),
     dimensions: {
       length: 5,
