@@ -114,9 +114,17 @@ Humanoid.prototype.powerAttack = function(target){
 
   if (this.sp >= requiredStamina) {
     target.hp += (this.equippedWeapon.damage * 1.5);
-    return `${this.name} performs a power attack on ${target.name}${(this.equippedWeapon.name !== 'Unarmed') ? ' with the ' + this.equippedWeapon.name + '.' : '.'}`;
+    return this.powerAttackMessage(target.name);
   } else {
     return this.attack(target);
+  }
+};
+
+Humanoid.prototype.powerAttackMessage = function(targetName){
+  if(this.equippedWeapon.name === 'Unarmed'){
+    return `${this.name} pummels ${targetName}.`;
+  } else {
+    return `${this.name} performs a power attack on ${targetName} with the ${this.equippedWeapon.name}.`;
   }
 };
 
@@ -315,7 +323,7 @@ const dragonborn = new Hero({
   }
 });
 
-console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
+// console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
 console.log(dragonborn.castSpell('restore', dragonborn));
 console.log(dragonborn.castSpell('lightning', vampire));
 console.log(dragonborn.dragonShout(vampire));
