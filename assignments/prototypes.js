@@ -16,9 +16,8 @@
 */
 const GameObject =  function(options) {
   this.createdAt = options.createdAt;
-  this.dimesions = options.dimensions;
+  this.dimensions = options.dimensions;
 };
-
 GameObject.prototype.destroy = function () {
   return 'Object was removed from the game';
 }
@@ -56,7 +55,6 @@ const Humanoid = function (options) {
   this.language = options.language;
 };
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-// Humanoid.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype.greet = function () {
   return this.name + " would like to say " + this.language;
 }
