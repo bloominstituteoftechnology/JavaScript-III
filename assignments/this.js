@@ -1,8 +1,8 @@
-/* The for principles of "this";
+/* The four principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. Implicit binding: 
-    - Most common principle/rule. Talking in terms of dot notation, implicit binding means that 'this' references whatever is to the left of the dot. i.e., in obj.example, this points to 'obj'
+    - Most common principle/rule. Talking in terms of dot notation, implicit binding means that 'this' references whatever is to the left of the dot. i.e., in obj.example, 'this' points to 'obj' that invokes the function/method.
 * 2. Explicit binding
     - Tells a function what the context of this keyword is going to be using call apply or bind
     - Allows a function/method to explicity take in variables of another object. So the function/method changes its context to that of another object that is explicitly references with 'call'. 
@@ -21,14 +21,53 @@
 
 // code example for Window Binding
 
-// Principle 2
+const me = function() {
+    console.log(this);
+}
+me();
 
+// Principle 2
 // code example for Implicit Binding
+
+
+
+const obj1 = {
+    name: 'Jah',
+    age: 23,
+    notRun: function () {
+        return `${this.name} is running`;
+    }
+}
+
+
+console.log(obj1.notRun());
 
 // Principle 3
 
 // code example for New Binding
 
+function Person (name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+
+const David = new Person ("David", 20);
+
+console.log(David);
+
+
+
 // Principle 4
 
 // code example for Explicit Binding
+
+const obj2  = {
+    faveColor: "red"
+}
+
+function myColor () {
+    return this.faveColor + ' is my favorite color.'
+}
+
+console.log(myColor.call(obj2));

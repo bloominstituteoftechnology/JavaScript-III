@@ -52,7 +52,7 @@ function GameObject (attributes) {
 
 GameObject.prototype.destroy = function () {
   // returns the string 'Object was removed from the game.'
-  return `{this.name} was removed form the game`;
+  return `${this.name} was removed form the game.`;
 }
 
 
