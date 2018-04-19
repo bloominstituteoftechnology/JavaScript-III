@@ -20,6 +20,7 @@
 let me = "Andrew";
 
 function whoThis(name) {
+  console.log(this);
     return name;
 };
 
@@ -72,7 +73,7 @@ function LosersClub(member) {
     console.log('My name is: ' + my.name + ' I like to eat: ' + food1 + ', ' + food2 + ', ' + food3 );
   }
   
-  let food = ['pizza','pasta','salt in large quatities'];
+  let food = ['bacon','more bacon','salt in large quatities'];
   
   favFoods.call(my);
   
