@@ -56,15 +56,10 @@ function Humanoid(HumAttributes){
 Humanoid.prototype = Object.create(CharacterStats.prototype)
 
 
-Humanoid.prototype.greet = function (attribute){
+Humanoid.prototype.greet = function (HumAttributes){
 
   return `${this.name}  offers a greeting in ${this.language}`
 }
-
-
-
-
-
 
 /*
   === Humanoid ===
@@ -151,5 +146,26 @@ Humanoid.prototype.greet = function (attribute){
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
-
  
+function Villian(anAttr){
+  Humanoid.call(this,anAttr);
+  this.health = anAttr.health;
+}
+ 
+Humanoid.prototype = Object.create(Villian.prototype);
+
+Villian.prototype.removeHealth = function(){
+  this.health--
+  return this.health;
+}
+
+Villian.prototype.addHealth() = function(){
+  this.health++
+  return this.health;
+}
+
+function Hero(anoAttr){
+  Humanoid.call(this,anoAttr)
+  
+}
+
