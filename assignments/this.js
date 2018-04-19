@@ -24,8 +24,9 @@ console.log(myFunction("Amy")) // My name is [object global] because quokka does
 // Implicit Binding
 myObject = {
     statement: ' is my name now because of implicit binding',
+    name: "Amy",
     mySecondFunction: function (name) {
-        return `${name} ${this.statement}`
+        return `${this.name} ${this.statement}`
     }
 }
 console.log(myObject.mySecondFunction("Amy")); // Amy is my name now because of implicit binding
