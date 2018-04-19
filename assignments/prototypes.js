@@ -60,6 +60,7 @@ function CharacterStats(characterAttributes){
   this.maxMp = characterAttributes.mp; // Additional for stretch task
   this.sp = characterAttributes.sp; // Additional for stretch task
   this.maxSp = characterAttributes.sp; // Additional for stretch task
+  this.alive = true; // Additional for stretch task
   this.name = characterAttributes.name;
 }
 
@@ -140,7 +141,8 @@ Humanoid.prototype.castSpell = function(spell, target){
     return `${this.name} does not have enough Magic Points to cast ${this.spells[spell].name}.`;
   }
 };
- 
+
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 const mage = new Humanoid({
   createdAt: new Date(),
@@ -211,22 +213,31 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // ===============
 function Villian(villianAttributes){
   Humanoid.call(this, villianAttributes);
-  this.maxRegenerations = 3;
 }
 
 Villian.prototype = Object.create(Humanoid.prototype);
 
-// Villian's special ability
-Villian.prototype.regeneration = function(){
+Villian.prototype.checkStats = function(){
+  if(this.hp > 0){
+    return `${this.name} has ${this.hp} health points.`;
+  }
+  
+  return this.regenerate();
+};
+
+Villian.prototype.regenerate = function(){
   const regenerate = Math.floor(Math.random() * 2);
 
-  if (regenerate){
+  if (regenerate && this.alive){
     this.hp = this.maxHp;
     this.mp = this.maxMp;
     this.sp = this.maxSp;
 
     return `Tough luck. Regeneration activated. ${this.name}'s health, stamina and magic have been restored.`;
   }
+
+  this.alive = false;
+  return `${this.name} has been defeated. Game over.`;
 };
 
 // ============
@@ -293,7 +304,7 @@ const vampire = new Villian({
     width: 1,
     height: 2,
   },
-  hp: 360,
+  hp: 50,
   mp: 400,
   name: 'Harkon',
   faction: 'Volkihar',
@@ -338,12 +349,18 @@ const dragonborn = new Hero({
 });
 
 // console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
+console.log(vampire.checkStats());
 console.log(dragonborn.castSpell('restore', dragonborn));
 console.log(dragonborn.castSpell('lightning', vampire));
+console.log(vampire.checkStats());
 console.log(dragonborn.dragonShout(vampire));
-console.log(dragonborn.dragonShout(vampire));
+console.log(vampire.checkStats());
+console.log(dragonborn.dragonShout(vampire)); 
+console.log(vampire.checkStats());
 console.log(dragonborn.attack(vampire));
-console.log(dragonborn.powerAttack(vampire))
+console.log(vampire.checkStats());
+console.log(dragonborn.powerAttack(vampire));
+console.log(vampire.checkStats());
 
 console.log(dragonborn);
 console.log(vampire);
