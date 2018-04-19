@@ -35,19 +35,7 @@ child.prototype =Object.create(GameObject.prototype);
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function characterStats (attributes){
-  this.hp = attributes.hp;
-  this.name =atributes.name;
-  this.Damage=function(){
-    return '${this.name}took damage.';
-  }
-}
-function child(childAttributes){
-  humanoid.call(this,childAttributes);
-  humaniod.call(this, grandChildAttributes);
-}
-child.prototype =Object.create(humaniod.prototype);
-child.prototype =Object.create(GameObject.prototype);
+
 
 /*
   === Humanoid ===
@@ -58,13 +46,7 @@ child.prototype =Object.create(GameObject.prototype);
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- function Humanoid(attributes){
-   this.faction = attributes.faction;
-   this.weapons = attributes.weapons;
-   this.language = function(){
-     return '${this.name} offers a greeting in ${thislanguage}.';
-   }
- }
+ 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -73,7 +55,50 @@ child.prototype =Object.create(GameObject.prototype);
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
+function GameObject(grandchildAttributes){
+  this.createdAt = grandchildAttributes.createdAt;
+  this.dimensions = grandchildAttributes.dimensions;
+ 
+}
 
+
+GameObject.prototype.destroy = 
+function(){
+    return 'object was removed from the game.';
+};
+    
+function CharacterStats (childAttributes){
+  GameObject.call(this,childAttributes);
+  this.hp = childAttributes.hp;
+  this.name = childAttributes.name;
+  
+  
+}
+CharacterStats.prototype = Object.create (GameObject.prototype);
+
+CharacterStats.prototype.takeDamage =
+function(){
+  return '${this.name} took damage.';
+};
+
+ 
+ 
+function Humanoid(attributes){
+ CharacterStats.call(this,attributes);
+   this.faction = attributes.faction;
+   this.weapons = attributes.weapons;
+   this.language = attributes.language;
+  
+ }
+ 
+  Humanoid.prototype = Object.create (CharacterStats.prototype);
+ 
+ 
+ Humanoid.prototype.greet = 
+ function(){
+     return '${this.name} offers a greeting in ${this.language}.';
+ };
+ 
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
