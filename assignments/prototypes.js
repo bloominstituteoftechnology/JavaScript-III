@@ -23,7 +23,9 @@ function GameObject(attributes) {
 //   return `Object was removed from the game.`;
 // }
 
-GameObject.prototype.destroy = () => `Object was removed from the game.`;
+GameObject.prototype.destroy = function() { 
+  return `${this.name}. was removed from the game.`
+};
 
 /*
   === CharacterStats ===
