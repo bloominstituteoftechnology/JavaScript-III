@@ -195,9 +195,11 @@ Hero.prototype = Object.create(Humanoid.prototype);
   Hero.prototype.healing = () => {
 
    Orchaldaer.hp += 5; 
-   return "Not this time genericBadGuy!!";
+   return "Not this time swordsman2!!";
   }
-
+Hero.prototype.heaven = () => {
+  Orchaldaer.hp += 20;
+}
   const Orchaldaer = new Hero({
     createdAt: new Date(),
     dimensions: {
@@ -217,7 +219,7 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
   Hero.prototype.fistOfLight = () => {
     swordsman2.hp -= 3;
-    return  `A huge first of light smacks genericBadGuy in the face!`
+    return  `A huge first of light smacks swordsman2 in the face!`
   }
 
   console.log(swordsman2.unspeakableHorror());
@@ -225,20 +227,38 @@ Hero.prototype = Object.create(Humanoid.prototype);
   console.log(Orchaldaer.healing());
   console.log(Orchaldaer.hp);  
   
+  //fight function prompts a player to enter 'p' for game to start
   function fight() {
-    while(Orchaldaer.hp > 0 && swordsman2.hp > 0){
+    let chance = 0;
+    while (Orchaldaer.hp > 0 && swordsman2.hp > 0) {
+      //Please enter 'p' to start game
+      let prompt = 's';
+      if(prompt === 'p') {
+      chance = Math.random();
+      }
       console.log(Orchaldaer.fistOfLight());
       console.log(Orchaldaer.healing());
       console.log(swordsman2.unspeakableHorror());
-      if(Orchaldaer.hp <= 0) {
-        return Orchaldaer.destroy();
-        break;
+      console.log(Orchaldaer.hp)
+      if(Orchaldaer.hp <= 45 && chance <= 0.1) {
+          Orchaldaer.heaven();
+          console.log("it works");
       }
-      else if (swordsman2.hp <- 0) {
-        return swordsman2.destroy();
-        break;
-      }
+      //   continue;
+      // }
+      
+      // if (orchaldaer.hp <= 0) {
+      //   return "The forces of darkness have reigned surpreme again! ";
+      // }
+      // else if (genericBadGuy.hp <= 0) {
+      //   return genericBadGuy.destroy();
+      // }
     }
-  }
-
+    if(Orchaldaer.hp <= 0) {
+      return "The forces of darkness have reigned surpreme again! ";
+    } else if (swordsman2.hp <= 0) {
+      return "The forces of light have reigned surpreme again! ";
+    }
+  }   
+  
   console.log(fight());
