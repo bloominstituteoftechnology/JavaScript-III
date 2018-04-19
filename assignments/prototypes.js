@@ -30,10 +30,10 @@ GameObject.prototype.destroy = function () {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-const CharacterStats = function() {
+const CharacterStats = function(options) {
   GameObject.call(this, options);
-  "hp" = options.hp;
-  "name" = options.name;  
+  hp = options.hp;
+  name = options.name;  
 };
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function () {
@@ -49,11 +49,16 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-const Humanoid = function () {
+const Humanoid = function (options) {
   CharacterStats.call(this, options);
-  "weapons" = options.weapons;
-  "language" = options.language;
+  weapons = options.weapons;
+  language = options.language;
 };
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype.greet = function () {
+  return this.name + " " + this.language;
+}
 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
