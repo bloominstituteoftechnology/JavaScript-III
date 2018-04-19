@@ -14,7 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
 
+  GameObject.prototype.destroy = function () {
+    return 'Object was removed from the game.'
+  };
+}
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +29,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(attributes1) {
+  GameObject.call(this, attributes1);
+  this.hp = attributes1.hp;
+  this.name = attributes1.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`
+};
 
 /*
   === Humanoid ===
@@ -32,16 +50,59 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(attributes2) {
+  CharacterStats.call(this, attributes2);
+  this.faction = attributes2.faction;
+  this.weapons = attributes2.weapons;
+  this.language = attributes2.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}`
+}
+
+
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+// STRETCH GOAL
+// * Create Villian and Hero classes that inherit from the Humanoid class.  
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.demonSwordAttacked = function () {
+  this.hp -= 6;
+  if(this.hp < 0) {
+    return this.destroy();
+  }
+  else;
+  {
+  return this.hp;
+  }
+}
+
+function Villian(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.spinningSwordAttacked = function () {
+  return this.hp = this.hp - 10;
+}
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -91,6 +152,39 @@
     ],
     language: 'Elvish',
   });
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+  const hero1 = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 14,
+    name: 'Link Hero of Time',
+    faction: 'Knight Swordsman',
+    weapons: [
+      'Master Sword',
+      'Hylian Shield',
+    ],
+    language: 'Common Toungue',
+  });
+
+  const villian1 = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 6,
+      height: 4,
+    },
+    hp: 20,
+    name: 'Ganondorf King of Theives',
+    faction: 'Gerudo',
+    weapons: [
+      'Sword of Demise'
+    ],
+    language: 'Common Toungue',
+  });
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -102,9 +196,11 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
-
+  console.log(hero1.demonSwordAttacked())
+  console.log(hero1.demonSwordAttacked())
+  console.log(hero1.demonSwordAttacked())
+  
   // Stretch task: 
-  // * Create Villian and Hero classes that inherit from the Humanoid class.  
+  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  
