@@ -108,9 +108,9 @@ Humanoid.prototype.attack = function(target){
 
   if(this.equippedWeapon.name === 'Unarmed'){
     return `${this.name} engages in hand to hand combat with ${target.name}.`;
-  } else {
-    return `${this.name} attacked ${target.name} with the ${this.equippedWeapon.name}.`;
   }
+
+  return `${this.name} attacked ${target.name} with the ${this.equippedWeapon.name}.`;
 };
 
 Humanoid.prototype.powerAttack = function(target){
@@ -119,17 +119,17 @@ Humanoid.prototype.powerAttack = function(target){
   if (this.sp >= requiredStamina) {
     target.hp += (this.equippedWeapon.damage * 1.5);
     return this.powerAttackMessage(target.name);
-  } else {
-    return this.attack(target);
   }
+
+  return this.attack(target);
 };
 
 Humanoid.prototype.powerAttackMessage = function(targetName){
   if(this.equippedWeapon.name === 'Unarmed'){
     return `${this.name} pummels ${targetName}.`;
-  } else {
-    return `${this.name} performs a power attack on ${targetName} with the ${this.equippedWeapon.name}.`;
   }
+
+  return `${this.name} performs a power attack on ${targetName} with the ${this.equippedWeapon.name}.`;
 };
 
 Humanoid.prototype.castSpell = function(spell, target){
@@ -137,9 +137,9 @@ Humanoid.prototype.castSpell = function(spell, target){
     this.mp += this.spells[spell].cost;
     target.hp += this.spells[spell].damage;
     return `${this.name} cast ${this.spells[spell].name}. ${target.name}'s health is now ${target.hp}.`;
-  } else {
-    return `${this.name} does not have enough Magic Points to cast ${this.spells[spell].name}.`;
   }
+
+  return `${this.name} does not have enough Magic Points to cast ${this.spells[spell].name}.`;
 };
 
 
@@ -291,9 +291,9 @@ Hero.prototype.dragonShout = function(target){
     this.mp += this.dragonShoutCost;
 
     return `${this.name} shouts: ${shout.wordsOfPower} (${shout.name})\n${shout.effect}`;
-  } else {
-    return `${this.name} does not have enough Magic Points to perform a shout.`;
   }
+
+  return `${this.name} does not have enough Magic Points to perform a shout.`;
 };
 
 // Test Stretch Task:
