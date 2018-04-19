@@ -133,7 +133,7 @@ function Villain(attributes) {
 Villain.prototype = Object.create(Humanoid.prototype);
 
 Villain.prototype.unspeakableHorror = () => {
-  orchaldaer.hp -= 7;
+  orchaldaer.hp -= 9;
   orchaldaer.takeDamage();
   return "Take this Orchaldaer!"
 }
@@ -148,7 +148,7 @@ Hero.prototype.healing = () => {
   return "Not this time genericBadGuy!!"
 };
 Hero.prototype.heaven = () => {
-  orchaldaer.hp += 5;
+  orchaldaer.hp += 25;
   return "The light has touched our hero!"
 };
 Hero.prototype.fistOfLight = () => {
@@ -163,7 +163,7 @@ const genericBadGuy = new Villain({
     width: 2,
     height: 2,
   },
-  hp: 50,
+  hp: 15,
   name: 'Sir Mustachio',
   faction: 'The Round Table',
   weapons: [
@@ -180,7 +180,7 @@ const orchaldaer = new Hero({
     width: 2,
     height: 2,
   },
-  hp: 50,
+  hp: 15,
   name: 'Sir Mustachio',
   faction: 'The Round Table',
   weapons: [
@@ -197,10 +197,10 @@ function fight() {
     console.log(orchaldaer.fistOfLight());
     console.log(orchaldaer.healing());
     console.log(genericBadGuy.unspeakableHorror());
-    if (orchaldaer.hp <= 45 && chance <= 0.2) {
-      orchaldaer.heaven;
+    console.log(orchaldaer.hp)
+    if (orchaldaer.hp <= 45 && chance <= 0.05) {
+      orchaldaer.heaven();
       console.log("it works");
-      console.log(orchaldaer.hp)
     }
     //   continue;
     // }
