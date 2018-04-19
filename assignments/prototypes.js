@@ -275,15 +275,20 @@ function displayAttackEnemy(attacker, attacked) {  // display attack enemy
 function calculateFight(hero, villian) { //  see who attacks first and how much damage
   let heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
   let villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
+  let battleCount = 1;
   while(hero.hp > 0 && villian.hp > 0) {
     if(heroRandomAttack >= villianRandomAttack) {
+      console.log(`Battle: ${battleCount}`);
       displayAttackEnemy(hero, villian);  // hero attacking villian
        heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
        villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
+       battleCount++;
     } else {
+      console.log(`Battle: ${battleCount}`);
       displayAttackEnemy(villian, hero);  // villian attacking hero
       heroRandomAttack = Math.floor((Math.random() * 50) + 1) + hero.speed;
       villianRandomAttack = Math.floor((Math.random() * 50) + 1) + villian.speed;
+      battleCount++;
     }
   }
 }
