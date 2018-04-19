@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>JS-III: Battle field</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Russo+One|Ubuntu" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body class="">
+  <!--Header and Navbar-->
+  <header id="header-navbar" class="container-fluid pt-3">
+    <div class="row">
+      <!--Company Name-->
+      <div id="company" class="col-12 d-flex justify-content-center">
+        <a href="/">
+            <h1>Battle field</h1>
+        </a>
+      </div>
+      <!--Navbar-->
+      <div class="col-12 d-flex justify-content-around">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-around">            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto d-flex justify-content-around">
+                <li class="nav-item">
+                  <button id="newGame" type="button" class="btn btn-secondary">Start New Game</button>
+                </li>
+                <li class="nav-item">
+                  <button id="fight" type="button" class="btn btn-danger">Fight!!</button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+      </div>
+    </div>
+  </header>
+  
+  <main class="container">
+    <section id="field" class="row justify-content-around">
+      <div id="hero" class="col-6">
+        <div class="text-center">Heros  <span id="heroLives" class="badge badge-info"></span></div>
+        <div class="points"></div>
+      </div>
+      <div id="villain" class="col-6">
+        <div class="text-center"><span id="villainLives" class="badge badge-info"></span>  Villain</div>
+        <div class="points"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="assignments/prototypes.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
