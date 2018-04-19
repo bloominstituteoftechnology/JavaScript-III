@@ -29,14 +29,14 @@ function GameObject(object) {
 * should inherit destroy() from GameObject's prototype
 */
 function CharacterStats(stats) {
+  GameObject.call(this, stats);
   this.hp = stats.hp;
   this.name = stats.name;
   this.takeDamage = function() {
       return `${this.name} took damage`;
   }
-  GameObject.call(this.stats);
+  CharacterStats.prototype = Object.create(GameObject.prototype);
 }
-CharacterStats.prototype = Object.create(GameObject);
 /*
 === Humanoid ===
 * faction
@@ -47,25 +47,22 @@ CharacterStats.prototype = Object.create(GameObject);
 * should inherit takeDamage() from CharacterStats
 */
 function Humanoid(attributes){
-   this.faction = attributes.faction;
+  CharacterStats.call(this, attributes);
    this.weapon = attributes.weapons;
    this.language = attributes.language;
    this.greet = function() {
        return `What(object name) offers a greeting in ${this.language}`;
    }
   //  GameObject.call(this.attributes);
-   CharacterStats.call(this.attributes);
+  
 }
-Humanoid.prototype = Object.create(CharacterStats);
-
-
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 /*
 * Inheritance chain: Humanoid -> CharacterStats -> GameObject
 * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
 * Instances of CharacterStats should have all of the same properties as GameObject.
 */
-
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
 const mage = new Humanoid({
