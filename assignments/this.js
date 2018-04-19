@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Window/Object Binding:
-* 2. Implicit Binding
-* 3. Explicit Binding: Binding the "this"-keyword to an object of our choosing.
-* 4. `new` Binding
+* 1. Window/Object Binding: `this` refers to the global object when used in the global scope
+* 2. Implicit Binding: when used in a method, `this` refers to the object the method is attached to.
+* 3. Explicit Binding: slap JS and tell it what `this` is, with `call()`, `apply()`, and `bind()`
+* 4. `new` Binding: when used in a constructor function, `new` ensures `this` points to newly created instances of objects.
 *
 * write out a code example of each explanation above
 */

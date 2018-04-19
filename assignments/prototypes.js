@@ -155,3 +155,101 @@ console.log(human);
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villain(attributes) {
+    Humanoid.call(this, attributes);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.unspeakableHorror = () => {
+    Orchaldaer.hp -= 7;
+    Orchaldaer.takeDamage();
+    return "Take this Orchaldaer!"
+  }
+
+  function Hero(attributes) {
+    Humanoid.call(this, attributes);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.healing = () => {
+    Orchaldaer.hp += 5; 
+    return "Not this time Sir Mustachio!!"; 
+  }
+
+  Hero.prototype.fistOfLight = () => {
+    swordsman2.hp -= 3;
+    return  `A huge first of light smacks genericBadGuy in the face!`
+  }
+  
+  const swordsman2 = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Sir Mustachio',
+    faction: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+  });
+
+  const Orchaldaer = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 8,
+      width: 4,
+      height: 10,
+    },
+    hp: 10,
+    name: 'Orchaldaer',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  console.log(swordsman2);
+  console.log(Orchaldaer);
+
+  console.log(swordsman2.unspeakableHorror());
+  console.log(Orchaldaer.hp);
+  console.log(Orchaldaer.healing());
+  console.log(Orchaldaer.hp);
+
+  console.log(`\n-----------------------FIGHT----------------------\n`)
+  function fight() {
+    let randomNumber = null;
+    while(Orchaldaer.hp > 0 && swordsman2.hp > 0){
+      console.log(Orchaldaer.fistOfLight());
+      console.log(Orchaldaer.healing());
+      console.log(swordsman2.unspeakableHorror());
+      if (Orchaldaer.hp < 8) {
+        randomNumber = Math.floor(Math.random() * 11);
+        if (randomNumber <= 2) {
+          console.log(`Heavenly Light bathes the hero, reinvigorating him!`);
+          Orchaldaer.hp += 15;
+          console.log("Hero HP:", Orchaldaer.hp);
+        }
+      }
+      if(Orchaldaer.hp <= 0) {
+        console.log(`The forces of light tremble under the overpowering strength of darkness!!!`);
+        return Orchaldaer.destroy();
+      }
+      else if (swordsman2.hp <= 0) {
+        console.log(`The forces of light triump over darkness!`)
+        return swordsman2.destroy();
+      }
+    }
+  }
+
+  fight();

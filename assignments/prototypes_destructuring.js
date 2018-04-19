@@ -41,8 +41,8 @@ console.log(newObject);
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats({hp, name}) {
-  GameObject.call(this, {hp, name});
+function CharacterStats({createdAt, dimensions, hp, name}) {
+  GameObject.call(this, {createdAt, dimensions});
   this.hp = hp;
   this.name = name;
 }
@@ -73,8 +73,8 @@ console.log(character.takeDamage());
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid({faction, weapons, language}) {
-  CharacterStats.call(this, {faction, weapons, language});
+function Humanoid({createdAt, dimensions, hp, name, faction, weapons, language}) {
+  CharacterStats.call(this, {createdAt, dimensions, hp, name} );
   this.faction = faction;
   this.weapons = weapons;
   this.language = language;
