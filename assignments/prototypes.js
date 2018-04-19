@@ -235,16 +235,17 @@ function Hero(heroAttributes){
       'effect': 'Cut through your opponent\'s flesh and shatter their soul.'
     }
   ];
+  this.dragonShoutCost = -70;
 }
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.dragonShout = function(target){
-  if(this.mp >= 70){
+  if(this.mp >= -this.dragonShoutCost){
     const shout = this.dragonShouts[Math.floor(Math.random() * this.dragonShouts.length)];
 
     target.hp += shout.damage;
-    this.mp += -70;
+    this.mp += this.dragonShoutCost;
 
     return `${this.name} shouts: ${shout.wordsOfPower} (${shout.name})\n${shout.effect}`;
   } else {
