@@ -81,7 +81,6 @@ function Humanoid(humanoidAtributes){
     'damage': -5,
     'weight': 5
   }; // Additional for stretch
-  this.defaultAttackDamage = -5; // Additional for stretch
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
