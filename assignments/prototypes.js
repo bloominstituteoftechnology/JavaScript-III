@@ -7,13 +7,22 @@
   
   Each class has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+
+function GameObject(objAttr) {
+  this.createdAt = objAttr.createdAt;
+  this.dimensions = objAttr.dimensions;
+};
+
+GameObject.prototype.destroy = function () {
+  return `Object was removed from the game`;
+};
 
 /*
   === CharacterStats ===
@@ -22,6 +31,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(charAttr) {
+  GameObject.call(this, charAttr);
+  this.hp = charAttr.hp;
+  this.name = charAttr.name;
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+};
+
 
 /*
   === Humanoid ===
@@ -32,79 +53,215 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(humAttr) {
+  CharacterStats.call(this, humAttr);
+  this.faction = humAttr.faction;
+  this.weapons = humAttr.weapons;
+  this.language = humAttr.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.langauge}.`;
+};
+
+
 /*
-  * Inheritance chain: Humanoid -> CharacterStats -> GameObject
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+ * Inheritance chain: Humanoid -> CharacterStats -> GameObject
+ * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+ * Instances of CharacterStats should have all of the same properties as GameObject.
+ */
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
-  const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    hp: 5,
-    name: 'Bruce',
-    faction: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Toungue',
-  });
 
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    hp: 15,
-    name: 'Sir Mustachio',
-    faction: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Toungue',
-  });
+const mage = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Bruce',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
 
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    hp: 10,
-    name: 'Lilith',
-    faction: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
+const swordsman = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2,
+  },
+  hp: 15,
+  name: 'Sir Mustachio',
+  faction: 'The Round Table',
+  weapons: [
+    'Giant Sword',
+    'Shield',
+  ],
+  language: 'Common Toungue',
+});
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+const archer = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Lilith',
+  faction: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+});
 
-  // Stretch task: 
-  // * Create Villian and Hero classes that inherit from the Humanoid class.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+console.log(mage.createdAt); // Today's date
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+console.log(swordsman.hp); // 15
+console.log(mage.name); // Bruce
+console.log(swordsman.faction); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+console.log(archer.language); // Elvish
+console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage()); // Bruce took damage.
+console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+
+// Stretch task: 
+// * Create Villian and Hero classes that inherit from the Humanoid class.  
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+//Villian Constructor
+function Villian(villAttr) {
+  Humanoid.call(this, villAttr);
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.minusHpVillian = function(obj) {
+  if (obj.hp === 0) return obj.destroy();
+  return obj.hp -= 1;
+};
+
+
+//Hero Constructor
+function Hero(heroAttr) {
+  Humanoid.call(this, heroAttr);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.minusHpHero = function(obj) {
+  if (obj.hp === 0) return obj.destroy();
+  return obj.hp -= 1;
+};
+
+
+//merchant
+const merchant = new Villian ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 35,
+  name: 'Hater',
+  faction: 'Merchant Guild',
+  weapons: [
+    'Bag \'o Money',
+  ],
+  language: 'Common Toungue',
+});
+
+
+//Felicia
+const pinkTroll = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 20,
+    width: 1,
+    height: 1,
+  },
+  hp: 50,
+  name: 'Felicia',
+  faction: 'Merchant Guild',
+  weapons: [
+    'Glitter Storm',
+  ],
+  language: 'Pinkish',
+});
+
+console.log(merchant.createdAt); // Today's date
+console.log(pinkTroll.createdAt); // Today's date
+console.log(merchant.hp);
+console.log(pinkTroll.hp);
+console.log(pinkTroll.name);
+
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(merchant.minusHpVillian(pinkTroll));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+console.log(pinkTroll.minusHpHero(merchant));
+
