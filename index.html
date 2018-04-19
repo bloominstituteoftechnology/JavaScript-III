@@ -35,22 +35,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto d-flex justify-content-around">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                  <button id="newGame" type="button" class="btn btn-secondary">Start New Game</button>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">about Us</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">Contact</a>
-                  <!-- <button type="button" class="btn custom-buttom btn-primary" data-toggle="modal" data-target="#exampleModal">
-                      Launch demo modal
-                    </button> -->
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Sign In</a>
+                  <button id="fight" type="button" class="btn btn-danger">Fight!!</button>
                 </li>
               </ul>
             </div>
@@ -60,7 +48,16 @@
   </header>
   
   <main class="container">
-    
+    <section id="field" class="row justify-content-around">
+      <div id="hero" class="col-6">
+        <div class="text-center">Heros  <span id="heroLives" class="badge badge-info"></span></div>
+        <div class="points"></div>
+      </div>
+      <div id="villain" class="col-6">
+        <div class="text-center"><span id="villainLives" class="badge badge-info"></span>  Villain</div>
+        <div class="points"></div>
+      </div>
+    </section>
   </main>
 
   <script src="js/jquery-3.3.1.min.js"></script>
