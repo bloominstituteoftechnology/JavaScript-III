@@ -31,9 +31,9 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 const CharacterStats = function(options) {
-  GameObject.call(this, options);
-  hp = options.hp;
-  name = options.name;  
+  this.GameObject.call(this, options);
+  this.hp = options.hp;
+  this.name = options.name;  
 };
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function () {
@@ -51,9 +51,9 @@ CharacterStats.prototype.takeDamage = function () {
 */
 const Humanoid = function (options) {
   CharacterStats.call(this, options);
-  factions = options.factions;
-  weapons = options.weapons;
-  language = options.language;
+  this.faction = options.faction;
+  this.weapons = options.weapons;
+  this.language = options.language;
 };
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 // Humanoid.prototype = Object.create(GameObject.prototype);
