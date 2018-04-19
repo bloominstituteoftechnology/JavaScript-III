@@ -17,10 +17,10 @@
 function GameObject(object) {
   this.createdAt = object.createdAt;
   this.dimension = object.dimension;
-  this.destroy = function() {
-      return 'Object was removed from the game.';
-  }
 }
+GameObject.prototype.destroy = function() {
+    return 'Object was removed from the game.';
+};
 /*
 === CharacterStats ===
 * hp
@@ -32,10 +32,10 @@ function CharacterStats(stats) {
   GameObject.call(this, stats);
   this.hp = stats.hp;
   this.name = stats.name;
-  this.takeDamage = function() {
-      return `${this.name} took damage`;
-  }
-  CharacterStats.prototype = Object.create(GameObject.prototype);
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
 }
 /*
 === Humanoid ===
@@ -48,15 +48,18 @@ function CharacterStats(stats) {
 */
 function Humanoid(attributes){
   CharacterStats.call(this, attributes);
-   this.weapon = attributes.weapons;
+  this.faction = attributes.faction;
+   this.weapons = attributes.weapons;
    this.language = attributes.language;
    this.greet = function() {
-       return `What(object name) offers a greeting in ${this.language}`;
-   }
-  //  GameObject.call(this.attributes);
-  
+    return `${this.name} offers a greeting in ${this.language}`;
+  }
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+// Humanoid.prototype.greet = function() {
+//   return `${this.name} offers a greeting in ${this.language}`;
+// }
+
 
 /*
 * Inheritance chain: Humanoid -> CharacterStats -> GameObject
