@@ -312,7 +312,7 @@ const vampire = new Villian({
     width: 1,
     height: 2,
   },
-  hp: 400,
+  hp: 100,
   mp: 375,
   sp: 450,
   name: 'Harkon',
@@ -320,7 +320,7 @@ const vampire = new Villian({
   weapons: {
     'daedric-sword-of-the-vampire': {
       'name': 'Daedric Sword of the Vampire',
-      'damage': 14,
+      'damage': -14,
       'weight': 16
     }
   },
@@ -341,7 +341,7 @@ const dragonborn = new Hero({
     width: 1,
     height: 2,
   },
-  hp: 315,
+  hp: 100,
   mp: 225,
   sp: 200,
   name: 'Dovahkinn',
@@ -371,17 +371,50 @@ const dragonborn = new Hero({
 console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
 console.log(vampire.equipWeapon('daedric-sword-of-the-vampire'));
 
-console.log(dragonborn.castSpell('lightning', vampire));
-console.log(vampire.checkStats());
+while(dragonborn.alive && vampire.alive){
+  if(dragonborn.alive){
+    let action = Math.floor(Math.random() * 5);
 
-console.log(vampire.castSpell('vampire-drain', dragonborn));
-console.log(dragonborn.checkStats());
+    switch(action){
+      case 0:
+        console.log(dragonborn.attack(vampire));
+        console.log(vampire.checkStats());
+        break;
+      case 1:
+        console.log(dragonborn.powerAttack(vampire));
+        console.log(vampire.checkStats());
+        break;
+      case 2:
+        console.log(dragonborn.castSpell('restore', dragonborn));
+        console.log(dragonborn.checkStats());
+        break;
+      case 3:
+        console.log(dragonborn.castSpell('lightning', vampire));
+        console.log(vampire.checkStats());
+        break;
+      case 4:
+        console.log(dragonborn.dragonShout(vampire));
+        console.log(vampire.checkStats());
+        break;
+    }
 
-console.log(dragonborn.dragonShout(vampire));
-console.log(vampire.checkStats());
-console.log(dragonborn.dragonShout(vampire)); 
-console.log(vampire.checkStats());
-console.log(dragonborn.attack(vampire));
-console.log(vampire.checkStats());
-console.log(dragonborn.powerAttack(vampire));
-console.log(vampire.checkStats());
+    if(vampire.alive){
+      let action = Math.floor(Math.random() * 4);
+
+      switch (action) {
+        case 0:
+          console.log(vampire.attack(dragonborn));
+          console.log(dragonborn.checkStats());
+          break;
+        case 1:
+          console.log(vampire.powerAttack(dragonborn));
+          console.log(dragonborn.checkStats());
+          break;
+        case 2:
+          console.log(vampire.castSpell('vampire-drain', dragonborn));
+          console.log(dragonborn.checkStats());
+          break;
+      }
+    }
+  }
+}
