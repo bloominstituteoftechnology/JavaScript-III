@@ -93,7 +93,7 @@ Humanoid.prototype.greet = function(){
 Humanoid.prototype.equipWeapon = function(weapon){
   if(this.weapons[weapon] !== undefined){
     this.equippedWeapon = this.weapons[weapon];
-    return `${this.name} has equipped the ${this.equippedWeapon.name}`;
+    return `${this.name} has equipped the ${this.equippedWeapon.name}.`;
   }
 
   return `${this.name} is unarmed.`;
@@ -105,7 +105,7 @@ Humanoid.prototype.attack = function(target){
   if(this.equippedWeapon.name === 'Unarmed'){
     return `${this.name} engages in hand to hand combat with ${target.name}.`;
   } else {
-    return `${this.name} attacked ${target.name} with the ${this.equippedWeapon.name}`;
+    return `${this.name} attacked ${target.name} with the ${this.equippedWeapon.name}.`;
   }
 };
 
@@ -265,7 +265,7 @@ Hero.prototype.dragonShout = function(target){
     target.hp += shout.damage;
     this.mp += this.dragonShoutCost;
 
-    return `${this.name} shouts: ${shout.wordsOfPower} (${shout.name})\n${shout.effect}`;
+    return `${this.name} shouts: ${shout.wordsOfPower} (${shout.name})\n${shout.effect}.`;
   } else {
     return `${this.name} does not have enough Magic Points to perform a shout.`;
   }
