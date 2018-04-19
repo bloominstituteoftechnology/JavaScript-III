@@ -110,7 +110,7 @@ Humanoid.prototype.attack = function(target){
     return `${this.name} engages in hand to hand combat with ${target.name}.`;
   }
 
-  return `${this.name} attacked ${target.name} with the ${this.equippedWeapon.name}.`;
+  return `${this.name} attacks ${target.name} with the ${this.equippedWeapon.name}.`;
 };
 
 Humanoid.prototype.powerAttack = function(target){
@@ -312,9 +312,9 @@ const vampire = new Villian({
     width: 1,
     height: 2,
   },
-  hp: 100,
-  mp: 375,
-  sp: 450,
+  hp: 150,
+  mp: 200,
+  sp: 150,
   name: 'Harkon',
   faction: 'Volkihar',
   weapons: {
@@ -342,8 +342,8 @@ const dragonborn = new Hero({
     height: 2,
   },
   hp: 100,
-  mp: 225,
-  sp: 200,
+  mp: 125,
+  sp: 100,
   name: 'Dovahkinn',
   faction: 'Dawnguard',
   weapons: {
