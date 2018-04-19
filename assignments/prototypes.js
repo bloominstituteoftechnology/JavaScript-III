@@ -99,7 +99,7 @@ Humanoid.prototype.equipWeapon = function(weapon){
 Humanoid.prototype.attack = function(target){
   if(this.equippedWeapon === 'Unarmed'){
     target.hp += -5;
-    return `${this.name} engages in hand to hand combat.\n`
+    return `${this.name} engages in hand to hand combat with ${target.name}.`;
   } else {
     target.hp += this.weapons[this.equippedWeapon].damage;
     return `${this.name} attacked ${target.name} with the ${this.equippedWeapon}`;
@@ -246,7 +246,7 @@ Hero.prototype.dragonShout = function(target){
     target.hp += shout.damage;
     this.mp += -70;
 
-    return `(${shout.name}) ${shout.wordsOfPower} \n${shout.effect}`;
+    return `${this.name} shouts: ${shout.wordsOfPower} (${shout.name})\n${shout.effect}`;
   } else {
     return `${this.name} does not have enough Magic Points to perform a shout.`;
   }
@@ -303,11 +303,14 @@ const dragonborn = new Hero({
   }
 });
 
+//console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
+console.log(dragonborn.castSpell('restore', dragonborn));
+console.log(dragonborn.castSpell('restore', dragonborn));
+console.log(dragonborn.castSpell('restore', dragonborn));
+console.log(dragonborn.dragonShout(vampire));
+console.log(dragonborn.dragonShout(vampire));
+console.log(dragonborn.attack(vampire));
+
 console.log(dragonborn);
-console.log(dragonborn.equipWeapon('dawnguard-warhammer'));
-console.log(dragonborn.castSpell('restore', dragonborn));
-console.log(dragonborn.castSpell('restore', dragonborn));
-console.log(dragonborn.castSpell('restore', dragonborn));
-console.log(dragonborn.dragonShout(vampire));
-console.log(dragonborn.dragonShout(vampire));
+console.log(vampire);
 
