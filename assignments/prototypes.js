@@ -74,7 +74,7 @@ Humanoid.prototype.attack = function(hitWho){
   // hitWho.takeDamage();
   return `${this.name} attacked ${hitWho.name}. ${hitWho.takeDamage()}`;
 };
-
+console.log(CharacterStats.prototype)
 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -151,7 +151,8 @@ Humanoid.prototype.attack = function(hitWho){
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   console.log(swordsman.attack(mage))
-
+  console.log(swordsman.attack(mage))
+  console.log(mage.attack(archer))
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
