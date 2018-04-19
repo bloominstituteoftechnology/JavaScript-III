@@ -51,13 +51,14 @@ CharacterStats.prototype.takeDamage = function () {
 */
 const Humanoid = function (options) {
   CharacterStats.call(this, options);
+  factions = options.factions;
   weapons = options.weapons;
   language = options.language;
 };
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-Humanoid.prototype = Object.create(GameObject.prototype);
+// Humanoid.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype.greet = function () {
-  return this.name + " " + this.language;
+  return this.name + " would like to say " + this.language;
 }
 
 /*
