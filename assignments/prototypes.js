@@ -265,7 +265,7 @@ Hero.prototype.dragonShout = function(target){
     target.hp += shout.damage;
     this.mp += this.dragonShoutCost;
 
-    return `${this.name} shouts: ${shout.wordsOfPower} (${shout.name})\n${shout.effect}.`;
+    return `${this.name} shouts: ${shout.wordsOfPower} (${shout.name})\n${shout.effect}`;
   } else {
     return `${this.name} does not have enough Magic Points to perform a shout.`;
   }
