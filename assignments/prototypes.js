@@ -16,46 +16,30 @@ function GameObject (character){
 GameObject.prototype.destroy = function () {
   return this.name + ' was removed from the game.'
 }
-//   * createdAt
-//   * dimensions
-//   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
-// */
 
-/*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
 
 function CharacterStats (character) {
+  GameObject.call(this, character);
   this.hp = character.hp;
   this.name = character.name;
 }
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function () {
-  return 
+  return `${this.name} took damage.`
 }
 
-/*
-  === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
-*/
- 
-/*
-  * Inheritance chain: Humanoid -> CharacterStats -> GameObject
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
 
-//Test you work by uncommenting these 3 objects and the list of console logs below:
-
+function Humanoid (character) {
+  CharacterStats.call(this, character);
+  this.faction = character.faction;
+  this.weapons = character.weapons;
+  this.language = character.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}`
+}
 
   const mage = new Humanoid({
     createdAt: new Date(),
