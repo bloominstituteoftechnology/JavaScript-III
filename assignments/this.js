@@ -4,26 +4,40 @@
 
 When trying to figure out what the this keyword is, 
 you need to figure where the function was invoked. 
-
+----------------------------------------------------------------------------------------
 * 1. Window Binding --
+If you invoke a function that uses the this keyword but doesn't have the 
+features of the three following principles (implicit, explicit, new), the
+this keyword defaults to the window object.
+----------------------------------------------------------------------------------------
 
-
+----------------------------------------------------------------------------------------
 * 2. Implicit Binding --
-Left of the dot at the time of the function call
+Left of the dot at the time of the function call.
+----------------------------------------------------------------------------------------
 
-
+----------------------------------------------------------------------------------------
 * 3. New Binding --
-When a function is invoked with the new 
+When a function is invoked with the new keyword, the this is bound
+ to the new object that is being constructed with 'new'.
+----------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------
 * 4. Explicit Binding -- 
 Explicit binds are called explicitly (obvi) using call, apply and bind. 
-
+----------------------------------------------------------------------------------------
 
 * write out a code example of each explanation above
 */
 // Principle 1
 // code example for Window Binding
+let sayAge = function(){
+     return this.age;
+}
 
+let myAge = 24;
+
+console.log(sayAge());
 
 
 // Principle 2
@@ -58,6 +72,21 @@ console.log(you.sayName());
 
 // Principle 3
 // code example for New Binding
+
+let Dinosaur = function(name, age){
+
+    this.name = name;
+    this.age = age;
+
+}
+
+let tRex = new Dinosaur('tyrannosaurus', '65mill');
+let raptor = new Dinosaur('velociraptor', '66mill');
+let stego = new Dinosaur('stegosaurus', '70mill');
+
+console.log(tRex);
+console.log(raptor);
+console.log(stego);
 
 
 
