@@ -15,6 +15,7 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+
 /*
   === CharacterStats ===
   * hp
@@ -41,7 +42,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,17 +93,27 @@
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(mage.createdAt); 
+  // Today's date
+  console.log(archer.dimensions); 
+  // { length: 1, width: 2, height: 4 }
+  console.log(swordsman.hp); 
+  // 15
+  console.log(mage.name); 
+  // Bruce
+  console.log(swordsman.faction); 
+  // The Round Table
+  console.log(mage.weapons); 
+  // Staff of Shamalama
+  console.log(archer.language); 
+  // Elvish
+  console.log(archer.greet()); 
+  // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage()); 
+  // Bruce took damage.
+  console.log(swordsman.destroy()); 
+  // Sir Mustachio was removed from the game.
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
