@@ -63,7 +63,7 @@ let thePolice = new Band({
 
 // code example for Explicit Binding
 
-let Person = function (name, age) {
+let person = function (name, age) {
   return {
     name : name,
     age  : age,
@@ -79,7 +79,7 @@ let Person = function (name, age) {
   };
 };
 
-let steve = Person("Steve", "25");
+let steve = person("Steve", "25");
 steve.sayName();
 steve.mother.sayName();
 steve.sayName.call(steve.mother);
