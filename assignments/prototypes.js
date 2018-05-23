@@ -8,6 +8,12 @@
   Each class has unique properites and methods that are defined in their block comments below:
 */
 
+// Emmeline's Notes:
+//Step #1 -  Create Constructor Functions (base)
+//Step #2 - Create new Objects
+//Step #3 - Add prototype method
+//Step #4 -
+
 /*
   === GameObject ===
   * createdAt
@@ -15,11 +21,16 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
-function GameObject(attributes) {
-  this.createAt = attributes.createAt;
-  this.dimensions = attributes.dimensions;
+// Step #1 - Create Construtor Function (base)//
+function GameObject(gameAttributes) {
+  this.createAt = gameAttributes.createAt;
+  this.dimensions = gameAttributes.dimensions;
 };
 
+// Step #3 - Add Prototype method //
+GameObject.prototype.destroy = function () {
+  return `{this.name} was removed from the game.`;
+};
 
 
 /*
@@ -29,6 +40,21 @@ function GameObject(attributes) {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+// Step #1 - Create Construtor Function (base)//
+function CharacterStats (charAttributes) {
+  GameObject.call(this.charAttributes);
+  this.hp =charAttributes.hp;
+  this name = charAttributes.name;
+};
+
+// Step #3 - Add Prototype method //
+CharacterStats.prototype.takeDamage() {
+  return `${this.name} took damage.`;
+};
+
+CharacterStats.prototype = Object.create(GameObject);
+
 
 /*
   === Humanoid ===
@@ -40,6 +66,17 @@ function GameObject(attributes) {
   * should inherit takeDamage() from CharacterStats
 */
 
+// Step #1 - Create Construtor Function (base)//
+function Humanoid (humanAttributes) {
+  this.faction =humanAttributes.faction;
+  this weapons = humanAttributes.weapons;
+  this language = humanAttributes.language;
+};
+
+
+
+
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -48,7 +85,8 @@ function GameObject(attributes) {
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+//Step #2 - Create new Objects //
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -99,17 +137,17 @@ function GameObject(attributes) {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
 
   // Stretch task:
   // * Create Villian and Hero classes that inherit from the Humanoid class.
