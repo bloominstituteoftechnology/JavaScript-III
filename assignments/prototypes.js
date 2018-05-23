@@ -151,17 +151,17 @@ Humanoid.prototype.greet = function() {
 
   Hero.prototype = Object.create(Humanoid.prototype);
   
-  Hero.prototype.attacked = function() {
-    let wasItHit = Math.random();
-    if (this.hp === 0) {
-      return `${this.name} is dead`;
-    }
-    if (wasItHit >= .1) {
-      this.hp -= 1;
+  Hero.prototype.attack = function(object) {
+    let didItHit = Math.random();
+    if (didItHit >= .1) {
+      warlock.hp -= 2;
     } else {
-      this.hp += 1;
+      warlock.hp += 1;
+    };
+    if (warlock.hp <= 0) {
+      return `${warlock.name} is dead`;
     }
-    return `${this.name}s HP is now ${this.hp}`;
+    return `${warlock.name}s HP is now ${warlock.hp}`;
   }
 
  // Villain Function
@@ -173,17 +173,18 @@ Humanoid.prototype.greet = function() {
 
   Villian.prototype = Object.create(Humanoid.prototype);
   
-  Villian.prototype.backstabbed = function() {
-    let wasItBackstabbed = Math.random();
-    if (this.hp === 0) {
-      return `${this.name} is dead`;
-    }
-    if (wasItBackstabbed >= .2) {
-      this.hp -= 2;
+  Villian.prototype.backstab = function(object) {
+    let didItStab = Math.random();
+    
+    if (didItStab >= .2) {
+      wizard.hp -= 3;
     } else {
-      this.hp += 1;
+      wizard.hp += 1;
+    };
+    if (wizard.hp <= 0) {
+      return `${wizard.name} is dead`;
     }
-    return `${this.name}s HP is now ${this.hp}`;
+    return `${wizard.name}s HP is now ${wizard.hp}`;
   }
 
 
@@ -228,14 +229,13 @@ Humanoid.prototype.greet = function() {
   });
 
 
-  console.log(wizard.attacked());
-  console.log(warlock.backstabbed());
-  console.log(wizard.attacked());
-  console.log(warlock.backstabbed());
-  console.log(wizard.attacked());
-  console.log(warlock.backstabbed());
-  console.log(wizard.attacked());
-  console.log(warlock.backstabbed());
-  console.log(wizard.attacked());
-  console.log(warlock.backstabbed());
-  console.log(warlock.backstabbed());
+  console.log(wizard.attack());
+  console.log(warlock.backstab());
+  console.log(wizard.attack());
+  console.log(warlock.backstab());
+  console.log(wizard.attack());
+  console.log(warlock.backstab());
+  console.log(wizard.attack());
+  console.log(warlock.backstab());
+  console.log(wizard.attack());
+  console.log(warlock.backstab());
