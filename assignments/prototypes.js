@@ -150,15 +150,26 @@ function Villain(villainAttributes) {
 
 Villain.prototype = Object.create(Humanoid.prototype);
 
+// Villain.prototype.attack = function () {
+//   let damage = Math.random();
+//   if (damage < 0.5) {
+//     return this.health--
+
+//   } else if (this.health === 0) {
+//     return "You're Dead!"
+//   } else {
+//     return "You attack was blocked"
+//   }
+// }
+
 Villain.prototype.attack = function () {
   let damage = Math.random();
-  if (damage < 0.5) {
-    return this.health--
+  while (this.health > 0) {
+    return this.health += - Math.round(damage) - 1;
+    if (this.health === 0) {
+      return "You're Dead";
 
-  } else if (this.health === 0) {
-    return "You're Dead!"
-  } else {
-    return "You attack was blocked"
+    }
   }
 }
 
@@ -168,6 +179,14 @@ const villain = new Villain({
 
 console.log(villain.attack());
 console.log(villain.attack());
+console.log(villain.attack());
+console.log(villain.attack());
+console.log(villain.attack());
+console.log(villain.attack());
+console.log(villain.attack());
+console.log(villain.attack());
+
+
 
 
 
