@@ -150,7 +150,8 @@ Humanoid.prototype.greet = function() {
   Villian.prototype = Object.create(Humanoid.prototype);
   Villian.prototype.attack = function(who) {
     if (who.hp > 1) {
-     return who.hp -= 1;
+    who.hp -= 1;
+     return who.takeDamage() + " " + `HP is now ${who.hp}`;
   } else {
     return who.destroy();
   }
@@ -233,7 +234,7 @@ console.log(savior.greet());
 console.log(savior.revive(mage));
 console.log(savior.revive(archer));
 console.log(savior.revive(swordsman));
-console.log(`${savior.name} says to ${mage.name}, ${archer.name} and ${swordsman.name}: "Now rest, for death can no longer hold you! I shall go to defeat the dark one!`);
+console.log(`${savior.name} says to ${mage.name}, ${archer.name} and ${swordsman.name}: "Now rest, for death can no longer hold you! I shall go to defeat ${darkLord.name}!`);
 console.log(savior.attack(darkLord));
 console.log(savior.attack(darkLord));
 console.log(savior.attack(darkLord));
