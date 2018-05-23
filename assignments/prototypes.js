@@ -63,6 +63,30 @@ CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage.`
 }
 
+// Humanoid
+function Humanoid (humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes)
+  this.faction = humanoidAttributes.faction
+  this.weapons = humanoidAttributes.weapons
+  this.language = humanoidAttributes.language
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype)
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`
+}
+
+Humanoid.prototype.spell = function () {
+  return this.hp - 30
+}
+
+Humanoid.prototype.dead = function () {
+  if (this.hp > 0) {
+    return `${this.name} is now dead`
+  }
+}
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 const mage = new Humanoid({
