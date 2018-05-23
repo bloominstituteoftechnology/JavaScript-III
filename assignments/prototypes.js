@@ -29,7 +29,7 @@ function GameObject(gameAttributes) {
 
 // Step #3 - Add Prototype method //
 GameObject.prototype.destroy = function () {
-  return `{this.name} was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 };
 
 
@@ -41,19 +41,20 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 
-// Step #1 - Create Construtor Function (base)//
+// Step #1 - Create Construtor Function (child)//
 function CharacterStats (charAttributes) {
   GameObject.call(this.charAttributes);
-  this.hp =charAttributes.hp;
-  this name = charAttributes.name;
+  this.hp = charAttributes.hp;
+  this.name = charAttributes.name;
 };
 
 // Step #3 - Add Prototype method //
-CharacterStats.prototype.takeDamage() {
+CharacterStats.prototype = function() {
   return `${this.name} took damage.`;
 };
 
-CharacterStats.prototype = Object.create(GameObject);
+//Step #4 -  Linking child prototype building block to parent building block
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 
 /*
@@ -66,11 +67,26 @@ CharacterStats.prototype = Object.create(GameObject);
   * should inherit takeDamage() from CharacterStats
 */
 
-// Step #1 - Create Construtor Function (base)//
+function Humanoid(humanoidObj) {
+  CharacterStats.call(this, humanoidObj);
+
+  this.faction = humanoidObj.faction;
+  this.weapons = humanoidObj.weapons;
+  this.language = humanoidObj.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
+
+
+// Step #1 - Create Construtor Function (grandchild)//
 function Humanoid (humanAttributes) {
   this.faction =humanAttributes.faction;
-  this weapons = humanAttributes.weapons;
-  this language = humanAttributes.language;
+  this.weapons = humanAttributes.weapons;
+  this.language = humanAttributes.language;
 };
 
 
@@ -85,7 +101,7 @@ function Humanoid (humanAttributes) {
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-//Step #2 - Create new Objects //
+//Step #2 - Create new Objects (new Binding) //
 
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -137,16 +153,16 @@ function Humanoid (humanAttributes) {
     language: 'Elvish',
   });
 
-  // console.log(mage.createdAt); // Today's date
-  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  // console.log(swordsman.hp); // 15
-  // console.log(mage.name); // Bruce
-  // console.log(swordsman.faction); // The Round Table
-  // console.log(mage.weapons); // Staff of Shamalama
-  // console.log(archer.language); // Elvish
-  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // console.log(mage.takeDamage()); // Bruce took damage.
-  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(mage.createdAt); // Today's date
+  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  console.log(swordsman.hp); // 15
+  console.log(mage.name); // Bruce
+  console.log(swordsman.faction); // The Round Table
+  console.log(mage.weapons); // Staff of Shamalama
+  console.log(archer.language); // Elvish
+  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task:
