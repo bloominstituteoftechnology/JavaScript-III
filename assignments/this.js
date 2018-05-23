@@ -6,7 +6,8 @@
  * 2. Implicit Binding is when you use this inside an object. So if I created a new object and set a name property, I could reference that name using this.name for other properties.
  * 
  * 3. The new binding is useful when you need to create instantiations from a constructor so that `this` points to its new instance everytime.
- * 4. 
+ * 
+ * 4. Explicit binding is when you are pointing to a new reference for `this` with either call, apply, or bind.
  *
  * write out a code example of each explanation above
  */
@@ -48,3 +49,22 @@ console.log("How many rooms does my house have?" + " I have " + myHouse.rooms + 
 // Principle 4
 
 // code example for Explicit Binding
+
+const superRobot = {
+    name: "Clark",
+    id: "4930",
+    dateOfMfg: "February 8, 2017",
+    state: "friendly",
+};
+
+const terminatorRobot = {
+    name: "Tom",
+    id: "4092",
+    dateOfMfg: "June 1, 2016",
+    state: "hostile",
+    speak: function () {
+        return `Beep Bop... My name is ${this.name} and I'm ${this.state}`
+    }
+};
+
+console.log(terminatorRobot.speak.call(superRobot)); //Super robot is borrowing the speak method from terminatorRobot and now the this keyword points to superRobot's information.
