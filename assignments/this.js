@@ -32,7 +32,7 @@ methodLover.selfIndulge();
 // Principle 3
 function selfIndulge() {
     let propertyArr = Object.getOwnPropertyNames(this);
-    console.log(`I have ${propertyArr.length} methods. Jealous?`)
+    console.log(`${Object.name} says it has ${propertyArr.length} methods. It smirks self-indulgently.`)
 }
 selfIndulge.call(Object);
 
@@ -43,7 +43,7 @@ function Human (actuallyRobot) {
         if (this.reallyHuman) {
             console.log ("SUP BRO");
         } else {
-            console.log ("Hello. It is a nice day. How are you? Well I hope? How is are your son, Edward, your daughter, Sarah, and your wife, Beth? Well I hope? Sarah recently turned 4, is that correct?")
+            console.log ("Hello. It is a nice day. How are you? Well, I hope? How is are your son, Edward, your daughter, Sarah, and your wife, Beth? Well, I hope? Sarah recently turned 4, is that correct? Children grow up so fast, do they not?")
         }
     }
 }
