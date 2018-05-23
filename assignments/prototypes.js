@@ -41,32 +41,43 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-function GameObject(createdAt, dimensions){
-  this.createdAt = createdAt;
-  this.dimensions = dimensions;
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
 }
 
-GameObject.prototype.destroy = () =>{
-  return 'Object was removed from the game';
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game`;
 }
 
-function CharacterStats(hp, name){
-  this.hp = hp;
-  this.name = name;
+function CharacterStats(attributes){
+  GameObject.call(this, attributes)
+  this.hp = attributes.hp;
+  this.name = attributes.name;
 }
+// Child is another constructor (child constructor)
+// function Child(childAttributes) {
+//   Parent.call(this, childAttributes);
+//   this.toy = childAttributes.toy;
+// }
 
-CharacterStats.prototype.takeDamage = () =>{
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(){
   return `${this.name} took damage`;
 }
 
-function Humanoid(faction, weapons, language){
-  this.faction = faction;
-  this.weapons = weapons;
-  this.language = language;
 
+function Humanoid(attributes){
+  CharacterStats.call(this, attributes);
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
 }
 
-Humanoid.prototype.greet(){
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
   return `${this.name} offers greeting in ${this.language}`;
 }
 
