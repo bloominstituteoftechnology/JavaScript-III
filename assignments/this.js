@@ -2,15 +2,19 @@
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. What I understand of "this" is it holds the value of a single object,
-and is used inside a function or method to call that object. The value held in "this"
-is the value of the object invoking the function, and quite frankly I don't understand
-a global 'this', as the this keyword operates in code the same as in english.
-Without an object you're refering to, a pronoun looses meaning. "This" used without
+and is used inside a function or method to call that object.
+
+The value held in "this" is the value of the object invoking the function,
+ and quite frankly I don't understand a global 'this', as the this keyword operates in code the same as in english.
+
+ Without an object you're refering to, a pronoun looses meaning. "This" used without
 a referance ends up with the window, which seems pretty useless to me right now.
-The usefulness of this seems to mainly be in the object constructors, which I
+
+The usefulness of "this" seems to mainly be in the object constructors, which I
 actially used in the pre-course work. We were told to "create an object", so I
 got on w3 schools, and figured out how to use 'this' to make an object constructor.
-It was way over my head, and difficult, and on top of that, the pre-course assignment 
+
+It was way over my head, it was verry difficult difficult, and on top of that, the pre-course assignment 
 wouldn't accept that answer XD
 
 *
