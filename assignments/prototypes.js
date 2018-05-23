@@ -62,7 +62,7 @@ GameState.prototype.checkContinue = function () {
     console.log('Good has triumphed over evil! This time...');
   }
   if (this.heroes < 1) {
-    console.log('The prophecy has been fulfilled. You and your people are doomed. You see a black mist descend on the village. As you take your last breathe,  you realize that death will be a mercy now and forever.');
+    console.log('The prophecy has been fulfilled. You and your people are doomed. You see a black mist descend on the village. As you take your last breathe,  you realize that death now can only be a mercy.');
   }
 };
 
