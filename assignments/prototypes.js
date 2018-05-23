@@ -149,18 +149,17 @@ Villain.prototype = Object.create(Humanoid.prototype);
 
 //Create skill method for villain
 Villain.prototype.deadbeam = function (obj) {
-
+  let damage = Math.ceil(Math.random()*3);
   //Remove hp from object when this function is called
-  obj.hp -= 2;
+  obj.hp -= damage;
 
   //Check object's hp, if it's <= 0 then call destroy() function
-  obj.takeDamage();
   if (obj.hp <= 0) {
     return `${obj.name} has no hp left. ${obj.destroy()}`;
   }
 
   //if not then return message showing how much damage was done.
-  return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.name} has taken 2 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
+  return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.takeDamage()}(${damage} dmg). ${obj.name}'s remaining hp is ${obj.hp}.`
 }
 
 //Create hero class
@@ -173,18 +172,17 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 //Create skill method for hero
 Hero.prototype.kamehameha = function (obj) {
-
+  let damage = Math.ceil(Math.random()*3);
   //Remove hp from object when this function is called
-  obj.hp -= 3;
+  obj.hp -= damage;
 
   //Check object's hp, if it's <= 0 then call destroy() function
-  obj.takeDamage();
   if (obj.hp <= 0) {
     return `${obj.name} has no hp left. ${obj.destroy()}`;
   }
 
   //if not then return message showing how much damage was done.
-  return `${this.name} has performed Kamehameha on ${obj.name}. ${obj.name} has taken 3 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
+  return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.takeDamage()}(${damage} dmg). ${obj.name}'s remaining hp is ${obj.hp}.`
   }
 
 
@@ -229,7 +227,8 @@ console.log(hero.kamehameha(villain));
 console.log(villain.deadbeam(hero));
 console.log(hero.kamehameha(villain));
 console.log(villain.deadbeam(hero));
-console.log(villain.deadbeam(hero));
 console.log(hero.kamehameha(villain));
+console.log(villain.deadbeam(hero));
+
 
 
