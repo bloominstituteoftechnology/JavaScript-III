@@ -20,11 +20,11 @@ wouldn't accept that answer XD
 // Principle 1
 
 //console.log(this===window);
-// in a browser, would return true, in node, just gives me errors since window isn't defined.
+//in a browser, would return true, in node, just gives me errors, since window isn't defined.
 
 // code example for Window Binding
 
-// Principles 2-4, and more probably. This is what I can do with my current skills.
+// Principles 2-4, and more probably. This is what I can do from scratch with my current skills.
 
 
 creature.prototype.attack=function(target){
@@ -40,16 +40,23 @@ creature.prototype.hp_read=function(){
 	cap_name=cap_name[0].toUpperCase()+(cap_name.slice(1));
 	console.log(cap_name+" has "+this.hp+" hp left.");
 }
-var tiger = new creature('tiger',50,10,20);
-var axolotl = new creature('axolotl',50,5,15);
+
+//new creatures, with (name, hp, defence, attack)
+
+var tiger = new creature('tiger',50,10,30);
+var axolotl = new creature('axolotl',50,5,25);
+
+//main function, loops a battle of any two creatures.
+
 battler(tiger,axolotl);
 
 function battler(creature1, creature2){
 	var i=0;
 	console.log(creature1);
+	console.log('V.S');
 	console.log(creature2);
 		while (creature1.hp>0 && creature2.hp>0){
-			console.log("Round "+i);
+			console.log("Round "+(i+1));
 		if(i%3===1){
 			creature1.heal();
 			creature1.hp_read();
