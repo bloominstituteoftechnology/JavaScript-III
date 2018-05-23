@@ -24,27 +24,14 @@
 
 // Step #2 - Create Construtor Function (base)//
 function GameObject(gameAttributes) {
-  this.createAt = gameAttributes.createAt;
+  this.createdAt = gameAttributes.createdAt;
   this.dimensions = gameAttributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this} was removed from the game.`;
 };
 
-// Step #3 - Add Prototype method //
-GameObject.prototype.destroy = function () {
-  return `${this.name} was removed from the game.`;
-};
-
-//Step #1 - Create Object
-let gameAttributes = {
-  createdAt: new Date(),
-  dimensions: {
-    height: 4,
-    width: 2,
-    length: 6
-  }
-};
-
-let myGame = new GameObject(gameAttributes);
-console.log(myGame);
 
 /*
   === CharacterStats ===
@@ -56,37 +43,20 @@ console.log(myGame);
 
 // Step #2 - Create Construtor Function (child)//
 function CharacterStats (charAttributes) {
-  GameObject.call(this.charAttributes);  // Step #4 -bind parent to child
+  GameObject.call(this, charAttributes);  // Step #4 -bind parent to child
   this.hp = charAttributes.hp;
   this.name = charAttributes.name;
-};
+}
+
+//Step #4 -  Linking child prototype building block to parent building block
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 // Step #3 - Add Prototype method //
 CharacterStats.prototype = function() {
   return `${this.name} took damage.`;
 };
 
-//Step #4 -  Linking child prototype building block to parent building block
-CharacterStats.prototype = Object.create(GameObject.prototype);
 
-//Step #1 - Create Objects
-const charAttributes = {
-  hp: 15,
-  name: "Xang",
-  dimension: {
-    height: 2,
-    width: 3,
-    lengths: 5
-  },
-  age: 30
-};
-
-const myChar = new CharacterStats(charAttributes);
-console.log("start here");
-console.log(myChar.takeDamage());
-console.log(myChar.destroy());
-console.log(myChar.dimensions);
-console.log(myChar.createdAt);
 
 /*
   === Humanoid ===
@@ -99,11 +69,11 @@ console.log(myChar.createdAt);
 */
 
 // Step #2 - Create Construtor Function (grandchild)//
-function Humanoid(humanoidAttribute) {
-  CharacterStats.call(this, humanoidAttribute); // Step #4 - Bind grandchild to Child
-  this.faction = humanoidAttribute.faction;
-  this.weapons = humanoidAttribute.weapons;
-  this.language = humanoidAttribute.language;
+function Humanoid(humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes); // Step #4 - Bind grandchild to Child
+  this.faction = humanoidAttributes.faction;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
 }
 
 //Step #4 - Bind grandchild to Child
@@ -112,14 +82,6 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 //Step #4 -  Linking child prototype building block to parent building block
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
-};
-
-
-// Step #1 - Create Construtor Function (grandchild)//
-function Humanoid (humanAttributes) {
-  this.faction =humanAttributes.faction;
-  this.weapons = humanAttributes.weapons;
-  this.language = humanAttributes.language;
 };
 
 
