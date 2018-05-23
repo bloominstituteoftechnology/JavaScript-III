@@ -11,16 +11,60 @@
 
 // Principle 1
 
-
+function sayName(name) {
+    console.log(this.name);
+    return name;
+  }
+  sayName("Moonchild");
 
 // Principle 2
 
-// code example for Implicit Binding
+const myObj = {
+    "greeting": "Hello there",
+    "sayHello": function(name) {
+      return `${this.greeting} my name is: ${name}`;
+    }
+  }
+
+  myObj.sayHello("Bill");
 
 // Principle 3
 
-// code example for New Binding
+function CordialPerson(greeter) {
+    this.greeting = "Hello";
+    this.greeter = greeter;
+    this.speak = function() {
+       return (this.greeting + " " +this.greeter)
+    }
+  }
+  
+  const jerry = new CordialPerson('Newman');
+  const newman = new CordialPerson('Jerry');
+  
+  
+  jerry.speak(); 
+  newman.speak();
 
 // Principle 4
 
-// code example for Explicit Binding
+let me = {
+    name: 'Bill',
+    age: 30
+  };
+  
+  let sayName = function(skill1, skill2, skill3) {
+    console.log('My name is: ' + this.name + ' I like to program with this stuff: ' + skill1 + ', ' + skill2 + ', ' + skill3 );
+  }
+  
+  let skills = ['HTML','CSS','JS'];
+
+  // CALL
+sayName.call(me, skills[0], skills[1], skills[2])
+
+
+// APPLY 
+sayName.apply(me, skills);
+
+// BIND
+let newFunction = sayName.bind(me, ...skills);
+newFunction();
