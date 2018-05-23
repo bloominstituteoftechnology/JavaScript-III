@@ -15,6 +15,22 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+function GameObject(gameObjectAttributes) {
+  this.createdAt = gameObjectAttributes.createdAt;
+  this.dimensions = gameObjectAttributes.dimensions;
+  }
+
+  GameObject.prototype.destroy = function() {
+    return 'Object was removed from the game.';
+  }
+
+const gameObject1 = new GameObject({
+  "createdAt": 'home1',
+  "dimensions": 'dimension1',
+})
+console.log(gameObject1);
+console.log(gameObject1.destroy());
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +38,29 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(characterStatsAttributes) {
+  this.hp = characterStatsAttributes.hp;
+  this.name = characterStatsAttributes.name;
+  GameObject.call(this, characterStatsAttributes);
+  }
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
+
+const characterStats1 = new CharacterStats({
+  "hp": 100,
+  "name": 'Roger',
+  "createdAt": 'building 9',
+  "dimensions": 'medium',
+})
+
+console.log(characterStats1);
+console.log(characterStats1.takeDamage());
+console.log(characterStats1.destroy());
 
 /*
   === Humanoid ===
@@ -33,15 +72,45 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(humanoidAttributes) {
+  this.faction = humanoidAttributes.faction;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
+  CharacterStats.call(this, humanoidAttributes);
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+const humanoid1 = new Humanoid({
+  "faction" : "angryBots",
+  "weapons" : ["flamethrower", "sniper rifle"],
+  "language" : "botspeak",
+  "hp": 250,
+  "name": 'alphaHumanoid',
+  "createdAt": 'building 11',
+  "dimensions": 'x-large',
+})
+
+console.log(humanoid1);
+console.log(humanoid1.destroy());
+console.log(humanoid1.takeDamage());
+console.log(humanoid1.greet());
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+
+
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +171,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
