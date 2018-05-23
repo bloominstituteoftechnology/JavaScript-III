@@ -1,11 +1,11 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment
-  you will be implementing several classes with their correct inheritance heirarchy.
+  you will be implementing several classes with their correct inheritance hierarchy.
 
   In this file you will be creating three classes: GameObject, CharacterStats, Humanoid.  
   At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your classes.
   
-  Each class has unique properites and methods that are defined in their block comments below:
+  Each class has unique properties and methods that are defined in their block comments below:
 */
   
 /*
@@ -154,9 +154,9 @@ mage.createdAt = today;
 
 
 // Stretch task: 
-// * Create Villian and Hero classes that inherit from the Humanoid class.  
-// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-// * Create two new objects, one a villian and one a hero and fight it out with methods!
+// * Create Villain and Hero classes that inherit from the Humanoid class.  
+// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villain and one a hero and fight it out with methods!
 
 function Villain(myObj) {
   Humanoid.call(this, myObj);
@@ -215,7 +215,7 @@ const hercules = new Hero({
   language: 'Greek',
 })
 
-console.log("\n\n\n********Strech Test********");
+console.log("\n\n\n********Stretch Test********");
 console.log(hades.removeHealth());
 console.log(hades.removeHealth());
 console.log(hercules.removeHealth());
