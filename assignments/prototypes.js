@@ -64,6 +64,29 @@ CharacterStats.prototype.takeDamage = function() {
  Humanoid.prototype.greet = function() {
    return `${this.name} offers a greeting in ${this.language}`;
  }
+
+ function Villain(villainAttributes) {
+   Humanoid.call(this, villainAttributes);
+ }
+
+ Villain.prototype = Object.create(Humanoid.prototype);
+
+ Villain.prototype.laugh = function() {
+   return `${this.name} laughs maniacally.`;
+ }
+
+
+ function Hero(heroAttributes) {
+   Humanoid.call(this, heroAttributes);
+   this.catchPhrase = heroAttributes.catchPhrase;
+ }
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.soundsCool = function() {
+  return `${this.name} says ${this.catchPhrase}`;
+}
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -123,6 +146,40 @@ CharacterStats.prototype.takeDamage = function() {
     language: 'Elvish',
   });
 
+  const fighter = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 3,
+    },
+    hp: 50,
+    name: 'Deku',
+    faction: 'Trash Can',
+    weapons: [
+      'Buster Sword',
+      'Gunblade',
+    ],
+    language: 'English',
+    catchPhrase: '"In the name of the moon, I\'ll punish you!"'
+  })
+
+  const wizard = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 4,
+      height: 3,
+    },
+    hp: 100,
+    name: 'Ganondorf',
+    faction: 'Hyrule',
+    weapons: [
+      'Fists',
+      'Legs',
+    ],
+    language: 'English',
+  })
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -133,6 +190,8 @@ CharacterStats.prototype.takeDamage = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(wizard.laugh());
+  console.log(fighter.soundsCool());
 
 
   // Stretch task:
