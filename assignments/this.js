@@ -39,6 +39,17 @@ object1.sayName();
 
 // Principle 3
 
+function CordialPerson(greeter) {
+    this.greeting = "Hello";
+    this.greeter = greeter;
+    this.speak = function() {
+       return (this.greeting + " " +this.greeter)
+    }
+  }
+
+let jake = new CordialPerson("Joe")
+console.log(jake.speak());
+
 
 
 // code example for New Binding
@@ -46,3 +57,4 @@ object1.sayName();
 // Principle 4
 
 // code example for Explicit Binding
+
