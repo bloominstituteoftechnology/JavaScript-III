@@ -140,7 +140,6 @@ this.deadbeam = function (obj) {
   obj.hp -= 2;
   obj.takeDamage();
   if (obj.hp <= 0) {
-    delete obj;
     return `${obj.name} has no hp left. ${obj.name} has been eliminated`;
   }
   return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.name} has taken 2 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
@@ -153,7 +152,6 @@ this.kamehameha = function (obj) {
   obj.hp -= 3;
   obj.takeDamage();
   if (obj.hp <= 0) {
-    delete obj;
     return `${obj.name} has no hp left. ${obj.name} has been eliminated!`;
   }
   return `${this.name} has performed Kamehameha on ${obj.name}. ${obj.name} has taken 3 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
