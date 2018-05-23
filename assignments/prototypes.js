@@ -14,6 +14,15 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+//base constructor
+function GameObject(stuff){
+  this.createdAt = stuff.createdAt;
+  this.dimensions = stuff.dimensions;
+  
+}
+GameObject.prototype.destroy = function(){
+   return `${this.name} was removed from the game.`;
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +31,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+//child constructor
+function CharacterStats(stats){
+  GameObject.call(this,stats);
+  this.hp = stats.hp;
+  this.name = stats.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;  
+}
+
 
 /*
   === Humanoid ===
@@ -32,7 +52,35 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(bio){
+  CharacterStats.call(this,bio);
+  this.faction = bio.faction;
+  this.weapons = bio.weapons;
+  this.language = bio.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+  // Stretch task: 
+  // * Create Villian and Hero classes that inherit from the Humanoid class.  
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+// function Villian(bad){
+//   Humanoid.call(this,bad);
+// }
+// Villian.prototype = Object.create(Humanoid.prototype);
+// Villian.prototype.backstab = function(){
+
+// }
+// function Hero(good){
+//   Humanoid.call(this,good);
+// }
+// Hero.prototype = Object.create(Humanoid.prototype);
+// Hero.prototype.preach = function() {
+
+// }
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +89,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +150,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
