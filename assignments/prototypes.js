@@ -13,7 +13,7 @@ function GameObject(attributes) {
     this.createdAt = attributes.createdAt;
     this.dimensions = attributes.dimensions;
     this.destroy = () => {
-        return 'Object was removed from the game';
+        return this.name + ' was removed from the game';
     };
 }
 /*
@@ -135,7 +135,150 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
-  // Stretch task: 
+  // Stretch task:
+  
+ function Villain(stuff) {
+    Humanoid.call(this, stuff);
+    this.punch = () => {
+        this.hp -= 3;
+        if (this.hp < 0) {
+            return this.name + ' has lost 3 hit points. ' + this.name + ' was removed from the game';
+            //code
+        }
+        else {
+        return this.name + ' has lost 3 hit points.';
+    }
+    };
+      this.stab = () => {
+        this.hp -= 7;
+        if (this.hp < 0) {
+            return this.name + ' has lost 7 hit points. ' + this.name + ' was removed from the game';
+            //code
+        }
+        else {
+        return this.name + ' has lost 7 hit points';
+    }
+    };
+    this.strike = () => {
+        this.hp -= 5;
+        if (this.hp < 0) {
+            return this.name + ' has lost 5 hit points. ' + this.name + ' was removed from the game';
+            //code
+        }
+        else {
+        return this.name + ' has lost 5 hit points';
+    }
+    };
+    this.defend = () => {
+        this.hp -= 1;
+        if (this.hp < 0) {
+            return this.name + ' has lost 1 hit points. ' + this.name + ' was removed from the game';
+            //code
+        }
+        else {
+            return this.name + ' has lost 1 hit point.';
+    }
+    };
+  }
+  
+  Villain.prototype = Object.create(Humanoid.prototype);
+  
+    function Hero(junk) {
+    Humanoid.call(this, junk);
+    this.zap = () => {
+        this.hp -= 2;
+        if (this.hp < 0) {
+            return this.name + ' has lost 2 hit points. ' + this.name + ' was removed from the game';
+            //code
+        }
+        else {
+        return this.name + ' has lost 2 hit points.';
+    }
+    };
+    this.stun = () => {
+        this.hp -= 5;
+        if (this.hp < 0) {
+            return this.name + ' has lost 5 hit points. ' + this.name + ' was removed from the game';
+            //code
+        }
+        else {
+            return this.name + ' has lost 5 hit points';
+    }
+    };
+
+        this.magicBlast = () => {
+        this.hp -= 8;
+        if (this.hp < 0) {
+            return this.name + ' has lost 8 hit points. ' + this.name + ' was removed from the game';
+            //code
+        }
+        else {
+            return this.name + ' has lost 8 hit points';
+    }
+    };
+    this.dodge = () => {
+        this.hp -= 1;
+        if (this.hp < 0) {
+            return this.name + ' has lost 1 hit points. ' + this.name + ' was removed from the game';
+            //code
+        }
+        else {
+            return this.name + ' has lost 1 hit point.';
+    }
+    //code
+  
+    //code
+  };
+    }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  
+  const sorceror = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 12,
+    name: 'Tim',
+    faction: 'None',
+    weapons: [
+      'Holy Hand Grenade of Antioch',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const knight = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Sir Not Appearing in this Film',
+    faction: "The Knights Who Say 'Ni'",
+    weapons: [
+      'Claymore',
+      'Shield',
+    ],
+    language: 'Ni',
+  });
+  
+console.log(mage.createdAt); // Today's date
+  console.log(sorceror.strike()); // { length: 1, width: 2, height: 4 }
+  console.log(sorceror.hp); // 15
+  console.log(sorceror.name); // Bruce
+  console.log(knight.faction); // The Round Table
+  console.log(sorceror.weapons); // Staff of Shamalama
+  console.log(knight.language); // Elvish
+  console.log(knight.zap()); // Lilith offers a greeting in Elvish.
+  console.log(knight.dodge()); // Bruce took damage.
+  console.log(sorceror.punch()); // Sir Mustachio was removed from the game.
+console.log(sorceror.defend());
+console.log(knight.stun());
+console.log(sorceror.strike());
+    
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
