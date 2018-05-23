@@ -11,15 +11,42 @@
 
 // Principle 1
 
+function sayName(name) {
+  console.log(this);
+  return name;
+}
+sayName("Jennifer");
 
 // Principle 2
 
-// code example for Implicit Binding
+let personObj = {
+  'age': 23,
+  'name': 'Jennifer',
+  'sayName': function(name) {
+    console.log('My name is ' + this.name)
+  }
+}
+
+personObj.sayName();
 
 // Principle 3
 
-// code example for New Binding
+function VideoGame(fun) {
+  this.fun = fun;
+}
+
+let legendOfZelda = new VideoGame('super fun');
+console.log(legendOfZelda.fun);
 
 // Principle 4
 
-// code example for Explicit Binding
+let sayFavoriteColor = function() {
+  console.log('My favorite color is ' + this.color);
+};
+
+let stacey = {
+  name: "stacey",
+  color: "blue"
+};
+
+sayFavoriteColor.call(stacey);
