@@ -86,6 +86,13 @@ Humanoid.prototype.dead = function () {
     return `${this.name} is now dead`
   }
 }
+Humanoid.prototype.attack = function (victim) {
+  const attackStr = 20
+  victim.hp = victim.hp - attackStr
+  return victim.hp <= 0
+    ? `Attack kills ${victim.name}.`
+    : `${victim.name} suffers a vicious attack (-${attackStr}hp). ${victim.hp} remaining`
+}
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
@@ -146,3 +153,34 @@ console.log(swordsman.destroy()) // Sir Mustachio was removed from the game.
 // * Create Villian and Hero classes that inherit from the Humanoid class.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+const hero = new Humanoid({
+  createdAt: 'Unknown',
+  dimensions: {
+    length: 4,
+    width: 4,
+    height: 5
+  },
+  hp: 20,
+  name: 'The Creator',
+  faction: 'Universe',
+  weapons: [ 'Magic', 'Spells', 'Mystery', 'Unknown' ],
+  language: 'Unknown'
+})
+
+const villian = new Humanoid({
+  createdAt: 'Unknown',
+  dimensions: {
+    length: 3,
+    width: 4,
+    height: 5
+  },
+  hp: 20,
+  name: 'Evil',
+  faction: 'UnderWorld',
+  weapons: [ 'Black Magic', 'Evil Spells', 'Army of demons' ],
+  language: 'Unknown'
+})
+
+console.log(hero.spell())
+console.log(hero.attack(villian))
