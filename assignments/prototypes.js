@@ -18,11 +18,11 @@
 function GameObject(game) {
   this.createdAt = game.createdAt;
   this.dimensions = game.dimensions;
-}
+};
 
-GameObject.prototype.destory = function() {
-  return `Object was removed from the game.`;
-}
+GameObject.prototype.destroy = function {
+  return (this.name + ` was removed from the game.`);
+};
 
 /*
   === CharacterStats ===
@@ -37,9 +37,10 @@ function CharacterStats(stats) {
   this.hp = stats.hp;
   this.name = stats.name;
   this.takeDamage = function() {
-    return (this.name + "took damage.");
+    return (this.name + ' took damage.');
   }
-}
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 
 /*
@@ -57,18 +58,12 @@ function Humanoid(player) {
   this.faction = player.faction;
   this.weapons = player.weapons;
   this.language = player.language;
-  this. 
-}
+  this.greet = function() {
+    return (this.name + ' offers a greeting in ' + this.language);
+  }
+};
 
-function Humanoid(stats) {
-  this.dimensions = stats.dimensions;
-  this.hp = stats.hp;
-  this.name = stats.name;
-  this.faction = stats.faction;
-  this.weapon = stats.weapon;
-  this.language = stats.language;
-}
-
+Humanoid.prototype = Object.create(CharacterStats.prototype);
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -78,8 +73,7 @@ function Humanoid(stats) {
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-
-/* const mage = new Humanoid({
+  const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -128,7 +122,7 @@ function Humanoid(stats) {
     ],
     language: 'Elvish',
   });
-/*
+  
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
