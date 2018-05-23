@@ -14,23 +14,75 @@
 * 4. Window binding is when the this keyword is within the global namespace,
       which usually has some definition for this, potentially undefined. In this
       case, the this keyword could refer to the browser window object, or a
-      console window. 
+      console window.
 *
 * write out a code example of each explanation above
 */
 
 // Principle 1
 
-// code example for Window Binding
+this.name = "Alex";
+console.log(this.name);
 
 // Principle 2
 
 // code example for Implicit Binding
+function outer(nameIn, ageIn) {
+  let person = {
+    name : nameIn,
+    age : ageIn,
+    sayName : function () {
+      console.log(`My name is ${this.name}`);
+    },
+    sayAge : function () {
+      console.log(`I am ${this.name} years old`);
+    }
+  }
+
+  return person;
+}
 
 // Principle 3
 
 // code example for New Binding
 
+function Band(members) {
+  this.guitarPlayer = members.guitarPlayer;
+  this.bassPlayer = members.bassPlayer;
+  this.drummer = members.drummer;
+}
+
+let thePolice = new Band({
+  guitarPlayer : 'Andy Summers',
+  bassPlayer : 'Sting',
+  drummer : 'Stewart Copeland'
+})
+
+
 // Principle 4
 
 // code example for Explicit Binding
+
+let Person = function (name, age) {
+  return {
+    name : name,
+    age  : age,
+    sayName : function () {
+      console.log(this.name);
+    },
+    mother : {
+      name : "Wendy",
+      sayName : function () {
+        console.log(`My name truly is ${this.name}`);
+      }
+    }
+  };
+};
+
+let steve = Person("Steve", "25");
+steve.sayName();
+steve.mother.sayName();
+steve.sayName.call(steve.mother);
+steve.mother.sayName.call(steve);
+let steveMom = steve.mother.sayName.bind(steve);
+steveMom();
