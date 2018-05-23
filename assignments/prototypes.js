@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+function GameObject(args) {
+  this.createdAt = args.createdAt;
+  this.dimensions = args.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+};
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +31,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(args) {
+  GameObject.call(this, args);
+  this.hp = args.hp;
+  this.name = args.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+};
 
 /*
   === Humanoid ===
@@ -32,6 +52,18 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(args) {
+  CharacterStats.call(this, args);
+  this.faction = args.faction;
+  this.weapons = args.weapons;
+  this.language = args.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -41,7 +73,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,19 +124,95 @@
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  /*
+  === Hero ===
+*/
+
+function Hero(args) {
+  Humanoid.call(this, args);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.heroAttack = Math.floor((Math.random() * 7) + 1);
+
+/*
+  === Villian ===
+*/
+
+function Villian(args) {
+  Humanoid.call(this, args);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+Villian.prototype.villianAttack = Math.floor((Math.random() * 5) + 1);
+
+const assassin = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 1,
+    height: 3
+  },
+  hp: 30,
+  name: 'Ryu',
+  faction: 'League of Assassins',
+  weapons: [
+    'Sword',
+    'Dagger'
+  ],
+  language: 'Common Toungue'
+});
+
+const darkLord = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 2,
+    height: 5
+  },
+  hp: 40,
+  name: 'Voldemort',
+  faction: 'Evil',
+  weapons: [
+    'Dark Magic'
+  ],
+  language: 'Parseltongue'
+});
+
+function startEpicBattle(hero, villian) {
+  let round = 1;
+  while(hero.hp > 0 && villian.hp > 0) {
+    hero.hp -= villian.villianAttack();
+    villian.hp -= hero.heroAttack();
+    console.log(`Round: ${round++}`);
+    console.log(hero.takeDamage());
+    console.log(`${hero.name}'s HP: ${hero.hp}`);
+    console.log(villian.takeDamage());
+    console.log(`${villian.name}'s HP: ${villian.hp}`);
+  }
+  if (hero.hp > 0) {
+    return console.log(`${villian.destroy()} ${hero.name} defeated ${villian.name}!`)
+  } else if (hero.hp < 0 && villian.hp < 0) {
+    return console.log(`${hero.destroy()} ${villian.destroy()} Weird!`);
+  }
+  return console.log(`${hero.destroy()} ${hero.name} failed to defeat ${villian.name}!`)
+}
+
+startEpicBattle(assassin, darkLord);
