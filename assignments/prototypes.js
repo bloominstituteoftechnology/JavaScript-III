@@ -3,25 +3,47 @@
   you will be implementing several classes with their correct inheritance heirarchy.
 
   In this file you will be creating three classes: GameObject, CharacterStats, Humanoid.  
-  At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your classes.
+  At the bottom of this file are 3 objects that all inherit from Humanoid. 
+  Use the objects at the bottom of the page to test your classes.
   
   Each class has unique properites and methods that are defined in their block comments below:
 */
   
-/*
+/*  
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function gameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attriubtes.dimensions;
+}
+
+gameObject.prototype.destroy = function(){
+  return 'Object was removed from the game.';
+}
+
+console.log(gameObject.prototype.destroy());
+
 
 /*
   === CharacterStats ===
+  function 
   * hp
   * name
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+// function Teacher(first, last, age, gender, interests, subject) {
+//   Person.call(this, first, last, age, gender, interests);
+
+//   this.subject = subject;
+// }
+
+
+function CharacterStats()
 
 /*
   === Humanoid ===
@@ -41,7 +63,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +124,6 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
