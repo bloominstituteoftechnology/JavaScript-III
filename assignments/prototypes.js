@@ -18,8 +18,9 @@ function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
 }
+
 GameObject.prototype.destroy = function(){
-  return 'Object was removed from the game';
+  return '${this.name} was removed from the game.';
 }
 
 /*
@@ -30,14 +31,16 @@ GameObject.prototype.destroy = function(){
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats(stats) {
-  this.hp = stats.hp;
-  this.name = stats.name;
-}
-CharacterStats.prototype.takeDamage = function(){
-  return `${''} + took damage.`;
+function CharacterStats(attributes) {
+  GameObject.call(this, attributes);
+  this.hp = attributes.hp;
+  this.name = attributes.name;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} + took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -49,14 +52,19 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   * should inherit takeDamage() from CharacterStats
 */
  
- function Humanoid(humanoidAttr) {
-   this.faction = humanoidAttr.faction;
-   this.weapons = humanoidAttr.weapons;
-   this.language = humanoidAttr.language;
+ function Humanoid(attributes) {
+   CharacterStats.call(this, attributes);
+   this.faction = attributes.faction;
+   this.weapons = attributes.weapons;
+   this.language = attributes.language;
  }
+ Humanoid.prototype = Object.create(CharacterStats.prototype);
+
  Humanoid.prototype.greet = function() {
-   return `${''} + offers a greeting in + ${''}`;
- } 
+   return `${this.name} offers a greeting in ${this.language}`;
+ }
+
+ 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -121,7 +129,7 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
   console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
+  console.log(mage.weapons[0]); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
