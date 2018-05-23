@@ -45,8 +45,8 @@ CharacterStats.prototype.takeDamage = function () {
   return `${this['name']} took damage.`; //? 
 }
 
-const skydiver = new CharacterStats({createdAt: new Date(), dimensions: {length: 1, width: 2, height: 5}, hp: 5, name: 'JJ'}); //?
-skydiver.takeDamage(); //? 
+const ninja = new CharacterStats({createdAt: new Date(), dimensions: {length: 1, width: 2, height: 5}, hp: 5, name: 'JJ'}); //?
+ninja.takeDamage(); //? 
 
 /*
   === Humanoid ===
@@ -69,7 +69,47 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function () {
   return `${this['name']} offers a greeting in ${this['language']}.`//?
 }
+
+
+
+
+function Villain(vilattributes) {
+  this.evilScore = vilattributes.evilScore;
+  this.weakness = vilattributes.weakness;
+  this.evilWord = vilattributes.evilWord;
+  Humanoid.call(this, vilattributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.evilLaugh = function () {
+  return `Muahahahahha, you ${this['evilWord']}! You'll never defeat me!`; //? 
+};
+
+Villain.prototype.evilLaugh();
+
+const badNinja = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 1,
+    height: 10,
+  },
+  hp: 10,
+  name: 'Bruce Lee',
+  faction: 'footClan',
+  weapons: [
+    'hands',
+  ],
+  language: 'Angry Muffled Voice', 
+  evilScore: 10, 
+  weakness: 'slippery floors',
+  evilWord: 'fools',
+});
+
+console.log(badNinja); //?
 /*
+
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
@@ -137,20 +177,13 @@ Humanoid.prototype.greet = function () {
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(swordsman.destroy());
+  console.log(badNinja.destroy());
+  console.log(badNinja.evilLaugh());
+  console.log(badNinja.weakness); // Sir Mustachio was removed from the game.
 
 
-  function Villain (vilattributes) {
-    this.evilScore = vilattributes.evilScore;
-    this.weakness = vilattributes.weakness;
-    this.evilWord = vilattributes.evilWord;
-  }
-
-  Villain.prototype.evilLaugh = function () {
-    return `Muahahahahha, you ${this['evilWord']}! You'll never defeat me!`;  //? 
-  };
-
-  Villain.prototype.evilLaugh(); //? 
+   //? 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
