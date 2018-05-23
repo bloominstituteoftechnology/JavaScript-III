@@ -124,16 +124,16 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
@@ -141,13 +141,12 @@ Humanoid.prototype.greet = function() {
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-/*
+  /*
   === Hero ===
 */
 
 function Hero(args) {
   Humanoid.call(this, args);
-  this.heroAttack = args.heroAttack;
 }
 
 Hero.prototype = Object.create(Humanoid.prototype);
@@ -159,7 +158,6 @@ Hero.prototype.heroAttack = Math.floor((Math.random() * 7) + 1);
 
 function Villian(args) {
   Humanoid.call(this, args);
-  this.villianAttack = args.villianAttack;
 }
 
 Villian.prototype = Object.create(Humanoid.prototype);
@@ -182,8 +180,6 @@ const assassin = new Hero({
   language: 'Common Toungue'
 });
 
-// console.log(assassin);
-
 const darkLord = new Villian({
   createdAt: new Date(),
   dimensions: {
@@ -200,21 +196,21 @@ const darkLord = new Villian({
   language: 'Parseltongue'
 });
 
-// console.log(darkLord);
-
 function startEpicBattle(hero, villian) {
+  let round = 1;
   while(hero.hp > 0 && villian.hp > 0) {
     hero.hp -= villian.villianAttack;
     villian.hp -= hero.heroAttack;
+    console.log(`Round: ${round++}`);
     console.log(`${hero.name}'s HP: ${hero.hp}`);
     console.log(`${villian.name}'s HP: ${villian.hp}`);
   }
   if (hero.hp > 0) {
-    darkLord.destroy();
-    return console.log(`${hero.name} defeated ${villian.name}!`)
+    return console.log(`${villian.destroy()} ${hero.name} defeated ${villian.name}!`)
+  } else if (hero.hp < 0 && villian.hp < 0) {
+    return console.log(`${hero.destroy()} ${villian.destroy()} Weird!`);
   }
-  hero.destroy();
-  return console.log(`${hero.name} failed to defeat ${villian.name}!`)
+  return console.log(`${hero.destroy()} ${hero.name} failed to defeat ${villian.name}!`)
 }
 
 startEpicBattle(assassin, darkLord);
