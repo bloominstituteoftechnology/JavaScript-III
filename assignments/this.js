@@ -46,3 +46,15 @@ let blank = new Skateboard('reds', '8', 'black')
 // Principle 4
 
 // code example for Explicit Binding
+let sayHi = function (food1, food2, food3) {
+  return `Hi, my name is ${this
+    .name} and my fav food is ${food1}, ${food2}, and ${food3}`
+}
+const person = {
+  name: 'Jack',
+  age: 50
+}
+
+let food = [ 'pizza', 'bread', 'donuts' ]
+
+console.log(sayHi.call(person, ...food))
