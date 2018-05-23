@@ -13,14 +13,52 @@
 
 // code example for Window Binding
 
+function greetFunction(greet) {
+   console.log(this.greet);
+   return greet;
+ }
+greetFunction("Hi");
+
+
 // Principle 2
 
 // code example for Implicit Binding
+const myNewObj = {
+  name: 'Harry',
+  greeting: function(greet) {
+    console.log(`${this.name} greets you ${greet}`);
+    console.log(this);
+  }
+};
+
+myNewObj.greetFunction('Hello');
+
 
 // Principle 3
 
 // code example for New Binding
 
+function newCar(model) {
+  this.year = 1975;
+  this.location = 'USA'
+  this.info = function(model) {
+    console.log(this.model +"is from "+this.year);
+    console.log(this);
+  };
+}
+
+const BMW = new newCar('BMW');
+const audi = new newCar('Audi');
+
+audi.info();
+honda.info();
+
+
 // Principle 4
 
 // code example for Explicit Binding
+function State(stateattributes){
+  Country.call(this, stateattributes);     //State inherits all the properties from Country
+  this.population = stateattributes.population;
+  this.area = stateattributes.area;
+}
