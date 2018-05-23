@@ -9,10 +9,11 @@
 */
 
 // Emmeline's Notes:
-//Step #1 -  Create Constructor Functions (base)
-//Step #2 - Create new Objects
-//Step #3 - Add prototype method
-//Step #4 -
+//Step #1 - Create Object
+//Step #2 -  Create Constructor Functions (base)
+//Step #3 - Create new Objects
+//Step #4 - Add prototype method
+//Step #5 -
 
 /*
   === GameObject ===
@@ -21,7 +22,7 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
-// Step #1 - Create Construtor Function (base)//
+// Step #2 - Create Construtor Function (base)//
 function GameObject(gameAttributes) {
   this.createAt = gameAttributes.createAt;
   this.dimensions = gameAttributes.dimensions;
@@ -32,6 +33,18 @@ GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the game.`;
 };
 
+//Step #1 - Create Object
+let gameAttributes = {
+  createdAt: new Date(),
+  dimensions: {
+    height: 4,
+    width: 2,
+    length: 6
+  }
+};
+
+let myGame = new GameObject(gameAttributes);
+console.log(myGame);
 
 /*
   === CharacterStats ===
@@ -41,9 +54,9 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 
-// Step #1 - Create Construtor Function (child)//
+// Step #2 - Create Construtor Function (child)//
 function CharacterStats (charAttributes) {
-  GameObject.call(this.charAttributes);
+  GameObject.call(this.charAttributes);  // Step #4 -bind parent to child
   this.hp = charAttributes.hp;
   this.name = charAttributes.name;
 };
@@ -56,6 +69,24 @@ CharacterStats.prototype = function() {
 //Step #4 -  Linking child prototype building block to parent building block
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
+//Step #1 - Create Objects
+const charAttributes = {
+  hp: 15,
+  name: "Xang",
+  dimension: {
+    height: 2,
+    width: 3,
+    lengths: 5
+  },
+  age: 30
+};
+
+const myChar = new CharacterStats(charAttributes);
+console.log("start here");
+console.log(myChar.takeDamage());
+console.log(myChar.destroy());
+console.log(myChar.dimensions);
+console.log(myChar.createdAt);
 
 /*
   === Humanoid ===
@@ -67,19 +98,21 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid(humanoidObj) {
-  CharacterStats.call(this, humanoidObj);
-
-  this.faction = humanoidObj.faction;
-  this.weapons = humanoidObj.weapons;
-  this.language = humanoidObj.language;
+// Step #2 - Create Construtor Function (grandchild)//
+function Humanoid(humanoidAttribute) {
+  CharacterStats.call(this, humanoidAttribute); // Step #4 - Bind grandchild to Child
+  this.faction = humanoidAttribute.faction;
+  this.weapons = humanoidAttribute.weapons;
+  this.language = humanoidAttribute.language;
 }
 
+//Step #4 - Bind grandchild to Child
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
+//Step #4 -  Linking child prototype building block to parent building block
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
-}
+};
 
 
 // Step #1 - Create Construtor Function (grandchild)//
@@ -88,8 +121,6 @@ function Humanoid (humanAttributes) {
   this.weapons = humanAttributes.weapons;
   this.language = humanAttributes.language;
 };
-
-
 
 
 
