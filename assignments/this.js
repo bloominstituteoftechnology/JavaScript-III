@@ -35,6 +35,13 @@ console.log(human.talk())
 // Principle 3
 
 // code example for New Binding
+let Skateboard = function (wheels, size, color) {
+  this.wheels = wheels
+  this.size = size
+  this.color = color
+}
+
+let blank = new Skateboard('reds', '8', 'black')
 
 // Principle 4
 
