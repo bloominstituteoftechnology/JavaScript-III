@@ -8,12 +8,24 @@
   Each class has unique properites and methods that are defined in their block comments below:
 */
   
-/*
-  === GameObject ===
-  * createdAt
-  * dimensions
-  * destroy() // prototype method -> returns the string 'Object was removed from the game.'
-*/
+
+ /* === GameObject ===
+ createdAt
+ dimensions
+ destroy() // prototype method -> returns the string 'Object was removed from the game.'
+ */
+
+function GameObject(stats) {
+  this.createdAt = stats.createdAt;
+  this.dimensions = stats.dimensions;  
+}
+
+GameObject.prototype.destroy = function destroy() {
+  return `${this.name} was removed from the game.`;
+}
+
+
+
 
 /*
   === CharacterStats ===
@@ -22,6 +34,22 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(gameStats) {
+  GameObject.call(this, gameStats);
+  this.hp = gameStats.hp;
+  this.name = gameStats.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function takeDamage() {
+  return `${this.name} took damage.`;
+}
+
+
+
+
 
 /*
   === Humanoid ===
@@ -32,6 +60,24 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(humanStats) {
+  CharacterStats.call(this, humanStats);
+  this.faction = humanStats.faction;
+  this.weapons = humanStats.weapons;
+  this.language = humanStats.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function greet() {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
+
+
+
+
+
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -41,7 +87,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -98,11 +144,11 @@
   console.log(mage.name); // Bruce
   console.log(swordsman.faction); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
+  console.log(archer.language);
+  console.log(swordsman.destroy()) // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
