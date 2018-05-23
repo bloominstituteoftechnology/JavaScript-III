@@ -66,10 +66,6 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 }
 
-
-
-
- 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -145,3 +141,68 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  //Hero Function
+
+  function Hero(HeroStats) {
+    Humanoid.call(this, HeroStats);
+    this.speed = HeroStats.speed;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  
+  Hero.prototype.attack = function() {
+    
+  }
+
+ // Villain Function
+
+  function Villian(VillainStats) {
+    Humanoid.call(this, VillainStats);
+    this.speed = VillainStats.speed;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+  
+  Villian.prototype.backstab = function() {
+    
+  }
+
+  
+// Hero Object
+
+  const wizard = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 10,
+    name: 'Harry',
+    faction: 'Wizarding World',
+    weapons: [
+      'Wand',
+    ],
+    language: 'Parsletongue',
+  });
+
+
+  // Villain Object
+
+  const warlock = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 1,
+    },
+    hp: 7,
+    name: 'Pyatt Pree',
+    faction: 'House of the Undying',
+    weapons: [
+      'Magic',
+      'Trickery',
+    ],
+    language: 'WarlockSpeak',
+  });
