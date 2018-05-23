@@ -21,7 +21,7 @@ function GameObject(attributes) {
 }
 
 GameObject.prototype.destroy = function() {
-  return `${this.name} was removed from the game`;
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -41,7 +41,7 @@ function CharacterStats(stats) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage`;
+  return `${this.name} took damage.`;
 }
 
 /*
@@ -63,9 +63,9 @@ function Humanoid(human) {
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}`;
+  return `${this.name} offers a greeting in ${this.language}.`;
 }
- 
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -141,3 +141,117 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(evil) {
+    Humanoid.call(this, evil);
+    this.alignment = evil.alignment;
+  }
+  
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype.attack = function(who) {
+    if (who.hp > 1) {
+     return who.hp -= 1;
+  } else {
+    return who.destroy();
+  }
+}
+
+  const darkLord = new Villian ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 5,
+    },
+    hp: 20,
+    name: `Ba'alzamon`,
+    faction: 'The Void',
+    weapons: ['Magic', 'Stone of Chaos'],
+    language: 'Burning Hate',
+    alignment: 'Chaotic Evil',
+  });
+
+  console.log(darkLord.attack(mage));
+  console.log(darkLord.attack(mage));
+  console.log(darkLord.attack(mage));
+  console.log(darkLord.attack(mage));
+  console.log(darkLord.attack(mage));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(archer));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(darkLord.attack(swordsman));
+  console.log(`Darkness falls over the Earth as ${darkLord.name} destroys all life. Shall no hero come to restore order?`);
+
+function Hero (good) {
+  Villian.call(this, good);
+}
+
+Hero.prototype = Object.create(Villian.prototype);
+Hero.prototype.revive = function(who) {
+  who.hp += 1;
+  return `${who.name} was revived by ${this.name} with 1HP`;
+} 
+
+const savior = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 20,
+  name: `Rand al'Thor`,
+  faction: 'any',
+  weapons: ['Callandor', 'The One Power'],
+  language: 'Common Tounge',
+  alignment: 'Chaotic Good',
+});
+
+console.log(`From the ashes rises our new hero: ${savior.name}!`);
+console.log(savior.greet());
+console.log(savior.revive(mage));
+console.log(savior.revive(archer));
+console.log(savior.revive(swordsman));
+console.log(`${savior.name} says to ${mage.name}, ${archer.name} and ${swordsman.name}: "Now rest, for death can no longer hold you! I shall go to defeat the dark one!`);
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(savior.attack(darkLord));
+console.log(`${savior.name} defeats ${darkLord.name}! Now, to reconstruct our civilization from the rubble.`)
