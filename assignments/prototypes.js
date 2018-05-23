@@ -21,7 +21,7 @@ function GameObject(base) {
 }
 
 GameObject.prototype.destroy = function () {
-  return `${Object} was removed from the game`;
+  return `${this.name} was removed from the game`;
 };
 
 /*
@@ -38,9 +38,11 @@ function CharacterStats(charAttr){
   this.name = charAttr.name;
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function () {
-  return `${this.name} took damage.`;
-};
+ return `${this.name} took damage.`;
+};                  
 
 /*
   === Humanoid ===
@@ -58,6 +60,8 @@ function Humanoid(attr) {
   this.weapons = attr.weapons;
   this.language = attr.language;
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}.`;
