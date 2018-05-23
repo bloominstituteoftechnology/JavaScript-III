@@ -7,13 +7,21 @@
   
   Each class has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function () {
+  return 'Object was removed from the game.';
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +30,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(charactersStatsAttributes) {
+  GameObject.call(this, charactersStatsAttributes);
+  this.hp = charactersStatsAttributes.hp;
+  this.name = charactersStatsAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -32,7 +52,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes);
+  this.faction = humanoidAttributes.faction;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this} offers a greeting in ${this.language}`;
+}
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,68 +73,68 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
-  const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    hp: 5,
-    name: 'Bruce',
-    faction: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Toungue',
-  });
 
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    hp: 15,
-    name: 'Sir Mustachio',
-    faction: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Toungue',
-  });
+const mage = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Bruce',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
 
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    hp: 10,
-    name: 'Lilith',
-    faction: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
+const swordsman = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2,
+  },
+  hp: 15,
+  name: 'Sir Mustachio',
+  faction: 'The Round Table',
+  weapons: [
+    'Giant Sword',
+    'Shield',
+  ],
+  language: 'Common Toungue',
+});
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+const archer = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Lilith',
+  faction: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+});
+
+console.log(mage.createdAt); // Today's date 
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+console.log(swordsman.hp); // 15
+console.log(mage.name); // Bruce
+console.log(swordsman.faction); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+console.log(archer.language); // Elvish
+console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage()); // Bruce took damage.
+console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
