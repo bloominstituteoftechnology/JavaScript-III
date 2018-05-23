@@ -136,7 +136,39 @@ console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
-  // Stretch task: 
-  // * Create Villian and Hero classes that inherit from the Humanoid class.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+// Stretch task: 
+// * Create Villian and Hero classes that inherit from the Humanoid class.  
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+// Villain 
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+  this.health = villainAttributes.health;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.attack = function () {
+  let damage = Math.random();
+  if (damage < 0.5) {
+    return this.health--
+
+  } else if (this.health === 0) {
+    return "You're Dead!"
+  } else {
+    return "You attack was blocked"
+  }
+}
+
+const villain = new Villain({
+  health: 10
+});
+
+console.log(villain.attack());
+console.log(villain.attack());
+
+
+
+
