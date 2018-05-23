@@ -20,7 +20,7 @@ function GameObject(attributes){
 }
 
 GameObject.prototype.destroy = function() {
- return 'Object was removed from the game.';
+ return `${this['name']} was removed from the game.`;
 }
 
 box = new GameObject({createdAt: new Date(), dimensions: '2x2'}); //? 
@@ -33,18 +33,21 @@ GameObject.prototype.destroy(); //?
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(attributes) {
- this.hp = attributes.hp;
- this.name = attributes.name; //? 
-
+function CharacterStats(charattributes) {
+ this.hp = charattributes.hp;
+ this.name = charattributes.name;
+ GameObject.call(this, charattributes); //? 
 }
+
+CharacterStats.prototype = Object.create(GameObject.prototype); 
 
 CharacterStats.prototype.takeDamage = function () {
-  return `${this['name']} took damage.`;
+  return `${this['name']} took damage.`; //? 
 }
 
-const skydiver = new CharacterStats({hp: 5, name: 'JJ'}); //?
+const skydiver = new CharacterStats({createdAt: new Date(), dimensions: {length: 1, width: 2, height: 5}, hp: 5, name: 'JJ'}); //?
 skydiver.takeDamage(); //? 
+
 /*
   === Humanoid ===
   * faction
@@ -55,6 +58,17 @@ skydiver.takeDamage(); //?
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(humanattributes) {
+  CharacterStats.call(this, humanattributes);
+    this.faction = humanattributes.faction;
+    this.weapons = humanattributes.weapons;
+    this.language = humanattributes.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this['name']} offers a greeting in ${this['language']}.`//?
+}
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -126,6 +140,17 @@ skydiver.takeDamage(); //?
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
+  function Villain (vilattributes) {
+    this.evilScore = vilattributes.evilScore;
+    this.weakness = vilattributes.weakness;
+    this.evilWord = vilattributes.evilWord;
+  }
+
+  Villain.prototype.evilLaugh = function () {
+    return `Muahahahahha, you ${this['evilWord']}! You'll never defeat me!`;  //? 
+  };
+
+  Villain.prototype.evilLaugh(); //? 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
