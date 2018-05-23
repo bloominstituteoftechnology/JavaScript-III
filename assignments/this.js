@@ -35,7 +35,18 @@
 // Principle 3
 
 // code example for New Binding
-
+// function PersonWhoIsGreeting(oneReceivingGreeting) {
+//   this.check = "All good"
+//   this.greeting = "How do you do,";
+//   this.oneReceivingGreeting = oneReceivingGreeting;
+//   this.greet = function() {
+//     console.log(this.greeting, this.oneReceivingGreeting);
+//     return (this.check);
+//   }
+// }
+//
+// const doorman = new PersonWhoIsGreeting("my honored guest");
+// doorman.greet();
 // Principle 4
 
 // code example for Explicit Binding
