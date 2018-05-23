@@ -157,4 +157,27 @@ function Hero(o){
  Hero.prototype = Object.create(Humanoid.prototype);
  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+Hero.prototype.punch = function(){
+ if(this.hp <= 0){
+   	return `${this.name} is dead`;
+
+} 
+  else { 
+ 	 this.hp = this.hp-5;   
+  	 return `${this.name} lost 5 point`;
+}
+}
+
+Villian.prototype.kick = function(){
+    if(this.hp <= 0){
+      	return `${this.name} is dead`;
+} 
+ 
+    else { 
+    	this.hp = this.hp-5;   
+    	return `${this.name} lost 5 point`;
+}
+}
+
    // * Create two new objects, one a villian and one a hero and fight it out with methods!
