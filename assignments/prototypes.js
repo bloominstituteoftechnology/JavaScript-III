@@ -8,12 +8,31 @@
   Each class has unique properites and methods that are defined in their block comments below:
 */
   
+
+function GameObject(attributes) {
+    this.createdAt = attributes.createdAt;
+    this.dimensions = attributes.dimensions;
+    this.destroy = () => {
+        return 'Object was removed from the game';
+    };
+}
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+
+function CharacterStats(stats) {
+    GameObject.call(this, stats);
+    this.hp = stats.hp;
+    this.name = stats.name;
+    this.takeDamage = () => {
+        return `${this.name} took damage.`;
+    };
+    //code
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /*
   === CharacterStats ===
@@ -22,6 +41,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+
+function Humanoid(skills) {
+    CharacterStats.call(this, skills);
+    this.faction = skills.faction;
+    this.weapons = skills.weapons;
+    this.language = skills.language;
+    this.greet = () => {
+        return `${this.name} offers a greeting in ${this.language}.`;
+    };
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 /*
   === Humanoid ===
@@ -41,7 +72,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +133,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
