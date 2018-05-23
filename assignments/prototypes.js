@@ -15,16 +15,17 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
-function gameObject(attributes){
+function GameObject(attributes){
   this.createdAt = attributes.createdAt;
-  this.dimensions = attriubtes.dimensions;
+  this.dimensions = attributes.dimensions;
 }
 
-gameObject.prototype.destroy = function(){
-  return 'Object was removed from the game.';
+GameObject.prototype.destroy = function(){
+  return '${this.name} was removed from the game.';
 }
 
-console.log(gameObject.prototype.destroy());
+console.log(GameObject.prototype.destroy());
+
 
 
 /*
@@ -35,15 +36,24 @@ console.log(gameObject.prototype.destroy());
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
-// function Teacher(first, last, age, gender, interests, subject) {
-//   Person.call(this, first, last, age, gender, interests);
-
-//   this.subject = subject;
-// }
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 
-function CharacterStats()
+function CharacterStats(childAttributes){
+    GameObject.call(this, childAttributes);
+    this.hp = childAttributes.hp;
+    this.name = childAttributes.name;
+}
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage`;
+}
+
+// console.log(CharacterStats.prototype.destroy());
+
+
+console.log(CharacterStats.prototype.destroy());
+console.log(CharacterStats.prototype.takeDamage());
 
 /*
   === Humanoid ===
@@ -60,6 +70,25 @@ function CharacterStats()
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+
+// CharacterStats.prototype = Object.create(GameObject.prototype);
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+function Humanoid (grandChildAttributes){
+  CharacterStats.call(this, grandChildAttributes);
+  this.faction = grandChildAttributes.faction;
+  this.weapons = grandChildAttributes.weapons;
+  this.language = grandChildAttributes.language;
+}
+
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`;
+
+}
+
+console.log(Humanoid.prototype.greet());
+
+
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
