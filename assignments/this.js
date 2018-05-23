@@ -11,6 +11,7 @@
 
 // Principle 1
 
+
 // code example for Window Binding
 
 // Principle 2
