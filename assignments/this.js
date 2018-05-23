@@ -23,6 +23,14 @@ const me = (name) => {
 // Principle 2
 
 // code example for Implicit Binding
+let human = {
+  name: 'man',
+  age: 50,
+  talk: function () {
+    return ` Hello I am ${this.name} bruh`
+  }
+}
+console.log(human.talk())
 
 // Principle 3
 
