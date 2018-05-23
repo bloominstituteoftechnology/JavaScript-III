@@ -14,7 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
 
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`;
+};
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +29,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(stats){
+  GameObject.call(this, stats);
+  this.hp = stats.hp;
+  this.name = stats.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function (){
+  return `${this.name} took damage.`;
+};
+
 
 /*
   === Humanoid ===
@@ -32,7 +50,20 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(info){
+  CharacterStats.call(this, info);
+  this.faction = info.faction;
+  this.weapons = info.weapons;
+  this.language = info.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function (){
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +72,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +133,87 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero(info) {
+    Humanoid.call(this, info);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  
+  Hero.prototype.dealDamage = function(enemy) {
+    enemy.hp -= 3;
+    console.log(`${this.name} deals 3 damage to ${enemy.name}!`);
+    if(enemy.hp <= 0){
+      console.log(`${enemy.name} has run out of health!`);
+      console.log(enemy.destroy());
+    }
+  }
+
+  Hero.prototype.righteousFury = function(){
+    console.log(`${this.name} clutches their ${this.weapons} and incurs power from the Light!`);
+  }
+
+  function Villain(info){
+    Humanoid.call(this, info);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.dealDamage = function(enemy) {
+    enemy.hp -= 2;
+    console.log(`${this.name} deals 2 damage to ${enemy.name}!`);
+    if(enemy.hp <= 0){
+      console.log(`${enemy.name} has run out of health!`);
+      console.log(enemy.destroy());
+    }
+  }
+
+  const holyPaladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 5,
+    name: 'Uther',
+    faction: 'The Silver Hand',
+    weapons: [
+      'Silverhammer',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const lich = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 1,
+      height: 10,
+    },
+    hp: 8,
+    name: `Kel'Thuzad`,
+    faction: 'The Scourge',
+    weapons: [
+      `Lich's Phylactery`,
+      `Frostmourne`
+    ],
+    language: 'Common Tongue',
+  });
+
+lich.dealDamage(holyPaladin);
+holyPaladin.dealDamage(lich);
+console.log(holyPaladin);
+console.log(lich);
+lich.dealDamage(holyPaladin);
+console.log(holyPaladin);
+console.log(lich);
+holyPaladin.righteousFury();
+holyPaladin.dealDamage(lich);
+holyPaladin.dealDamage(lich);
+
