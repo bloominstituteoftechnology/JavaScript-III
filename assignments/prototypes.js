@@ -19,7 +19,7 @@ function GameObject(obj) {
   this.dimensions = obj.dimensions;
 }
 GameObject.prototype.destroy = function() {
-  return `${this.object} was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 };
 
 /*
@@ -124,3 +124,71 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero classes that inherit from the Humanoid class.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Villian(obj) {
+  Humanoid.call(this, obj);
+}
+Villian.prototype = Object.create(CharacterStats.prototype);
+Villian.prototype.attack = function(person) {
+  let damage = Math.floor(Math.random() * 10) + 1;
+  let hps = person.hp;
+  person.hp = hps - damage;
+  if (person.hp > 0) {
+    return `${this.name} attacks ${person.name}! ${
+      person.name
+    } has lost ${damage} hps!!! Only ${person.hp} left...`;
+  }
+  return `${this.name} attacks ${person.name} and does ${damage} damage! ${
+    person.name
+  } is now dead :(`;
+};
+
+const vader = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: Math.floor(Math.random() * 25) + 10,
+  name: 'Vader',
+  faction: 'Forest Kingdom',
+  weapons: ['Bow', 'Dagger'],
+  language: 'Elvish',
+});
+
+function Hero(obj) {
+  Villian.call(this, obj);
+}
+Hero.prototype = Object.create(Villian.prototype);
+
+const luke = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: Math.floor(Math.random() * 25) + 10,
+  name: 'Luke',
+  faction: 'Forest Kingdom',
+  weapons: ['Bow', 'Dagger'],
+  language: 'Elvish',
+});
+
+console.log('\n\n');
+while (vader.hp > 0 && luke.hp > 0) {
+  let initiative = Math.random();
+
+  if (initiative < 0.5) {
+    console.log(`${vader.name} gets the initiative and attacks!`);
+    if (vader.hp > 0 && luke.hp > 0) console.log(vader.attack(luke));
+    console.log();
+    if (vader.hp > 0 && luke.hp > 0)
+      console.log(`Counter-attack! ${luke.attack(vader)}\n`);
+  }
+  console.log(`${luke.name} gets the initiative and attacks!`);
+  if (vader.hp > 0 && luke.hp > 0) console.log(luke.attack(vader));
+  if (vader.hp > 0 && luke.hp > 0)
+    console.log(`A riposte! ${vader.attack(luke)}\n`);
+}
