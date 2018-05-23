@@ -15,6 +15,16 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+function GameObject(g){
+  this.createdAt = g.createdAt;
+  this.dimensions = g.dimensions;
+}
+
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game`;
+}
+
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +32,19 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(c){
+  GameObject.call(this, c);
+  this.hp = c.hp;
+  this.name = c.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+}
+
 
 /*
   === Humanoid ===
@@ -33,6 +56,20 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(h){
+  CharacterStats.call(this, h);
+  this.faction = h.faction;
+  this.weapons = h.weapons;
+  this.language = h.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greetings in ${this.language}`;
+}
+
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -105,6 +142,85 @@
 */
 
   // Stretch task: 
-  // * Create Villian and Hero classes that inherit from the Humanoid class.  
+  // * Create Villian and Hero classes that inherit from the Humanoid class. 
+
+function Villian(v){
+  Humanoid.call(this, v);
+}
+
+ Villian.prototype = Object.create(Humanoid.prototype);
+
+function Hero(o){
+  Humanoid.call(this, o);
+}
+
+ Hero.prototype = Object.create(Humanoid.prototype);
+ 
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+Hero.prototype.punch = function(){
+ if(this.hp <= 0){
+   	return `${this.name} is dead`;
+
+} 
+  else { 
+ 	 this.hp = this.hp-5;   
+  	 return `${this.name} lost 5 point`;
+}
+}
+
+Villian.prototype.kick = function(){
+    if(this.hp <= 0){
+      	return `${this.name} is dead`;
+} 
+ 
+    else { 
+    	this.hp = this.hp-5;   
+    	return `${this.name} lost 5 point`;
+}
+}
+
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+const harry = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 5,
+    },
+    hp: 5,
+    name: 'Harry Potter',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+
+  const tom = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 6,
+    },
+    hp: 10,
+    name: 'Tom Riddle',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+console.log(harry.punch());//Harry Potter lost 5 point
+console.log(harry.punch());//Harry Potter is dead
+ 
+console.log(tom.kick());//Tom Riddle lost 5 point
+console.log(tom.kick());//Tom Riddle lost 5 point
+console.log(tom.kick());//Tom Riddle is dead
+
