@@ -11,7 +11,7 @@
 /*
   === GameObject ===
   * createdAt
-  * dimensions
+  * dimensionsggit 
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
@@ -22,7 +22,7 @@ function GameObject(attributes) {
 }
 
 GameObject.prototype.destroy = function() {
-  return `Object was removed from the game.`; 
+  return `${this.name} was removed from the game.`; 
 }
 
 /*
