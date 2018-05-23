@@ -8,12 +8,12 @@
   Each class has unique properites and methods that are defined in their block comments below:
 */
   
-/*
-  === GameObject ===
-  * createdAt
-  * dimensions
-  * destroy() // prototype method -> returns the string 'Object was removed from the game.'
-*/
+
+  // === GameObject ===
+  // * createdAt
+  // * dimensions
+  // * destroy() // prototype method -> returns the string 'Object was removed from the game.'
+
 
 /*
   === CharacterStats ===
@@ -41,7 +41,38 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+function GameObject(createdAt, dimensions){
+  this.createdAt = createdAt;
+  this.dimensions = dimensions;
+}
+
+GameObject.prototype.destroy = () =>{
+  return 'Object was removed from the game';
+}
+
+function CharacterStats(hp, name){
+  this.hp = hp;
+  this.name = name;
+}
+
+CharacterStats.prototype.takeDamage = () =>{
+  return `${this.name} took damage`;
+}
+
+function Humanoid(faction, weapons, language){
+  this.faction = faction;
+  this.weapons = weapons;
+  this.language = language;
+
+}
+
+Humanoid.prototype.greet(){
+  return `${this.name} offers greeting in ${this.language}`;
+}
+
+
+
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +133,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
