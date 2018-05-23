@@ -199,10 +199,12 @@ const darkLord = new Villian({
 function startEpicBattle(hero, villian) {
   let round = 1;
   while(hero.hp > 0 && villian.hp > 0) {
-    hero.hp -= villian.villianAttack;
-    villian.hp -= hero.heroAttack;
+    hero.hp -= villian.villianAttack();
+    villian.hp -= hero.heroAttack();
     console.log(`Round: ${round++}`);
+    console.log(hero.takeDamage());
     console.log(`${hero.name}'s HP: ${hero.hp}`);
+    console.log(villian.takeDamage());
     console.log(`${villian.name}'s HP: ${villian.hp}`);
   }
   if (hero.hp > 0) {
