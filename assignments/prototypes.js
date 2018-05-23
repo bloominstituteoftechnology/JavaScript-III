@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +31,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(childAttributes) {
+  GameObject.call(this, childAttributes);
+  this.hp = childAttributes.hp;
+  this.name = childAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -32,6 +53,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid (grandChildAttributes) {
+  CharacterStats.call(this, grandChildAttributes);
+  this.faction = grandChildAttributes.faction;
+  this.weapons = grandChildAttributes.weapons;
+  this.language = grandChildAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`
+}
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -41,7 +75,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +126,9 @@
     language: 'Elvish',
   });
 
+
+  
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -102,9 +139,83 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villain(villain) {
+    Humanoid.call(this, villain);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.bowShoot = () => Math.floor((Math.random() * 6));
+
+  function Hero(hero) {
+    Humanoid.call(this, hero);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.swordHit = () => Math.floor((Math.random() * 6));
+
+  const robin = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 30,
+    name: 'Robin',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Common tongue'
+  });
+
+  const ornn = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 3,
+      height: 4,
+    },
+    hp: 30,
+    name: 'Ornn',
+    faction: 'The Round Table',
+    weapons: [
+      'Sword',
+      'Dagger',
+    ],
+    language: 'Common tongue'
+  });
+
+  function startBattle(hero, villain) {
+    while(hero.hp > 0 && villain.hp > 0) {
+      let currentHeroHp = hero.hp;
+      let currentVillainHp = villain.hp;
+      villain.hp -= hero.swordHit();
+      let previousVillainHp = villain.hp;
+      let villainDamageTaken = currentVillainHp - previousVillainHp; 
+      hero.hp -= villain.bowShoot();
+      let previousHeroHp = hero.hp;
+      let heroDamageTaken = currentHeroHp - previousHeroHp;
+      console.log(`${hero.name}'s HP: ${hero.hp} / Damage taken: ${heroDamageTaken}`);
+      console.log(`${villain.name}'s HP: ${villain.hp} / Damage taken: ${villainDamageTaken}\n`);
+    }
+    if(hero.hp <= 0 && villain.hp <= 0) {
+      console.log(`${hero.destroy()}\n${villain.destroy()}\n${hero.name} and ${villain.name} killed each other!`);
+    } else if(hero.hp <= 0) {
+      console.log(`${hero.destroy()}\n${villain.name} defeated ${hero.name} with ${villain.hp} hp left!`);
+    } else {
+      console.log(`${villain.destroy()}\n${hero.name} defeated ${villain.name} with ${hero.hp} hp left!`);
+    }
+  }
+
+  startBattle(ornn, robin);
