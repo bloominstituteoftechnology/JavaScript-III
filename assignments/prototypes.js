@@ -8,12 +8,6 @@
   Each class has unique properites and methods that are defined in their block comments below:
 */
 
-// Emmeline's Notes:
-//Step #1 - Create Object
-//Step #2 -  Create Constructor Functions (base)
-//Step #3 - Create new Objects
-//Step #4 - Add prototype method
-//Step #5 -
 
 /*
   === GameObject ===
@@ -22,7 +16,7 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
-// Step #2 - Create Construtor Function (base)//
+
 function GameObject(gameAttributes) {
   this.createdAt = gameAttributes.createdAt;
   this.dimensions = gameAttributes.dimensions;
@@ -41,7 +35,7 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 
-// Step #2 - Create Construtor Function (child)//
+
 function CharacterStats (charAttributes) {
   GameObject.call(this, charAttributes);  // Step #4 -bind parent to child
   this.hp = charAttributes.hp;
@@ -68,7 +62,7 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 
-// Step #2 - Create Construtor Function (grandchild)//
+
 function Humanoid(humanoidAttributes) {
   CharacterStats.call(this, humanoidAttributes); // Step #4 - Bind grandchild to Child
   this.faction = humanoidAttributes.faction;
@@ -76,10 +70,10 @@ function Humanoid(humanoidAttributes) {
   this.language = humanoidAttributes.language;
 }
 
-//Step #4 - Bind grandchild to Child
+
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-//Step #4 -  Linking child prototype building block to parent building block
+
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 };
@@ -94,7 +88,7 @@ Humanoid.prototype.greet = function() {
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-//Step #2 - Create new Objects (new Binding) //
+
 
   const mage = new Humanoid({
     createdAt: new Date(),
