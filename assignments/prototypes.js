@@ -64,9 +64,6 @@ function Humanoid (charAttr) {
 */
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
-const today = new Date(Date.now());
-console.log(today.toDateString());
-
 const mage = new Humanoid({
   createdAt: new Date(),
   dimensions: {
@@ -134,18 +131,21 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+//Create villain class
 function Villain(villainSkills) {
-Humanoid.call(this, villainSkills);
-this.deadbeam = function (obj) {
-  obj.hp -= 2;
-  obj.takeDamage();
-  if (obj.hp <= 0) {
-    return `${obj.name} has no hp left. ${obj.name} has been eliminated`;
-  }
-  return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.name} has taken 2 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
-  }
+  Humanoid.call(this, villainSkills);
+  
+  this.deadbeam = function (obj) {
+    obj.hp -= 2;
+    obj.takeDamage();
+    if (obj.hp <= 0) {
+      return `${obj.name} has no hp left. ${obj.name} has been eliminated`;
+    }
+    return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.name} has taken 2 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
+    }
 }  
 
+//Create hero class
 function Hero(heroSkills) {
 Humanoid.call(this, heroSkills);
 this.kamehameha = function (obj) {
