@@ -20,7 +20,7 @@ function GameObject(attributes) {
 }
 
 GameObject.prototype.destroy = function(){
-  return '${this.name} was removed from the game.';
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -39,7 +39,7 @@ function CharacterStats(attributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function(){
-  return `${this.name} + took damage.`;
+  return `${this.name} took damage.`;
 }
 
 /*
