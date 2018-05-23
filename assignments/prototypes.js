@@ -53,7 +53,7 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit takeDamage() from CharacterStats
 */
 function Humanoid(humanoidAttributes) {
-  CharacterStats.call(this.humanoidAttributes);
+  CharacterStats.call(this, humanoidAttributes);
   this.faction = humanoidAttributes.faction;
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
@@ -124,8 +124,8 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
-console.log(mage.createdAt); //? Today's date 
-console.log(archer.dimensions); //? { length: 1, width: 2, height: 4 }
+console.log(mage.createdAt); // Today's date 
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.hp); // 15
 console.log(mage.name); // Bruce
 console.log(swordsman.faction); // The Round Table
