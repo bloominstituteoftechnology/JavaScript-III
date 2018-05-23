@@ -13,15 +13,45 @@
 
 
 // code example for Window Binding
+function student(id) {
+    console.log(this);
+    return id;
+}
+student(23); //?
 
 // Principle 2
+const student2 = {
+    name: 'shawn',
+    id: 23,
+    speak: function() {
+        return this.name + ', hi'
+    }
+}
+
+student2.speak();//?
 
 // code example for Implicit Binding
 
 // Principle 3
+function RichPerson(person) {
+    this.greeting = "hello there";
+    this.person = person.name;
+    this.age = person.age
+    this.speak = function() {
+        return "Hi, my name is " + this.person + ", " + this.age;
+    }
+}
+
+const elaine = new RichPerson({name: 'Elaine', age: 32});
+elaine.speak();//?
 
 // code example for New Binding
 
 // Principle 4
 
 // code example for Explicit Binding
+const newPerson = function(name) {
+    console.log(this.name);
+}
+
+newPerson.call(student2, 'booga')
