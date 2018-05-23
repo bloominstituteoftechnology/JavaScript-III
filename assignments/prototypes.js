@@ -14,7 +14,18 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(attributes){
+ this.createdAt = attributes.createdAt;
+ this.dimensions = attributes.dimensions;
+}
 
+GameObject.prototype.destroy = function() {
+ return `${this['name']} was removed from the game.`;
+}
+
+box = new GameObject({createdAt: new Date(), dimensions: '2x2'}); //? 
+
+GameObject.prototype.destroy(); //?
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +33,20 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(charattributes) {
+ this.hp = charattributes.hp;
+ this.name = charattributes.name;
+ GameObject.call(this, charattributes); //? 
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype); 
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this['name']} took damage.`; //? 
+}
+
+const ninja = new CharacterStats({createdAt: new Date(), dimensions: {length: 1, width: 2, height: 5}, hp: 5, name: 'JJ'}); //?
+ninja.takeDamage(); //? 
 
 /*
   === Humanoid ===
@@ -33,7 +58,63 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(humanattributes) {
+  CharacterStats.call(this, humanattributes);
+    this.faction = humanattributes.faction;
+    this.weapons = humanattributes.weapons;
+    this.language = humanattributes.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this['name']} offers a greeting in ${this['language']}.`//?
+}
+
+   
+   // Stretch task: 
+   // * Create Villian and Hero classes that inherit from the Humanoid class.  
+   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+function Villain(vilattributes) {
+  this.evilScore = vilattributes.evilScore;
+  this.weakness = vilattributes.weakness;
+  this.evilWord = vilattributes.evilWord;
+  Humanoid.call(this, vilattributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.evilLaugh = function () {
+  return `Muahahahahha, you ${this['evilWord']}! You'll never defeat me!`; //? 
+};
+
+Villain.prototype.evilLaugh();
+
+const badNinja = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 1,
+    height: 10,
+  },
+  hp: 10,
+  name: 'Bruce Lee',
+  faction: 'footClan',
+  weapons: [
+    'hands',
+  ],
+  language: 'Angry Muffled Voice', 
+  evilScore: 10, 
+  weakness: 'slippery floors',
+  evilWord: 'fools',
+});
+
+console.log(badNinja); //?
+
 /*
+
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
@@ -41,7 +122,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -101,10 +182,9 @@
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(swordsman.destroy());
+  console.log(badNinja.destroy());
+  console.log(badNinja.evilLaugh());
+  console.log(badNinja.weakness); 
 
-  // Stretch task: 
-  // * Create Villian and Hero classes that inherit from the Humanoid class.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
