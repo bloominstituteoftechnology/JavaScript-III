@@ -65,6 +65,49 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 }
 
+
+function Villain(attributes) {
+  Humanoid.call(this,attributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.eyeGouge = function(opponent) {
+  let attack = Math.floor((Math.random() * 8) + 1);
+  let damage = attack - opponent.defend();
+
+  if(damage > 0)
+  {
+    opponent.hp -= damage;
+    console.log(`${this.name} attacked ${opponent.name} for ${damage}!`);
+  }
+  if(opponent.hp <=0 )
+  { console.log(opponent.destroy()); }
+}
+Villain.prototype.defend = function() {
+  return Math.floor((Math.random() * 4) + 1);
+}
+
+function Hero(attributes) {
+  Humanoid.call(this,attributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.heroicSlash = function(opponent) {
+  let attack = Math.floor((Math.random() * 6) + 1);
+  let damage = attack - opponent.defend();
+  if(damage > 0)
+  {
+    opponent.hp -= damage;
+    console.log(`${this.name} attacked ${opponent.name} for ${damage}!`);
+  }
+  if(opponent.hp <=0 )
+  { console.log(opponent.destroy()); }
+}
+Hero.prototype.defend = function() {
+  return Math.floor((Math.random() * 6) + 1);
+}
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -135,7 +178,44 @@ Humanoid.prototype.greet = function() {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+  const demon = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Reptar',
+    faction: 'The Legions of Hell',
+    weapons: [
+      'Sicle',
+    ],
+    language: 'Javascript',
+  });
 
+  const demonSlayer = new Hero ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Kevin',
+    faction: 'Demon Slayer Community College',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+  });
+
+  while(demon.hp > 0 && demonSlayer.hp > 0)
+  {
+    demonSlayer.heroicSlash(demon);
+    demon.eyeGouge(demonSlayer);
+  }
   // Stretch task:
   // * Create Villian and Hero classes that inherit from the Humanoid class.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
