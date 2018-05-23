@@ -9,7 +9,8 @@
 * 3. New Binding.  This is when you create a constructor function and you can create new const 
         lets or vars that inherit the original constructor function.
         
-* 4. Explicit. During this, you would use call or apply method.  
+* 4. Explicit. During this, you would use call or apply method.  Lets say you have a function, array and object.  You could use call or apply to bind them together.  
+        So you say console.log(function.applyorcall(object, array));
 *
 * write out a code example of each explanation above
 */
@@ -57,4 +58,19 @@ console.log(jake.speak());
 // Principle 4
 
 // code example for Explicit Binding
+
+let that = function(param1,param2,param3){
+    return `Hello, my name is ${this.name} but my friends call me ${this.nickname}. My skills include ${param1}, ${param2} and ${param3}`
+}
+
+let Joe = {
+    "name": "Joe",
+    "nickname": "Big Joe"
+}
+
+let skills = ['javascript','css', 'node.js'];
+
+console.log(that.apply(Joe, skills));
+
+
 
