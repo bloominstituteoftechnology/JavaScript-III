@@ -30,6 +30,16 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 
+function CharacterStats(options){
+  this.hp = options.hp;
+  this.name = options.name;
+};
+
+CharacterStats.prototype.takeDamage = function (damage) {
+  this.hp = this.hp - damage;
+  return this.name + ' took damage';
+};
+
 /*
   === Humanoid ===
   * faction
