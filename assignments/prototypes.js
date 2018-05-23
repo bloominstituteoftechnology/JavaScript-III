@@ -33,11 +33,18 @@ GameObject.prototype.destroy(); //?
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats() {
+function CharacterStats(attributes) {
+ this.hp = attributes.hp;
+ this.name = attributes.name; //? 
 
 }
 
+CharacterStats.prototype.takeDamage = function () {
+  return `${this['name']} took damage.`;
+}
 
+const skydiver = new CharacterStats({hp: 5, name: 'JJ'}); //?
+skydiver.takeDamage(); //? 
 /*
   === Humanoid ===
   * faction
