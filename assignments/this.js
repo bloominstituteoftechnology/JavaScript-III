@@ -11,7 +11,7 @@
 
 //Principle 1
 
-// code example for Window Binding
+//  code example for Window Binding
 
 function greetFunction(greet) {
    console.log(this.greet);
