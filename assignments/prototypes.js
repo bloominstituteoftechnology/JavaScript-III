@@ -151,8 +151,17 @@ Humanoid.prototype.greet = function() {
 
   Hero.prototype = Object.create(Humanoid.prototype);
   
-  Hero.prototype.attack = function() {
-    
+  Hero.prototype.attacked = function() {
+    let wasItHit = Math.random();
+    if (this.hp === 0) {
+      return `${this.name} is dead`;
+    }
+    if (wasItHit >= .1) {
+      this.hp -= 1;
+    } else {
+      this.hp += 1;
+    }
+    return `${this.name}s HP is now ${this.hp}`;
   }
 
  // Villain Function
@@ -164,11 +173,20 @@ Humanoid.prototype.greet = function() {
 
   Villian.prototype = Object.create(Humanoid.prototype);
   
-  Villian.prototype.backstab = function() {
-    
+  Villian.prototype.backstabbed = function() {
+    let wasItBackstabbed = Math.random();
+    if (this.hp === 0) {
+      return `${this.name} is dead`;
+    }
+    if (wasItBackstabbed >= .2) {
+      this.hp -= 2;
+    } else {
+      this.hp += 1;
+    }
+    return `${this.name}s HP is now ${this.hp}`;
   }
 
-  
+
 // Hero Object
 
   const wizard = new Hero({
@@ -185,6 +203,7 @@ Humanoid.prototype.greet = function() {
       'Wand',
     ],
     language: 'Parsletongue',
+    speed: "Fast"
   });
 
 
@@ -205,4 +224,18 @@ Humanoid.prototype.greet = function() {
       'Trickery',
     ],
     language: 'WarlockSpeak',
+    speed: "Slow"
   });
+
+
+  console.log(wizard.attacked());
+  console.log(warlock.backstabbed());
+  console.log(wizard.attacked());
+  console.log(warlock.backstabbed());
+  console.log(wizard.attacked());
+  console.log(warlock.backstabbed());
+  console.log(wizard.attacked());
+  console.log(warlock.backstabbed());
+  console.log(wizard.attacked());
+  console.log(warlock.backstabbed());
+  console.log(warlock.backstabbed());
