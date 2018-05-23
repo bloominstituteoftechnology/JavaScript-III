@@ -17,9 +17,13 @@
 function GameObject (objAttr) {
   this.createdAt = objAttr.createdAt;
   this.dimensions = objAttr.dimensions;
-  this.destroy = function(){
-    return `${this.name} was removed from the game.`;
-  }
+  // this.destroy = function(){
+  //   return `${this.name} was removed from the game.`;
+  // }
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -33,9 +37,11 @@ function CharacterStats (stats) {
   GameObject.call(this, stats); //inherit destroy() from GameObject
   this.hp = stats.hp;
   this.name = stats.name;
-  this.takeDamage = function () {
-    return `${this.name} took damage.`; 
-  }
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`; 
 }
 
 /*
@@ -52,9 +58,11 @@ function Humanoid (charAttr) {
   this.faction = charAttr.faction;
   this.weapons = charAttr.weapons;
   this.language = charAttr.language;
-  this.greet = function(){
-    return `${this.name} offers a greeting in ${this.language}.`;
-  }
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`;
 }
 
 /*
@@ -133,22 +141,30 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 //Create villain class
 function Villain(villainSkills) {
+
   Humanoid.call(this, villainSkills);
-  
-  this.deadbeam = function (obj) {
-    obj.hp -= 2;
-    obj.takeDamage();
-    if (obj.hp <= 0) {
-      return `${obj.name} has no hp left. ${obj.name} has been eliminated`;
-    }
-    return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.name} has taken 2 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
-    }
 }  
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.deadbeam = function (obj) {
+  obj.hp -= 2;
+  obj.takeDamage();
+  if (obj.hp <= 0) {
+    return `${obj.name} has no hp left. ${obj.name} has been eliminated`;
+  }
+  return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.name} has taken 2 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
+}
 
 //Create hero class
 function Hero(heroSkills) {
-Humanoid.call(this, heroSkills);
-this.kamehameha = function (obj) {
+
+  Humanoid.call(this, heroSkills);
+}  
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.kamehameha = function (obj) {
   obj.hp -= 3;
   obj.takeDamage();
   if (obj.hp <= 0) {
@@ -156,9 +172,9 @@ this.kamehameha = function (obj) {
   }
   return `${this.name} has performed Kamehameha on ${obj.name}. ${obj.name} has taken 3 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
   }
-}  
 
-  
+
+//Create 2 new characters villain and hero  
 const villain = new Villain({
   createdAt: new Date(),
   dimensions: {
@@ -168,7 +184,7 @@ const villain = new Villain({
   },
   hp: 10,
   name: 'Cell',
-  faction: 'Androi',
+  faction: 'Android',
   weapons: [
     'Dead Beam',
     'Ki Blast',
