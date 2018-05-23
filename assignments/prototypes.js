@@ -50,6 +50,19 @@ GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the game.`
 }
 
+// CharacterStats
+function CharacterStats (characterAttributes) {
+  GameObject.call(this, characterAttributes)
+  this.hp = characterAttributes.hp
+  this.name = characterAttributes.name
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype)
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`
+}
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 const mage = new Humanoid({
