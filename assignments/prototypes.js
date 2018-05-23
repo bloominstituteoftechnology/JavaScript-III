@@ -180,4 +180,47 @@ Villian.prototype.kick = function(){
 }
 }
 
-   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+const harry = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 5,
+    },
+    hp: 5,
+    name: 'Harry Potter',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+
+  const tom = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 6,
+    },
+    hp: 10,
+    name: 'Tom Riddle',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+console.log(harry.punch());//Harry Potter lost 5 point
+console.log(harry.punch());//Harry Potter is dead
+ 
+console.log(tom.kick());//Tom Riddle lost 5 point
+console.log(tom.kick());//Tom Riddle lost 5 point
+console.log(tom.kick());//Tom Riddle is dead
+
