@@ -147,12 +147,19 @@ function Villain(villainSkills) {
 
 Villain.prototype = Object.create(Humanoid.prototype);
 
+//Create skill method for villain
 Villain.prototype.deadbeam = function (obj) {
+
+  //Remove hp from object when this function is called
   obj.hp -= 2;
+
+  //Check object's hp, if it's <= 0 then call destroy() function
   obj.takeDamage();
   if (obj.hp <= 0) {
-    return `${obj.name} has no hp left. ${obj.name} has been eliminated`;
+    return `${obj.name} has no hp left. ${obj.destroy()}`;
   }
+
+  //if not then return message showing how much damage was done.
   return `${this.name} has performed Dead Beam on ${obj.name}. ${obj.name} has taken 2 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
 }
 
@@ -164,12 +171,19 @@ function Hero(heroSkills) {
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
+//Create skill method for hero
 Hero.prototype.kamehameha = function (obj) {
+
+  //Remove hp from object when this function is called
   obj.hp -= 3;
+
+  //Check object's hp, if it's <= 0 then call destroy() function
   obj.takeDamage();
   if (obj.hp <= 0) {
-    return `${obj.name} has no hp left. ${obj.name} has been eliminated!`;
+    return `${obj.name} has no hp left. ${obj.destroy()}`;
   }
+
+  //if not then return message showing how much damage was done.
   return `${this.name} has performed Kamehameha on ${obj.name}. ${obj.name} has taken 3 damage. ${obj.name}'s remaining hp is ${obj.hp}.`
   }
 
