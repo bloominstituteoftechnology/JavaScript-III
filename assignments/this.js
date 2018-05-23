@@ -17,7 +17,9 @@
 // Principle 1
 
 // code example for Window Binding
-
+const me = (name) => {
+  console.log(this)
+}
 // Principle 2
 
 // code example for Implicit Binding
