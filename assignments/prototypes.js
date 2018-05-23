@@ -15,6 +15,9 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+let heroHealth = 100;
+let villainHealth = 100;
+
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
@@ -66,6 +69,43 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a gretting in ${this.language}.`;
 }
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+  this.attackType = attributes.attackType;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.lightAttack = function () {
+  let damage = 20;
+  villainHealth -= damage;
+
+  if (villainHealth <= 0) {
+    return `Judas is vanquished`;
+  } else {
+    return `Judas receives ${damage} damage` //Should come back to create general names for any character that takes damage
+  }
+}; //It is clear that object references in this function will need to be specified eventually
+
+
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+  this.attackType = attributes.attackType;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.darkAttack = function () {
+  let damage = 5;
+  heroHealth -= damage;
+
+  if (heroHealth <= 0) {
+    return `Villian is vanquished`;
+  } else {
+    return `Villian receives ${damage} damage`
+  }
+}; //It is clear that object references in this function will need to be specified eventually
 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -126,6 +166,42 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const zoro = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Sir Mustachio',
+    faction: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+    attackType: "light"
+  });
+
+  const judas = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Sir Mustachio',
+    faction: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+    attackType: "dark"
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -136,7 +212,20 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(zoro.attackType); //light
+  console.log(judas.attackType); //dark
+  console.log(zoro.lightAttack());
+  console.log(`Judas Health: ${villainHealth}`);
+  console.log(judas.darkAttack());
+  console.log(`Zoro health: ${heroHealth}`);
+  console.log(`Zoro activated Apesh*t mode`);
+  console.log(zoro.lightAttack());
+  console.log(`Judas Health: ${villainHealth}`);
+  console.log(zoro.lightAttack());
+  console.log(`Judas Health: ${villainHealth}`);
+  console.log(zoro.lightAttack());
+  console.log(`Judas Health: ${villainHealth}`);
+  console.log(zoro.lightAttack());
 
   // Stretch task:
   // * Create Villian and Hero classes that inherit from the Humanoid class.
