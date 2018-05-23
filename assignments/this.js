@@ -19,15 +19,14 @@
 // code example for Window Binding
 
 function sayName(name) {
-       console.log(this.name);
-       return name;
+       return `${name} is learning JS`;
      }
-     sayName("Moonchild");
+     console.log(sayName("Joe"));
 
 // Principle 2
 
 let object1 = {
-    "greeting": "Hello",
+    "greeting": "This is implicit",
     "age": 23,
     "sayName": function() {
         console.log (this.greeting);
