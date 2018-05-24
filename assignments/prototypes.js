@@ -32,6 +32,9 @@ GameObject.prototype.destroy = function () {
 function CharacterStats(charAttributes) {
   GameObject.call(this, charAttributes);
   this.hp = charAttributes.hp;
+  this.attack = charAttributes.attack;
+  this.defense = charAttributes.defense;
+  this.critical = false;
   this.name = charAttributes.name;
 }
 
@@ -138,7 +141,6 @@ const archer = new Humanoid({
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-let humanoidObj = new Humanoid({});
 
 
 class Hero extends Humanoid {
@@ -175,9 +177,28 @@ const ganondorf = new Villian({
   critical: false
 });
 
-console.log(dragonHero);
-function Villian() {
+
+function battle(player1, player2) {
+
+  let player1WinResults = `${player1.name} has won!`;
+  let player2WinResults = `${player2.name} has won!`;
+  let tieResults = `It is a tie!`;
+
+  while (player1.hp > 0 || player2.hp > 0) {
+
+    player1.attackTarget(player2);
+    player2.attackTarget(player1);
+    console.log(ganondorf.hp);
+    console.log(link.hp);
+    if (player1.hp <= 0 && player2.hp) {
+      return tieResults;
+    } else if (player1.hp <= 0) {
+      return player2WinResults;
+    } else if (player2.hp <= 0) {
+      return player1WinResults;
+    }
+  }
 
 }
 
-Villian.prototype = Object.create(Humanoid.prototype);
+console.log(battle(link, ganondorf));
