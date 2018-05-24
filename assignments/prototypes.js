@@ -140,14 +140,23 @@ const archer = new Humanoid({
 
 let humanoidObj = new Humanoid({});
 
-function Hero(heroAttributes) {
 
-  Humanoid.call(this, heroAttributes);
-  for(let key in humanoidObj) {
-    if(humanoidObj[key] === heroAttributes[key]) {
-      this[key] = "Unknown";
-    }
+class Hero extends Humanoid {
+
+  constructor(heroAttributes) {
+    super(heroAttributes);
   }
+}
+
+const link = new Hero({
+  name: "Link",
+  language: "Hylian",
+  hp: 21,
+  attack: 5,
+  defense: 4,
+  weapons: ["Bow", "Master Sword"],
+  critical: false
+});
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 
