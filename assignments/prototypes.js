@@ -157,13 +157,22 @@ const link = new Hero({
   weapons: ["Bow", "Master Sword"],
   critical: false
 });
-}
-Hero.prototype = Object.create(Humanoid.prototype);
 
-const dragonHero = new Hero({
-  name: "Sharka",
-  hp: 23,
-  language: "Dragonerock"
+// console.log(link);
+class Villian extends Humanoid {
+  constructor(villianAttributes) {
+    super(villianAttributes);
+  }
+
+}
+
+const ganondorf = new Villian({
+  name: "Ganondorf",
+  language: "Hylian",
+  hp: 12,
+  attack: 7,
+  defense: 3,
+  critical: false
 });
 
 console.log(dragonHero);
