@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+const GameObject = function(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +31,19 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+const CharacterStats = function(attributes){
+  GameObject.call(this, attributes);
+
+  this.hp = attributes.hp;
+  this.name = attributes.name
+};
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -32,16 +54,103 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+const Humanoid = function(attributes){
+  CharacterStats.call(this, attributes);
+
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+};
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+const UniqueUnit = function(attributes){
+  Humanoid.call(this, attributes);
+
+  this.specialPowers = attributes.specialPowers;
+  this.physicalAttack = attributes.physicalAttack;
+  this.physicalDefense = attributes.physicalDefense;
+  this.magicalAttack = attributes.magicalAttack; 
+  this.magicalDefense = attributes.magicalDefense;
+}
+
+UniqueUnit.prototype = Object.create(Humanoid.prototype);
+
+UniqueUnit.prototype.normalAttack = function(attacker, defender) {
+  let pAtk = attacker.physicalAttack;
+  let pDef = defender.physicalDefense;
+  let hitChance = Math.random();
+
+  if (hitChance >= 0.05 && pAtk > pDef) {
+    defender.hp = defender.hp - pAtk + pDef;
+    
+    if (defender.hp > 0) {
+      return `${attacker.name}'s attacked using ${attacker.weapons[0]}! ${defender.name} took ${pDef - pAtk} damage! (${defender.name}: ${defender.hp} HP)`;
+    }
+    else if (defender.hp <= 0) {
+      return defender.destroy();
+    }
+  } 
+  else if (pAtk < pDef) {
+    return `${attacker.name}'s attacked using ${attacker.weapons[0]}! ${defender.name} resisted taking damage!`;
+  }
+  return `${attacker.name}'s attack missed! ${defender.name} took no damage.`; 
+};
+
+UniqueUnit.prototype.magicAttack = function(attacker, defender) {
+  let mAtk = attacker.magicalAttack;
+  let mDef = defender.magicalDefense;
+  let hitChance = Math.random();
+
+  if (hitChance >= 0.19 && mAtk > mDef) {
+    defender.hp = defender.hp - mAtk + mDef; 
+    
+    if (defender.hp > 0) {
+      return `${attacker.name}'s attacked using ${attacker.specialPowers[0]}! ${defender.name} took ${mDef - mAtk} damage! (${defender.name}: ${defender.hp} HP`;
+    }
+    else if (defender.hp <= 0) {
+      return defender.destroy();
+    }
+  } else if (mAtk < mDef) {
+    return `${attacker.name}'s attacked using ${attacker.specialPowers[0]}! ${defender.name} resisted taking damage!`;
+  }
+  return `${attacker.name}'s magic attack missed! ${defender.name} took no damage.`; 
+};
+
+const Hero = function(attributes){
+  UniqueUnit.call(this, attributes);
+
+  this.heroAlignment = attributes.heroAlignment;
+  this.heroTrait = attributes.heroTrait; 
+};
+
+Hero.prototype = Object.create(UniqueUnit.prototype);
+
+const Villian = function(attributes){
+  UniqueUnit.call(this, attributes);
+
+  this.villianAlignment = attributes.villianAlignment;
+  this.villianTrait = attributes.villianTrait; 
+};
+
+Villian.prototype = Object.create(UniqueUnit.prototype);
+
+
+
 /*
-  * Inheritance chain: Humanoid -> CharacterStats -> GameObject
+  * Inheritance chain: GameObject <- CharacterStats <- Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +201,56 @@
     language: 'Elvish',
   });
 
+  const momohime = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1.75,
+      width: 2.5,
+      height: 6,
+    },
+    hp: 200,
+    name: 'Momohime',
+    faction: 'Oboroken',
+    weapons: [
+      'Oboro Muramasa',
+      'Universe III',
+      'Misty Slash III',
+    ],
+    language: '日本語',
+    specialPowers: ['Samurai Spirit', 'Soul Possession', 'Double Jump'],
+    physicalAttack: 88,
+    physicalDefense: 32,
+    magicalAttack: 28,
+    magicalDefense: 30,
+    heroAlignment: 'Good',
+    heroTrait: 'Honorable',
+  });
+
+  const queenOfTheNetherworld = new Villian ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1.75,
+      width: 2.5,
+      height: 6,
+    },
+    hp: 400,
+    name: 'Queen Odette',
+    faction: `Death's Door`,
+    weapons: [
+      'Lantern of Nightmares',
+    ],
+    language: 'The Language of the Ancients',
+    specialPowers: ['Shapeshifting', 'Absorbing Phozons', 'Power over death itself'],
+    physicalAttack: 15,
+    physicalDefense: 12,
+    magicalAttack: 49,
+    magicalDefense: 100,
+    villainAlignment: 'Deadly',
+    villainTrait: 'Sinister',
+  });
+
+  
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -102,7 +261,15 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
+  console.log(momohime.magicAttack(momohime,queenOfTheNetherworld));
+  console.log(momohime.normalAttack(momohime,queenOfTheNetherworld));
+  console.log(momohime.normalAttack(momohime,queenOfTheNetherworld));
+  console.log(momohime.normalAttack(momohime,queenOfTheNetherworld));
+  console.log(momohime.normalAttack(momohime,queenOfTheNetherworld));
+  console.log(momohime.normalAttack(momohime,queenOfTheNetherworld));
+  console.log(momohime.normalAttack(momohime,queenOfTheNetherworld));
+  console.log(momohime.normalAttack(momohime,queenOfTheNetherworld));
 
   // Stretch task: 
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
