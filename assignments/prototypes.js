@@ -132,3 +132,51 @@ Humanoid.prototype.takeDamage = CharacterStats.prototype.takeDamage;
   // * Create Villian and Hero classes that inherit from the Humanoid class.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero(heroAttrs) {
+    Humanoid.call(this, heroAttrs);
+  }
+  Hero.prototype.greet = function() {
+    return this.name + " offers a greeting in " + this.language;
+  }
+  Hero.prototype.destroy = GameObject.prototype.destroy;
+  Hero.prototype.takeDamage = CharacterStats.prototype.takeDamage;
+  Hero.prototype.heroAttack = function(target) {
+    target.hp -= 50;
+    if (target.hp <= 0) {
+      return target.destroy();
+    }
+    return target.takeDamage();
+  }
+  function Villian(villianAttrs) {
+    Humanoid.call(this, villianAttrs);
+  }
+  Villian.prototype.greet = function() {
+    return this.name + " offers a greeting in " + this.language;
+  }
+  Villian.prototype.destroy = GameObject.prototype.destroy;
+  Villian.prototype.takeDamage = CharacterStats.prototype.takeDamage;
+  Villian.prototype.villianAttack = function(target) {
+    target.hp -= 50;
+    if (target.hp <= 0) {
+      return target.destroy();
+    }
+    return target.takeDamage();
+  }
+
+  const jedi = new Hero({
+    name: "Luke Skywalker",
+    hp: 100,
+  });
+
+  const sith = new Villian({
+    name: "Darth Vader",
+    hp: 100,
+  });
+
+  console.log(jedi.heroAttack(sith));
+  console.log(sith.hp);
+  console.log(sith.villianAttack(jedi));
+  console.log(jedi.hp);
+  console.log(jedi.heroAttack(sith));
+  console.log(sith.hp);
