@@ -2,14 +2,14 @@
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. Window/Global Object Binding is when 'this' is inside the windows object. 
-* 2. Implicit Binding is when we use this, and call it followed by an object and dot. 
-* 3. New binding is when we use a constructor function to bind this.
+* 2. Implicit Binding is the most often used. Implicit Binding is left of the dot at call time. 
+* 3. New binding is when we use a constructor function to bind this with the New keyword. The this keyword is then bound to the object constructed. 
 * 4. Explicint binding is using Javascript's call methods, such as call, apply, or bind, to define our objects. 
 *
 * write out a code example of each explanation above
 */
 
-// Principle 1
+// Principle 1 - Window Binding
 
 
 // code example for Window Binding
@@ -19,39 +19,77 @@ function student(id) {
 }
 student(23); //?
 
-// Principle 2
-const student2 = {
-    name: 'shawn',
-    id: 23,
-    speak: function() {
-        return this.name + ', hi'
+// Principle 2 - Implicit Binding
+const newStudent = {
+    greeting: 'hello',
+    name: 'tyler',
+    sayHi: function(lastName) {
+        return `${this.greeting}, my name is ${this.name} ${lastName}`
     }
 }
 
-student2.speak();//?
+newStudent.sayHi('durbin'); //?
 
-// code example for Implicit Binding
+// Another example
+const sayNameMixin = function(obj) {
+    obj.sayName = function() {
+        return `${this.name}: ${this.age}`;
+    }
+}
 
-// Principle 3
-function RichPerson(person) {
-    this.greeting = "hello there";
-    this.person = person.name;
-    this.age = person.age
+const me = {
+    name: 'Tyler',
+    age: 15
+}
+const her = {
+    name: 'claire',
+    age: 18
+}
+
+sayNameMixin(me); //?
+me.sayName(); //?
+
+sayNameMixin(her);
+her.sayName(); //?
+
+
+
+
+// Principle 3 - New Binding
+let Hero = function(trait, ability) { // This is creating the constructor function.
+    this.trait = trait;
+    this.ability = ability
+    }
+
+
+let link = new Hero('archer', 'shoot arrows');
+link//?
+
+function NicePerson(name) {
+    this.name = name;
+    this.greeting = "hi there";
     this.speak = function() {
-        return "Hi, my name is " + this.person + ", " + this.age;
+        return `${this.greeting} , my name is ${this.name}`
     }
 }
 
-const elaine = new RichPerson({name: 'Elaine', age: 32});
+let elaine = new NicePerson('elaine');
 elaine.speak();//?
+
 
 // code example for New Binding
 
 // Principle 4
 
 // code example for Explicit Binding
-const newPerson = function(name) {
-    console.log(this.name);
+const newPerson = function() {
+    console.log(`My name is ${this.name}`);
 }
 
-newPerson.call(student2, 'booga')
+const ted = {
+    name: 'ted',
+    weight: 154
+}
+
+newPerson.call(ted) //?
+
