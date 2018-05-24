@@ -149,7 +149,6 @@ class Hero extends Humanoid {
     super(heroAttributes);
   }
 }
-
 const link = new Hero({
   name: "Link",
   language: "Hylian",
@@ -160,7 +159,7 @@ const link = new Hero({
   critical: false
 });
 
-// console.log(link);
+console.log(link); //?
 class Villian extends Humanoid {
   constructor(villianAttributes) {
     super(villianAttributes);
