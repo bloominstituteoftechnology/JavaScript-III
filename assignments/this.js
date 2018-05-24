@@ -11,24 +11,27 @@
 
 // Principle 1
 // code example for Window Binding
-function sayYo (greet) {
-    console.log(this);
-    return greet;
+function fruits () {
+    console.log(this.fruit);
 }
 
-sayYo('Hi');
+let fruit = 'apple';
+
+fruits();
+
 // Principle 2
 
 // code example for Implicit Binding
-const lifeInsurance = {
-    "name": 'Randy Calderon',
-    "price": function(price) {
-        console.log(`${this.name} paid ${this.price}`);
-        console.log(this);
+var randy = {
+    name: 'Randy',
+    age: 25,
+    likes: 'music'
+    sayLikes: function() {
+        console.log(this.likes);
     }
 };
 
-lifeInsurance.price(1000);
+randy.sayLikes();
 // Principle 3
 
 // code example for New Binding
@@ -42,8 +45,18 @@ function results(soccer, basketball) {
 }
 
 const favoriteTeams = new results('Chicago Fire', 'Detroit Pistons');
-console.log(favoriteTeams.teams())
+
 // Principle 4
 
 // code example for Explicit Binding
+function line() {
+    console.log(this);
+}
 
+let newObj = {
+    "name": "Randy",
+    "age": "28",
+    "location": "CA"
+};
+
+line.call(newObj);
