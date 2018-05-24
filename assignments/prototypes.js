@@ -59,9 +59,11 @@ function Humanoid(humanAttributes) {
   this.language = humanAttributes.language;
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}.`;
 }
+
 Humanoid.prototype.attackTarget = function (target) {
   return target.hp -= this.attack - target.defense;
 }
@@ -187,9 +189,9 @@ function battle(player1, player2) {
 
     player1.attackTarget(player2);
     player2.attackTarget(player1);
-    console.log(ganondorf.hp);
-    console.log(link.hp);
-    if (player1.hp <= 0 && player2.hp) {
+    console.log(`${player1.name} HP: ${player1.hp}`);
+    console.log(`${player2.name} HP: ${player2.hp}`);
+    if (player1.hp <= 0 && player2.hp <= 0) {
       return tieResults;
     } else if (player1.hp <= 0) {
       return player2WinResults;
