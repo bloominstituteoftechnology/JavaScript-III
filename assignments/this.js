@@ -20,13 +20,14 @@ dogType();
 // Principle 2
 
 // code example for Implicit Binding
-function dogType() {
-    console.log(`The type of dog is ${this.dog}`);
+var dog = {
+    name: "Fido",
+    age: "7",
+    speak: function () {
+        console.log(`${this.name} barks.`);
+    }
 }
-let pug = {
-    dog: 'pug' 
-}
-pug.dogType();
+dog.speak();
 // Principle 3
 
 // code example for New Binding
