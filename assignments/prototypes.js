@@ -37,11 +37,11 @@ function CharacterStats(characterstatsAttributes) {
   this.name = characterstatsAttributes.name;
 }
 
-GameObject.prototype.takeDamage = function(){
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(){
   return this.name + ' took damage.';
 }
-
-CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /*
   === Humanoid ===
@@ -60,7 +60,9 @@ function Humanoid(humanoidAttributes) {
   this.language = humanoidAttributes.language;
 }
 
-GameObject.prototype.greet = function(){
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function(){
   return this.name + ' offers a greeting in ' + this.language + '.';
 };
 
@@ -69,8 +71,6 @@ GameObject.prototype.greet = function(){
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
-
-Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
