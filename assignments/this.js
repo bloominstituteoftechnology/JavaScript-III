@@ -1,10 +1,11 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Implicit Binding -- The this keyword references the object directly to the left of the dot when you invoke a function.
-* 2. Explicit Binding -- 
-* 3. new Binding -- 
-* 4. window Binding --
+* 1. window Binding -- Refers to the this keyword in a global context. If the this keyword is called without using another binding method, it will reference "window."
+* 2. Implicit Binding -- Uses dot notation. The this keyword references the object directly to the left of the dot when you invoke a function.
+* 3. new Binding -- Allows us to use the values assigned with the this keyword by using the "new" keyword to invoke a function.
+* 4. Explicit Binding -- Uses the this keyword within .call(), .apply(), or .bind() on a function.
+
 *
 * write out a code example of each explanation above
 */
@@ -36,18 +37,18 @@ aThing.thisPlanet("Earth");
 
 // code example for New Binding
 //constructor function
-function CordialPerson(greeter) {
-    this.greeting = "Hello";
-    this.greeter = greeter;
+function AHuman(person) {
+    this.say = "What are you doing ";
+    this.person = person;
     this.speak = function() {
-        console.log(this.greeting + this.greeter)
+        console.log(this.say + this.person)
     }
 }
-const jerry = new CordialPerson('Newman');
-const newman = new CordialPerson('Jerry');
+const brian = new AHuman('Mrs. Hart');
+const libby = new AHuman('Husbando');
 
-jerry.speak(); //should return: Hello Newman
-newman.speak(); //should return: Hello Jerry
+brian.speak();
+libby.speak();
 
 // Principle 4
 
