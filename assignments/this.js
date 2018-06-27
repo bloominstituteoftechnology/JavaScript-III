@@ -12,15 +12,47 @@
 // Principle 1
 
 // code example for Window Binding
+this.name = 'testName';
+console.log(this.name);
 
 // Principle 2
 
 // code example for Implicit Binding
+const steve = {
+    name: 'Steve',
+    heightInBlocks: 2,
+    favoriteTree: 'acacia',
+    punchTrees: function(treeType) {
+        console.log(`A log broke off the ${treeType} tree.`);
+    }
+}
+
+steve.punchTrees('oak');
+steve.punchTrees('birch');
 
 // Principle 3
 
 // code example for New Binding
 
+function MinecraftMonster(type, noise, health, weapon) {
+    this.type = type;
+    this.noise = noise;
+    this.health = health;
+    this.attack = function() {
+        console.log(`The evil ${this.type} monster attacked Alex with its ${weapon} and it emitted a terrible ${noise}.`)
+    }
+}
+
+const creeper = new MinecraftMonster('creeper', 'SSSsss', 20, 'explosion');
+const skeleton = new MinecraftMonster('skeleton', 'clank', 20, 'bow and arrow');
+const enderman = new MinecraftMonster('enderman', 'bope bope', 40, 'arms');
+
+creeper.attack();
+skeleton.attack();
+enderman.attack();
+
 // Principle 4
 
 // code example for Explicit Binding
+
+creeper.attack.call(skeleton);
