@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1. Window
+* 2. Implicit
+* 3. Explicit
+* 4. New
 *
 * write out a code example of each explanation above
 */
