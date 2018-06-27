@@ -49,3 +49,12 @@ const jackalope = new MythicalCreature({
 // Principle 4
 
 // code example for Explicit Binding
+const myObject = {
+  "fee": 14,
+  "fi": "Raquetball",
+  "fo": "Spanish"
+}
+
+function fum() {return `Hello! I am ${this.fee} years old, I love ${this.fi} and my family all speak ${this.fo}.`};
+
+fum.call(myObject);
