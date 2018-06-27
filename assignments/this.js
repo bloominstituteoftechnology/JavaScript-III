@@ -1,26 +1,46 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
+* 1. Implicit Binding = this is automatic, this will happen no matter what, it's simple/direct
+* 2. Explicit = 
 * 3. 
 * 4. 
 *
 * write out a code example of each explanation above
 */
 
-// Principle 1
+// Principle 1 for Implicit Binding
+var david = {
+    'name': 'David',
+    'age': 40,
+    'car': 'Mountaineer',
+    sayHello: function() {
+        console.log (this.name);
+    } 
+}
+david.sayHello();
 
-// code example for Window Binding
+// Principle 2 for Explicit Binding
 
-// Principle 2
+const oneObject = {
+    'name': 'Sven',
+    'age': 23,
+    'location': 'Oslo'
+}
 
-// code example for Implicit Binding
+const fun = ['Beach', 'Skydiving', 'ScubaDiving'];
 
-// Principle 3
+function sayFavorites(fun1, fun2, fun3) {
+    console.log(`My name is ${this.name} and I love the ${fun1}, 
+    ${fun2}, ${fun3}.`);
+}
 
-// code example for New Binding
+sayFavorites.call(oneObject, ...fun);
 
-// Principle 4
+// Principle 3 for New Binding
 
-// code example for Explicit Binding
+
+
+
+// Principle 4 for Window Binding
+
