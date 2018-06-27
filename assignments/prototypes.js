@@ -17,7 +17,7 @@ function GameObject(goAttributes){
   this.dimensions = goAttributes.attributes;
 };
 GameObject.prototype.destroy = function(){
-  return `Object was removed from the game`;
+  return `${this.name} was removed from the game`;
 };
 
 
