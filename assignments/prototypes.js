@@ -30,6 +30,7 @@ GameObject.prototype.destroy = function(){
 function CharacterStats(characterObj){
   GameObject.call(this,characterObj)
   this.hp = characterObj.hp;
+  this.name = characterObj.name;
 };
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function (){  {return ` ${this.hp} took damage.`}
@@ -52,6 +53,12 @@ function Humanoid(humanoidObj) {
   this.language = humanoidObj.language;
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+{` return ${this.faction} offers a greeting in ${this.language}.`}
+}
+
+destroy(GameObject);
+takeDamage(CharacterStats);
 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -61,7 +68,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
