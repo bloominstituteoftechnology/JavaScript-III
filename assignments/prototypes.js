@@ -15,6 +15,18 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+// define constructor function
+function GameObject(attributes) {
+  // Properties
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+// Methods
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +34,19 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(childAttributes) {
+  // This helps us gain access to the this keyword in the original object.
+  GameObject.call(this, childAttributes);
+  this.hp = childAttributes.hp;
+  this.name = childAttributes.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+// New methods MUST GO BELOW THIS LINE ^
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -33,13 +58,26 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(grandChildAttributes) {
+  CharacterStats.call(this, grandChildAttributes);
+  this.faction = grandChildAttributes.faction;
+  this.weapons = grandChildAttributes.weapons;
+  this.language = grandChildAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-//Test you work by uncommenting these 3 objects and the list of console logs below:
+//Test your work by uncommenting these 3 objects and the list of console logs below:
 
 /*
   const mage = new Humanoid({
