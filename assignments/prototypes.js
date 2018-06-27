@@ -45,7 +45,7 @@ function GameObject(attributes) {
 }
 // Parent Methods
 GameObject.prototype.destroy = function() {
-  console.log( 'Object was removed from the game.')
+  return 'Object was removed from the game.'
 }
 function CharacterStats(childAttributes) {
   // This helps us gain access to the this keyword in the original object.
@@ -58,7 +58,7 @@ function CharacterStats(childAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 // New methods MUST GO BELOW THIS LINE ^
 CharacterStats.prototype.takeDamage = function(name) {
-console.log(`${this.name} took damage.`)
+return `${this.name} took damage.`
 }
 
 function Humanoid(grandchildAttributes) {
@@ -72,7 +72,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 // New methods MUST GO BELOW THIS LINE ^
 Humanoid.prototype.greet = function(a,b) {
-  console.log(`${this.name} offers a greeting in ${this.language}.`);
+  return `${this.name} offers a greeting in ${this.language}.`;
 }
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
