@@ -62,6 +62,24 @@ function Humanoid(report){
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
+function Hero(light){
+  Humanoid.call(this, light);
+  this.damage = function(){
+      console.log('I will end you!');
+      return villains.hp - 15;
+    }
+  }
+
+ Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villain(dark){
+  Hero.call(this, dark);  
+  this.damage = function(){
+    console.log('Heroes shall fall!');
+    return heroes.hp - 30;
+  }
+}
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -117,6 +135,55 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
     weapons: [
       'Bow',
       'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  const heroes = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 100,
+    name: 'Leo',
+    faction: 'Kingdom',
+    weapons: [
+      'BF Sword',
+    ],
+    language: 'Common Tongue',
+    damage: 
+  });
+
+  const heroes = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 5,
+      width: 3,
+      height: 8,
+    },
+    hp: 100,
+    name: 'Leo',
+    faction: 'Kingdom',
+    weapons: [
+      'BF Sword',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const villains = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 12,
+    },
+    hp: 40,
+    name: 'Lucifer',
+    faction: 'Hell',
+    weapons: [
+      'Bladed Wings',
     ],
     language: 'Elvish',
   });
