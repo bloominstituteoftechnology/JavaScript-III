@@ -65,10 +65,10 @@ CharacterStats.prototype.takeDamage = function () {
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 function Humanoid(humanoidAttributes){  
-this.faction = humanoidAttributes.faction; 
-this.weapons = humanoidAttributes.weapons; 
-this.language = humanoidAttributes.language; 
-CharacterStats.call(this,humanoidAttributes);
+  this.faction = humanoidAttributes.faction; 
+  this.weapons = humanoidAttributes.weapons; 
+  this.language = humanoidAttributes.language; 
+  CharacterStats.call(this,humanoidAttributes);
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype); 
@@ -94,6 +94,7 @@ const mage = new Humanoid({
   ],
   language: 'Common Toungue',
 });
+
 
 const swordsman = new Humanoid({
   createdAt: new Date(),
@@ -128,8 +129,96 @@ const archer = new Humanoid({
   ],
   language: 'Elvish',
 });
+// new constructor 
+function Villian(villianAttributes){
+  Humanoid.call(this, villianAttributes); 
+  this.badBreath = villianAttributes.badBreath;
+  this.opponentHealth = villianAttributes.opponentHealth;
+}
+//inherit
+Villian.prototype = Object.create(Humanoid.prototype); 
+
+//methods 
+Villian.prototype.evilLaugh = function () {
+  this.opponentHealth -= 10;
+  return `The villian ${this.name} lets out an evil laugh you will fail because I am ${this.name}`;
+}
+// const failure = new Villian({
+//   createdAt: new Date(),
+//   dimensions: {
+//     length: 1,
+//     width: 2,
+//     height: 4,
+//   },
+//   hp: 10,
+//   name: 'Failure',
+//   faction: 'Forest Kingdom',
+//   weapons: [
+//     'doubt','low confidence'
+//   ],
+//   language: 'Marlarkey',
+//   badBreath: 'Extremely Funky'
+// });
+
+function Hero (heroAttributes){
+  this.goodLooks = heroAttributes.goodlooks;
+  this.opponentHealth = heroAttributes.opponentHealth;
+
+  Humanoid.call(this, heroAttributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);  
+
+Hero.prototype.studyHard = function () {
+  this.opponentHealth -=20;
+  console.log(this.opponent); 
+  return `The hero ${this.name} studies hard`; 
+}
+Hero.prototype.workHard = function () {
+  this.opponentHealth -=50; 
+  return `The hero ${this.name} works hard`
+}
+Hero.prototype.flawlessVictory = function() {
+  this.opponentHealth-= 30; 
+  return `The hero learns to program using his weapons ${this.weapons}... and defeats the villian`; 
+}
 
 
+const jonathan = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Jonathan',
+  faction: 'Forest Kingdom',
+  weapons: [
+    'determination', 'work ethic', 'great instructors', 'supporters', 'the list goes on and on...seriously' 
+  ],
+  language: 'JavaScript',
+  goodLooks: 'High',
+  opponentHealth: 100
+});
+
+failure = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Failure',
+  faction: 'Forest Kingdom',
+  weapons: [
+    'doubt','low confidence'
+  ],
+  language: 'Marlarkey',
+  badBreath: 'Extremely Funky',
+  opponentHealth: 100
+});
 
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -143,7 +232,28 @@ console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
+console.log("A new battle is about to begin")
+console.log(`The match ${jonathan.name} vs ${failure.name} has begun.`);
+console.log(`The villian has the following weapons ${failure.weapons}`);
+console.log(`The hero has the following weapons ${jonathan.weapons}`); 
+console.log(`The villian has the following extra attribute ${failure.badBreath} breath`); 
+console.log(`The villian speaks the following language ${failure.language}`);
+console.log(`The hero speaks the following language ${jonathan.language}`);
+console.log(failure.evilLaugh());
+console.log(`${jonathan.name} has been reduced, ${jonathan.name} now has ${failure.opponentHealth}`);
+console.log(jonathan.studyHard());
+console.log(`${failure.name} has been reduced, ${failure.name} now has ${failure.opponentHealth}`);
+console.log(jonathan.workHard());
+console.log(`${failure.name} has been reduced, ${failure.name} now has ${jonathan.opponentHealth}`) ;
+console.log(jonathan.flawlessVictory()); 
+console.log(`${failure.name} has been reduced, ${jonathan.opponentHealth} now has ${jonathan.opponentHealth}`);
+console.log(`${jonathan.name} WINS GETS A NEW JOB WITH HIGH PAY!`); 
+
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  console.log(failure.opponent);
+  console.log(jonathan.opponent);
+  this.opponentHealth
