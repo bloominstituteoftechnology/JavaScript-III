@@ -128,7 +128,7 @@ function GameObject(attributes) {
 
 // Parent Methods
 GameObject.prototype.destroy = function() {
-  console.log( `Object was removed from the game.`)
+  console.log( `${this.name} was removed from the game.`)
 }
 
 // Constructor function
@@ -139,7 +139,7 @@ function CharacterStats(characterAttributes) {
   this.name = characterAttributes.name;
 }
 
-CharacterStats.prototype = Object.create(CharacterStats.prototype);
+CharacterStats.prototype = Object.create(GameObject.prototype);
 // New methods MUST GO BELOW THIS LINE ^
 
 CharacterStats.prototype.takeDamage = function() {
