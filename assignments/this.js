@@ -18,14 +18,14 @@
 
 // Principle 1
 // code example for Window Binding
-const windowTimesTwo = () => { return this * 2; }
+const windowTimesTwo = () => { return this * 2; };
 
 // Principle 2
 // code example for Implicit Binding
 const obj = {
     myKey: 'My value',
     myFunc: function() { return `${this.myKey} is my value.`; }
-}
+};
 console.log(obj.myFunc());
 
 // Principle 3
@@ -37,7 +37,7 @@ const Winner = function (phrase, name) {
     this.congratulations = function() {
         return `${this.congrats} ${this.phrase} You've won, ${this.name}. :D`;
     }
-}
+};
 
 let phrase1 = "You've defeated the evil minotaur when no one else could! Thank you.";
 let phrase2 = "You defeated the evil minotaur when someone else already did! Thanks.";
@@ -53,7 +53,7 @@ console.log(larry.congratulations());
 const LastWinner = function (name) {
     let phrase = "You've defeated the evil minotaur! That was the last of them. Don't bother searching for more.";
     Winner.call(this, phrase, name);
-}
+};
 
 const gary = new LastWinner('Gary');
 

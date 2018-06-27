@@ -39,7 +39,7 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-//Test you work by uncommenting these 3 objects and the list of console logs below:
+//Test your work by uncommenting these 3 objects and the list of console logs below:
 
 /*
   const mage = new Humanoid({
