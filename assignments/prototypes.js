@@ -39,7 +39,7 @@ function GameObject(game) {
 }
 
 GameObject.prototype.destroy = function() {
-  return 'Sir Mustachio was removed from the game.'
+  return `${this.name} was removed from the game.`
 }
 
 function CharacterStats(char) {
