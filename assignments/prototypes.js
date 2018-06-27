@@ -16,7 +16,7 @@
 */
 
 function GameObject(attr) {
-  this.createdAt = attr.createdAt;
+  this.createdAt = attr.createdAt.toLocaleString('en-US');
   this.dimensions = attr.dimensions;
 }
 
@@ -41,7 +41,12 @@ function CharacterStats(attr) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function() {
+CharacterStats.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
+
+CharacterStats.prototype.takeDamage = function(damage = 1) {
+  this.hp -= damage;
   return `${this.name} took damage.`;
 }
 
@@ -67,6 +72,10 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
+}
+
+Humanoid.prototype.taunt = function() {
+  return `${this.name} taunts its attacker!`;
 }
 
  
@@ -145,3 +154,40 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero(attr) {
+    Humanoid.call(this, atrr);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  // Hero Methods
+  Hero.prototype.heavySwing = function(target) {
+    console.log(`${this.name} takes a heavy swing at ${target.name}!`);
+    target.takeDamage(5);
+    return (target.hp < 1 ? target.destroy() : target.taunt());
+  }
+  Hero.prototype.massiveSwing = function(target) {
+    console.log(`${this.name} takes a massive swing at ${target.name}!`);
+    target.takeDamage(10);
+    return (target.hp < 1 ? target.destroy() : target.taunt());
+  }
+
+
+  function Villain(attr) {
+    Humanoid.call(this, attr);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  // Villain Methods
+  Villain.prototype.summonImp = function(target) {
+    console.log(`${this.name} summons an imp to attack ${target.name}!`);
+    target.takeDamage(7);
+    return (target.hp < 1 ? target.destroy() : target.taunt());
+  }
+  Villain.prototype.summonDragon = function(target) {
+    console.log(`${this.name} summons a dragon to attack ${target.name}!`);
+    target.takeDamage(15);
+    return (target.hp < 1 ? target.destroy() : target.taunt());
+  }
