@@ -15,6 +15,19 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
+//define GameObject constructor function
+function GameObject(attributes) {
+  //GameObject properties
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+//GameObject Methods
+
+GameObject.prototype.destroy = function (){
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +35,21 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+//define CharacterStats constructor function
+function CharacterStats(childAttributes) {
+  //CharacterStats properties
+  GameObject.call(this, childAttributes);
+  this.hp = childAttributes.hp;
+  this.name = childAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+//CharacterStats Methods
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+}
+
 
 /*
   === Humanoid ===
