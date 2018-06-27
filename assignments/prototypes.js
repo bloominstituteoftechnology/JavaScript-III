@@ -39,8 +39,13 @@
 
     CharacterStats.prototype = Object.create(GameObject.prototype);
 
-    CharacterStats.prototype.takeDamage = function(){
-      console.log(`${this.name} took damage`)
+    CharacterStats.prototype.takeDamage = function(damage){
+      this.hp -= damage;
+      if(this.hp > 0){
+        console.log(`${this.name} took damage! ${this.hp} remaining. Watch out!`)
+      }else if(this.hp <= 0){
+        destroy();
+      }
     }
 /*
   === Humanoid ===
@@ -139,3 +144,50 @@
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(villianAttributes){
+    Humanoid.call(this, villianAttributes);
+    this.name = villianAttributes.name;
+    this.target = villianAttributes.target;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype.attack = function(target){
+    console.log(`${this.name} just attacked ${target.name} with ${this.weapons}`)
+    target.takeDamage(5);
+    }
+
+
+  function Hero(heroAttributes){
+    Villian.call(this, heroAttributes); 
+    
+  }
+
+  Hero.prototype = Object.create(Villian.prototype);
+  
+const superMan = new Hero({
+  createdAt: new Date(),
+  name: 'SuperMan', 
+  hp: 50, 
+  faction: 'City King',
+  weapons: [
+      'Fists of Iron',
+      'Shield',
+    ],
+    language: 'Common Tongue',
+});
+
+const shyVillian = new Villian({
+  createdAt: new Date(),
+  name: 'shyVillian', 
+  hp: 50, 
+  faction: 'City King', 
+  weapons: [
+      'Bombs',
+      'Magic Spells',
+    ],
+    language: 'Common Tongue',
+})
+
+
+shyVillian.attack(superMan);
