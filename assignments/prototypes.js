@@ -18,7 +18,7 @@ function GameObject(obj){
 };
 
 GameObject.prototype.destroy = function(){
-  return `Object was removed from the game.`
+  return `Object was removed from the game.`}
 }
 /*
   === CharacterStats ===
@@ -33,7 +33,7 @@ function CharacterStats(characterObj){
   this.name = characterObj.name;
 };
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function (){  {return ` ${this.hp} took damage.`}
+CharacterStats.prototype.takeDamage = function (){   return {` ${this.hp} took damage.`}
 }
 
 
@@ -54,8 +54,8 @@ function Humanoid(humanoidObj) {
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
-{` return ${this.faction} offers a greeting in ${this.language}.`}
-}
+return  ` ${this.name} offers a greeting in ${this.language}.`
+};
 
 destroy(GameObject);
 takeDamage(CharacterStats);
@@ -136,7 +136,7 @@ takeDamage(CharacterStats);
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task:
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
