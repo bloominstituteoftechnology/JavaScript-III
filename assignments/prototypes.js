@@ -41,8 +41,9 @@ function CharacterStats(attr) {
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`;
+CharacterStats.prototype.takeDamage = function(dmg) {
+  this.hp -= dmg;
+  return `${this.name} took ${dmg} damage. ${this.hp} HP remains`;
 };
 /*
   === Humanoid ===
@@ -64,6 +65,78 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 }
+
+function Hero(attr) {
+  Humanoid.call(this, attr);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villain(attr) {
+  Humanoid.call(this, attr);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+const hero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 10,
+  name: 'Klaus the Bright',
+  faction: 'Warriors of Light',
+  weapons: {
+    name: 'Shining Sword of Holy Destruction',
+    damage: 20
+  },
+  language: 'Common Toungue',
+});
+
+const demonKing = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Aykrd King of Demons',
+  faction: 'Demons',
+  weapons: {
+    name: 'Corrupted Battleax of Despair',
+    damage: 10
+  },
+  language: 'Demon Tongue',
+});
+
+function battle(hero, villain) {
+  let turn = 1;
+  console.log(`Here begins the battle between ${hero.name} and ${villain.name}!`);
+
+  while (hero.hp > 0 && villain.hp > 0) {
+    console.log(`${hero.name} HP: ${hero.hp}         ${villain.name} HP: ${villain.hp}`);
+    if (turn == 1) {
+      console.log(`${hero.name} attacks ${villain.name} with ${hero.weapons.name}`);
+      console.log(villain.takeDamage(hero.weapons.damage));
+      turn++;
+    } else if (turn == 2) {
+      console.log(`${villain.name} attacks ${hero.name} with ${villain.weapons.name}`);
+      console.log(hero.takeDamage(villain.weapons.damage));
+      turn--;
+    }
+  }
+  if (villain.hp > 0) {
+    console.log(`${villain.name} has emerged victorious! All is lost!`);
+    console.log(hero.destroy());
+  } else {
+    console.log(`Rejoice! For our hero ${hero.name} has conquered evil once and for all!`);
+    console.log(villain.destroy());
+  }
+}
+
+battle(hero, demonKing);
+
 /*
  * Inheritance chain: Humanoid -> CharacterStats -> GameObject
  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -72,7 +145,7 @@ Humanoid.prototype.greet = function() {
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-
+/*
 const mage = new Humanoid({
   createdAt: new Date(),
   dimensions: {
@@ -133,7 +206,7 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+*/
 
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
