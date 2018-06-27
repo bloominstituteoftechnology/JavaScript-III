@@ -1,8 +1,8 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. default binding-this points to the global object, in browsers this is window.  When the this keyword does not have a containing object, constructor function or bind, call, apply affiliations.
-* 2. Implicit binding- the function referencing the this.x variable is contained inside an object.  
+* 1. default binding-this points to the global object, in browsers this is window.  When the this keyword does not have a containing object, constructor function or bind, call, apply affiliations. Also when other types of binding are lost.
+* 2. Implicit binding- the function referencing the this variable is contained inside an object.  
 * 3. Explicit Binding-The this variable is passed off to a function with bind, call, or apply as a parameter may be an object.  
 * 4. New Binding-This points to the object passed into the constructor function at time of new invocation.
 *
