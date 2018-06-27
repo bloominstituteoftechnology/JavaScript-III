@@ -68,6 +68,7 @@ console.log(chara.destroy());
    this.weapons = args.weapons;
    this.language = args.language;
  }
+
  Humanoid.prototype = Object.create(CharacterStats.prototype);
 
  Humanoid.prototype.greet = function(){
@@ -153,3 +154,56 @@ console.log(chara.destroy());
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  // args : "villain" or "hero"
+  function HeroOrVillain(args){
+    Humanoid.call(this,args);
+    this.type = args.type;
+  }
+
+  HeroOrVillain.prototype = Object.create(Humanoid.prototype);
+
+  HeroOrVillain.prototype.attack = function(rival){
+    console.log(rival);
+    
+      rival.takeDamage();
+      rival.hp -= 1;
+  };
+
+  const amon = new HeroOrVillain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'Amon',
+    faction: 'The Streets',
+    weapons: [
+      'Wit',
+      'Blaster',
+    ],
+    language: 'English',
+    type: "Hero"
+  });
+
+  const zombie = new HeroOrVillain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'Arrrrggghh',
+    faction: 'The Undead',
+    weapons: [
+      'Wit',
+      'Blaster',
+    ],
+    language: 'Zombish',
+    type: "Villain"
+  });
+
+  console.log(amon.attack(zombie));
