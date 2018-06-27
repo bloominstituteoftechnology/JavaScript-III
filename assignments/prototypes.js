@@ -118,6 +118,7 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
+  
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -128,11 +129,72 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  
+  function Villian(attributes) {
+    Humanoid.call(this, attributes);
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype.attack = function (victim) {
+    victim.hp -= 2;
+    if (victim.hp > 0) {
+      return(`${victim.name}'s health points have decreased to ${victim.hp}! Muahaha!`)
+    } else {
+      return victim.destroy();
+    }
+  }
+
+  function Hero(attributes) {
+    Humanoid.call(this, attributes);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.rescue = function (victim) {
+    victim.hp += 2;
+    return(`${victim.name}'s health points has been restored to ${victim.hp}! ${this.name} to the rescue!`)
+  }
+
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 4,
+    },
+    hp: 15,
+    name: 'Captain Evil',
+    faction: 'Evil Cave',
+    weapons: [
+      'Magic',
+      'Sword',
+    ],
+    language: 'French',
+  });
+
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 4,
+    },
+    hp: 20,
+    name: 'Superman',
+    faction: 'Secret lab',
+    weapons: [
+      'Justice',
+    ],
+    language: 'Common Tongue',
+  });
+
+  console.log(villian.attack(mage));
+  console.log(hero.rescue(mage));
+  console.log(villian.attack(mage));
+  console.log(villian.attack(mage));
+  console.log(villian.attack(mage));
