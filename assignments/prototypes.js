@@ -20,7 +20,7 @@ function GameObject (info) {
 }
 
 GameObject.prototype.destroy = function () {
-  return 'Object was removed from the game.';
+  return `${this.name} was removed from the game.`;
 }
 /*
   === CharacterStats ===
@@ -139,3 +139,44 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villain (attributes) {
+    Humanoid.call(this, attributes);
+  }
+
+  function Hero (attributes) {
+    Humanoid.call(this, attributes);
+  }
+
+  const villain = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 5,
+    },
+    hp: 100,
+    name: 'Xarthix',
+    faction: 'Orcs',
+    weapons: [
+      'Battle Axe'
+    ],
+    language: 'Elvish',
+  });
+
+  const hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 5,
+    },
+    hp: 100,
+    name: 'Tyfor',
+    faction: 'Forgotten Realm',
+    weapons: [
+      'Shield',
+      'Broadsword',
+    ],
+    language: 'Elvish',
+  });
