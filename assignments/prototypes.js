@@ -7,7 +7,7 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+  start  
 /*
   === GameObject ===
   * createdAt
