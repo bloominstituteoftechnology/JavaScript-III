@@ -7,14 +7,10 @@
 * 4. Explicit Binding: 'this' refers to the placement of 'this' into a function with apply(), call(), or bind()
 */
 
-// Principle 1
-
-// code example for Window Binding
+// Principle 1 : Window Binding
 console.log(this);
 
-// Principle 2
-
-// code example for Implicit Binding
+// Principle 2 : Implicit Binding
 const obj = {
     name: "Amon",
     adj: "ROCKS!",
