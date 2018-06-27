@@ -1,7 +1,7 @@
 # JavaScript - III
 This challenge focuses on using the `this` keyword as well as getting comfortable with prototypes by building out a fantasy themed video game.   
 
-## Assignment Description
+#### Assignment Description
 
 * Fork/Clone this repository.
 * Complete all the exercises as described inside each assignment file.
