@@ -59,10 +59,50 @@ console.log(this);
 
 // code example for Implicit Binding
 
+const myObject = {
+  'greeting': 'Hello',
+  'sayHello': function(name){
+    console.log(`${this.greeting} my name is: ${name}`);
+    //anything after this is ignored (return)
+  }
+}
+
+myObject.sayHello("Bob");
+
 // Principle 3
 
 // code example for New Binding
 
+function CordialPerson(greeter){
+  this.greeting = 'Hello';
+  this.greeter = greeter;
+  this.speak = function (){
+    console.log(`${this.greeting} ${this.greeter}`)
+  }
+}
+
+const jerry = new CordialPerson('Newman'); //new object
+const newman = new CordialPerson('Jerry');
+
+
+jerry.speak();
+newman.speak();
+
 // Principle 4
 
 // code example for Explicit Binding
+
+const myObject = {
+  'name': 'Jim',
+  'age': 30
+}
+
+sayName.call(myObject);
+sayName.call(myObject, ...skills) //this works;
+
+// ... is called "spread syntax"
+//.call is a built in method of functions that we can use explicitly pass in the this keyword
+
+const skills = ['HTML','CSS','JS']
+
+sayName.apply(myObject,skills)
