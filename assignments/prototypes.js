@@ -34,11 +34,26 @@ function CharacterStats(props) {
   GameObject.call(this, props);
   this.hp = props.hp;
   this.name = props.name;
+  this.baseAttack = props.baseAttack;
+  this.injuryBuildUp = 0;
+  this.alive = true;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.constructor = CharacterStats;
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage`;
+CharacterStats.prototype.takeDamage = function(damage) {
+  this.hp -= damage;
+  let result = '';
+  if (this.hp < 0) {
+    this.hp = 0;
+    this.alive = false;
+    result = this.destroy();
+  }
+  result = `${result}
+  ${this.name} took ${damage} damage`;
+  result = `${result}
+  current HP: ${this.hp}
+  `;
+  return result;
 };
 
 /*
@@ -76,7 +91,7 @@ const mage = new Humanoid({
     width: 1,
     height: 1
   },
-  hp: 5,
+  hp: 15,
   name: 'Bruce',
   faction: 'Mage Guild',
   weapons: ['Staff of Shamalama'],
@@ -119,12 +134,32 @@ console.log(swordsman.faction); // The Round Table
 console.log(mage.weapons); // Staff of Shamalama
 console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
+console.log(mage.takeDamage(8)); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-console.log(Humanoid.prototype);
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villians different methods that could be used to remove
 // health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Hero(props) {
+  Humanoid.call(props);
+  this.criticalHitRatio = props.criticalHitRatio;
+  this.adrenaline = 0;
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.constructor = Hero;
+Hero.prototype.attack = function() {
+  let rand = Math.random();
+  if (rand < this.criticalHitRatio) {
+  }
+};
+
+// while(hero.alive  && villain.alive) {
+//   let damageDealt = hero.attack();
+//   villain.takeDamage(damageDealt);
+
+//   damageDealt = villain.attack();
+//   hero.takeDamage(damageDealt);
+// }
