@@ -40,7 +40,7 @@ function CharacterStats (charStatProperties) {
   this.name = charStatProperties.name;
 }
 
-CharacterStats.prototype = Object.create(CharacterStats.prototype);
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function (){
   return `${this.name} took damage.`;
