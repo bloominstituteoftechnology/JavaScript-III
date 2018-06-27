@@ -30,7 +30,7 @@ const thisIsAnObject = {
   }
 }
 
-thisIsAObject.logThis();
+thisIsAnObject.logThis();
 
 // Principle 3
 
