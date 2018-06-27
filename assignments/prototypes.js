@@ -42,8 +42,12 @@ function CharacterStats(attr) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function(dmg) {
-  this.hp -= dmg;
-  return `${this.name} took ${dmg} damage. ${this.hp} HP remains`;
+  let damage = Math.floor(Math.random() * Math.floor(dmg));
+  if (damage == 0) {
+    return `${this.name} dodged the attack!`;
+  }
+  this.hp -= damage;
+  return `${this.name} took ${damage} damage. ${this.hp} HP remains`;
 };
 /*
   === Humanoid ===
@@ -83,7 +87,7 @@ const hero = new Hero({
     width: 1,
     height: 1,
   },
-  hp: 10,
+  hp: 200,
   name: 'Klaus the Bright',
   faction: 'Warriors of Light',
   weapons: {
@@ -100,7 +104,7 @@ const demonKing = new Villain({
     width: 1,
     height: 1,
   },
-  hp: 5,
+  hp: 500,
   name: 'Aykrd King of Demons',
   faction: 'Demons',
   weapons: {
