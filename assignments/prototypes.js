@@ -148,3 +148,84 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+// Constructor
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+    this.luck = villainAttributes.luck;
+  }
+
+// Inheritance of methods
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+// Methods
+  Villain.prototype.nuke = function(target) {
+  target.hp = 0;
+  }
+
+
+
+// Constructor
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.luck = heroAttributes.luck;
+  }
+
+// Inheritance of methods
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+// Methods
+  Hero.prototype.gunshot = function(target) {
+  target.hp -= (20 * this.luck);
+  }
+
+
+  const mccree = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 200,
+    name: 'McCree',
+    faction: 'Overwatch',
+    weapons: [
+      'gun'
+    ],
+    language: 'English',
+    luck: 1.2,
+    // luck: 5
+  });
+
+  const dVa = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 600,
+    name: 'Hana Song',
+    faction: 'Overwatch',
+    weapons: [
+      'nuke'
+    ],
+    language: 'Korean',
+    luck: 10
+  });
+
+  console.log(mccree.hp);
+  console.log(dVa.hp);
+
+  mccree.gunshot(dVa);
+  console.log(dVa.hp);
+  mccree.gunshot(dVa);
+  mccree.gunshot(dVa);
+  mccree.gunshot(dVa);
+  console.log(dVa.hp);
+
+  dVa.nuke(mccree);
+  console.log(mccree.hp);
+  console.log(mccree.destroy());
