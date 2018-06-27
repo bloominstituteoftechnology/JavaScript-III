@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
+* 1. Window binding refers to how "this" will always try to refer to the window
 * 2. 
-* 3. 
-* 4. 
+* 3.
+* 4.
 *
 * write out a code example of each explanation above
 */
