@@ -177,7 +177,7 @@ Humanoid.prototype.greet = function(){
   }
   Hero.prototype.bash = function(target){
     target.takeDamage();
-    target.hp--;
+    target.hp;
     return target.hp;
     if (target.hp === 0){
       return target.destroy();
