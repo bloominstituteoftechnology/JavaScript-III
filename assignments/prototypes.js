@@ -1,12 +1,9 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be
   implementing several constructor functions with their correct inheritance heirarchy.
-
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.
-
   At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the
   bottom of the page to test your constructor functions.
-
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
 
@@ -16,9 +13,9 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
-function GameObject({ createdAt, dimensions }) {
-  this.createdAt = createdAt;
-  this.dimensions = dimensions;
+function GameObject(props) {
+  this.createdAt = props.createdAt;
+  this.dimensions = props.dimensions;
 }
 GameObject.prototype.destroy = function() {
   return `${this.name} was removed from the game.`;
@@ -33,17 +30,27 @@ GameObject.prototype.destroy = function() {
 function CharacterStats(props) {
   GameObject.call(this, props);
   this.hp = props.hp;
+  this.totalHP = props.hp;
   this.name = props.name;
   this.baseAttack = props.baseAttack;
-  this.injuryBuildUp = 0;
   this.alive = true;
+  this.missRatio = props.missRatio;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.constructor = CharacterStats;
+// DONE
 CharacterStats.prototype.takeDamage = function(damage) {
   this.hp -= damage;
+
+  if (this instanceof Hero) {
+    this.adrenaline += (this.totalHP - this.hp) / this.totalHP;
+  }
   let result = '';
-  if (this.hp < 0) {
+  if (damage === 0) {
+    result = `${this.name} dodged.`;
+  }
+
+  if (this.hp <= 0) {
     this.hp = 0;
     this.alive = false;
     result = this.destroy();
@@ -126,16 +133,16 @@ const archer = new Humanoid({
   language: 'Elvish'
 });
 
-console.log(mage.createdAt); // Today's date
-console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-console.log(swordsman.hp); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.faction); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage(8)); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+// console.log(mage.createdAt); // Today's date
+// console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+// console.log(swordsman.hp); // 15
+// console.log(mage.name); // Bruce
+// console.log(swordsman.faction); // The Round Table
+// console.log(mage.weapons); // Staff of Shamalama
+// console.log(archer.language); // Elvish
+// console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+// console.log(mage.takeDamage(8)); // Bruce took damage.
+// console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
@@ -144,22 +151,82 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 function Hero(props) {
-  Humanoid.call(props);
+  Humanoid.call(this, props);
   this.criticalHitRatio = props.criticalHitRatio;
   this.adrenaline = 0;
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.constructor = Hero;
+// TODO implement attack function
 Hero.prototype.attack = function() {
   let rand = Math.random();
-  if (rand < this.criticalHitRatio) {
+  let damageDealt = this.baseAttack;
+  if (rand < this.criticalHitRatio + this.adrenaline / 2) {
+    damageDealt *= 2;
   }
+  rand = Math.random();
+  if (rand < this.missRatio) {
+    damageDealt = 0;
+  }
+  return damageDealt;
 };
 
-// while(hero.alive  && villain.alive) {
-//   let damageDealt = hero.attack();
-//   villain.takeDamage(damageDealt);
+// Villain
 
-//   damageDealt = villain.attack();
-//   hero.takeDamage(damageDealt);
-// }
+function Villain(props) {
+  Humanoid.call(this, props);
+  this.evilMeter = props.evilMeter;
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.constructor = Villain;
+// Villain's Attack Function
+Villain.prototype.attack = function() {
+  let damageDealt = this.baseAttack + this.evilMeter;
+  rand = Math.random();
+  if (rand < this.missRatio) {
+    damageDealt = 0;
+  }
+  return damageDealt;
+};
+
+let hero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  hp: 900,
+  name: 'The Chosen One',
+  faction: 'Forest Kingdom',
+  weapons: ['Bow', 'Dagger'],
+  language: 'Elvish',
+  baseAttack: 25,
+  criticalHitRatio: 0.25,
+  missRatio: 0.05
+});
+
+let villain = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1
+  },
+  hp: 1500,
+  name: 'Lord of Cinder',
+  faction: 'League of Extradinarily Mean Guys',
+  weapons: ['Staff of Shamalama'],
+  language: 'Evil-ese',
+  baseAttack: 30,
+  evilMeter: 15,
+  missRatio: 0.3
+});
+// Game Loop
+while (hero.alive && villain.alive) {
+  let damageDealt = hero.attack();
+  console.log(villain.takeDamage(damageDealt));
+
+  damageDealt = villain.attack();
+  console.log(hero.takeDamage(damageDealt));
+}
