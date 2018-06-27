@@ -46,8 +46,7 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() {
   let damage = Math.floor(Math.random() * 5);
   this.hp -= damage;
-  return `${this.name} took ${damage} damage. They are at ${this.hp} health!`;
-
+  return `${this.name} took ${damage} damage. ${this.name} is at ${this.hp} health!`;
 }
 
 /*
@@ -150,15 +149,15 @@ Humanoid.prototype.greet = function() {
   function fightItOut(hero, villian){
     console.log(`${villian.name} is attempting to commit a felony!`);
     while(hero.hp > 0 && villian.hp > 0){
-      console.log(villian.commitCrime());
+      console.log(`${villian.name} takes action: ` + villian.commitCrime());
       console.log(hero.takeDamage());
-      console.log(hero.foilRobbery());
+      console.log(`${hero.name} responds: ` + hero.foilRobbery());
       console.log(villian.takeDamage());
     }
     if(hero.hp > 0){
       console.log(`${hero.name} has defeated ${villian.name}!`);
-    }else if(this.rival.hp > 0){
-      console.log(`$villian.name} has gotten away with his ill gotten gains!`);
+    }else if(villian.hp > 0){
+      console.log(`${villian.name} has gotten away with his ill gotten gains!`);
     }else {
       console.log('Something effed up somewhere...');
     }
