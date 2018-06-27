@@ -15,6 +15,12 @@ This is my initial commit so *Someone* won't throw aggressive emojis at me!
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+   
+}
+
 
 /*
   === CharacterStats ===
@@ -23,7 +29,10 @@ This is my initial commit so *Someone* won't throw aggressive emojis at me!
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
+function CharacterStats(attributes) {
+  this.hp = attributes.hp;
+  this.name = attributes.name;
+}
 /*
   === Humanoid ===
   * faction
@@ -33,7 +42,13 @@ This is my initial commit so *Someone* won't throw aggressive emojis at me!
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(attributes){
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+  
+} 
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
