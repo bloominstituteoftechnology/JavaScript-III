@@ -217,8 +217,11 @@ Humanoid.prototype.greet = function () {
   console.log(giant.name);
   console.log(giant.faction);
   console.log(barbarian.weapons);
+  console.log(giant.weapons);
+  console.log(giant.spells);
+  console.log(barbarian.abilities);
   console.log(giant.language);
   console.log(barbarian.greet());
   console.log(giant.takeDamage());
-  console.log(giant.cast());
+  console.log(giant.cast()); //Is there a way to define which of his spells he can cast?!?!
   console.log(barbarian.ability());
