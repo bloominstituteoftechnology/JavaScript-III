@@ -48,7 +48,7 @@ function GameObject(attributes) {
 
 // GameObject Methods
 GameObject.prototype.destroy = function() {
-  return `${this} was removed from the game`
+  return `${this.name} was removed from the game`
 }
 
 
@@ -59,59 +59,32 @@ function CharacterStats(characterAttributes) {
   this.hp = characterAttributes.hp;
   this.name = characterAttributes.name;
 }
-Child.prototype = Object.create(Parent.prototype);
+
+CharacterStats.prototype = Object.create(GameObject.prototype); //Method inheritance line
 // New methods MUST GO BELOW THIS LINE ^
 
-Child.prototype.play = function() {
-  console.log( `${this.name} plays with their ${this.toy}`);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`;
 }
 
-function GrandChild(grandChildAttributes) {
-  Child.call(this, grandChildAttributes);
+function Humanoid(humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes);
+  this.faction = humanoidAttributes.faction;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
   // whatever you want here
 }
-GrandChild.prototype = Object.create(Child.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype); //Method inheritance line
 
-
-
-const fred = new Parent({
-  'gender': 'M',
-  'age': 35,
-  'name': 'Fred',
-  'location': 'Bedrock'
-});
-
-const wilma = new Parent({
-  'gender': 'F',
-  'age': 33,
-  'name': 'Wilma',
-  'location': 'Bedrock'
-});
-
-const pebbles = new Child({
-  // Belong to parent
-  'gender': 'F',
-  'age': 3,
-  'name': 'Pebbles',
-  'location': 'Bedrock',
-  // Belong toy
-  'toy': 'Rock'
-});
-
-const bambam = new Child({
-  'gender': 'M',
-  'age': 3,
-  'name': 'Bam Bam',
-  'location': 'Bedrock',
-  'toy': 'Bat'
-});
-
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
 
 
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -172,7 +145,7 @@ const bambam = new Child({
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
