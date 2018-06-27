@@ -39,70 +39,109 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// Build next constructor 
+function GameObject(gameObejectAttributes){
+  this.createdAt = gameObejectAttributes.createdAt;
+  this.dimensions = gameObejectAttributes.dimensions;
+}
+//methods for this ^ constructor 
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game`; 
+}
+ 
+//Build next constructor 
+function CharacterStats(characterStatsAttribute){
+  this.hp = characterStatsAttribute.hp;
+  this.name = characterStatsAttribute.name; 
+  GameObject.call(this, characterStatsAttribute); 
+}
+// Inheritance
+CharacterStats.prototype = Object.create(GameObject.prototype); 
+
+//methods for this ^ constructor 
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage`; 
+} 
+
 //Test you work by uncommenting these 3 objects and the list of console logs below:
+function Humanoid(humanoidAttributes){  
+this.faction = humanoidAttributes.faction; 
+this.weapons = humanoidAttributes.weapons; 
+this.language = humanoidAttributes.language; 
+CharacterStats.call(this,humanoidAttributes);
+}
 
-/*
-  const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    hp: 5,
-    name: 'Bruce',
-    faction: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Toungue',
-  });
+Humanoid.prototype = Object.create(CharacterStats.prototype); 
+//Humanoid methods under here. 
+//greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
+//^^ building above. 
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`; 
+}
 
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    hp: 15,
-    name: 'Sir Mustachio',
-    faction: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Toungue',
-  });
+const mage = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Bruce',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
 
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    hp: 10,
-    name: 'Lilith',
-    faction: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
+const swordsman = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2,
+  },
+  hp: 15,
+  name: 'Sir Mustachio',
+  faction: 'The Round Table',
+  weapons: [
+    'Giant Sword',
+    'Shield',
+  ],
+  language: 'Common Toungue',
+});
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+const archer = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Lilith',
+  faction: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+});
+
+
+
+console.log(mage.createdAt); // Today's date
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+console.log(swordsman.hp); // 15
+console.log(mage.name); // Bruce
+console.log(swordsman.faction); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+console.log(archer.language); // Elvish
+console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage()); // Bruce took damage.
+console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
