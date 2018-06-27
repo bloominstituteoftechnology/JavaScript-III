@@ -149,7 +149,93 @@ Humanoid.prototype.greet = function(){
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
+
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+
+  
+
+
+
+  function Hero (obj){
+
+    this.role = "Hero"
+
+    Humanoid.call(this, obj);
+  
+   
+  }
+
+  Hero.prototype=Object.create(Humanoid.prototype);
+
+  Hero.prototype.catchphrase = function(){
+    return `I'm here to save the day!`
+  }
+  Hero.prototype.bash = function(target){
+    target.takeDamage();
+    target.hp--;
+    return target.hp;
+    if (target.hp === 0){
+      return target.destroy();
+    }
+  }
+
+
+
+
+
+  function Villian (obj){
+
+    this.role = "Villian"
+
+    Humanoid.call(this, obj);
+  
+   
+  }
+
+  Villian.prototype=Object.create(Humanoid.prototype);
+
+  Villian.prototype.catchphrase = function(){
+    return `I AM NUMBER ONE!`
+  }
+
+  const goodKnight = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'Fred',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Dance',
+  });
+  
+  
+  const badKnight = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'Not Fred',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'English?',
+  });  
+  
+  console.log(goodKnight.bash(badKnight));
