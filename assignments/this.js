@@ -28,9 +28,7 @@ const obj = {
 
 
 
-// Principle 3
-
-// code example for New Binding
+// Principle 3 : New Binding
 function CreateHero(name, power){
     this.name = name;
     this.power = power;
@@ -44,7 +42,28 @@ console.log(amon.hero());
 
 // Principle 4 : Explicit Binding
 // call, apply, bind
-const villains = ["Cocoa Christy", "Killa Brie", "Soldier Sear"];
-function theVillains(){
-    return ``;
+const erik = {
+    name: "Erik",
+    power: "Hacking"
+};
+
+function whosThisNewHero(obj){
+    return `Here comes a new hero, his name is ${this.name}. His power is ${this.power}`;
 }
+
+console.log(whosThisNewHero.call(erik));
+;
+
+let villains = ["Cocoa Christy", "Killa Brie", "Soldier Sear"];
+console.log(villains);
+
+function theVillains(...villainArr) {
+    return `The villains ${villainArr} fought the hero, ${this.name}`;
+}
+
+console.log(theVillains.apply(erik, villains));
+
+const villainsAgain = theVillains.bind();
+console.log(villainsAgain);
+
+// villainsAgain.apply(erik, villains)
