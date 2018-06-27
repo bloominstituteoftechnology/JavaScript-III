@@ -1,6 +1,6 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
-*
+*pull initializer
 * 1. 
 * 2. 
 * 3. 
