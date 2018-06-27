@@ -42,6 +42,8 @@ function CharacterStats(statvalues){
 }
 
 //CharacterStats takeDamage Method
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
   console.log(`${this.name} took damage.`);
 }
@@ -55,6 +57,21 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+//Humanoid constructor function
+function Humanoid(humanvalues){
+  CharacterStats.call(this, humanvalues);
+  this.faction = humanvalues.faction;
+  this.weapon = humanvalues.weapon;
+  this.language = humanvalues.language;
+}
+
+//Humanoid greet Method
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  console.log(`${this.name} offers a greeting in ${this.language}`);
+}
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
