@@ -48,6 +48,10 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 }
+CharacterStats.prototype.wonRound = function() {
+  return `${this.name}'s team won the round.`;
+}
+
 
 /*
   === Humanoid ===
@@ -160,8 +164,12 @@ Humanoid.prototype.greet = function() {
   Villain.prototype = Object.create(Humanoid.prototype);
 
 // Methods
-  Villain.prototype.nuke = function(target) {
-  target.hp = 0;
+  Villain.prototype.nuke = function(targets) {
+  targets.forEach(target => target.hp = 0);
+  }
+
+  Villain.prototype.machineGun = function(target) {
+    target.hp -= (5 * this.luck);
   }
 
 
@@ -181,6 +189,21 @@ Humanoid.prototype.greet = function() {
   }
 
 
+  // Constructor
+  function Archer(archerAttributes) {
+    Humanoid.call(this, archerAttributes);
+    this.luck = archerAttributes.luck;
+  }
+
+// Inheritance of methods
+  Archer.prototype = Object.create(Humanoid.prototype);
+
+// Methods
+  Archer.prototype.arrowHit = function(target) {
+  target.hp -= (20 * this.luck);
+  }
+
+
   const mccree = new Hero({
     createdAt: new Date(),
     dimensions: {
@@ -189,14 +212,14 @@ Humanoid.prototype.greet = function() {
       height: 4,
     },
     hp: 200,
-    name: 'McCree',
+    name: 'Jesse McCree',
     faction: 'Overwatch',
     weapons: [
       'gun'
     ],
     language: 'English',
     luck: 1.2,
-    // luck: 5
+    // luck: 2
   });
 
   const dVa = new Villain({
@@ -216,16 +239,59 @@ Humanoid.prototype.greet = function() {
     luck: 10
   });
 
+  const hanzo = new Archer({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 200,
+    name: 'Hanzo Shimada',
+    faction: 'Overwatch',
+    weapons: [
+      'bow and arrow'
+    ],
+    language: 'Japanese',
+    luck: 3
+  });
+
   console.log(mccree.hp);
   console.log(dVa.hp);
+  console.log(hanzo.hp);
 
   mccree.gunshot(dVa);
-  console.log(dVa.hp);
-  mccree.gunshot(dVa);
-  mccree.gunshot(dVa);
-  mccree.gunshot(dVa);
-  console.log(dVa.hp);
-
-  dVa.nuke(mccree);
+  console.log(dVa.takeDamage());
+  dVa.machineGun(mccree);
+  console.log(mccree.takeDamage());
   console.log(mccree.hp);
+  dVa.machineGun(mccree);
+  console.log(mccree.takeDamage());
+  console.log(mccree.hp);
+  hanzo.arrowHit(dVa);
+  console.log(dVa.takeDamage());
+  console.log(dVa.hp);
+  mccree.gunshot(dVa);
+  console.log(dVa.takeDamage());
+  mccree.gunshot(dVa);
+  console.log(dVa.takeDamage());
+  hanzo.arrowHit(dVa);
+  console.log(dVa.takeDamage());
+  mccree.gunshot(dVa);
+  console.log(dVa.takeDamage());
+  hanzo.arrowHit(dVa);
+  console.log(dVa.takeDamage());
+  hanzo.arrowHit(dVa);
+  console.log(dVa.takeDamage());
+  console.log(dVa.hp);
+
+  dVa.nuke([mccree, hanzo]);
+  console.log(mccree.takeDamage());
+  console.log(hanzo.takeDamage());
+  
+  console.log(mccree.hp);
+  console.log(hanzo.hp);
   console.log(mccree.destroy());
+  console.log(hanzo.destroy());
+
+  console.log(dVa.wonRound());
