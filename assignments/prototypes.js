@@ -80,7 +80,7 @@ Humanoid.prototype.greet = function() {
 */
 
 //Villain constructor function
-function Villain(villianvalues){
+function Villian(villianvalues){
   Humanoid.call(this, villianvalues);
 }
 
