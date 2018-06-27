@@ -13,9 +13,9 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
-function GameObject({ createdAt, dimensions }) {
-    this.createdAt = createdAt;
-    this.dimensions = dimensions;
+function GameObject(props){
+    this.createdAt = props.createdAt;
+    this.dimensions = props.dimensions;
   }
   GameObject.prototype.destroy = function() {
     return `${this.name} was removed from the game.`;
@@ -34,12 +34,13 @@ function GameObject({ createdAt, dimensions }) {
     this.name = props.name;
     this.baseAttack = props.baseAttack;
     this.alive = true;
+    this.missRatio = props.missRatio;
   }
   CharacterStats.prototype = Object.create(GameObject.prototype);
   CharacterStats.prototype.constructor = CharacterStats;
   // DONE
   CharacterStats.prototype.takeDamage = function(damage) {
-    
+
     this.hp -= damage;
 
     if (this instanceof Hero) {
@@ -47,6 +48,10 @@ function GameObject({ createdAt, dimensions }) {
     this.criticalHitRatio += this.adrenaline / 2;
 }
     let result = '';
+    if (damage === 0) {
+      result = `${this.name} dodged.`;
+    }
+
     if (this.hp < 0) {
       this.hp = 0;
       this.alive = false;
@@ -130,16 +135,16 @@ function GameObject({ createdAt, dimensions }) {
     language: 'Elvish'
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage(8)); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage(8)); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task:
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
@@ -148,7 +153,7 @@ function GameObject({ createdAt, dimensions }) {
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
   function Hero(props) {
-    Humanoid.call(props);
+    Humanoid.call(this, props);
     this.criticalHitRatio = props.criticalHitRatio;
     this.adrenaline = 0;
   }
@@ -161,13 +166,17 @@ function GameObject({ createdAt, dimensions }) {
     if (rand < this.criticalHitRatio) {
       damageDealt *= 2;                              
     }
+    rand = Math.random();
+    if (rand < this.missRatio) {
+      damageDealt = 0;
+    }
     return damageDealt;
   };
 
   // Villain
 
   function Villain(props) {
-    Humanoid.call(props);
+    Humanoid.call(this, props);
     this.evilMeter = props.evilMeter;
   }
   Villain.prototype = Object.create(Humanoid.prototype);
@@ -175,10 +184,13 @@ function GameObject({ createdAt, dimensions }) {
   // Villain's Attack Function
   Villain.prototype.attack = function() {
     let damageDealt = this.baseAttack + this.evilMeter;
+    rand = Math.random();
+    if (rand < this.missRatio) {
+      damageDealt = 0;
+    }
     return damageDealt;
   }
 
-// Game Loop
 
 let hero = new Hero({
   createdAt: new Date(),
@@ -187,13 +199,14 @@ let hero = new Hero({
     width: 2,
     height: 4
   },
-  hp: 500,
+  hp: 900,
   name: 'Lilith',
   faction: 'Forest Kingdom',
   weapons: ['Bow', 'Dagger'],
   language: 'Elvish',
   baseAttack: 25,
-  criticalHitRatio: 0.25  
+  criticalHitRatio: 0.25,
+  missRatio: 0.05
 });
 
 let villain = new Villain({
@@ -204,16 +217,19 @@ let villain = new Villain({
     height: 1
   },
   hp: 1500,
-  name: 'Bruce',
-  faction: 'Mage Guild',
+  name: 'Chad',
+  faction: 'League of Extradinarily Mean Guys',
   weapons: ['Staff of Shamalama'],
-  language: 'Common Toungue',
-  base
+  language: 'Evil-ese',
+  baseAttack: 30,
+  evilMeter: 15,
+  missRatio: 0.30
 })
-  // while(hero.alive  && villain.alive) {
-  //   let damageDealt = hero.attack();
-  //   villain.takeDamage(damageDealt);
+// Game Loop
+while(hero.alive && villain.alive) {
+  let damageDealt = hero.attack();
+  console.log(villain.takeDamage(damageDealt));
 
-  //   damageDealt = villain.attack();
-  //   hero.takeDamage(damageDealt);
-  //
+  damageDealt = villain.attack();
+  console.log(hero.takeDamage(damageDealt));
+}
