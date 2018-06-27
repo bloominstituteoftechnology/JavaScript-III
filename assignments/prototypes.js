@@ -14,7 +14,7 @@
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'  */
 function GameObject(goAttributes){
   this.createdAt = goAttributes.createdAt;
-  this.dimensions = goAttributes.attributes;
+  this.dimensions = goAttributes.dimensions;
 };
 GameObject.prototype.destroy = function(){
   return `${this.name} was removed from the game`;
@@ -70,6 +70,48 @@ Humanoid.prototype.greet = function(){
 
   return `${this.name} offers a greeting in ${this.language}`;
 };
+
+
+  // Stretch task: 
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  
+  
+//  === Villian ===
+
+//   function Villian(vAttributes){
+//     Humanoid.call(this, vAttributes);
+//   };
+  
+//   Villian.prototype = Object.create(Humanoid.prototype);
+  
+  
+//   Villian.prototype.attackEvil = function(){
+  
+//    return `${this.name} attacks and takes away hero points!`;
+//   };
+
+
+
+    
+// //  === Hero ===
+
+// function Hero(hAttributes){
+//   Humanoid.call(this, hAttributes);
+// };
+
+// Hero.prototype = Object.create(Humanoid.prototype);
+
+
+// Hero.prototype.attackGood = function(){
+
+//   return Villian.call(Villian.hp - 1);
+//   return `${this.name} attacks ${Villian.name}`;
+// };
+
+
+
 
  
 /*
@@ -131,6 +173,38 @@ Humanoid.prototype.greet = function(){
     language: 'Elvish',
   });
 
+  // const berzerker = new Villian({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 7,
+  //     width: 2,
+  //     height: 7,
+  //   },
+  //   hp: 10,
+  //   name: 'Captain Catastrophe',
+  //   faction: 'Berzerker',
+  //   weapons: [
+  //     'Fists of Fury',
+  //   ],
+  //   language: 'Common Toungue',
+  // });
+
+  // const warrior = new Hero({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 3,
+  //     width: 2,
+  //     height: 2,
+  //   },
+  //   hp: 7,
+  //   name: 'Neil Armstrong',
+  //   faction: 'Warrior',
+  //   weapons: [
+  //     'Big Ole Sword',
+  //   ],
+  //   language: 'Common Toungue',
+  // });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -141,7 +215,7 @@ Humanoid.prototype.greet = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  // console.log(Villian.attackEvil());
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
