@@ -20,7 +20,7 @@
 function GameObject(objectAttributes) {
   //Properties
   this.createdAt = objectAttributes.createdAt;
-  this.dimensions = objectAttributes.dimenstions;
+  this.dimensions = objectAttributes.dimensions;
 }
 
 //Methods
