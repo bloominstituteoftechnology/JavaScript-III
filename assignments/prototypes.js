@@ -58,7 +58,7 @@ function CharacterStats(childAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 // New methods MUST GO BELOW THIS LINE ^
 CharacterStats.prototype.takeDamage = function(name) {
-console.log(`${this.name}took damage.`)
+console.log(`${this.name} took damage.`)
 }
 
 function Humanoid(grandchildAttributes) {
@@ -72,11 +72,11 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 // New methods MUST GO BELOW THIS LINE ^
 Humanoid.prototype.greet = function(a,b) {
-  console.log(`${this.name}offers a greeting in ${this.language}.`);
+  console.log(`${this.name} offers a greeting in ${this.language}.`);
 }
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -137,7 +137,7 @@ Humanoid.prototype.greet = function(a,b) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task:
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
