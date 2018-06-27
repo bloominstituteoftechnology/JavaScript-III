@@ -13,8 +13,16 @@
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
+  * 
 */
+    function GameObject(gameAttributes){
+      this.createdAt = gameAttributes.createdAt;
+      this.dimensions = gameAttributes.dimensions;
+    }
 
+    GameObject.prototype.destroy = function(){
+        console.log('Object was removed from the game');
+    }
 /*
   === CharacterStats ===
   * hp
@@ -23,6 +31,22 @@
   * should inherit destroy() from GameObject's prototype
 */
 
+    function CharacterStats(characterAttributes){
+      GameObject.call(this,characterAttributes);
+      this.hp = characterAttributes.hp;
+      this.name = characterAttributes.name;
+    }
+
+    CharacterStats.prototype = Object.create(GameObject.prototype);
+
+    CharacterStats.prototype.takeDamage = function(damage){
+      this.hp -= damage;
+      if(this.hp > 0){
+        console.log(`${this.name} took damage! ${this.hp} remaining. Watch out!`)
+      }else if(this.hp <= 0){
+        destroy();
+      }
+    }
 /*
   === Humanoid ===
   * faction
@@ -32,7 +56,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+    
+    function Humanoid(humanoidAttributes){
+      CharacterStats.call(this, humanoidAttributes);
+      this.faction = humanoidAttributes.faction;
+      this.weapons = humanoidAttributes.weapons;
+      this.language = humanoidAttributes.language;
+    }
+
+    Humanoid.prototype = Object.create(CharacterStats.prototype)
+
+    CharacterStats.prototype.greet = function(){
+      console.log(`${this.name} offers a greeting in ${this.language}`)
+    }
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +77,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +138,56 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(villianAttributes){
+    Humanoid.call(this, villianAttributes);
+    this.name = villianAttributes.name;
+    this.target = villianAttributes.target;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype.attack = function(target){
+    console.log(`${this.name} just attacked ${target.name} with ${this.weapons}`)
+    target.takeDamage(5);
+    }
+
+
+  function Hero(heroAttributes){
+    Villian.call(this, heroAttributes); 
+    
+  }
+
+  Hero.prototype = Object.create(Villian.prototype);
+  
+const superMan = new Hero({
+  createdAt: new Date(),
+  name: 'SuperMan', 
+  hp: 50, 
+  faction: 'City King',
+  weapons: [
+      'Fists of Iron',
+      'Shield',
+    ],
+    language: 'Common Tongue',
+});
+
+const shyVillian = new Villian({
+  createdAt: new Date(),
+  name: 'shyVillian', 
+  hp: 50, 
+  faction: 'City King', 
+  weapons: [
+      'Bombs',
+      'Magic Spells',
+    ],
+    language: 'Common Tongue',
+})
+
+
+shyVillian.attack(superMan);
