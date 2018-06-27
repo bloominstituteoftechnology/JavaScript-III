@@ -41,8 +41,8 @@ const myObject = {
 
   sayName.call(myObject, ...skills);
 
-// Principle 4
 
+// Principle 4
 
 function CordialPerson(greeter) {
     // new === this 
