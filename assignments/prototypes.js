@@ -166,8 +166,14 @@ console.log(chara.destroy());
   HeroOrVillain.prototype.attack = function(rival){
     console.log(rival);
     
-      rival.takeDamage();
-      rival.hp -= 1;
+    console.log(!!rival);
+    
+      if(!!rival && rival.hp > 0){
+        console.log(rival.takeDamage());
+        rival.hp -= 2;
+      } else if (!rival || rival.hp === 0){
+        return `${rival} does not exist`
+      }
   };
 
   const amon = new HeroOrVillain({
@@ -195,7 +201,7 @@ console.log(chara.destroy());
       width: 2,
       height: 4,
     },
-    hp: 10,
+    hp: 0,
     name: 'Arrrrggghh',
     faction: 'The Undead',
     weapons: [
@@ -206,4 +212,5 @@ console.log(chara.destroy());
     type: "Villain"
   });
 
-  console.log(amon.attack(zombie));
+amon.attack(zombie);
+console.log(zombie.hp);
