@@ -7,10 +7,23 @@
 * 4. Explicit Binding: 'this' refers to the placement of 'this' into a function with apply(), call(), or bind()
 */
 
+
+
+
+
+
+/**
 // Principle 1 : Window Binding
+ */
+
 console.log(this);
 
+
+
+/**
 // Principle 2 : Implicit Binding
+ */
+
 const obj = {
     name: "Amon",
     adj: "ROCKS!",
@@ -19,12 +32,14 @@ const obj = {
         
     }
 };
-
 // obj.whoWhat();
 
 
 
-// Principle 3 : New Binding
+/**
+ // Principle 3 : New Binding
+ */
+
 function CreateHero(name, power){
     this.name = name;
     this.power = power;
@@ -36,8 +51,17 @@ function CreateHero(name, power){
 let amon = new CreateHero("Amon", "move things with his mind!");
 console.log(amon.hero());
 
+
+
+
+/*
 // Principle 4 : Explicit Binding
-// call, apply, bind
+*/
+
+
+//
+//  ==== .call()
+// 
 const erik = {
     name: "Erik",
     power: "Hacking"
@@ -48,10 +72,11 @@ function whosThisNewHero(obj){
 }
 
 console.log(whosThisNewHero.call(erik));
-;
 
+// 
+//  ==== .apply()   ...and the spread operator
+// 
 let villains = ["Cocoa Christy", "Killa Brie", "Soldier Sear"];
-console.log(villains);
 
 function theVillains(...villainArr) {
     return `The villains ${villainArr} fought the hero, ${this.name}`;
@@ -59,6 +84,10 @@ function theVillains(...villainArr) {
 
 console.log(theVillains.apply(erik, villains));
 
+
+// 
+//  ==== .bind()
+// 
 const villainsAgain = theVillains.bind();
 console.log(villainsAgain);
 
