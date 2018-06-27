@@ -3,13 +3,23 @@
 *
 * 1. Implicit Binding = this is automatic, this will happen no matter what, it's simple/direct
 * 2. Explicit = 
-* 3. 
-* 4. 
+* 3. Window = trys to this keyord from window, not useable
+* 4. New = Takes a function call and binds it to a new function
 *
 * write out a code example of each explanation above
 */
 
-// Principle 1 for Implicit Binding
+// Principle 1 for Window Binding
+
+this.name = 'David';
+
+function sayHello(name) {
+    console.log('Hello my name is + thisname' )
+}
+
+
+
+// Principle 2 for Implicit Binding
 var david = {
     'name': 'David',
     'age': 40,
@@ -20,7 +30,14 @@ var david = {
 }
 david.sayHello();
 
-// Principle 2 for Explicit Binding
+// Principle 3 for New Binding
+
+let newFunction = sayFavorites.bind(oneObject, fun[1], fun[2],
+    fun[3]);
+    newFunction();
+
+
+// Principle 4 for Explicit Binding
 
 const oneObject = {
     'name': 'Sven',
@@ -37,10 +54,7 @@ function sayFavorites(fun1, fun2, fun3) {
 
 sayFavorites.call(oneObject, ...fun);
 
-// Principle 3 for New Binding
 
 
 
-
-// Principle 4 for Window Binding
 
