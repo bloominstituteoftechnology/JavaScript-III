@@ -7,7 +7,7 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
@@ -24,7 +24,7 @@ function GameObject(attributes) {
 
 //GameObject Methods
 
-GameObject.prototype.destroy = function (){
+GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the game.`;
 }
 
@@ -46,7 +46,7 @@ function CharacterStats(childAttributes) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 //CharacterStats Methods
-CharacterStats.prototype.takeDamage = function(){
+CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage.`;
 }
 
@@ -60,7 +60,22 @@ CharacterStats.prototype.takeDamage = function(){
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+//define Humanoid constructor function
+function Humanoid(grandChildAttributes) {
+  //Humanoid properties
+  CharacterStats.call(this, grandChildAttributes);
+  this.faction = grandChildAttributes.faction;
+  this.weapons = grandChildAttributes.weapons;
+  this.language = grandChildAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+//Humanoid Methods
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
