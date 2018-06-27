@@ -54,15 +54,29 @@ function Humanoid (z){
     return (`${this.name} offers a greeting in ${this.language}.`)
   }
 }
+
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype = Object.create(GameObject.prototype);
 
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
-function Villian (v){}
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+function Villian (v){
+ this.attack = function(v){
+  v.hp = v.hp - 2;
+  return (`You have lost 2 hp. ${v.name} current hp is ${v.hp}`)
+ }
+ if (v.hp <= 0) {
+   return (`You are destroyed.`)
+ }
+}
 Villian.prototype = Object.create(Humanoid.prototype);
+
 function Hero (h){}
-Hero.prototype = Object.create(Humanoid.prototype)
+Hero.prototype = Object.create(Humanoid.prototype);
+
+// Stretch task:
+
 
 /* === Inheritance Rules ===
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -72,6 +86,37 @@ Hero.prototype = Object.create(Humanoid.prototype)
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
 /* === Objects === */
+  const austinPowers = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 5,
+    name: 'Austin Powers',
+    faction: 'The Goodside',
+    weapons: [
+      'Staff of Shamalama',
+    ],
+    language: 'Eniglish, baby!',
+  });
+
+  const drEvil = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 5,
+    name: 'Dr.Evil',
+    faction: 'The Badone',
+    weapons: [
+      'Staff of Shamalama',
+    ],
+    language: 'Evil',
+  });
 
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -133,8 +178,10 @@ Hero.prototype = Object.create(Humanoid.prototype)
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(drEvil.attack(archer));
 
 
-  // Stretch task:
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+
+
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
