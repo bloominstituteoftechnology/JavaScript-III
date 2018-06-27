@@ -12,7 +12,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(obj){
+  this.createdAt = obj.createdAt;
+  this.dimensions = obj.dimensions;
+};
 
+GameObject.prototype.destroy = function(){
+  return `Object was removed from the game.`
+}
 /*
   === CharacterStats ===
   * hp
@@ -20,6 +27,14 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(characterObj){
+  GameObject.call(this,characterObj)
+  this.hp = characterObj.hp;
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function (){  {return ` ${this.hp} took damage.`}
+}
+
 
 /*
   === Humanoid ===
@@ -30,6 +45,13 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+function Humanoid(humanoidObj) {
+  CharacterStats.call(this , humanoidObj);
+  this.faction = humanoidObj.faction;
+  this.weapons = humanoidObj.weapons;
+  this.language = humanoidObj.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -87,6 +109,16 @@
     ],
     language: 'Elvish',
   });
+
+
+
+
+
+
+
+
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
