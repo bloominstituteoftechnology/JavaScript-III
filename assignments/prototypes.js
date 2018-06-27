@@ -23,6 +23,9 @@ function GameObject(objectProperties) {
 GameObject.prototype.destroy = function () {
 	return `${this.name} was removed from the game.`;
 }
+GameObject.prototype.create = function () {
+	return `${this.name} was created in the game.`;
+}
 
 /*
 	=== CharacterStats ===
@@ -33,7 +36,7 @@ GameObject.prototype.destroy = function () {
 */
 
 function CharacterStats(characterProperties) {
-	// This inherits GameObjects properties
+	// This inherits GameObjects properties (createdAt + dimensions)
 	GameObject.call(this, characterProperties);
 	this.hp = characterProperties.hp;
 	this.name = characterProperties.name;
@@ -156,8 +159,8 @@ Humanoid.prototype.greet = function () {
 	Hero.prototype = Object.create(Humanoid.prototype);
 
 	Hero.prototype.attack = function(enemy) {
+		enemy.hp = enemy.hp - (this.damage * 2);
 		if (enemy.hp > 0) {
-			enemy.hp = enemy.hp - (this.damage * 2);
 			return `${this.name} did ${this.damage} damage to ${enemy.name} \n${enemy.name} has ${enemy.hp} hp remaining!`;
 		} else {
 			return `${enemy.name} is dead!`;
@@ -165,8 +168,8 @@ Humanoid.prototype.greet = function () {
 	}
 
 	Villain.prototype.attack = function(enemy) {
+		enemy.hp = enemy.hp - (this.damage * 2);
 		if (enemy.hp > 0) {
-			enemy.hp = enemy.hp - this.damage;
 			return `${this.name} did ${this.damage} damage to ${enemy.name} \n${enemy.name} has ${enemy.hp} hp remaining!`;
 		} else {
 			return `${enemy.name} is dead!`;
