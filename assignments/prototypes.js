@@ -140,15 +140,28 @@ Humanoid.prototype.greet = function() {
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+ 
+
   function Villain (attributes) {
     Humanoid.call(this, attributes);
   }
+  
+  Villain.prototype = Object.create(Humanoid.prototype);
 
-  function Hero (attributes) {
-    Humanoid.call(this, attributes);
+  Villain.prototype.attack = function(opponent) {
+    let damageDealt =  Math.floor(Math.random() * 10) + 1;
+    console.log(`${this.name} has hit his opponent for ${damageDealt} damage!`);
+    return damageDealt;
   }
 
-  const villain = new Humanoid({
+  function Hero (attributes) {
+    Villain.call(this, attributes);
+  }
+  
+  Hero.prototype = Object.create(Villain.prototype);
+
+  
+  const orc = new Villain({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -161,10 +174,10 @@ Humanoid.prototype.greet = function() {
     weapons: [
       'Battle Axe'
     ],
-    language: 'Elvish',
+    language: 'Orcish',
   });
 
-  const hero = new Humanoid({
+  const knight = new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -178,5 +191,25 @@ Humanoid.prototype.greet = function() {
       'Shield',
       'Broadsword',
     ],
-    language: 'Elvish',
+    language: 'Common Tongue',
   });
+
+function battle (fighter1, fighter2) {
+  let fighter1HP = fighter1.hp;
+  let fighter2HP = fighter2.hp;
+  while(fighter1HP > 0 || fighter2HP > 0) {
+    let initiative = Math.random();
+    if (initiative < 0.5) {
+      fighter2HP - fighter1.attack(fighter2);
+    } else {
+      fighter1HP - fighter2.attack(fighter1);
+    }
+  }
+  if (fighter1HP <= 0) {
+    return `${fighter1} has defeated ${fighter2} in combat!`;
+  } else {
+    return `${fighter2} has defeated ${fighter1} in combat!`;
+  }
+}
+
+battle(orc, knight);
