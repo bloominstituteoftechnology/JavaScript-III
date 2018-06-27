@@ -66,17 +66,29 @@ function Hero(light){
   Humanoid.call(this, light);
   this.damage = function(){
       console.log('I will end you!');
-      return villains.hp - 15;
-    }
+      let villainHealth = [];
+      villainHealth.push(villains.hp -= 15);
+      if (villainHealth > 0){
+        return villainHealth;}
+      else{
+        return villains.destroy();
+      }
   }
+}
 
  Hero.prototype = Object.create(Humanoid.prototype);
 
-function Villain(dark){
+ function Villain(dark){
   Hero.call(this, dark);  
   this.damage = function(){
     console.log('Heroes shall fall!');
-    return heroes.hp - 30;
+      let heroHealth = [];
+      heroHealth.push(heroes.hp -= 25);
+      if (heroHealth > 0){
+        return heroHealth;}
+      else{
+        return heroes.destroy();
+    }
   }
 }
 
