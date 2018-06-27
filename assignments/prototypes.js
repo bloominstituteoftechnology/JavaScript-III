@@ -39,6 +39,76 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+
+function GameObject(attributes) {
+  // Properties
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+// GameObject Methods
+GameObject.prototype.destroy = function() {
+  return `${this} was removed from the game`
+}
+
+
+// Constructor function
+function CharacterStats(characterAttributes) {
+  // This helps us gain access to the this keyword in the original object.
+  GameObject.call(this, characterAttributes);
+  this.hp = characterAttributes.hp;
+  this.name = characterAttributes.name;
+}
+Child.prototype = Object.create(Parent.prototype);
+// New methods MUST GO BELOW THIS LINE ^
+
+Child.prototype.play = function() {
+  console.log( `${this.name} plays with their ${this.toy}`);
+}
+
+function GrandChild(grandChildAttributes) {
+  Child.call(this, grandChildAttributes);
+  // whatever you want here
+}
+GrandChild.prototype = Object.create(Child.prototype);
+
+
+
+const fred = new Parent({
+  'gender': 'M',
+  'age': 35,
+  'name': 'Fred',
+  'location': 'Bedrock'
+});
+
+const wilma = new Parent({
+  'gender': 'F',
+  'age': 33,
+  'name': 'Wilma',
+  'location': 'Bedrock'
+});
+
+const pebbles = new Child({
+  // Belong to parent
+  'gender': 'F',
+  'age': 3,
+  'name': 'Pebbles',
+  'location': 'Bedrock',
+  // Belong toy
+  'toy': 'Rock'
+});
+
+const bambam = new Child({
+  'gender': 'M',
+  'age': 3,
+  'name': 'Bam Bam',
+  'location': 'Bedrock',
+  'toy': 'Bat'
+});
+
+
+
+
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
 /*
