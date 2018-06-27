@@ -18,7 +18,7 @@
 
 // Principle 1
 // code example for Window Binding
-const windowTimesTwo = () => { return this * 2; };
+const windowTimesTwo = function () { return this * 2; };
 
 // Principle 2
 // code example for Implicit Binding
