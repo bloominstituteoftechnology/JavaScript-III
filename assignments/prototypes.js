@@ -21,7 +21,7 @@ function GameObject(gameObjectAttributes) {
   this.dimensions = gameObjectAttributes.dimensions;
 }
 
-// Methods
+// Methods for self
 GameObject.prototype.destroy = function() {
   return `${this.name} was removed from the game.`;
 }
@@ -44,7 +44,7 @@ function CharacterStats(characterStatsAttributes) {
 // Inheritance of methods
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-// Methods
+// Methods for self
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 }
@@ -73,7 +73,7 @@ function Humanoid(humanoidAttributes) {
 // Inheritance of methods
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-// Methods
+// Methods for self
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 }
@@ -163,7 +163,7 @@ Humanoid.prototype.greet = function() {
 // Inheritance of methods
   Villain.prototype = Object.create(Humanoid.prototype);
 
-// Methods
+// Methods for self
   Villain.prototype.nuke = function(targets) {
   targets.forEach(target => target.hp = 0);
   }
@@ -183,7 +183,7 @@ Humanoid.prototype.greet = function() {
 // Inheritance of methods
   Hero.prototype = Object.create(Humanoid.prototype);
 
-// Methods
+// Methods for self
   Hero.prototype.gunshot = function(target) {
   target.hp -= (20 * this.luck);
   }
@@ -198,7 +198,7 @@ Humanoid.prototype.greet = function() {
 // Inheritance of methods
   Archer.prototype = Object.create(Humanoid.prototype);
 
-// Methods
+// Methods for self
   Archer.prototype.arrowHit = function(target) {
   target.hp -= (20 * this.luck);
   }
@@ -262,6 +262,7 @@ Humanoid.prototype.greet = function() {
 
   mccree.gunshot(dVa);
   console.log(dVa.takeDamage());
+  console.log(dVa.hp);
   dVa.machineGun(mccree);
   console.log(mccree.takeDamage());
   console.log(mccree.hp);

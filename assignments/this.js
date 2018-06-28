@@ -39,7 +39,7 @@ function MinecraftMonster(type, noise, health, weapon) {
     this.noise = noise;
     this.health = health;
     this.attack = function() {
-        console.log(`The evil ${this.type} monster attacked Alex with its ${weapon} and it emitted a terrible ${noise}.`)
+        console.log(`The evil ${this.type} monster attacked Alex with its ${weapon} and it emitted a terrible ${this.noise}.`)
     }
 }
 
@@ -55,4 +55,4 @@ enderman.attack();
 
 // code example for Explicit Binding
 
-creeper.attack.call(skeleton);
+// creeper.attack.call(skeleton);
