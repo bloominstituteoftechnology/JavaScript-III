@@ -23,7 +23,7 @@ function GameObject(value){
 
 //GameObject Destroyer Method
 GameObject.prototype.destroy = function() {
-  return `Object was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -84,10 +84,59 @@ function Villian(villianvalues){
   Humanoid.call(this, villianvalues);
 }
 
+//Villian method
+Villian.prototype = Object.create(Humanoid.prototype);
+
+//Villian method
+Villian.prototype.attack = function(subjectName) {
+    subjectName.hp--;
+}
+
+//Villian Object
+const villian = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Bruce',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
+
 //Hero constructor function
 function Hero(herovalues){
   Humanoid.call(this, herovalues);
 }
+
+//Hero method
+Hero.prototype = Object.create(Humanoid.prototype);
+
+//Hero Object
+const hero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Bruce',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
+
+console.log(hero.hp);
+villian.attack(hero);
+console.log(hero.hp);
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
@@ -141,6 +190,10 @@ function Hero(herovalues){
     ],
     language: 'Elvish',
   });
+
+  console.log(archer.hp);
+  villian.attack(archer);
+  console.log(archer.hp);
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
