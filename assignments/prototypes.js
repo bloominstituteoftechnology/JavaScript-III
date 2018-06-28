@@ -14,6 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimenstions = attributes.dimenstions;
+  this.destroy = function() {
+    return 'Object was removed from the game';
+  }
+}
+
 
 /*
   === CharacterStats ===
@@ -41,7 +49,7 @@
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -88,7 +96,7 @@
     weapons: [
       'Bow',
       'Dagger',
-    ],
+    ],   
     language: 'Elvish',
   });
 
@@ -102,7 +110,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
