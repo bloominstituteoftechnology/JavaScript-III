@@ -39,9 +39,53 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+function GameObject(objectData) {
+  this.createdAt = objectData.createdAt;
+  this.dimensions = objectData.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
+
+function CharacterStats(charStats) {
+  GameObject.call(this, charStats);
+  this.hp = charStats.hp;
+  this.name = charStats.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
+
+function Humanoid(attributes) {
+  CharacterStats.call(this, attributes);
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+function Villain(evilness) {
+  Humanoid.call(this, evilness);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.sneakAttack = function(target) {
+  return target.hp--;
+}
+
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+// /*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +136,7 @@
     language: 'Elvish',
   });
 
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -102,7 +147,26 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+// */
+
+const mrX = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 1,
+      height: 2,
+    },
+    hp: 22,
+    name: 'Mr X',
+    faction: 'Mage Guild',
+    weapons: [
+      'Staff of Wrath',
+    ],
+    language: 'Common Toungue',
+  });
+
+console.log(mrX.sneakAttack(mage));
+console.log(mrX.sneakAttack(mage));
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
