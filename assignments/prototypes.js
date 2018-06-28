@@ -6,7 +6,8 @@
   At the bottom of this file are 3 objects that all inherit from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
-*/
+Open PR
+  */
   
 /*
   === GameObject ===
