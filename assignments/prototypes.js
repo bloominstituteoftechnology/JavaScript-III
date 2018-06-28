@@ -74,6 +74,35 @@ Humanoid.prototype.greet = function () {
 }
 
 
+function Villain (villainProperties){
+  Humanoid.call(this, villainProperties);
+
+  this.headHit = villainProperties.headHit;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.headHit = function () {
+  return `${this.name} got hit in a head.`
+}
+
+function Hero (heroProperties){
+  Humanoid.call(this, heroProperties);
+
+  this.headHit = heroProperties.headHit;
+
+
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.headHit = function () {
+  return `${this.name} got hit in a head and lost ${this.headHit} of HP`;
+}
+
+
+
+
 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -134,7 +163,24 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
+
+  const batman = new Hero ({
+    hp: 100,
+    name: 'Batman',
+    weapons: 'BATGUN'
+  });
+
+  const robbin = new Villain ({
+    hp: 100,
+    name: 'Robbin',
+    weapons: 'knife'
+  });
+
+
+
+
+
+  /* console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
@@ -144,9 +190,25 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+ */
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  // * Create villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and villain different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  console.log(`\nBehold!!!! New Hero has arisen ${batman.name} with a weapon of choice ${batman.weapons} !!!! \nHe was living by himself with no action for a long time, when suddenly the miracle has happened and his boredom was over.\n The young man, named ${robbin.name} appeared from nowhere as a villain.\nSince then he was keeping ${batman.name} busy.\n\n One day they decided to meet for a duel to see which one of them is stronger.`);
+  console.log(`\nLET THE DUEL BEGIN!!!! WHAHAHAHAHAHAHAHAHA`);
+
+  //Thinking of the battle function ---//
+  
+  function fightToDeath (hero, villain) {
+    while(hero.hp > 0 && villain.hp >0) {
+          hero.headHit(villain)
+          villain.headHit(hero)
+    }
+}
+  
+
+
+  
