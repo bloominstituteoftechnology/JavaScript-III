@@ -55,4 +55,4 @@ enderman.attack();
 
 // code example for Explicit Binding
 
-// creeper.attack.call(skeleton);
+creeper.attack.call(skeleton);
