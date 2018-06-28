@@ -21,9 +21,12 @@ function GameObject(attributes){
 }
 
 GameObject.prototype.destroy = function(){
+  if (this.name){
   return `${this.name} was removed from the game.`;
+} else {
+  return `Object was removed from the game.`
 }
-
+}
 
 /*
   === CharacterStats ===
@@ -34,6 +37,7 @@ GameObject.prototype.destroy = function(){
 */
 
 function CharacterStats(charAttributes){
+  GameObject.call(this, charAttributes);
   this.hp = charAttributes.hp;
   this.name = charAttributes.name;
 }
@@ -144,3 +148,42 @@ Humanoid.prototype.greet = function(){
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function Villian(attrs){
+    Humanoid.call(this, attrs);
+    this.enemy = attrs.enemy;
+
+  }
+
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  Villian.prototype.attack = function(){
+    
+    console.log(`${this.name} just attacked ${this.enemy}`);
+    
+
+  }
+
+
+  function Hero(attrs){
+    Humanoid.call(this, attrs);
+  }
+
+
+
+  const newHero = new Hero({
+    name: "Batman",
+    enemy: "Squid",
+    hp: 50,
+  })
+
+  const newVillain = new Villian({
+    name: "Squid",
+    enemy: "Batman",
+  })
+
+  console.log(newVillain.attack());
+  console.log(newVillain)
