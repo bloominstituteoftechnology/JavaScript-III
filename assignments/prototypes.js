@@ -223,10 +223,19 @@ let villain = new Villain({
   missRatio: 0.3
 });
 // Game Loop
+let count = 0;
 while (hero.alive && villain.alive) {
+  count++;
   let damageDealt = hero.attack();
   console.log(villain.takeDamage(damageDealt));
 
   damageDealt = villain.attack();
   console.log(hero.takeDamage(damageDealt));
 }
+
+if (hero.alive) {
+  console.log(`${hero.name} won the battle`);
+} else {
+  console.log(`${villain.name} won the battle. MWAHAHAHAHAHA`);
+}
+console.log(`The battle lasted ${count} rounds.`);
