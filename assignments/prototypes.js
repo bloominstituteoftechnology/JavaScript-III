@@ -148,9 +148,9 @@ Humanoid.prototype.greet = function() {
   
   Villain.prototype = Object.create(Humanoid.prototype);
 
-  Villain.prototype.attack = function() {
+  Villain.prototype.attack = function(opponentObj) {
     const damageDealt =  Math.floor(Math.random() * 10) + 1;
-    console.log(`${this.name} has hit their opponent for ${damageDealt} damage!`);
+    console.log(`${this.name} hit ${opponentObj.name} for ${damageDealt} damage!`);
     return damageDealt;
   }
 
@@ -198,13 +198,16 @@ Humanoid.prototype.greet = function() {
     let fighter1HP = fighter1.hp;
     let fighter2HP = fighter2.hp;
     let initiative = Math.random();
+    console.log(`${fighter1.name} and ${fighter2} have engaged in a fight to the DEATH!`)
     while (fighter1HP >= 0 && fighter2HP >= 0) {
       if (initiative < 0.5) {
-        fighter2HP -= fighter1.attack();
+        fighter2HP -= fighter1.attack(fighter2);
+        console.log(`${fighter2.name} has ${fighter2HP} hp remaining!`);
       } else {
-        // console.log(fighter2.attack());
-        fighter1HP -= fighter2.attack();
+        fighter1HP -= fighter2.attack(fighter1);
+        console.log(`${fighter1.name} has ${fighter1HP} hp remaining!`);
       }
+      initiative = Math.random();
     }
     if (fighter1HP <= 0) {
       return `${fighter2.name} has defeated ${fighter1.name} in combat!`;
