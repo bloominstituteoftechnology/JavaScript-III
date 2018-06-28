@@ -19,25 +19,27 @@
     <div class="row battle">
       <div class="col-2"></div>
       <div class="col-3">
-        <div class="card hero">
+        <div class="card hero-defeat">
           <div class="hero-pic">
             <img class="card-img-top w-100" src="https://d2ev13g7cze5ka.cloudfront.net/ban/ban992448_0.jpg?v=1423193033" alt="Hero">
           </div>
-          <div class="card-body">
-            <h5 class="card-title hero-name"></h5>
-            <p class="card-text hero-info">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <div class="card-body hero">
+            <h5 class="card-title">Klaus the Bright</h5>
+            <p class="card-text">HP: 200</p>
           </div>
         </div>
       </div>
-      <div class="col-2 butt">
-        <button class="btn btn-info go" type="button" name="button">Attack!</button>
+      <div class="col-2 butt text-center">
+        <p class="hero-dmg"></p>
+        <button class="go" type="button" name="button">Attack!</button>
+        <p class="villain-dmg"></p>
       </div>
       <div class="col-3">
-        <div class="card villain">
+        <div class="card villain-defeat">
           <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUKI-iPpZg2dsAIIE5Jxd8946Sy8TZI728e-7XePNxLij4ysOb" alt="Villain">
-          <div class="card-body">
-            <h5 class="card-title villain-name"></h5>
-            <p class="card-text villain-info">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <div class="card-body villain">
+            <h5 class="card-title villain-name">Aykrd King of Demons</h5>
+            <p class="card-text villain-info">HP: 500</p>
           </div>
         </div>
       </div>
@@ -46,6 +48,8 @@
   </section>
 </body>
 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js" integrity="sha384-u/bQvRA/1bobcXlcEYpsEdFVK/vJs3+T+nXLsBYJthmdBuavHvAW6UsmqO2Gd/F9" crossorigin="anonymous"></script>
+<script type="text/javascript" src="assignments/prototypes.js"></script>
 
 </html>

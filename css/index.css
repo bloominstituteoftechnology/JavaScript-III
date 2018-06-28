@@ -18,6 +18,16 @@ header .jumbotron h1 {
   align-items: center;
   margin-bottom: 100px;
 }
+.battle .defeat {
+  padding: 10px;
+  color: #600000;
+  border: 1px solid red;
+  background-color: black;
+  box-shadow: 0 0 4px 4px #600000;
+}
+.battle .card {
+  height: 100%;
+}
 .battle .hero-pic {
   height: 190px;
   display: flex;
@@ -25,6 +35,24 @@ header .jumbotron h1 {
 }
 .battle .butt {
   display: flex;
-  justify-content: center;
+  min-height: 200px;
+  justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
+}
+.battle .butt p {
+  color: red;
+}
+.battle .butt .go {
+  background-color: #750101;
+  border-radius: 5px;
+  border-color: #750101;
+  color: black;
+  box-shadow: 0 0 5px 5px #600000;
+}
+.battle .butt .go:hover {
+  background-color: #600000;
+  border-color: #600000;
+  cursor: pointer;
+  box-shadow: 0 0 5px 5px #560000;
 }

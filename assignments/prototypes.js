@@ -24,8 +24,7 @@ function GameObject(attr) {
   this.dimensions = attr.dimensions;
 }
 GameObject.prototype.destroy = function() {
-
-  return `${this.name} was removed from the game.`;
+  $(this.defeat).html(`<h1>${this.name} has been defeated!</h1>`).addClass('defeat');
 };
 /*
   === CharacterStats ===
@@ -41,13 +40,15 @@ function CharacterStats(attr) {
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function(dmg) {
+CharacterStats.prototype.takeDamage = function(dmg, dam) {
   let damage = Math.floor(Math.random() * Math.floor(dmg));
-  if (damage == 0) {
-    return `${this.name} dodged the attack!`;
-  }
   this.hp -= damage;
-  return `${this.name} took ${damage} damage. ${this.hp} HP remains`;
+  $(this.dam).html(`${this.name} did ${damage} damage`);
+  // if (damage == 0) {
+  //   return `${this.name} dodged the attack!`;
+  // }
+  // this.hp -= damage;
+  // return `${this.name} took ${damage} damage. ${this.hp} HP remains`;
 };
 /*
   === Humanoid ===
@@ -68,15 +69,21 @@ function Humanoid(attr) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
-}
+};
 
 function Hero(attr) {
   Humanoid.call(this, attr);
+  this.disp = attr.disp;
+  this.dam = attr.dam;
+  this.defeat = attr.defeat
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 
 function Villain(attr) {
   Humanoid.call(this, attr);
+  this.disp = attr.disp;
+  this.dam = attr.dam;
+  this.defeat = attr.defeat;
 }
 Villain.prototype = Object.create(Humanoid.prototype);
 
@@ -85,16 +92,19 @@ const hero = new Hero({
   dimensions: {
     length: 2,
     width: 1,
-    height: 1,
+    height: 1
   },
   hp: 200,
-  name: 'Klaus the Bright',
-  faction: 'Warriors of Light',
+  name: "Klaus the Bright",
+  faction: "Warriors of Light",
   weapons: {
-    name: 'Shining Sword of Holy Destruction',
-    damage: 20
+    name: "Shining Sword of Holy Destruction",
+    damage: 25
   },
-  language: 'Common Toungue',
+  language: "Common Toungue",
+  dam: document.getElementsByClassName("hero-dmg"),
+  disp: document.getElementsByClassName("hero"),
+  defeat: document.getElementsByClassName("hero-defeat")
 });
 
 const demonKing = new Villain({
@@ -102,44 +112,69 @@ const demonKing = new Villain({
   dimensions: {
     length: 2,
     width: 1,
-    height: 1,
+    height: 1
   },
   hp: 500,
-  name: 'Aykrd King of Demons',
-  faction: 'Demons',
+  name: "Aykrd King of Demons",
+  faction: "Demons",
   weapons: {
-    name: 'Corrupted Battleax of Despair',
+    name: "Corrupted Battleax of Despair",
     damage: 10
   },
-  language: 'Demon Tongue',
+  language: "Demon Tongue",
+  dam: document.getElementsByClassName("villain-dmg"),
+  disp: document.getElementsByClassName("villain"),
+  defeat: document.getElementsByClassName("villain-defeat")
 });
 
 function battle(hero, villain) {
-  let turn = 1;
-  console.log(`Here begins the battle between ${hero.name} and ${villain.name}!`);
 
-  while (hero.hp > 0 && villain.hp > 0) {
-    console.log(`${hero.name} HP: ${hero.hp}         ${villain.name} HP: ${villain.hp}`);
-    if (turn == 1) {
-      console.log(`${hero.name} attacks ${villain.name} with ${hero.weapons.name}`);
-      console.log(villain.takeDamage(hero.weapons.damage));
-      turn++;
-    } else if (turn == 2) {
-      console.log(`${villain.name} attacks ${hero.name} with ${villain.weapons.name}`);
-      console.log(hero.takeDamage(villain.weapons.damage));
-      turn--;
+  // let turn = 1;
+  // console.log(
+  //   `Here begins the battle between ${hero.name} and ${villain.name}!`
+  // );
+  if (hero.hp > 0 && villain.hp > 0) {
+    // console.log(
+    //   `${hero.name} HP: ${hero.hp}         ${villain.name} HP: ${villain.hp}`
+    // );
+    if (hero.hp > 0) {
+      // console.log(
+      //   `${hero.name} attacks ${villain.name} with ${hero.weapons.name}`
+      // );
+      villain.takeDamage(hero.weapons.damage);
+    }
+    if (villain.hp > 0) {
+      // console.log(
+      //   `${villain.name} attacks ${hero.name} with ${villain.weapons.name}`
+      // );
+      hero.takeDamage(villain.weapons.damage);
     }
   }
-  if (villain.hp > 0) {
-    console.log(`${villain.name} has emerged victorious! All is lost!`);
-    console.log(hero.destroy());
-  } else {
-    console.log(`Rejoice! For our hero ${hero.name} has conquered evil once and for all!`);
-    console.log(villain.destroy());
+  if (hero.hp <= 0) {
+    // console.log(`${villain.name} has emerged victorious! All is lost!`);
+    hero.destroy();
+  } else if (villain.hp <= 0) {
+    // console.log(
+    //   `Rejoice! For our hero ${hero.name} has conquered evil once and for all!`
+    // );
+    villain.destroy();
   }
+  $(hero.disp).html(
+    `<h5 class="card-title">${hero.name}</h5><p class="card-text">HP: ${
+      hero.hp
+    }</p>`
+  );
+
+  $(villain.disp).html(
+    `<h5 class="card-title">${villain.name}</h5><p class="card-text">HP: ${
+      villain.hp
+    }</p>`
+  );
 }
 
-battle(hero, demonKing);
+$(".go").on("click", function() {
+  battle(hero, demonKing);
+});
 
 /*
  * Inheritance chain: Humanoid -> CharacterStats -> GameObject
