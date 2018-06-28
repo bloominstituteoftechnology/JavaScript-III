@@ -42,6 +42,7 @@
 */
 
 
+//* Game Object
 function GameObject(parentAttributes) {
   this.createdAt = parentAttributes.createdAt;
   this.dimensions = parentAttributes.dimensions;
@@ -52,6 +53,7 @@ GameObject.prototype.destroy = function() {
 }
 
 
+//* Character Stats
 function CharacterStats(childAttributes) {
   GameObject.call(this, childAttributes);
   this.hp = childAttributes.hp;
@@ -65,6 +67,7 @@ CharacterStats.prototype.takeDamage = function() {
 }
 
 
+//* Humanoid
 function Humanoid(grandChildAttributes) {
   CharacterStats.call(this, grandChildAttributes);
   this.faction = grandChildAttributes.faction;
@@ -79,7 +82,7 @@ Humanoid.prototype.greet = function() {
 }
 
 
-
+//* Hero
 function Hero(heroAttributes) {
   Humanoid.call(this, heroAttributes);
 }
@@ -110,8 +113,7 @@ theHealer.heal(theHealer);
 console.log(theHealer);
 
 
-
-
+//* Villian
 function Villian(villianAttributes) {
   Humanoid.call(this, villianAttributes);
 }
@@ -199,6 +201,8 @@ console.log(theHealer);
     language: 'Elvish',
   });
 
+  theVillian.take(archer);
+  console.log(archer.hp);
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
