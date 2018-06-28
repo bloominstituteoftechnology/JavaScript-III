@@ -73,6 +73,16 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 }
 
+function Villain(evilness) {
+  Humanoid.call(this, evilness);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.sneakAttack = function(target) {
+  return target.hp--;
+}
+
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
 // /*
@@ -126,6 +136,7 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -137,6 +148,25 @@ Humanoid.prototype.greet = function() {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // */
+
+const mrX = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 1,
+      height: 2,
+    },
+    hp: 22,
+    name: 'Mr X',
+    faction: 'Mage Guild',
+    weapons: [
+      'Staff of Wrath',
+    ],
+    language: 'Common Toungue',
+  });
+
+console.log(mrX.sneakAttack(mage));
+console.log(mrX.sneakAttack(mage));
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
