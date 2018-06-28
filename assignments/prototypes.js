@@ -64,7 +64,7 @@ function Humanoid(grandChildStats) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in <object language>.`;
+  return `${this.name} offers a greeting in ${this.language}.`;
 };
 
 /*
