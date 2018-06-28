@@ -148,9 +148,9 @@ Humanoid.prototype.greet = function() {
   
   Villain.prototype = Object.create(Humanoid.prototype);
 
-  Villain.prototype.attack = function(opponent) {
-    let damageDealt =  Math.floor(Math.random() * 10) + 1;
-    console.log(`${this.name} has hit his opponent for ${damageDealt} damage!`);
+  Villain.prototype.attack = function() {
+    const damageDealt =  Math.floor(Math.random() * 10) + 1;
+    console.log(`${this.name} has hit their opponent for ${damageDealt} damage!`);
     return damageDealt;
   }
 
@@ -160,7 +160,7 @@ Humanoid.prototype.greet = function() {
   
   Hero.prototype = Object.create(Villain.prototype);
 
-  
+ 
   const orc = new Villain({
     createdAt: new Date(),
     dimensions: {
@@ -194,22 +194,23 @@ Humanoid.prototype.greet = function() {
     language: 'Common Tongue',
   });
 
-function battle (fighter1, fighter2) {
-  let fighter1HP = fighter1.hp;
-  let fighter2HP = fighter2.hp;
-  while(fighter1HP > 0 || fighter2HP > 0) {
+  function battle (fighter1, fighter2) {
+    let fighter1HP = fighter1.hp;
+    let fighter2HP = fighter2.hp;
     let initiative = Math.random();
-    if (initiative < 0.5) {
-      fighter2HP - fighter1.attack(fighter2);
+    while (fighter1HP >= 0 && fighter2HP >= 0) {
+      if (initiative < 0.5) {
+        fighter2HP -= fighter1.attack();
+      } else {
+        // console.log(fighter2.attack());
+        fighter1HP -= fighter2.attack();
+      }
+    }
+    if (fighter1HP <= 0) {
+      return `${fighter2.name} has defeated ${fighter1.name} in combat!`;
     } else {
-      fighter1HP - fighter2.attack(fighter1);
+      return `${fighter1.name} has defeated ${fighter2.name} in combat!`;
     }
   }
-  if (fighter1HP <= 0) {
-    return `${fighter1} has defeated ${fighter2} in combat!`;
-  } else {
-    return `${fighter2} has defeated ${fighter1} in combat!`;
-  }
-}
-
-battle(orc, knight);
+  
+  battle(orc, knight);
