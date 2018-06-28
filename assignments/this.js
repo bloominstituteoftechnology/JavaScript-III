@@ -29,7 +29,7 @@ const MyObject = function (){
     console.log(this.name + ' is ' + action + '!');
   }
  
-  var obj = new MyObject();
+  const obj = new MyObject();
  
   obj.doStuff('awesome'); // prints 'MyObjectName is awesome!'
 
