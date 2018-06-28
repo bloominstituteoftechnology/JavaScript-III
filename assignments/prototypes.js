@@ -67,6 +67,30 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function () {
   return `${this.name} offers greeting in ${this.language}`
 }
+
+
+// Villian Constructor
+function Villain(characteristics) {
+  Humanoid.call(this, characteristics);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.attack = function () {
+  return `${this.name} attacks with ${this.weapons}`
+}
+
+// Hero Constructor
+function Hero(characteristics) {
+  Humanoid.call(this, characteristics);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.healingPotion = function () {
+  return `${this.name} uses a healing potion`
+}
+
  
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -129,6 +153,38 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
+  const kingArthur = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 2,
+    },
+    hp: 20,
+    name: 'King Arthur',
+    faction: 'Rome',
+    weapons: [
+      'Excalivur',
+    ],
+    language: 'English',
+  });
+
+  const blackWizard = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 5,
+      width: 4,
+      height: 3,
+    },
+    hp: 40,
+    name: 'Black Wizard',
+    faction: 'Mordor',
+    weapons: [
+      'Wizard Staff'
+    ],
+    language: 'English',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -139,6 +195,8 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(blackWizard.attack()); // Sir Mustachio was removed from the game.
+  console.log(kingArthur.healingPotion()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
