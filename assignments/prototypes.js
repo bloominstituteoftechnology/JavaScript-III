@@ -48,8 +48,8 @@ function GameObject(parentAttributes) {
   this.dimensions = parentAttributes.dimensions;
 }
 
-GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game.';
+GameObject.prototype.destroy = function(object) {
+  return `${this.name} was removed from the game.`;
 }
 
 
@@ -121,7 +121,10 @@ function Villian(villianAttributes) {
 Villian.prototype = Object.create(Humanoid.prototype);
 
 Villian.prototype.take = function(subject) {
-  subject.hp--;
+  subject.hp -= 5;
+  if (subject.hp <= 0) {
+    return subject.destroy();
+  }
 }
 
 const theVillian = new Villian({
@@ -201,8 +204,11 @@ console.log(theHealer);
     language: 'Elvish',
   });
 
-  theVillian.take(archer);
   console.log(archer.hp);
+  theVillian.take(archer);
+  console.log(theVillian.take(archer));
+  console.log(archer.hp);
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
