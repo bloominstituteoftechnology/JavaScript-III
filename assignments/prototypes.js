@@ -10,44 +10,88 @@ This is my initial commit so *Someone* won't throw aggressive emojis at me!
 */
   
 /*
-  === GameObject ===
+/*
+ 
+                          ____                       ___  _     _           _                       
+     _____ _____ _____   / ___| __ _ _ __ ___   ___ / _ \| |__ (_) ___  ___| |_   _____ _____ _____ 
+    |_____|_____|_____| | |  _ / _` | '_ ` _ \ / _ \ | | | '_ \| |/ _ \/ __| __| |_____|_____|_____|
+    |_____|_____|_____| | |_| | (_| | | | | | |  __/ |_| | |_) | |  __/ (__| |_  |_____|_____|_____|
+                         \____|\__,_|_| |_| |_|\___|\___/|_.__// |\___|\___|\__|                    
+                                                             |__/                                   
+ 
+
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
+
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
-   
 }
 
+GameObject.prototype.destroy = function () {
+  return `Object was removed from game.`;
+};
 
 /*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
-function CharacterStats(attributes) {
-  this.hp = attributes.hp;
-  this.name = attributes.name;
-}
 /*
-  === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
+ 
+                          ____ _                          _            ____  _        _                           
+     _____ _____ _____   / ___| |__   __ _ _ __ __ _  ___| |_ ___ _ __/ ___|| |_ __ _| |_ ___   _____ _____ _____ 
+    |_____|_____|_____| | |   | '_ \ / _` | '__/ _` |/ __| __/ _ \ '__\___ \| __/ _` | __/ __| |_____|_____|_____|
+    |_____|_____|_____| | |___| | | | (_| | | | (_| | (__| ||  __/ |   ___) | || (_| | |_\__ \ |_____|_____|_____|
+                         \____|_| |_|\__,_|_|  \__,_|\___|\__\___|_|  |____/ \__\__,_|\__|___/                    
+                                                                                                                  
+ 
 */
-function Humanoid(attributes){
-  this.faction = attributes.faction;
-  this.weapons = attributes.weapons;
-  this.language = attributes.language;
-  
-} 
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // * hp                                                                               //
+  // * name                                                                             //
+  // * takeDamage() prototype method -> returns the string '<object name> took damage.' //
+  // * should inherit destroy() from GameObject's prototype                             //
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////
+ function CharacterStats(characterstatsAttributes){
+   GameObject.call(this,characterstatsAttributes)            
+   this.hp = characterstatsAttributes.hp;          
+  this.name = characterstatsAttributes.name;       
+}
+
+  ////////////////////////////////////
+  // === GameObject inheritance === //
+  ////////////////////////////////////
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`; 
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                            //
+//   === Humanoid === //                                                                                      //
+//                                                                                                            //
+//   * faction                                                                                                //
+//   * weapons                                                                                                //
+//   * language                                                                                               //
+//   * greet() prototype method -> returns the string '<object name> offers a greeting in <object language>.' //
+//   * should inherit destroy() from GameObject through CharacterStats                                        //
+//   * should inherit takeDamage() from CharacterStats                                                        //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function Humanoid(humanoidAttr) {
+  CharacterStats.call(this, humanoidAttr);
+  this.faction = humanoidAttr.faction;
+  this.weapons = humanoidAttr.weapons;
+  this.language = humanoidAttr.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
 
 /*
   * Inheritance chain: Humanoid -> CharacterStats -> GameObject
@@ -57,7 +101,7 @@ function Humanoid(attributes){
 
 //Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -108,17 +152,17 @@ function Humanoid(attributes){
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(mage.createdAt);
+  console.log(archer.dimensions);
+  console.log(swordsman.hp); 
+  console.log(mage.name); 
+  console.log(swordsman.faction); 
+  console.log(mage.weapons); 
+  console.log(archer.language);
+  console.log(archer.greet());
+  console.log(mage.takeDamage());
+  console.log(swordsman.destroy()); 
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
