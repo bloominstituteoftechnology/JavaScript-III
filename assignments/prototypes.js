@@ -180,7 +180,7 @@ Hero.prototype.headHit = function () {
 
 
 
-  /* console.log(mage.createdAt); // Today's date
+  console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
@@ -190,7 +190,7 @@ Hero.prototype.headHit = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
- */
+ 
 
   // Stretch task: 
   // * Create villain and Hero constructor functions that inherit from the Humanoid constructor function.  
@@ -201,7 +201,7 @@ Hero.prototype.headHit = function () {
   console.log(`\nLET THE DUEL BEGIN!!!! WHAHAHAHAHAHAHAHAHA`);
 
   //Thinking of the battle function ---//
-  
+
   function fightToDeath (hero, villain) {
     while(hero.hp > 0 && villain.hp >0) {
           hero.headHit(villain)
