@@ -32,9 +32,9 @@ david.sayHello();
 
 // Principle 3 for New Binding
 
-let newFunction = sayFavorites.bind(oneObject, fun[1], fun[2],
-    fun[3]);
-    newFunction();
+//
+//    
+// 
 
 
 // Principle 4 for Explicit Binding
