@@ -43,7 +43,7 @@ function CharacterStats(characterAttributes) {
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
-//This line is I think what inherits methods?!?!
+//This line is I think what inherits methods?!?! Links everything!?!?
 //New methods go below this line.
 
 CharacterStats.prototype.takeDamage = function () {

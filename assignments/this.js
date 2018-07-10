@@ -39,7 +39,7 @@ console.log(sayAge());
 
 // code example for Implicit Binding
 
-var me = {
+let me = {
     name: 'Bryce',
     age: 35,
     sayName: function () {
