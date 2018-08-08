@@ -41,7 +41,54 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+function GameObject(GOattributes) {
+  //properties
+  this.createdAt = GOattributes.createdAt;
+  this.dimensions = GOattributes.dimensions;
+}
+ //methods
+ GameObject.prototype.destroy = function() {
+   console.log("Object was removed from the game.");
+}
+/////////////////////////////////////////////////////////////////////////
+
+function CharacterStats(CSattributes) {
+  GameObject.call(this, CSattributes)
+  //properties
+  this.hp = CSattributes.hp;
+  this.name =CSattributes.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+//methods
+CharacterStats.prototype.takeDamage = function() {
+  console.log(`${this.name} took damage.`);
+}
+CharacterStats.prototype.destroy = function() {
+   console.log("Object was removed from the game.");
+}
+///////////////////////////////////////////////////////////////////
+
+function Humanoid(Humattributes) {
+  // GameObject.call(this, Humattributes)
+  CharacterStats.call(this, Humattributes)
+  //properties
+  this.faction = this.faction;
+  this.weapon = this.weapon;
+  this.language = this.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+//methods
+Humanoid.prototype.greet = function() {
+  console.log(`${this.name} offers a greeting in ${this.language}`);
+}
+Humanoid.prototype.takeDamage = function() {
+  console.log(`${this.name} took damage.`);
+}
+Humanoid.prototype.destroy = function() {
+   console.log(`${this.name} was removed from the game.`);
+}
+
+////////////////////////////////////////////////////////////////////
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +149,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
