@@ -22,7 +22,7 @@ function GameObject(obj) {
 }
 //methods
 GameObject.prototype.destroy = function() {
-  return `Object was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 };
 
 let testGameObject = new GameObject({
@@ -33,7 +33,6 @@ let testGameObject = new GameObject({
   }
 });
 
-console.log(testGameObject);
 /*
   === CharacterStats ===
   * hp
@@ -66,8 +65,6 @@ let testCharacter = new CharacterStats({
   name: "Bruce"
 });
 
-console.log(testCharacter);
-
 /*
   === Humanoid ===
   * faction
@@ -86,7 +83,7 @@ function Humanoid(obj) {
 }
 
 //methods
-Humanoid.prototype = Object.create(GameObject.prototype);
+
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}. `;
@@ -144,17 +141,17 @@ const archer = new Humanoid({
 
 console.log(mage.createdAt); // Today's date
 console.log(mage);
-console.log(mage.tookDamage());
-// console.log(archer);
-// console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-// console.log(swordsman.hp); // 15
-// console.log(mage.name); // Bruce
-// console.log(swordsman.faction); // The Round Table
-// console.log(mage.weapons); // Staff of Shamalama
-// console.log(archer.language); // Elvish
-// console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-// console.log(mage.takeDamage()); // Bruce took damage.
-// console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+console.log(archer);
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+console.log(swordsman.hp); // 15
+console.log(mage.name); // Bruce
+console.log(swordsman.faction); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+console.log(archer.language); // Elvish
+console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage()); // Bruce took damage.
+console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
