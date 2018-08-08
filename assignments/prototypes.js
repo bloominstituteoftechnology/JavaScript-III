@@ -32,10 +32,9 @@ function CharacterStats(charAttributes) {
   GameObject.call(this, charAttributes);
   this.hp = charAttributes.hp,
   this.name = charAttributes.name
-}
+};
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
-
 CharacterStats.prototype.takeDamage = function() {return `${this.name} took damage.`};
 
 /*
@@ -52,10 +51,9 @@ function Humanoid(humanAttributes) {
   this.faction = humanAttributes.faction,
   this.weapons = humanAttributes.weapons,
   this.language = humanAttributes.language
-}
+};
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-
 Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in ${this.language}.`};
  
 /*
@@ -134,4 +132,18 @@ Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.basicAttack = heroAttributes.basicAttack,
+    this.special = heroAttributes.special
+  };
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+    this.basicAttack = villainAttributes.basicAttack,
+    this.special = villainAttributes.special
+  };
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+//Create hero & Villain
