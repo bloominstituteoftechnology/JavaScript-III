@@ -18,10 +18,14 @@
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
-  this.destroy = function () {
-    return `Object was removed from the game.`;
-  };
+
 }
+
+function destroy () {
+  alert `Object was removed from the game.`;
+};
+
+
 ////
 
 
@@ -35,12 +39,30 @@ function GameObject(attributes) {
 function CharacterStats (stats){
   this.hp = stats.hp;
   this.name = stats.name;
-  this.takeDamage = function () {
-    CharacterStats.call(destroy);
-    return `${this.name} took damage.`;
-  }
+  
 }
+function takeDamage () {
+  alert (`${this.name} took damage.`);
+}
+takeDamage.call(CharacterStats);
+destroy.call(CharacterStats);
+
 //
+
+
+
+
+function greet () {
+  alert(`Hello, my name is ${this.name}`)
+}
+
+const user = {
+  name: 'Tyler',
+  age: 27,
+}
+
+greet.call(user)
+
 
 
 /*
@@ -53,6 +75,22 @@ function CharacterStats (stats){
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid (traits) {
+  this.faction = traits.faction;
+  this.weapons = traits.weapons;
+  this.language = traits.language;
+}
+
+function greet (){
+  alert (`${this.faction} offers a greeting in ${this.language}`);
+}
+
+greet.call(Humanoid);
+takeDamage.call(Humanoid);
+destroy.call(Humanoid);
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
