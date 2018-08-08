@@ -40,8 +40,77 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+function GameObject(params) {
+  this.createdAt = params.createdAt;
+  this.dimensions = params.dimensions;
+}
 
-/*
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+};
+
+function CharacterStats(params) {
+  GameObject.call(this, params);
+  this.hp = params.hp;
+  this.name = params.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+};
+
+function Humanoid(params) {
+  CharacterStats.call(this, params);
+  this.faction = params.faction;
+  this.weapons = params.weapons;
+  this.language = params.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
+// Stretch
+function Hero(params) {
+  Humanoid.call(this, params);
+  this.attackDmg = params.attackDmg;
+};
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.attack = function(enemy, dmg) {
+  enemy.hp -= dmg;
+  return `${enemy.name} took ${dmg} and is now at ${enemy.hp} health.`;
+};
+
+
+function Villian(params) {
+  Humanoid.call(this, params);
+  this.attackDmg = params.attackDmg;
+};
+
+Villian.prototype.attack = function(enemy, dmg) {
+  enemy.hp -= dmg;
+  return `${this.name} attacked ${enemy.name} with ${dmg} and is ${enemy.name} is now at ${enemy.hp} health.`;
+};
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+function attack(enemy) {
+  if (enemy.hp <= 0) {
+    enemy.destroy();
+    return `${enemy.name} is dead.`;
+  }
+  
+  enemy.hp -= this.attackDmg;
+  enemy.takeDamage();
+  return `${this.name} attacked ${enemy.name} with ${this.attackDmg} and is ${enemy.name} is now at ${enemy.hp} health.`;
+}
+//
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,19 +161,58 @@
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  let malik = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Malik',
+    faction: 'Mage Guild',
+    weapons: [
+      'Staff of Shamalama',
+    ],
+    language: 'Common Toungue',
+    attackDmg: 2
+  });
+
+  let vala = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Vala',
+    faction: 'Cryptids Guild',
+    weapons: [
+      'Sword of Plades',
+    ],
+    language: 'Elvish',
+    attackDmg: 3
+  });
+
+  console.log(attack.call(malik, vala));
+  console.log(attack.call(malik, vala));
+  console.log(attack.call(malik, vala));
+  console.log(attack.call(malik, vala));
