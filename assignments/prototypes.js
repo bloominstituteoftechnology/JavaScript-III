@@ -74,42 +74,6 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 };
 
-// Stretch
-function Hero(params) {
-  Humanoid.call(this, params);
-  this.attackDmg = params.attackDmg;
-};
-
-Hero.prototype = Object.create(Humanoid.prototype);
-
-Hero.prototype.attack = function(enemy, dmg) {
-  enemy.hp -= dmg;
-  return `${enemy.name} took ${dmg} and is now at ${enemy.hp} health.`;
-};
-
-
-function Villian(params) {
-  Humanoid.call(this, params);
-  this.attackDmg = params.attackDmg;
-};
-
-Villian.prototype.attack = function(enemy, dmg) {
-  enemy.hp -= dmg;
-  return `${this.name} attacked ${enemy.name} with ${dmg} and is ${enemy.name} is now at ${enemy.hp} health.`;
-};
-
-Villian.prototype = Object.create(Humanoid.prototype);
-
-function attack(enemy) {
-  if (enemy.hp <= 0) {
-    enemy.destroy();
-    return `${enemy.name} is dead.`;
-  }
-  
-  enemy.hp -= this.attackDmg;
-  enemy.takeDamage();
-  return `${this.name} attacked ${enemy.name} with ${this.attackDmg} and is ${enemy.name} is now at ${enemy.hp} health.`;
-}
 //
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -178,6 +142,41 @@ function attack(enemy) {
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+  // Stretch
+function Hero(params) {
+  Humanoid.call(this, params);
+  this.attackDmg = params.attackDmg;
+  this.hasAttacked = params.hasAttacked;
+};
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villian(params) {
+  Humanoid.call(this, params);
+  this.attackDmg = params.attackDmg;
+  this.hasAttacked = params.hasAttacked;
+};
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+function attack(enemy) {
+  if (this.hp <= 0) {
+    return `${this.name} is dead.`;
+  }
+  if (enemy.hp <= 0) {
+    enemy.destroy();
+    return `${enemy.name} is dead.`;
+  }
+  
+  enemy.hp -= this.attackDmg;
+  enemy.takeDamage();
+  return `${this.name} attacked ${enemy.name} with ${this.attackDmg} and is ${enemy.name} is now at ${enemy.hp} health.`;
+};
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
   let malik = new Hero({
     createdAt: new Date(),
     dimensions: {
@@ -192,7 +191,7 @@ function attack(enemy) {
       'Staff of Shamalama',
     ],
     language: 'Common Toungue',
-    attackDmg: 2
+    attackDmg: getRandomInt(1, 5),
   });
 
   let vala = new Villian({
@@ -209,10 +208,21 @@ function attack(enemy) {
       'Sword of Plades',
     ],
     language: 'Elvish',
-    attackDmg: 3
+    attackDmg: getRandomInt(1, 5),
   });
 
+  // Trying user prompts
+  // var prompt = require('prompt');
+
+  // prompt.start();
+
+  // prompt.get(['attack'], function(err, result) {
+  //   console.log(attack.call(malik, vala)
+  // });
+
   console.log(attack.call(malik, vala));
+  console.log(attack.call(vala, malik));
   console.log(attack.call(malik, vala));
+  console.log(attack.call(vala, malik));
   console.log(attack.call(malik, vala));
-  console.log(attack.call(malik, vala));
+  console.log(attack.call(vala, malik));
