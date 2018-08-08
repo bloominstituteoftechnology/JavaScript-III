@@ -128,6 +128,8 @@ Humanoid.prototype.greet = function() {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+
+  console.log("\nSTRETCH TASKS");
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   function Villain(villainAtts) {
@@ -140,7 +142,61 @@ Humanoid.prototype.greet = function() {
 
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.takeDamage = function() {
+    this.hp -= 3;
+    if (this.hp <= 0) {
+      return `${this.name} took 3pts of damage! ${this.name} has no more hp left! ${this.destroy()}`; 
+    }
+    return `${this.name} took 3pts of damage! ${this.name}'s hp is now ${this.hp}.`;
+  }
 
   Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.takeDamage = function() {
+    this.hp -= 3;
+    if (this.hp <= 0) {
+      return `${this.name} took 3pts of damage! ${this.name} has no more hp left! ${this.destroy()}`; 
+    }
+    return `${this.name} took 3pts of damage! ${this.name}'s hp is now ${this.hp}.`;
+  }
 
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  const goodGuy = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 3,
+    },
+    hp: 10,
+    name: 'Good guy',
+    faction: 'Earth',
+    weapons: [
+      'Sword',
+      'Shield',
+    ],
+    language: 'Good guy-ish',
+  });
+
+  const badGuy = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 1,
+    },
+    hp: 8,
+    name: 'Bad guy',
+    faction: 'Bad Earth',
+    weapons: [
+      'Knife',
+      'Bow',
+    ],
+    language: 'Bad guy-ish',
+  });
+
+  console.log(badGuy.takeDamage());
+  console.log(goodGuy.takeDamage());
+  console.log(badGuy.takeDamage());
+  console.log(goodGuy.takeDamage());
+  console.log(badGuy.takeDamage());
+  
