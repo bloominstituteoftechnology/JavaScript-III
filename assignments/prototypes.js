@@ -40,8 +40,74 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+// Game Objects constructor
+function GameObject(inputs){
+  this.createdAt = inputs.createdAt;
+  this.dimensions = inputs.dimensions;
+}
 
-/*
+GameObject.prototype.destroy = function(){
+  console.log('Object was removed from the game.'); // destroy method for game objects
+}
+
+// character stats constructor
+function CharacterStats(stats){
+  GameObject.call(this, stats)
+  this.hp = stats.hp;
+  this.name = stats.name;
+  
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype); 
+
+CharacterStats.prototype.takeDamage= function(){ // take damage method for character stats
+  console.log(`${this.name} took damage.`);
+}
+
+// humanoid constructor
+function Humanoid(attributes){
+  CharacterStats.call(this, attributes)
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function(){
+  console.log(`${this.name} offers a greeting in ${this.language}.`);// greeting method for humanoid
+}
+
+function Hero(abilities){
+  Humanoid.call(this, abilities)
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.divinePunch = function(enemy){
+  enemy.hp -= Math.floor((Math.random()*20)+1);
+    if(enemy.hp <= 0){
+      enemy.destroy();
+    } else {
+  console.log(`With that punch, ${enemy.name}s' hp is now ${enemy.hp}`);
+    }
+}
+
+function Villian(darkAbilities){
+  Humanoid.call(this, darkAbilities)
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.darkPunch = function(enemy){
+  enemy.hp -= Math.floor((Math.random()*20)+1);
+    if(enemy.hp <= 0){
+      enemy.destroy();
+    } else {
+  console.log(`With that punch, ${enemy.name}s' hp is now ${enemy.hp}`);
+    }
+}
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -91,20 +157,58 @@
     ],
     language: 'Elvish',
   });
+  
+  const knight = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 40,
+    name: 'Mr. Nice',
+    faction: 'Knights',
+    weapons: [
+      'Sword',
+    ],
+    language: 'Common Toungue',
+  });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  const goblin = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 40,
+    name: 'Mr. Not nice',
+    faction: 'Gob Squad',
+    weapons: [
+      'dagger',
+    ],
+    language: 'Goblin Speak',
+  });
+   //console.log(mage.createdAt); // Today's date
+  //console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  //console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+   //console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+    //console.log(mage.takeDamage()); // Bruce took damage.
+   // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  knight.divinePunch(goblin);
+  goblin.darkPunch(knight);
+  knight.divinePunch(goblin);
+  knight.divinePunch(goblin);
+  knight.divinePunch(goblin);
+  knight.divinePunch(goblin);
