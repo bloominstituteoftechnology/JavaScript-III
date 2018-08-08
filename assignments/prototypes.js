@@ -41,6 +41,7 @@
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+
 //Game Object
 function GameObject(gameAttributes) {
   this.createdAt = gameAttributes.createdAt;
@@ -142,19 +143,97 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
-console.log(mage.createdAt); // Today's date
-console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-console.log(swordsman.hp); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.faction); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+// console.log(mage.createdAt); // Today's date
+// console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+// console.log(swordsman.hp); // 15
+// console.log(mage.name); // Bruce
+// console.log(swordsman.faction); // The Round Table
+// console.log(mage.weapons); // Staff of Shamalama
+// console.log(archer.language); // Elvish
+// console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+// console.log(mage.takeDamage()); // Bruce took damage.
+// console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Villian(villianAttributes) {
+
+  Humanoid.call(this, villianAttributes)
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+
+
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes)
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
+Humanoid.prototype.attack = function(victim) {
+  const chooseWeapon = Math.floor(Math.random() * this.weapons.length);
+  const damage = Math.round(Math.random() * 5);
+  console.log(`${this.name} attaks with ${this.weapons[chooseWeapon]}, minus ${damage} points from hp.`);
+  victim.hp = victim.hp - damage;
+  console.log(victim.takeDamage());
+  console.log(`Minus ${damage} points, the new hp is ${victim.hp}.`);
+  if (victim.hp <= 0) {
+    console.log(`${this.name} has won.`)
+  } else {
+    console.log(`Next turn.`)
+  }
+}
+
+
+const bad = new Villian ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 5,
+    height: 4,
+  },
+  hp: 15,
+  name: 'Steve',
+  faction: 'Dark Woods',
+  weapons: [
+    'Staff of Doom',
+    'Dark Magic',
+  ],
+  language: 'Infernal',
+});
+
+const good = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 6,
+  },
+  hp: 13,
+  name: 'Jeff',
+  faction: 'Heavenly Forest',
+  weapons: [
+    'Dagger of Truth',
+    'My name is Jeff',
+  ],
+  language: 'Common',
+});
+
+
+function play() {
+  while (bad.hp > 0 || good.hp > 0) {
+    const choose = ['good', 'bad'];
+    const choice = choose[Math.round(Math.random())];
+    if(choice === 'bad') {
+      bad.attack(good);
+    } else if (choice === 'good') {
+      good.attack(bad);
+    }
+  }
+}
+
+play();
