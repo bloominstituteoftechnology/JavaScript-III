@@ -25,11 +25,13 @@ So in this case the context is MyObject.
 
 * 3.  New Binding -
 
+This type of binding occurs when we use .bind(). When we use .bind() we set a new context and invoke a function of that same name
+with that same context.
 
 
 * 4.  Explicit Binding - 
 
-This type of binding occurs when .call() , .appy() or .bind() are used.
+This type of binding occurs when .call() , .appy() are used.
 
 We are explicitly passing in 'this' context into .call() or .apply().
 
