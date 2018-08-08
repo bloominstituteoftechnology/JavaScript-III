@@ -139,9 +139,9 @@ const archer = new Humanoid({
   language: "Elvish"
 });
 
+//Console logs to check work
 console.log(mage.createdAt); // Today's date
 console.log(mage);
-
 console.log(archer);
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.hp); // 15
@@ -154,6 +154,59 @@ console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task:
+
+function Hero(obj) {
+  Humanoid.call(this, obj);
+  //properties
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.save = function() {
+  return `${this.name} has saved the day.`;
+};
+
+function Villain(obj) {
+  Humanoid.call(this, obj);
+  //properties
+  this.scar = obj.scar;
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.plot = function() {
+  return `${this.name} is plotting to attack the village.`;
+};
+
+const hero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  hp: 15,
+  name: "Knight",
+  faction: "The Round Table",
+  weapons: ["Giant Sword", "Shield"],
+  language: "Common Toungue"
+});
+
+const dragon = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  hp: 15,
+  name: "Dragon",
+  faction: "The Round Table",
+  weapons: ["Giant Sword", "Shield"],
+  language: "Common Toungue",
+  scar: "Face scar"
+});
+
+console.log(dragon.plot());
+console.log(hero.save());
+
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
