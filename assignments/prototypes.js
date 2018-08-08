@@ -21,7 +21,7 @@ function GameObject(attributes)
 }
 GameObject.prototype.destroy = function()
 {
-    return `Object was removed from the game`;
+    return "Object was removed from the game";
 };
 
 /*
@@ -37,6 +37,7 @@ function CharacterStats(characterAttributes)
     this.hp = characterAttributes.hp;
     this.name = characterAttributes.name;
 }
+CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function()
 {
     return `${this.name} took damage.`;
@@ -58,6 +59,7 @@ function Humanoid(humanoidAttributes)
     this.weapons = humanoidAttributes.weapons;
     this.language = humanoidAttributes.language;
 }
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function()
 {
     return `${this.name} offers a greeting in ${this.language}.`;
@@ -121,6 +123,15 @@ Humanoid.prototype.greet = function()
     ],
     language: 'Elvish',
   });
+
+    //createdAt
+    //dimensions
+    const myGameObject = new GameObject(
+    {
+        createdAt: new Date(),
+        dimensions: {length:6, width:9, height:69},
+    });
+    console.log(myGameObject.destroy());
 
   console.log(mage.createdAt);  //Today's date
   console.log(archer.dimensions);  //{ length: 1, width: 2, height: 4 }
