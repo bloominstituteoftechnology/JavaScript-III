@@ -152,6 +152,27 @@ function Hero(params) {
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
+// attack takes in 1 param, enemy.
+// Attacks the enemy and returns no string, but outputs a console.log of info.
+Hero.prototype.attack = function (enemy) {
+  // If the player is dead, return you lost.
+  if (this.hp <= 0) {
+    return `\n${this.name} is dead.\n You lost...`;
+  }
+
+  // If the enemy is dead, return you won.
+  if (enemy.hp <= 0) {
+    enemy.destroy();
+    return `\n${enemy.name} is dead.\n You won!`;
+  }
+  
+  enemy.hp -= this.attackDmg;
+  enemy.takeDamage();
+  console.log(`\n${this.name} attacked ${enemy.name} with ${this.attackDmg} and ${enemy.name} is now at ${enemy.hp} health.`);
+  console.log(vala.attack.call(vala, malik));
+  return "";
+};
+
 // Villian constructor
 function Villian(params) {
   Humanoid.call(this, params);
@@ -159,6 +180,33 @@ function Villian(params) {
 };
 
 Villian.prototype = Object.create(Humanoid.prototype);
+
+// atkMc takes in 1 param, mc.
+// atkMc attacks the Hero character.
+// I seperated the two attack functions because of the user prompt message was getting in the way of the
+// return in the attack(enemy) function and this allows me to add in the enemy to attack the player and
+// have a more dynamic game.
+Villian.prototype.attack = function(mc) {
+  // If the enemy is dead, return you won.
+  if (this.hp <= 0) {
+    return `\n${this.name} is dead. You won!`;
+  }
+
+  // If the player is dead, return you lost.
+  if (mc.hp <= 0) {
+    mc.destroy();
+    return `\n${mc.name} is dead. You lost...`;
+  }
+  
+  mc.hp -= this.attackDmg;
+  mc.takeDamage();
+  console.log(`\n${this.name} attacked ${mc.name} with ${this.attackDmg} and ${mc.name} is now at ${mc.hp} health.`);
+
+  // Return to user prompt.
+  ask();
+
+  return "";
+}
 
 // End of Constructors
 // Functions
@@ -184,7 +232,7 @@ function ask() {
     // Get user input
     prompt.get('attack', function(err, result) {
       if (result.attack.toString() === "attack") {
-        console.log(attack.call(malik, vala));
+        console.log(malik.attack.call(malik, vala));
       }
       else {
         // If the user inputed anything else but 'attack'
@@ -207,53 +255,53 @@ function checkIfDead() {
   else {return false}
 }
 
-// attack takes in 1 param, enemy.
-// Attacks the enemy and returns no string, but outputs a console.log of info.
-function attack(enemy) {
-  // If the player is dead, return you lost.
-  if (this.hp <= 0) {
-    return `\n${this.name} is dead.\n You lost...`;
-  }
+// // attack takes in 1 param, enemy.
+// // Attacks the enemy and returns no string, but outputs a console.log of info.
+// function attack(enemy) {
+//   // If the player is dead, return you lost.
+//   if (this.hp <= 0) {
+//     return `\n${this.name} is dead.\n You lost...`;
+//   }
 
-  // If the enemy is dead, return you won.
-  if (enemy.hp <= 0) {
-    enemy.destroy();
-    return `\n${enemy.name} is dead.\n You won!`;
-  }
+//   // If the enemy is dead, return you won.
+//   if (enemy.hp <= 0) {
+//     enemy.destroy();
+//     return `\n${enemy.name} is dead.\n You won!`;
+//   }
   
-  enemy.hp -= this.attackDmg;
-  enemy.takeDamage();
-  console.log(`\n${this.name} attacked ${enemy.name} with ${this.attackDmg} and ${enemy.name} is now at ${enemy.hp} health.`);
-  console.log(atkMc.call(vala, malik));
-  return "";
-};
+//   enemy.hp -= this.attackDmg;
+//   enemy.takeDamage();
+//   console.log(`\n${this.name} attacked ${enemy.name} with ${this.attackDmg} and ${enemy.name} is now at ${enemy.hp} health.`);
+//   console.log(atkMc.call(vala, malik));
+//   return "";
+// };
 
 // atkMc takes in 1 param, mc.
 // atkMc attacks the Hero character.
 // I seperated the two attack functions because of the user prompt message was getting in the way of the
 // return in the attack(enemy) function and this allows me to add in the enemy to attack the player and
 // have a more dynamic game.
-function atkMc(mc) {
-  // If the enemy is dead, return you won.
-  if (this.hp <= 0) {
-    return `\n${this.name} is dead. You won!`;
-  }
+// function atkMc(mc) {
+//   // If the enemy is dead, return you won.
+//   if (this.hp <= 0) {
+//     return `\n${this.name} is dead. You won!`;
+//   }
 
-  // If the player is dead, return you lost.
-  if (mc.hp <= 0) {
-    mc.destroy();
-    return `\n${mc.name} is dead. You lost...`;
-  }
+//   // If the player is dead, return you lost.
+//   if (mc.hp <= 0) {
+//     mc.destroy();
+//     return `\n${mc.name} is dead. You lost...`;
+//   }
   
-  mc.hp -= this.attackDmg;
-  mc.takeDamage();
-  console.log(`\n${this.name} attacked ${mc.name} with ${this.attackDmg} and ${mc.name} is now at ${mc.hp} health.`);
+//   mc.hp -= this.attackDmg;
+//   mc.takeDamage();
+//   console.log(`\n${this.name} attacked ${mc.name} with ${this.attackDmg} and ${mc.name} is now at ${mc.hp} health.`);
 
-  // Return to user prompt.
-  ask();
+//   // Return to user prompt.
+//   ask();
 
-  return "";
-}
+//   return "";
+// }
 
 // Get's a random rounded up int between two numbers
 function getRandomInt(min, max) {
