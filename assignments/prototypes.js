@@ -31,7 +31,7 @@ function GameObject(gameAttrs) {
   CharacterStats.prototype = Object.create(GameObject.prototype);
   
   CharacterStats.prototype.takeDamage = function() {
-    return `${this.name} took damage.`// prototype method -> returns the string '<object name> took damage.' 
+    return `${this.name} took damage.`;// prototype method -> returns the string '<object name> took damage.' 
   }
   
   // * should inherit destroy() from GameObject's prototype
@@ -55,6 +55,21 @@ Humanoid.prototype.greet = function() {
   // should inherit destroy() from GameObject through CharacterStats
   // should inherit takeDamage() from CharacterStats
 
+  //Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
+
+//=== Villian ===
+function Villian(vilAttrs) {
+  Humanoid.call(this, vilAttrs);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+//=== Hero ===
+function Hero(heroAttrs) {
+  Humanoid.call(this, heroAttrs);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
