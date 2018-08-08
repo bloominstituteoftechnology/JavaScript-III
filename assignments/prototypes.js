@@ -65,6 +65,30 @@ const Humanoid = function(humanoidBits) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in ${this.language}`};
 
+//Hero
+const Hero = function(heroBits) {
+  Humanoid.call(this, heroBits);
+};
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.heroicCleave = function(villain){
+  let damage = Math.floor(Math.random() * 10); 
+  villain.hp -= damage; 
+  return `${this.name} dealt ${damage} damage to ${villain.name}!`;
+};
+
+
+//Villain
+const Villain = function(villainBits) {
+  Humanoid.call(this, villainBits)
+}
+Villain.prototype =  Object.create(Humanoid.prototype);
+Villain.prototype.villainousJab = function(hero){
+  let damage = Math.floor(Math.random() * 10); 
+  hero.hp -= damage; 
+  return `${this.name} dealt ${damage} damage to ${hero.name}!`;
+};
+
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 
@@ -118,19 +142,65 @@ Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+  const chosenOne = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 900,
+    name: 'The Chosen One',
+    faction: 'Mage Guild',
+    weapons: [
+      'One True Staff of Shamalama',
+    ],
+    language: 'Common Toungue',
+  });
+
+  const randoMob = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 50,
+    name: 'Humanoid Slime',
+    faction: 'The Round Table',
+    weapons: [
+      'Gumball',
+    ],
+    language: 'Common Toungue',
+  });
+
+  let battle = function(hero, villain){
+    let winner = hero.name;
+    while(villain.hp > 0 || hero.hp > 0){
+      console.log("\n" + hero.heroicCleave(villain));
+      console.log("\n" +villain.villainousJab(hero));
+    }
+     if(villain.hp > 0) {winner=villain.name};
+     return `\n ${winner} is victorious!`;
+  }
+
+  console.log(battle(chosenOne, randoMob));
+
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
