@@ -10,16 +10,46 @@
 */
 
 // Principle 1
+global.boyOrGirl = "Are you a boy or girl?";
 
-// code example for Window Binding
+function genderQuestion() {
+  console.log(this.boyOrGirl);
+}
+
+genderQuestion();
 
 // Principle 2
 
 // code example for Implicit Binding
 
+const pokemon = {
+  'name': 'Bulbasaur',
+  'type': 'grass',
+  'offensive': function(atk1, atk2) {
+    console.log( `${this.name} can use ${atk1} and ${atk2}.`);
+  }
+}
+
+pokemon.offensive("Tackle", "Vine Whip");
+
 // Principle 3
 
 // code example for New Binding
+
+function Rival(rivalName) {
+  this.greeter = greeter;
+  this.speak = function() {
+    console.log( `${this.greeting} ${this.greeter}`);
+  }
+}
+
+const jerry = new CordialPerson('Newman');
+const newman = new CordialPerson('Jerry');
+const josh = new CordialPerson('CS 13');
+
+jerry.speak();
+newman.speak();
+josh.speak();
 
 // Principle 4
 
