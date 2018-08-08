@@ -14,6 +14,10 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject() {
+  this.createdAt = createdAt;
+  this.dimensions = dimensions;
+}
 
 /*
   === CharacterStats ===
