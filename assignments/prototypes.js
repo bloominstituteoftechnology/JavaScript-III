@@ -181,7 +181,7 @@ Villain.prototype.villainousJab = function(hero){
       console.log("\n" + hero.heroicCleave(villain));
       console.log("\n" +villain.villainousJab(hero));
     }
-     if(villain.hp > 0) {winner=villain.name};
+     if(villain.hp > 0) {winner=villain.name; console.log("\n" + hero.destroy());} else {console.log("\n" + villain.destroy())};
      return `\n ${winner} is victorious!`;
   }
 
