@@ -86,11 +86,32 @@ Humanoid.prototype.greet = function() {
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+function Hero(object){
+  Humanoid.call(this, object)
+}
+
+Hero.prototype = Object.create(Humanoid.prototype)
+Hero.prototype.royal_attack = function(damage, enemy) {
+  enemy.hp -= damage
+  console.log(enemy.takeDamage() + ": " + damage + ' hitpoints');
+  return enemy.hp <= 0 ? enemy.destroy() : enemy.name + " still lives"
+}
+
+function Villain(object){
+  Humanoid.call(this, object)
+}
+
+Villain.prototype = Object.create(Humanoid.prototype)
+Villain.prototype.hell_attack = function(damage, enemy) {
+  enemy.hp -= damage
+  console.log(enemy.takeDamage() + ": " + damage + ' hitpoints');
+  return enemy.hp <= 0 ? enemy.destroy() : enemy.name + " still lives"
+}
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 
-  const mage = new Humanoid(
+  const mage = new Villain(
     {
       createdAt: new Date(),
       dimensions: {
@@ -110,7 +131,7 @@ Humanoid.prototype.greet = function() {
  //borrar esta
 );
 
-  const swordsman = new Humanoid({
+  const swordsman = new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -127,7 +148,7 @@ Humanoid.prototype.greet = function() {
     language: 'Common Toungue',
   });
 
-  const archer = new Humanoid({
+  const archer = new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -143,23 +164,92 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'Elvish',
   });
+
+  const undead = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 4,
+      height: 3,
+    },
+    hp: 25,
+    name: 'Josh Knell',
+    faction: 'Chief Harper Fans',
+    weapons: [
+      'this.keyword',
+      'constructor',
+      'prototype',
+      'inheritance'
+    ],
+    language: 'JavaScript',
+  });
+
+  const elf = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 5,
+    },
+    hp: 10,
+    name: 'Patrick Kennedy',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger'
+    ],
+    language: 'Elvish',
+  });
 // console.log(mage);
 
 // console.log(archer.__proto__);
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
-  // Stretch task:
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+console.log(swordsman.royal_attack(6, mage));
+  // oyal_attack = function(damage, enemy)
+
+function fight(fighter_hero, fighter_villain){
+
+  let winner = fighter_villain
+  let loser = fighter_hero
+
+  console.log(`The Fight commences between ${fighter_hero.faction} led by ${fighter_hero.name} and ${fighter_villain.faction} led by ${fighter_villain.name}. May the gods be with you`);
+
+  while (fighter_hero.hp > 0 && fighter_villain.hp > 0){
+
+    console.log(fighter_hero.royal_attack(Math.floor(Math.random()*6)+3, fighter_villain))
+    console.log(fighter_villain.hp > 0 ? `${fighter_villain.name} has ${fighter_villain.hp} hitpoints left` : "")
+
+    if (fighter_villain.hp>0){
+    console.log(fighter_villain.hell_attack(Math.floor(Math.random()*6), fighter_hero))
+    console.log(fighter_hero.hp > 0 ? `${fighter_hero.name} has ${fighter_hero.hp} hitpoints left`: "");
+  } else {
+    winner = fighter_hero
+    loser = fighter_villain
+  }
+  }
+  return `${winner.faction}  has won the battle thanks to the brave effots of ${winner.name}. ${loser.name} and his ${loser.weapons[0]} have failed to protect ${loser.faction} '`
+}
+
+console.log(fight(elf, undead));
+/*
+Stretch task:
+ * Create Villian and Hero constructor functions that inherit from the Humanoid
+   constructor function.
+* Give the Hero and Villians different methods that could be used to remove
+health points from objects which could result in destruction if health gets to
+0 or drops below 0;
+* Create two new objects, one a villian and one a hero and fight it out
+   with methods!
+*/
