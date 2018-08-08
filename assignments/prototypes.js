@@ -19,7 +19,7 @@ function GameObject(objAttributes) {
   this.dimensions = objAttributes.dimensions
 };
 
-GameObject.prototype.destroy = () => `${Object} was removed from the game.`;
+GameObject.prototype.destroy = function() {return `${this.name} was removed from the game.`};
 
 /*
   === CharacterStats ===
@@ -36,7 +36,7 @@ function CharacterStats(charAttributes) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = () => `${this.name} took damage.`;
+CharacterStats.prototype.takeDamage = function() {return `${this.name} took damage.`};
 
 /*
   === Humanoid ===
@@ -56,7 +56,7 @@ function Humanoid(humanAttributes) {
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-Humanoid.prototype.greet = () => `${this.name} offers a greeting in ${this.language}.`
+Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in ${this.language}.`};
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -133,3 +133,5 @@ Humanoid.prototype.greet = () => `${this.name} offers a greeting in ${this.langu
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  
