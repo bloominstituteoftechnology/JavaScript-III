@@ -8,34 +8,38 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
   
+  // * createdAt
+  // * dimensions
+  // * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 
+  // * hp
+  // * name
+  // * takeDamage() // prototype method -> returns the string '<object name> took damage.'
+  // * should inherit destroy() from GameObject's prototype
+
+  /* faction
+  * weapons
+  * language
+  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
+  * should inherit destroy() from GameObject through CharacterStats
+  * should inherit takeDamage() from CharacterStats
+*/
 
 
 
 //  === GameObject ===
   function GameObject(attrs) {
     this.createdAt = attrs.createdAt,
-    this.dimensions = {
-      this.length = attrs.length,
-      this.width = attrs.width,
-      this.height = attrs.height
-    },
+    this.dimensions = attrs.dimensions,
     this.destroy = function() {
       return `${this.name} was removed from the game.`;
     }
    }
 
-  // * createdAt
-  // * dimensions
-  // * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
-
-
 
  // === CharacterStats ===
-  //CharacterStats.prototype = Object.create(GameObject.prototype);
-
-  function CharacterStats(stats) {
-    GameObject.call(this, stats);
+   function CharacterStats(stats) {
+    GameObject.call(this, stats)
     this.hp = stats.hp,
     this.name = stats.name,
     this.takeDamage = function () {
@@ -43,18 +47,15 @@
     }
    }
 
-  // CharacterStats.prototype.takeDamage = function () 
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
-  // * hp
-  // * name
-  // * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  // * should inherit destroy() from GameObject's prototype
+
 
 
 
 //  === Humanoid ===
   function Humanoid(attribs) {
-    CharacterStats.call(this, Humanoid);
+    CharacterStats.call(this, attribs)
     this.faction = attribs.faction,
     this.weapons = attribs.weapons,
     this.language = attribs.language,
@@ -63,14 +64,9 @@
     }
   }
   
-  
-  /* faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
-*/
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
