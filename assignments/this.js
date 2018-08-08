@@ -1,9 +1,9 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Window binding allows if no other binding is attached, the window is what is used for 'this'.
-* 2. Implicit binding occurs when dot notation is used to invoke a function.
-* 3. New binding creates an instance of a user-defined object type or of one of the built-in object types that has a constructor function.
+* 1. Window binding allows you to use the 'this' keyword within the block scope if no other binding is attached.
+* 2. Implicit binding is when you put the object on the left of this. It is used only when dot notation is used when invoking a function.
+* 3. New bindings are used with constructor functions to create new properties.
 * 4. Explicit binding of this occurs when .call(), .apply(), or .bind() are used on a function.
 *
 * write out a code example of each explanation above
