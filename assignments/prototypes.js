@@ -24,7 +24,7 @@ function GameObject(attr) {
   }
 // creating destroy method on GameObject
   GameObject.prototype.destroy = function() {
-    return `${this} was removed from the game`;
+    return `${this.name} was removed from the game`;
 
 /*
   === CharacterStats ===
@@ -56,6 +56,19 @@ function CharacterStats(attr) {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+ function Humanoid(attr) {
+   this.faction = attr.faction;
+   this.weapons = attr.weapons;
+   this.language = attr.language;
+ }
+
+ //Inheriting from CharacterStats
+ Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+ //method greeting
+ Humanoid.prototype.greet = function () {
+   return `${this.name} offers a greeting in ${this.language}`;
+ }
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
