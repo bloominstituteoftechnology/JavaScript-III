@@ -7,7 +7,7 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+  // TODO: refactor the game objects na general construction in to classes and seperate files. Also extract the battle system in to its own modules
 /*
   === GameObject ===
   * createdAt
@@ -135,7 +135,8 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
   function Villian(attr) {
     Humanoid.call(this, attr);
   }
-  
+  //TODO: implement more prototype functions for attacks
+
   Villian.prototype = Object.create(Humanoid.prototype);
   
   Villian.prototype.shanks = function(hero){
@@ -147,6 +148,7 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
     hero.hp -= 40;
     return `${this.name} shoots ${hero.name} in the gut.`;
   }
+
 
   Villian.prototype.flail = function(hero){
     let damage = Math.floor((Math.random() * 100) + 1)
