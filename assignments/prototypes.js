@@ -148,6 +148,13 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
     return `${this.name} shoots ${hero.name} in the gut.`;
   }
 
+  Villian.prototype.flail = function(hero){
+    let damage = Math.floor((Math.random() * 100) + 1)
+    hero.hp -= damage
+    console.log(`${this.name} flails and ${hero.name} loses ${damage} hp.`);
+    return `${this.name} flails and ${hero.name} loses ${damage} hp.`;
+  }
+
   function Hero(attr) {
     Humanoid.call(this, attr);
   }
@@ -159,10 +166,28 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
     return `${this.name} uses his ${this.weapons[0]} to run over ${villian.name} and renders ${villian.name} unconscious.`;
   }
 
+  Hero.prototype.runover2 = function(villian){
+    let hpVal = window.document.getElementById('villianHp');
+    let atkTxt = window.document.getElementById('heroAtkTxt');
+    let damage = Math.floor((Math.random() * 100) + 1)
+    villian.hp -= damage;
+    hpVal.innerHTML = villian.hp;
+    atkTxt.innerHTML = `${this.name} uses his ${this.weapons[0]} to run over ${villian.name} and renders ${villian.name} unconscious, (doing 20 damage).`;
+    return `${this.name} uses his ${this.weapons[0]} to run over ${villian.name} and renders ${villian.name} unconscious.`;
+  }
+
   Hero.prototype.kill = function(villian){
     villian.hp = 0;
     return `${this.name} uses his ${this.weapons[1]} and blows ${villian.name}'s head off (no heros were harmed during this explosive event).`;
-  
+  }
+
+  Hero.prototype.tankMissile = function(villian){
+    let hpVal = window.document.getElementById('villianHp');
+    let atkTxt = window.document.getElementById('heroAtkTxt');
+    villian.hp = 0;
+    hpVal.innerHTML = villian.hp;
+    atkTxt.innerHTML = `${this.name} uses his ${this.weapons[1]} and blows ${villian.name}'s head off (no heros were harmed during this explosive event).`;
+    return `${this.name} uses his ${this.weapons[1]} and blows ${villian.name}'s head off (no heros were harmed during this explosive event).`;
   }
 
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
@@ -176,7 +201,7 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
       width: 20,
       height: 40,
     },
-    hp: 100,
+    hp: 10000,
     name: 'Vic',
     faction: 'Brum Slum',
     weapons: [
@@ -195,7 +220,7 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
       width: 200,
       height: 40,
     },
-    hp: 100,
+    hp: 10000,
     name: 'Hector',
     faction: 'Londinium',
     weapons: [
@@ -206,17 +231,10 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
   });
 
 // The epic battle
-  console.log(vic.shanks(hector));
-  console.log(`${hector.name}'s hp is ${hector.hp}`);
-  console.log(hector.runover(vic));
-  console.log(`${vic.name}'s hp is ${vic.hp}`);
-  console.log(hector.kill(vic));
-  console.log(vic.destroy());
-
-  // cleaning up
-
-  vic = null;
-  hector = null;
-  mage = null;
-  archer = null;
-  swordsman = null;
+  // console.log(vic.shanks(hector));
+  // console.log(`${hector.name}'s hp is ${hector.hp}`);
+  // console.log(hector.runover(vic));
+  // console.log(`${vic.name}'s hp is ${vic.hp}`);
+  // console.log(vic.flail(hector));
+  // console.log(hector.kill(vic));
+  // console.log(vic.destroy());
