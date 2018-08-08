@@ -148,14 +148,13 @@ Humanoid.prototype.greet = function (){
     opponentObject.hp -= damageHP;
     opponentObject.takeDamage();
     if (opponentObject.hp <= 0 ){
-      opponentObject.destroy();
+      console.log(opponentObject.destroy());
     }
   }
 
   //Define Villian
   function Villian(villianAttributes){
     Superhumanoid.call(this, villianAttributes);
-
   }
   Villian.prototype = Object.create(Superhumanoid.prototype);
 
@@ -199,4 +198,10 @@ Humanoid.prototype.greet = function (){
     ],
     language: 'Batmanese',
   });
+
+batman.performDamage(joker,30);
+console.log(joker.hp);
+joker.performDamage(batman,70);
+console.log(batman.hp);
+batman.performDamage(joker,30);
 
