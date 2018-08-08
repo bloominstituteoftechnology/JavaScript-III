@@ -13,16 +13,19 @@
     this.createdAt = specifics.createdAt;
     this.dimensions =  specifics.dimensions;
   }
-  /* destroy() // prototype method -> returns the string: 'Object was removed from the game.'
-*/
+  GameObject.prototype.destroy = function() {
+    return `${this.name} was removed from the game.`
+  }
 
 //Constructor Function
   function CharacterStats(stats) {
    this.hp = stats.hp;
    this.name = stats.name;
   }
-  /* takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
+  CharacterStat.prototype.takeDamage = function() {
+    return `${this.name} took damage.`
+  }
+  /* should inherit destroy() from GameObject's prototype
 */
 
 //Constructor Function
@@ -31,8 +34,10 @@
    this.weapons = attributes.weapons;
    this.language = attributes.language;
   }
-  /* greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
+  Humanoid.prototype.greet = function() { 
+    return `${this.name} offers a greeting in ${language}.`
+  }
+  /* should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
  
