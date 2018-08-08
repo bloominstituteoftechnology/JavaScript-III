@@ -147,3 +147,4 @@ Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in
   Villain.prototype = Object.create(Humanoid.prototype);
 
 //Create hero & Villain
+
