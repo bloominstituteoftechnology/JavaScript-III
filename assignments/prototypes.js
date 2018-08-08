@@ -147,6 +147,9 @@ Humanoid.prototype.greet = function (){
   Superhumanoid.prototype.performDamage = function (opponentObject, damageHP){
     opponentObject.hp -= damageHP;
     opponentObject.takeDamage();
+    if (opponentObject.hp <= 0 ){
+      opponentObject.destroy();
+    }
   }
 
   //Define Villian
