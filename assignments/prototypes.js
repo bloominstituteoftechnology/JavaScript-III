@@ -22,11 +22,7 @@ function GameObject(attributes) {
     return `Object was removed from the game.`;
   };
 }
-
 ////
-
-
-
 
 
 /*
@@ -36,6 +32,16 @@ function GameObject(attributes) {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats (stats){
+  this.hp = stats.hp;
+  this.name = stats.name;
+  this.takeDamage = function () {
+    CharacterStats.call(destroy);
+    return `${this.name} took damage.`;
+  }
+}
+//
+
 
 /*
   === Humanoid ===
