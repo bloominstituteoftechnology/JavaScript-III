@@ -190,6 +190,10 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
     let atkTxt = window.document.getElementById('heroAtkTxt');
     villian.hp = 0;
     hpVal.innerHTML = villian.hp;
+    if(villian.hp <= 0) {
+      let btn = window.document.getElementById('vilAtk');
+      btn.remove();
+    }
     atkTxt.innerHTML = `${this.name} uses his ${this.weapons[1]} and blows ${villian.name}'s head off (no heros were harmed during this explosive event).`;
     return `${this.name} uses his ${this.weapons[1]} and blows ${villian.name}'s head off (no heros were harmed during this explosive event).`;
   }
