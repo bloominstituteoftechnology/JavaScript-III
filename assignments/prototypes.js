@@ -14,6 +14,15 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game`;
+}
+
 
 /*
   === CharacterStats ===
@@ -22,7 +31,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(charAttributes) {
+  this.hp = charAttributes.hp;
+  this.name = charAttributes.name;
+  GameObject.call(this, charAttributes);
+}
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  console.log(`${this.name} took damage.`);
+}
 /*
   === Humanoid ===
   * faction
@@ -32,6 +51,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+function Humanoid(humanAttributes) {
+  this.faction = humanAttributes.faction;
+  this.weapons = humanAttributes.weapons;
+  this.language = humanAttributes.language;
+  CharacterStats.call(this, humanAttributes);
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +73,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +134,112 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function. 
+  const Villain = function(villainAttr) {
+    Humanoid.call(this, villainAttr);
+    this.special = villainAttr.special;
+  } 
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.stab = function() {
+    console.log(`${this.name} has used stab!`);
+    console.log(`${this.name} has dealt 4 damage`);
+    hero.hp -= 4;
+    if (hero.hp <= 0) {
+      console.log(hero.destroy());
+    }
+  }
+
+  const Hero = function(HeroAttr) {
+    Humanoid.call(this, HeroAttr);
+    this.special = HeroAttr.special;
+  } 
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.chargeOfHonor = function() {
+    console.log(`${this.name} has used charge of honor!`);
+    console.log(`${this.name} has dealt 6 damage`);
+    villain.hp -= 6;
+    if (villain.hp <= 0) {
+      console.log(villain.destroy());
+    }
+  }
+
+  const hero = new Hero ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 2,
+      height: 6,
+    },
+    hp: 25,
+    name: 'Keerev',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Sword',
+      'Heavy Shield',
+    ],
+    language: 'Elvish',
+    special: 'chargeOfHonor'
+  });
+
+  const villain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 6,
+      width: 4,
+      height: 8,
+    },
+    hp: 27,
+    name: 'Gorod',
+    faction: 'The Dark Legion',
+    weapons: [
+      'Twisted Staff',
+      'Dagger',
+    ],
+    language: 'Elvish', 
+    special: 'stab'   
+  });
+  console.log("----------------------------------");
+  console.log("----------------------------------");
+  hero.chargeOfHonor();
+  console.log(`${villain.name} has ${villain.hp} hp left`);
+  console.log("----------------------------------");
+  villain.stab();
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log("----------------------------------");
+  hero.chargeOfHonor();
+  console.log(`${villain.name} has ${villain.hp} hp left`);
+  console.log("----------------------------------");
+  villain.stab();
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log("----------------------------------");
+  hero.chargeOfHonor();
+  console.log(`${villain.name} has ${villain.hp} hp left`);
+  console.log("----------------------------------");
+  villain.stab();
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log("----------------------------------");
+  hero.chargeOfHonor();
+  console.log(`${villain.name} has ${villain.hp} hp left`);
+  console.log("----------------------------------");
+  villain.stab();
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log("----------------------------------");
+  hero.chargeOfHonor();
+  console.log(`${villain.name} has no hp left`);
+  console.log("----------------------------------");
+
+  
+  
+
+
+
+
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
