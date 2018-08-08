@@ -9,7 +9,7 @@
 * write out a code example of each explanation above
 */
 
-let CarModel = ()=>{
+let CarModel=()=>{
     console.log(this.model);
 };
 let year = {
@@ -23,7 +23,7 @@ CarModel();
 
 // code example for Implicit Binding
 let speak =(obj)=>{
-    obj.sayName = ()=>{
+    obj.sayName = function(){
         console.log(this.name);
     };
 };
@@ -43,22 +43,26 @@ Niloc.sayName();
 Colin.sayName();
 
 // Principle 3
+let  car = function (color, name, type) {
+    this.color = color
+    this.name = name
+    this.type = type
 
-// code example for New Binding
+    };
+    
+    let Lamborgini = new car('black', 'Zippy','Gallardo');
+    
 
 // Principle 4
 
 // code example for Explicit Binding
 let person = (Pref1, Pref2, Pref3)=>{
-            console.log(this.name + ' Likes '+ Pref1+', '+Pref2+ ', '+'and '+Pref3);
+            console.log( 'Joey Likes '+ Pref1+', '+Pref2+ ', '+'and '+Pref3);
 };
 
-let joey = {
-    name: 'Joey',
-    age:200
-};
+
 
 let Preferences = ['Music', 'Sushi' , 'Coding'];
 
-person.call(joey,Preferences[0],Preferences[1],Preferences[2]);
+person.call(Preferences[0],Preferences[1],Preferences[2]);
  
