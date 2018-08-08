@@ -157,6 +157,7 @@ Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.attack = function (enemy) {
   // If the player is dead, return you lost.
   if (this.hp <= 0) {
+    this.destroy();
     return `\n${this.name} is dead.\n You lost...`;
   }
 
@@ -189,6 +190,7 @@ Villian.prototype = Object.create(Humanoid.prototype);
 Villian.prototype.attack = function(mc) {
   // If the enemy is dead, return you won.
   if (this.hp <= 0) {
+    this.destroy();
     return `\n${this.name} is dead. You won!`;
   }
 
