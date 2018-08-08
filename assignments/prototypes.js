@@ -75,12 +75,30 @@ function Hero(heroAttr) {
 	Humanoid.call(this, heroAttr);
 }
 
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.heal = function(target) {
+  target.hp += 2;
+  return `${this.name} heals ${target.name} for 2hp`;
+}
+
 /*
   === Villain ===
   * 
 */
 function Villain(villainAttr) {
 	Humanoid.call(this, villainAttr);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.facePie = function(target) {
+  target.hp -= 2;
+	if (target.hp <= 0) {
+		return target.destroy();
+	} else {
+		return `${this.name} expels a pie from hand and harms ${target.name} for 2hp`;
+	}
 }
 
 /*
@@ -91,8 +109,7 @@ function Villain(villainAttr) {
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-
-  const mage = new Humanoid({
+  const mage = new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -108,7 +125,7 @@ function Villain(villainAttr) {
     language: 'Common Toungue',
   });
 
-  const swordsman = new Humanoid({
+  const swordsman = new Villain({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -153,6 +170,20 @@ function Villain(villainAttr) {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+	// Adding heal ability
+	console.log("Archer's health: ", archer.hp); // 10
+  console.log(mage.heal(archer));
+	console.log("Archer's health: ", archer.hp); // 12
+
+	// Adding damage ability and destroy ability
+	console.log("Archer's health: ", archer.hp) // 12
+	console.log(swordsman.facePie(archer));
+	console.log(swordsman.facePie(archer));
+	console.log(swordsman.facePie(archer));
+	console.log(swordsman.facePie(archer));
+	console.log(swordsman.facePie(archer));
+	console.log(swordsman.facePie(archer));
+	console.log("Archer's health: ", archer.hp) // 0
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
