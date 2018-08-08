@@ -12,15 +12,32 @@
 // Principle 1
 
 // code example for Window Binding
+global.name = 'Max';
+function greet() {
+  console.log(`Hello, ${this.name}.`);
+};
+greet();
 
 // Principle 2
 
 // code example for Implicit Binding
+const obj = {
+  color: 'red',
+  whatcolor: function () {console.log(this.color)}
+};
+obj.whatcolor();
 
 // Principle 3
 
 // code example for New Binding
+function ObjectMaker(name) {
+  this.name = name;
+}
+const obj2 = new ObjectMaker('Bob');
+console.log(obj2.name);
 
 // Principle 4
 
 // code example for Explicit Binding
+function getName() {return (`This object's name is ${this.name}.`)};
+console.log(getName.call(obj2));

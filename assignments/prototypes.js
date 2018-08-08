@@ -146,5 +146,43 @@ Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in
   };
   Villain.prototype = Object.create(Humanoid.prototype);
 
-//Create hero & Villain
+//Create Hero & Villain
+
+const wizard = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 1,
+    height: 2,
+  },
+  hp: 8,
+  name: 'Vorlin',
+  faction: 'Mage Guild',
+  weapons: [
+    'Gnarled Wand',
+  ],
+  language: 'Common Tongue',
+  basicAttack: 'Magic Missile',
+  special: 'Fireblast'
+});
+
+const warlock = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 3,
+  },
+  hp: 11,
+  name: 'Yalverath',
+  faction: 'Servants of Sithrak',
+  weapons: [
+    'Hand of Krul'
+  ],
+  language: 'Blacktongue',
+  basicAttack: ('Wither', ,
+  special: 'Life Drain'
+});
+
+//Fite!
 
