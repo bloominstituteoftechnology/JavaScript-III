@@ -82,6 +82,40 @@ Humanoid.prototype.greet = function() {
   { return `${this.name} offers a greeting in ${this.language}.`; }
 }
 
+// ========HERO===========
+function Hero(heroAttributes) {
+  //This binds the "this" keyword up to Parent
+  Humanoid.call(this, heroAttributes);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
+// hero methods
+Hero.prototype.punch = function(enemy) {
+  enemy.hp -= Math.floor((Math.random()*20)+1);
+    if(enemy.hp <= 0){
+      enemy.destroy();
+    } else {
+      return `${enemy.name}'s hp is now ${enemy.hp}`;
+    }
+}
+
+// ========VILLIAN===========
+function Villian(darkMagic){
+  Humanoid.call(this, darkMagic)
+}
+ Villian.prototype = Object.create(Humanoid.prototype);
+
+ //villian methods
+ Villian.prototype.kick = function(enemy){
+  enemy.hp -= Math.floor((Math.random()*20)+1);
+    if(enemy.hp <= 0){
+      enemy.destroy();
+    } else {
+      return `${enemy.name}'s hp is now ${enemy.hp}`;
+    }
+}
+
 
 
   const mage = new Humanoid({
