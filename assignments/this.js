@@ -30,12 +30,12 @@ sayHello("hello");
 const myObj = {
   'name': 'George',
   'age': 50,
-  'cook': function(lang1, lang2) {
+  'skill': function(lang1, lang2) {
     console.log( `${this.name} knows how to program in ${lang1} and ${lang2}`);
   }
 }
 
-myObj.cook("Ruby", "JavaScript");
+myObj.skill("Ruby", "JavaScript");
 
 // Principle 3
 
