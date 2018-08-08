@@ -15,13 +15,36 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-/*
+function GameObject(gameObjectAttributes) {
+	this.createdAt = gameObjectAttributes.createdAt;
+	this.dimentions = gameObjectAttributes.dimentions;
+}
+
+GameObject.prototype.destroy = function() {
+	return 'Object was removed from the game.';
+}
+
+/* 
   === CharacterStats ===
   * hp
   * name
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(characterStatsAttributes) {
+	GameObject.call(this, characterStatsAttributes);
+	this.hp = characterStatsAttributes.hp;
+	this.name = characterStatsAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+	return `${this.name} took damage.`
+}
+
+
 
 /*
   === Humanoid ===
@@ -32,7 +55,21 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(humanoidAttributes) {
+	CharacterStats.call(this, humanoidAttributes);
+	this.faction = humanoidAttributes.faction;
+	this.weapons = humanoidAttributes.weapons;
+	this.language = humanoidAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+	return `${this.name} offers a greeting in ${this.language}.`
+}
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -105,6 +142,21 @@
 */
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
+  function Villian(villianAttributes) {
+  	Humanoid.call(this, villianAttributes);
+  	this.health = villianAttributes.health;
+  }
+
+
+  function Hero(heroAttributes) {
+  	Humanoid.call(this, heroAttributes);
+  	this.health = heroAttributes.health;
+  }
+
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+
+
+
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
