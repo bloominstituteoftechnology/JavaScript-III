@@ -17,7 +17,7 @@ function sayHello(greetings){
     console.log(this);
     return greetings;
 }
-sayHello("Jo reggelt!";)
+sayHello("Jo reggelt!");
 // Principle 2
 
 // code example for Implicit Binding
