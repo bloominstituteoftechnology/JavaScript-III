@@ -85,7 +85,7 @@ const tinyDancer = {
     'age': 79
 }
 
-const skills = ['holding closer', 'seamtress for the band'];
+const skills = ['holding closer', 'seamtressing for the band'];
 
 function introduce(skill1, skill2) {
     console.log(`My name is ${this.name} and I like ${skill1} and ${skill2}`)
