@@ -58,17 +58,44 @@ function Humanoid(humanoidAttributes) {
 };
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
+function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.alignment = heroAttributes.alignment;
+};
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+    this.spellType = villainAttributes.spellType;
+};
+Villain.prototype = Object.create(Humanoid.prototype);
+
 // Methods
 GameObject.prototype.destroy = function () {
-    console.log(`${this.name} was removed from the game`);
+    console.log(`${this.name} ran out of health and was removed from the game.`);
 }
 
 CharacterStats.prototype.takeDamage = function () {
-    console.log(`${this.name} took damage.`);
+    console.log(`${this.name} took damage. ${this.name} now has ${this.hp} health.`);
+    if (this.hp <= 0) {
+        this.destroy();
+    }
 }
 
 Humanoid.prototype.greet = function () {
     console.log(`${this.name} offers a greeting in ${this.language}`);
+}
+
+Hero.prototype.heroicSlash = function () {
+    villain.hp = villain.hp - 5;
+    console.log(`${this.name} heroically slashed ${villain.name} for 5 damage.`);
+    villain.takeDamage();
+}
+
+Villain.prototype.shadowSlash = function () {
+    hero.hp = hero.hp - 2.5;
+    console.log(`${this.name} slashed ${hero.name} with the power of shadow for 2.5 damage.`);
+    hero.takeDamage();
 }
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
@@ -122,7 +149,42 @@ Humanoid.prototype.greet = function () {
       'Dagger',
     ],
     language: 'Elvish',
-  });
+});
+
+const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+        length: 2,
+        width: 3,
+        height: 6,
+    },
+    hp: 15,
+    name: 'Shrek',
+    faction: 'The Swamp',
+    weapons: [
+        'Sword',
+        'Shield',
+    ],
+    language: 'Common',
+    alignment: 'neutral good'
+});
+
+const villain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 2,
+    },
+    hp: 5,
+    name: 'Oogly Boggo',
+    faction: 'Tinker Town',
+    weapons: [
+        'Magic',
+    ],
+    language: 'Gnomish',
+    powerSource: 'the Shadow'
+});
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -134,6 +196,8 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(villain.shadowSlash()); // Villain attacks Hero
+  console.log(hero.heroicSlash()); // Hero attacks Villain
 
 
   // Stretch task: 
