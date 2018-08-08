@@ -212,3 +212,11 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
   console.log(`${vic.name}'s hp is ${vic.hp}`);
   console.log(hector.kill(vic));
   console.log(vic.destroy());
+
+  // cleaning up
+
+  vic = null;
+  hector = null;
+  mage = null;
+  archer = null;
+  swordsman = null;
