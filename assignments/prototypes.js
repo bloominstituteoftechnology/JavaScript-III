@@ -172,7 +172,7 @@ Humanoid.prototype.greet = function () {
   }
 
   Villain.prototype.stab = function() {
-    return `${this.name} sneakily sneaks their dagger twixt their opponent's ribs!`;
+    return `${this.name} sneakily sneaks their blade twixt their opponent's ribs!`;
   }
 
   const paladin = new Hero({
@@ -209,4 +209,10 @@ Humanoid.prototype.greet = function () {
     language: 'English',
   });
 
-  
+  function battle() {
+    console.log(pirate.stab());
+    console.log(paladin.takeDamage(3));
+    console.log(paladin.strike());
+    console.log(pirate.takeDamage(4));
+  }
+battle();
