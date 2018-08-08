@@ -4,7 +4,7 @@
 * 1. When in global scope, the "this" keyword will reference the window or console you are in.
 * 2. In impicit binding, the "this" keyword wil reference the object before the dot upon which the method is invoked.
 * 3. When creating a new object via a constructor function, the "this" keyword will reference the specific object that is created.
-* 4. When you are using the methods call or apply, you are using explicit binding. So when an object calls on another object, the "this" keyword will reference the object making the call (the one that is inheriting the properties of the object being called).
+* 4. When you are using the methods call or apply, you are using explicit binding. So when an object calls on another object, the "this" keyword will reference the calling object making the call.
 *
 * write out a code example of each explanation above
 */
