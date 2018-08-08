@@ -43,14 +43,53 @@ We are explicitly passing in 'this' context into .call() or .apply().
 
 // code example for Window Binding
 
+console.log(this);
+
 // Principle 2
 
 // code example for Implicit Binding
+
+let MyObj = function () {
+    'name': 'Ted',
+    'occupation': 'get away driving consultant'
+    'statement': function () {
+        return `${this.name} has never actually driven.` 
+    };
+}
 
 // Principle 3
 
 // code example for New Binding
 
+function SurferWithOpinion(waveman) {
+    this.greeting = 'Nooooo Waaayyyyy!';
+    this.wavechat = waveman;
+    this.speak = function() {
+        console.log(`${this.greeting} ${this.wavechat}`);
+    }
+}
+
+const laird = new
+SurferWithOpinion('Slater');
+
+laird.speak();
+
+
+
 // Principle 4
 
 // code example for Explicit Binding
+
+const tinyDancer = {
+    'name': 'EJ',
+    'age': 79
+}
+
+const skills = ['holding closer', 'seamtress for the band'];
+
+function introduce(skill1, skill2) {
+    console.log(`My name is ${this.name} and I like ${skill1} and ${skill2}`)
+}
+
+introduce.call(developer, skills);
+introduce.apply(developer, skills);
