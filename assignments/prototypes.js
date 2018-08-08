@@ -150,7 +150,11 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
 
   Villian.prototype.flail = function(hero){
     let damage = Math.floor((Math.random() * 100) + 1)
+    let hpVal = window.document.getElementById('heroHP');
+    let atkTxt = window.document.getElementById('villianAtkTxt');
     hero.hp -= damage
+    hpVal.innerHTML = hero.hp;
+    atkTxt.innerHTML = `${this.name} flails and ${hero.name} loses ${damage} hp.`;
     console.log(`${this.name} flails and ${hero.name} loses ${damage} hp.`);
     return `${this.name} flails and ${hero.name} loses ${damage} hp.`;
   }
