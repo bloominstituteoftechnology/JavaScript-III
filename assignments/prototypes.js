@@ -16,10 +16,13 @@
 */
 
 function GameObject(obj){
+  // constructor assigns whatever is passed in for createdAt
   this.createdAt = obj.createdAt;
+  // constructor assigns whatever is passed in for dimensions
   this.dimensions = obj.dimensions;
 }
 
+// creates a prototype method called destroy assigned to GameObject
 GameObject.prototype.destroy = function(){
   return `${this.name} was removed from the game.`;
 }
@@ -34,13 +37,18 @@ GameObject.prototype.destroy = function(){
 
 
 function CharacterStats(stats){
+  // calls the methods and properties from GameObject
   GameObject.call(this, stats);
+  // assigns hp based on what is passed in
   this.hp = stats.hp;
+  // assigns name based on what is passed in
   this.name = stats.name;
 }
 
+// assigns inheritance of the prototype methods from GameObject to CharacterStats
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
+// creates a prototype method called takeDamage and assigns it to the CharacterStats.prototype
 CharacterStats.prototype.takeDamage = function(){
   return `${this.name} took damage.`;
 }
@@ -55,14 +63,20 @@ CharacterStats.prototype.takeDamage = function(){
 */
 
 function Humanoid(char){
+  // calls the methods and prototypes from CharacterStats
   CharacterStats.call(this, char);
+  // assigns faction based on what is passed in
   this.faction = char.faction;
+  // assigns weapons based on what is passed in
   this.weapons = char.weapons;
+  // assigns language based on what is passed in
   this.language = char.language;
 }
 
+// assigns inheritance of prototype methods and properties from CharacterStats to Humanoid
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
+// declares a prototype method of greet for the Humanoid prototype
 Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}.`;
 }
@@ -73,7 +87,7 @@ Humanoid.prototype.greet = function(){
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// Test you work by uncommenting these 3 objects and the list of console logs below:
+// Test your work by uncommenting these 3 objects and the list of console logs below:
 
 
   const mage = new Humanoid({
