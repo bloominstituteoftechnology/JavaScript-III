@@ -47,8 +47,8 @@ function CharacterStats(attr) {
 
 
   // method on prototype of CharacterStats
-  CharacterStats.prototype.takeDamage = function() {
-    return `${this.name} took damage.`;
+  CharacterStats.prototype.takeDamage = function(amt) {
+    return `${this.name} took ${amt} damage.`;
   }
 /*
   === Humanoid ===
@@ -144,7 +144,7 @@ Humanoid.prototype.greet = function () {
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(mage.takeDamage(5)); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task:
@@ -166,3 +166,47 @@ Humanoid.prototype.greet = function () {
   Hero.prototype = Object.create(Humanoid.prototype);
   //So do Villains!
   Villain.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.strike = function() {
+    return `${this.name} lunges at their foe with heroic heroism!`;
+  }
+
+  Villain.prototype.stab = function() {
+    return `${this.name} sneakily sneaks their dagger twixt their opponent's ribs!`;
+  }
+
+  const paladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 20,
+    name: 'Arthur',
+    faction: 'Old Republic',
+    weapons: [
+      'Longsword',
+      'Warhammer',
+    ],
+    language: 'Esperanto',
+  });
+
+  const pirate = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 15,
+    name: 'Spack Jarrow',
+    faction: 'Dirty Old Bandits',
+    weapons: [
+      'Cutlass',
+      'Pistol',
+    ],
+    language: 'English',
+  });
+
+  
