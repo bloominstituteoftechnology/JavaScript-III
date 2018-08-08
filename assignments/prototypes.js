@@ -19,6 +19,10 @@ const getFeetFromDimensions = function(dimensions){
   return parseFloat(dimensions.match(/[0-9.0-9]/g).join(''));
 }
 
+const randomDamage = function(){
+  return Math.round(Math.random(10) * 10);
+}
+
 const GameObject = function(attrs){
   this.createdAt = attrs.createdAt;
   this.dimensions = attrs.dimensions;
@@ -143,9 +147,23 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   }
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   
-  Hero.prototype.receiveDamage = function(damageAttrs){
-    this.damage = this.dimensions.reduce((prev, curr) => prev + curr.height + curr.width, curr.length);
-    this.hp -= this.damage;
-    return `you took ${damage}, and now have ${this.damage}`;
+  Hero.prototype.receiveDamage = function(){
+    const dmg = randomDamage();
+    this.hp -= dmg;
+    return `you took ${dmg}, and now have ${this.hp}`;
   }
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  let heroOne = new Hero({
+    createdAt: Date.now(),
+    dimensions: {
+      length: 1, height: 2, width: 3
+    },
+    hp: 100,
+    name: 'Harry Potter',
+    faction: 'Good Wizards',
+    weapons: 'Wand',
+    language: 'English',
+  });
+  console.log(heroOne);
+  console.log(heroOne.receiveDamage());
+  // * Create two new objects, one a villian and one a hero and fight it out with methods! 
