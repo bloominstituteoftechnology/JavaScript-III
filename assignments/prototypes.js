@@ -226,7 +226,7 @@ const good = new Hero ({
 
 
 function play() {
-  while (bad.hp > 0 || good.hp > 0) {
+  while (bad.hp > 0 && good.hp > 0) {
     const choose = ['good', 'bad'];
     const choice = choose[Math.round(Math.random())];
     if(choice === 'bad') {
