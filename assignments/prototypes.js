@@ -182,6 +182,7 @@ Humanoid.prototype.attack = function(victim) {
   console.log(victim.takeDamage());
   console.log(`Minus ${damage} points, the new hp is ${victim.hp}.`);
   if (victim.hp <= 0) {
+    console.log(victim.destroy());
     console.log(`${this.name} has won.`)
   } else {
     console.log(`Next turn.`)
