@@ -36,21 +36,28 @@ pokemon.offensive("Tackle", "Vine Whip");
 
 // code example for New Binding
 
-function Rival(rivalName) {
-  this.greeter = greeter;
+function RivalQuestion(rivalName) {
+  this.rivalName = rivalName;
   this.speak = function() {
-    console.log( `${this.greeting} ${this.greeter}`);
+    console.log( `Ah, I remember now that your rival's name is ${this.rivalName}!`);
   }
 }
-
-const jerry = new CordialPerson('Newman');
-const newman = new CordialPerson('Jerry');
-const josh = new CordialPerson('CS 13');
-
-jerry.speak();
-newman.speak();
-josh.speak();
+const oak = new RivalQuestion('Butt');
+oak.speak();
 
 // Principle 4
 
 // code example for Explicit Binding
+
+const trainer = {
+  'name': 'Brock',
+  'age': 16
+}
+
+const skills = ['cook poke treats', 'admire ladies', 'use frying pans and drying pans.'];
+function introduce(skill1, skill2, skill3) {
+  console.log(`My name is ${trainer.name} and I like to ${skill1}, ${skill2}, and ${skill3}`);
+}
+
+// introduce.call(developer, skills);
+introduce.apply(trainer, skills);
