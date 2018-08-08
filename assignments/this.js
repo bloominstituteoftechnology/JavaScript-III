@@ -43,9 +43,9 @@ function Vec2(x, y) {
         this.y += other.y;
         return this;
     }
-    this.multiply = (other) => {
-        this.x *= other.x;
-        this.y *= other.y;
+    this.subtract = (other) => {
+        this.x -= other.x;
+        this.y -= other.y;
         return this;
     }
     this.multiply = (other) => {
@@ -53,9 +53,9 @@ function Vec2(x, y) {
         this.y *= other.y;
         return this;
     }
-    this.multiply = (other) => {
-        this.x *= other.x;
-        this.y *= other.y;
+    this.divide = (other) => {
+        this.x /= other.x;
+        this.y /= other.y;
         return this;
     }
     this.print = () => {
