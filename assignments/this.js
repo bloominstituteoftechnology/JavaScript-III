@@ -13,14 +13,72 @@
 
 // code example for Window Binding
 
+
+
+function windowBinding () {
+    console.log(`I can ${this.context}`)
+}
+
+const bind = {
+    work: 'Bind'
+}
+
+windowBinding()
+
 // Principle 2
 
 // code example for Implicit Binding
 
-// Principle 
+const implicitWork = {
+    test: "implicit binding.",
+    worker() {
+        console.log(`I am ${this.test}`)
+    },
+    test2: {
+        testThis: 'implicit binding.',
+        worker() {
+            console.log(`I am ${this.testThis}`)
+        }
+    }
+}
+
+implicitWork.worker()
+implicitWork.test2.worker()
+
+// Principle 3
 
 // code example for New Binding
 
+function BindingNew (newGuy) {
+    this.noob = "I can";
+    this.newGuy = newGuy;
+    this.work = function(){
+        console.log (`${this.noob} ${this.newGuy}`);
+        
+    }
+}
+
+const newB = new BindingNew('new bind.');
+const newnewB = new BindingNew('new bind too!');
+
+newB.work();
+newnewB.work();
 // Principle 4
 
+
+
+
 // code example for Explicit Binding
+
+function greet (js1, js2, js3) {
+    console.log(`Hello, my name is ${this.firstName} and I need to improve on ${js1}, ${js2}, and ${js3}`)
+  }
+  
+  const person = {
+    firstName: 'Huthman',
+    age: 26,
+  }
+  
+  const js = ['JavaScript', 'JavaScript', 'some more JavaScript..']
+  
+  greet.call(person, js[0], js[1], js[2])
