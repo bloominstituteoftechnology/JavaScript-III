@@ -203,6 +203,8 @@ const bad = new Villian ({
   weapons: [
     'Staff of Doom',
     'Dark Magic',
+    'Eternal GLass Defender',
+    'Unending Tyranny'
   ],
   language: 'Infernal',
 });
@@ -219,7 +221,9 @@ const good = new Hero ({
   faction: 'Heavenly Forest',
   weapons: [
     'Dagger of Truth',
-    'My name is Jeff',
+    'My name\'s Jeff Magic',
+    'Final Achievement',
+    'Enchanted Katana'
   ],
   language: 'Common',
 });
