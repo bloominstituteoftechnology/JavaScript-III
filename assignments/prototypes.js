@@ -142,6 +142,21 @@ Humanoid.prototype.greet = function() {
 */
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
+  function Villian(villianAttributes) {
+  	Humanoid.call(this, villianAttributes);
+  	this.health = villianAttributes.health;
+  }
+
+
+  function Hero(heroAttributes) {
+  	Humanoid.call(this, heroAttributes);
+  	this.health = heroAttributes.health;
+  }
+
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+
+
+
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
