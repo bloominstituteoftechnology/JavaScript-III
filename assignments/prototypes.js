@@ -131,5 +131,45 @@ Humanoid.prototype.greet = function() { return `${this.name} offers a greeting i
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+
+  function Villian(attr) {
+    Humanoid.call(this, attr);
+  }
+  
+  Villian.prototype = Object.create(Humanoid.prototype);
+  
+  Villian.prototype.shanks = function(hero){
+    hero.hp -= 3;
+    return `${this.name} shanks ${hero.name} on the ankle.`;
+  }
+
+  Villian.prototype.shoots = function(hero){
+    hero.hp -= 40;
+    return `${this.name} shoots ${hero.name} in the gut.`;
+  }
+
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  
+// vic the villian
+  const vic = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 12,
+      width: 20,
+      height: 40,
+    },
+    hp: 100,
+    name: 'Vic',
+    faction: 'Brum Slum',
+    weapons: [
+      'Knife',
+      'Gun'
+    ],
+    language: 'Brummie'
+  });
+
+  console.log(vic.shanks(vic));
+  console.log(vic.hp);
+  console.log(vic.shoots(vic));
+  console.log(vic.hp);
