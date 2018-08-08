@@ -143,6 +143,26 @@ const archer = new Humanoid({
 
 // Stretch
 
+// Constructors
+// Hero constructor
+function Hero(params) {
+  Humanoid.call(this, params);
+  this.attackDmg = params.attackDmg; // attackDmg (rng)
+};
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+// Villian constructor
+function Villian(params) {
+  Humanoid.call(this, params);
+  this.attackDmg = params.attackDmg; // attackDmg (rng);
+};
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+// End of Constructors
+// Functions
+
 // User prompt section
 // begin takes in no params and returns a string.
 // begin is launched at the start of the program.
@@ -176,22 +196,6 @@ function ask() {
 };
 
 // End of user prompt
-
-// Hero constructor
-function Hero(params) {
-  Humanoid.call(this, params);
-  this.attackDmg = params.attackDmg; // attackDmg (rng)
-};
-
-Hero.prototype = Object.create(Humanoid.prototype);
-
-// Villian constructor
-function Villian(params) {
-  Humanoid.call(this, params);
-  this.attackDmg = params.attackDmg; // attackDmg (rng);
-};
-
-Villian.prototype = Object.create(Humanoid.prototype);
 
 // Checks if the character is dead, if so return a console.log stating and return true.
 // else, return false.
@@ -255,6 +259,8 @@ function atkMc(mc) {
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+// End of functions
 
 // Hero character
 let malik = new Hero({
