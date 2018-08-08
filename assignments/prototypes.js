@@ -145,6 +145,8 @@ function Humanoid (attributes) {
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+
+
   function Super (attributes) {
     Humanoid.call(this, attributes);    
     this.weapons = ['ice beam','fire beam','lightning beam'];
@@ -164,53 +166,72 @@ function Humanoid (attributes) {
   function battle  (hero, villian) {
     console.log(hero.hp);
     
-    while (hero.hp > 0 || villian.hp > 0) {      
+    while (hero.hp > 0 && villian.hp > 0) {    
+      
+      let attackChoice = 0
+      let defendChoice = 0
 
-      hero.special(Math.floor(Math.random() * Math.floor(11)));
-      let attackChoice =  Math.floor(Math.random() * Math.floor(3));
-      let defendChoice = Math.floor(Math.random() * Math.floor(3));
+      hero.special(Math.floor(Math.random() * Math.floor(11)), hero);
+      attackChoice =  Math.floor(Math.random() * Math.floor(3));
+      defendChoice = Math.floor(Math.random() * Math.floor(3));
 
       if (attackChoice === defendChoice){
-        console.log(`${hero.name}'s ${hero.weapons[attackChoice]} was negated`);
+        console.log(`BLOCKED: ${hero.name}'s ${hero.weapons[attackChoice]} was negated by ${villian.name}'s ${villian.shield[defendChoice]}`);
         
       }else {
         villian.hp -= 10;
-        console.log(`${hero.name}'s ${hero.weapons[attackChoice]} hit for 10 hp. ${villian.name} has ${villian.hp} left`);        
+        console.log(`HIT: ${hero.name}'s ${hero.weapons[attackChoice]} hit for 10 HP. ${villian.name} has ${villian.hp} HP left`);        
       }
 
-      villian.special(Math.floor(Math.random() * Math.floor(11)));
-      let attackChoice =  Math.floor(Math.random() * Math.floor(3));
-      let defendChoice = Math.floor(Math.random() * Math.floor(3));
+      villian.special(Math.floor(Math.random() * Math.floor(11)), hero);
+      attackChoice =  Math.floor(Math.random() * Math.floor(3));
+      defendChoice = Math.floor(Math.random() * Math.floor(3));
 
       if (attackChoice === defendChoice){
-        console.log(`${villian.name}'s ${villian.weapons[attackChoice]} was negated`);
+        console.log(`BLOCKED: ${villian.name}'s ${villian.weapons[attackChoice]} was negated by ${hero.name}'s ${hero.shield[defendChoice]}`);
         
+
       }else {
-        villian.hp -= 10;
-        console.log(`${villian.name}'s ${villian.weapons[attackChoice]} hit for 10 hp. ${hero.name} has ${hero.hp} left`);        
+        hero.hp -= 10;
+        console.log(`HIT: ${villian.name}'s ${villian.weapons[attackChoice]} hit for 10 HP. ${hero.name} has ${hero.hp} HP left`);        
       }     
       
     }
     if(hero.hp <= 0){
-      console.log(`${hero.name} died`);
+      console.log(`DEATH: ${hero.name} died`);
+      hero.destroy();
       
     }
     if(villian.hp <= 0){
-      console.log(`${hero.name} died`);      
+      console.log(`DEATH: ${villian.name} died`);    
+      villian.destroy();  
+    }
+    if(villian.hp <= 0 && hero.hp <= 0){
+      console.log('TIED: Both fighters died');
+      
     }
   }
 
-
-  Hero.prototype.special= (num) =>{
-    if (num ==5 || num== 6 || num ==7) {
-      console.log('Special Activated!');      
-      this.hp += 10
+  Super.prototype = Object.create(Humanoid.prototype)
+  Hero.prototype = Object.create(Super.prototype)
+  Villian.prototype = Object.create(Super.prototype)
+  Hero.prototype.special= (num, target) =>{
+    if (num ==5 || num== 6) {
+      if(target.hp + 10 > 100){
+        console.log(`SPECIAL: ${target.name}'s Special Activated! But already at max HP`);
+        
+      }else{
+        target.hp += 10;
+      console.log(`SPECIAL: ${target.name}'s Special Activated! Heal for 10 HP. ${target.name}'s HP is ${target.hp}`);      
+        }      
     }    
   } 
 
   Villian.prototype.special = (num ,target) => {
     if (num ==5 || num== 6 || num ==7) {
       target.hp -= 10
+      console.log(`SPECIAL: Evil Demon Death Ray hit ${target.name} for 10 HP. ${target.name}'s HP is ${target.hp}`);
+      
     }   
   }
 
@@ -219,20 +240,20 @@ function Humanoid (attributes) {
 
   const superHero = new Hero({       
     hp: 100,
-    name: 'niceManTM',    
+    name: 'Nice Man TM',    
   });
 
   const superVillian = new Villian({       
     hp: 100,
-    name: 'niceManTM',    
+    name: 'MURDERTRON-9000',    
   });
 
-  console.log(superHero.faction);
-  console.log(superHero.weapons);
-  console.log(superVillian.weapons);
-  console.log(superVillian.hp);
+
+  console.log(Math.floor(Math.random() * Math.floor(3)));
+  console.log(Math.floor(Math.random() * Math.floor(3)));
+  console.log(Math.floor(Math.random() * Math.floor(3)));
+  console.log(Math.floor(Math.random() * Math.floor(3)));
 
   battle(superHero, superVillian)
 
-  // console.log(battle(superHero, superVillian));
   

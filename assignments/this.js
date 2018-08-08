@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1. Window binding is when the conext of this is the Window or the default of JS
+* 2. Implicit Binding is when the context of the this keyword is set in a variable with set values
+* 3. New Binding is when the th contxxt of this includes values gotten from the use of a constructer/template
+* 4. Explicit Binding when the value for this keywords is inheritented from a parent function
 *
 * write out a code example of each explanation above
 */
