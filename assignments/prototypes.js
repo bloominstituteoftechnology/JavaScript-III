@@ -131,3 +131,20 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  const villian = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 12,
+    name: 'Tarrnok',
+    faction: 'Crimson Oaks',
+    weapons: [
+      'Sword',
+      'Dagger',
+    ],
+    language: 'Orcish',
+  });
