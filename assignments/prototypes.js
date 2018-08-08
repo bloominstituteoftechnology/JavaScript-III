@@ -40,8 +40,50 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+// base constructor function
+// ========GAME OBJECT===========
+function GameObject(attributes) {
+  //properties
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
 
-/*
+// game object methods
+GameObject.prototype.destroy = function() {
+  { return `${this.name} was removed from the game.`;}
+}
+
+// ========CHARACTER STATS===========
+function CharacterStats(charAttributes) {
+  //This binds the "this" keyword up to Parent
+  GameObject.call(this, charAttributes);
+  this.hp = charAttributes.hp;
+  this.name = charAttributes.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+//character stats methods
+CharacterStats.prototype.takeDamage = function() {
+  { return `${this.name} took damage.`; }
+}
+
+// ========HUMANOID===========
+function Humanoid(humanAttributes) {
+  //This binds the "this" keyword up to Parent
+  CharacterStats.call(this, humanAttributes);
+  this.faction = humanAttributes.faction;
+  this.weapons = humanAttributes.weapons;
+  this.language = humanAttributes.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+// humanoid methods
+Humanoid.prototype.greet = function() {
+  { return `${this.name} offers a greeting in ${this.language}.`; }
+}
+
+
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +144,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
