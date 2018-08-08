@@ -30,6 +30,16 @@ GameObject.prototype.destroy = () => { return `${this.name} was removed from the
   * should inherit destroy() from GameObject's prototype
 */
 
+function CharacterStats(attr) {
+  GameObject.call(this, attr);
+  this.hp = attr.hp;
+  this.name = attr.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = () => { return `${this.name} took damage.`; }
+
+
 /*
   === Humanoid ===
   * faction
