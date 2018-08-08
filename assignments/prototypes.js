@@ -172,7 +172,7 @@ Humanoid.prototype.greet = function() {
     faction: 'Earth',
     weapons: [
       'Sword',
-      'Shield',
+      'Gun',
     ],
     language: 'Good guy-ish',
   });
@@ -199,4 +199,3 @@ Humanoid.prototype.greet = function() {
   console.log(badGuy.takeDamage());
   console.log(goodGuy.takeDamage());
   console.log(badGuy.takeDamage());
-  
