@@ -11,7 +11,7 @@
 /*
   === GameObject ===
   * createdAt
-  * dimensions
+  * dimensionss
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
