@@ -153,6 +153,130 @@ Humanoid.prototype.greet = function(){
 
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function. 
+  
+  // HEROES 
+  
+  function Hero(heroStats){
+    Humanoid.call(this, heroStats);
+    this.special = heroStats.special;
+    this.strength = heroStats.strength;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.attack = function(target){
+    let damage = (Math.floor(Math.random() * this.strength) + 1);
+    target.hp = target.hp - damage;
+    if(target.hp <= 0){
+      return target.destroy();
+    } else {
+      return target.hp;
+    }
+  }
+
+  Hero.prototype.heal = function(){
+    let healing = (Math.floor(Math.random() * 20) + 5);
+    this.hp = this.hp + healing;
+    if(this.hp >= 100){
+      this.hp = 100;
+      return this.hp;
+    } else {
+    return this.hp;
+    }
+  }
+
+  const Hercules = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 100,
+    name: 'Hercules',
+    faction: 'Greece',
+    weapons: [
+      'Sword',
+      'Bow',
+    ],
+    language: 'Greek',
+    special: 'Righteous Fury',
+    strength: 30
+  });
+
+
+  // VILLIANS
+
+  function Villian(VillianStats){
+    Humanoid.call(this, VillianStats);
+    this.special = VillianStats.special;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  Villian.prototype.attack = function(target){
+    let damage = (Math.floor(Math.random() * this.strength) + 1 /*make this a stat from weapon?*/);
+    target.hp = target.hp - damage;
+    if(target.hp <= 0){
+      return target.destroy();
+    } else {
+      return target.hp;
+    }
+  }
+
+  Villian.prototype.heal = function(){
+    let healing = (Math.floor(Math.random() * 20) + 5);
+    this.hp = this.hp + healing;
+    if(this.hp >= 100){
+      this.hp = 100;
+      return this.hp;
+    } else {
+    return this.hp;
+    }
+  }
+  
+  const Hades = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 100,
+    name: 'Hades',
+    faction: 'Hell',
+    weapons: [
+      'Fire',
+      'Scythe',
+    ],
+    language: 'Aramaic',
+    special: 'Shadow Flame',
+    strength: 30
+  });
+
+
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  let target = Hades;
+  console.log(Hercules.attack(target));
+  console.log(Hercules.attack(target));
+  console.log(Hercules.attack(target));
+  console.log(Hercules.attack(target));
+  console.log(Hades.heal());
+  console.log(Hercules.attack(target));
+  console.log(Hercules.attack(target));
+  console.log(Hercules.attack(target));
+  console.log(Hercules.attack(target));
+  console.log(Hercules.attack(target));
+  console.log(Hercules.attack(target));
+  console.log(Hades.hp);
+  
+  
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  /* TO-DO 
+  -Give different weapons/attacks different modifiers
+  -Check for HP at 0 to determine death
+  -Create healing spell prototype method for each hero
+  -Create a GUI for the combat system using HTML
+*/
