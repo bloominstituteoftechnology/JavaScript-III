@@ -15,12 +15,8 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-const getFeetFromDimensions = function(dimensions){
-  return parseFloat(dimensions.match(/[0-9.0-9]/g).join(''));
-}
-
-const randomDamage = function(){
-  return Math.round(Math.random(10) * 10);
+const damageAmount = (min, max) => {
+  return Math.random() * (max - min) + min;
 }
 
 const GameObject = function(attrs){
@@ -126,44 +122,81 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
-console.log(mage.createdAt); // Today's date
-console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-console.log(swordsman.hp); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.faction); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+// console.log(mage.createdAt); // Today's date
+// console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+// console.log(swordsman.hp); // 15
+// console.log(mage.name); // Bruce
+// console.log(swordsman.faction); // The Round Table
+// console.log(mage.weapons); // Staff of Shamalama
+// console.log(archer.language); // Elvish
+// console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+// console.log(mage.takeDamage()); // Bruce took damage.
+// console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
-  const Villain = function(villainAttrs){
-    Humanoid.call(this, villainAttrs);
-  }
-  const Hero = function(heroAttrs){
-    Humanoid.call(this, heroAttrs);
-  }
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  
-  Hero.prototype.receiveDamage = function(){
-    const dmg = randomDamage();
-    this.hp -= dmg;
-    return `you took ${dmg}, and now have ${this.hp}`;
+  // * Create two new objects, one a villian and one a hero and fight it out with methods! 
+
+  const Hero = function(attrs){
+    Humanoid.call(this, attrs);
+    this.expelliarmus = function(enemy){
+      if(enemy.hp > 0){
+        const damage = Math.round(damageAmount(0, 100));
+        enemy.hp -= damage;
+        console.log(`${this.name} hit ${enemy.name} with Expelliarmus, causing ${damage} and leaving ${enemy.name} with ${enemy.hp} \n`);
+      } else {
+        console.log(`Your enemy (${enemy.name}) is dead \n \n`);
+      }
+    }
   }
 
-  const HarryPotter = new Hero({
+  const Villain = function(attrs){
+    Humanoid.call(this, attrs);
+    this.avadaKedavra = function(enemy){
+      const damage = Math.round(damageAmount(0, 100));
+      if(enemy.hp > 0){
+        enemy.hp -= damage;
+        console.log(`${this.name} hit ${enemy.name} with Avada Kedavra, causing ${damage} and leaving ${enemy.name} with ${enemy.hp} \n`);
+      } else {
+        console.log(`Your enemy (${enemy.name}) is dead \n \n`); 
+      }
+    }
+  }
+
+  const voldemort = new Villain({
     createdAt: Date.now(),
     dimensions: {
-      length: 1, height: 2, width: 3
-    },
-    hp: 100,
-    name: 'Harry Potter',
-    faction: 'Good Wizards',
-    weapons: 'Wand',
-    language: 'English',
+      length: 1,
+      width: 2,
+      height: 3,
+    }, hp: 700, name: 'Lord Voldemort', faction: 'Bad', weapons: 'Wand', language: 'English'
   });
-  console.log(heroOne);
-  console.log(heroOne.receiveDamage());
-  // * Create two new objects, one a villian and one a hero and fight it out with methods! 
+
+  const harryPotter = new Hero({
+    createdAt: Date.now(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 3,
+    }, hp: 200, name: 'Harry Potter', faction: 'Good', weapons: 'Wand', language: 'English'
+  });
+
+  while(voldemort.hp > 0){
+    voldemort.avadaKedavra(harryPotter);
+
+    if(harryPotter.hp <= 0){
+      // since voldy and HP share a soul (sort of), if Voldy kills HP, he kills his soul in HP, not HP, thus HP must always win in direct combat.
+      voldemort.hp -= 100;
+      console.log((`Harry Potter, is dead. Ha! Ha Ha!! \n`).toUpperCase());
+      harryPotter.hp = 100;
+      console.log(`Harry: "I\'m not dead yet! We have to kill the snake!!" Harry Potter hit points is set to ${harryPotter.hp} due to the immense ignorance of Voldemort all those years ago in Godric's Hollow. \n`);
+    }
+    
+    harryPotter.expelliarmus(voldemort);
+  }
+
+
+
+  console.log('Voldemort HP: ' + voldemort.hp);
+  console.log('Harry Potter HP: ' + harryPotter.hp);
