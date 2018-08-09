@@ -56,7 +56,7 @@ const Humanoid = function(humanStats) {
   this.weapons = humanStats.weapons;
   this.language = humanStats.language;
   this.greet = function () {
-    return (`${this.name} offers a greeting in ${this.language.}`); // this.name inherited from CharacterStats
+    return (`${this.name} offers a greeting in ${this.language}.`); // this.name inherited from CharacterStats
   };
 }
 
