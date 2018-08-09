@@ -153,7 +153,7 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
     return `you took ${dmg}, and now have ${this.hp}`;
   }
 
-  let heroOne = new Hero({
+  const HarryPotter = new Hero({
     createdAt: Date.now(),
     dimensions: {
       length: 1, height: 2, width: 3
