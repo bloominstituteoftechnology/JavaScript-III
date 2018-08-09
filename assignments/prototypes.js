@@ -18,11 +18,11 @@
 function GameObject(attributes) {
   //Properties of GameObject
   this.createdAt = attributes.createdAt;
-  this.dimensions = attributes.dimensions
+  this.dimensions = attributes.dimensions;
 }
 
 GameObject.prototype.destroy = function() {
-  console.log('Object was removed from the game.')
+  console.log('Object was removed from the game.');
 }
 
 /*
