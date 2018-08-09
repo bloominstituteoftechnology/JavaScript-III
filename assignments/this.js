@@ -9,16 +9,19 @@
 * write out a code example of each explanation above
 */
 
-let CarModel=()=>{
-    console.log(this.model);
+var Cartype= function() {
+    console.log(this.type);
 };
-let year = {
-model:2020
-}
 
-CarModel();
-year.model = 2020 ;
-CarModel();
+
+let car1 = {
+    type:telsa
+};
+Cartype();
+window.type = telsa;
+Cartype();
+
+
 // Principle 2
 
 // code example for Implicit Binding
@@ -56,8 +59,8 @@ let  car = function (color, name, type) {
 // Principle 4
 
 // code example for Explicit Binding
-let person = (Pref1, Pref2, Pref3)=>{
-            console.log( 'Joey Likes '+ Pref1+', '+Pref2+ ', '+'and '+Pref3);
+let person = function(Pref1, Pref2){
+            console.log( 'Joey Likes '+ Pref1+' and '+Pref2+'.');
 };
 
 
