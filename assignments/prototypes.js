@@ -21,7 +21,7 @@ function GameObject(attributes)
 }
 GameObject.prototype.destroy = function()
 {
-    return "Object was removed from the game";
+    return `Object was removed from the game.`;
 };
 
 /*
@@ -124,15 +124,6 @@ Humanoid.prototype.greet = function()
     language: 'Elvish',
   });
 
-    //createdAt
-    //dimensions
-    const myGameObject = new GameObject(
-    {
-        createdAt: new Date(),
-        dimensions: {length:6, width:9, height:69},
-    });
-    console.log(myGameObject.destroy());
-
   console.log(mage.createdAt);  //Today's date
   console.log(archer.dimensions);  //{ length: 1, width: 2, height: 4 }
   console.log(swordsman.hp);  //15
@@ -149,3 +140,103 @@ Humanoid.prototype.greet = function()
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  function Villain(villainAttributes)
+  {
+    Humanoid.call(this, villainAttributes);
+  }
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.attack = function(target, damage)
+  {
+    target.hp -= damage;
+  };
+
+  function Hero(heroAttributes)
+  {
+    Humanoid.call(this, heroAttributes);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.attack = function(target, damage)
+  {
+    let finalDamage = damage;
+    let hasShield = false;
+    for(let i=0; i<this.weapons.length; i++)
+    {
+      if(this.weapons[i]=='Shield')
+      {
+        hasShield == true;
+      }
+    }
+    if(!hasShield)
+    {
+      finalDamage++;
+    }
+    target.hp -= finalDamage*2;
+  };
+
+  //Battle of Gavi versus Acererak
+  const Acererak = new Villain(
+    {
+      createdAt: new Date(),
+      dimensions: {length:2, width:2, height:3},
+      hp: 20,
+      name: 'Acererak',
+      faction: 'Lich Boys',
+      weapons: ['enchanted staff', 'Shield'],
+      language: 'common',
+    }
+  );
+  const Gambino = new Hero(
+    {
+      createdAt: new Date(),
+      dimensions: {length:2, width:2, height:1},
+      hp: 16.9,
+      name: 'Gavi',
+      faction: 'Lords\' Alliance',
+      weapons: ['Defender Greatsword'],
+      language: ['dwarvish', 'common', 'celestial'],
+    }
+  );
+  // Gambino.prototype = Object.create(Hero.prototype);
+  // Gambino.prototype.rollDamage = function()
+  // {
+  //   return rolld6()+rolld6()+10;
+  // };
+  rolld20 = function(modifier)
+  {
+    let d20 = Math.floor(1+(20*(Math.random())))+modifier;
+    console.log(`d20: ${d20}`);
+    return d20;
+  };
+  let gambinoInitiative = rolld20(0);
+  let acererakInitiative = rolld20(-4);
+  let GambinoTurn = false;
+  if(gambinoInitiative>=acererakInitiative)
+  {
+    GambinoTurn = true;
+  }
+  while(Acererak.hp>0 && Gambino.hp>0)
+  {
+    if(GambinoTurn)
+    {
+      let damage = 10;
+      Gambino.attack(Acererak, damage);
+      GambinoTurn = false;
+      console.log(`Gavi attacks for ${damage}. Acererak is at ${Acererak.hp} hp.`);
+    }
+    else
+    {
+      let acererakDamage = 4;
+      Acererak.attack(Gambino, acererakDamage);
+      GambinoTurn = true;
+      console.log(`Acererak attacks for ${acererakDamage}. Gavi is at ${Gambino.hp} hp.`);
+    }
+  }
+  if(Acererak.hp<0)
+  {
+    console.log(`${Gambino.name} has defeated ${Acererak.name}.`);
+    console.log(`Acererak: ${Acererak.destroy()}`);
+  }
+  else
+  {
+    console.log(`${Gambino.name} has lost to ${Acererak.name}.`);
+  }
