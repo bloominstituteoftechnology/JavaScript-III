@@ -18,7 +18,7 @@ function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions; 
 }
-GameObject.prototype.destroy = function() {
+  GameObject.prototype.destroy = function() {
   return `Object was removed from the game.`
 };  
 /*
@@ -28,9 +28,15 @@ GameObject.prototype.destroy = function() {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(attributes) {
-  this.hp = attributes.hp;
-  this.name = attributes.name;
+function CharacterStats(CharacterStatsattributes) {
+  GameObject.call(this, CharacterStatsattributes);
+  this.hp = CharacterStatsattributes.hp;
+  this.name = CharacterStatsattributes.name;
+}
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${object.name} took damage.`
+}
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 /*
@@ -42,21 +48,15 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid(attributes) {
-  this.faction = attributes.faction;
-  this.weapons = attributes.weapons;
-  this.languages = attributes.languages;
+function Humanoid(Humanoidattributes) {
+  CharacterStats.call(this, Humanoidattributes);
+  this.faction = Humanoidattributes.faction;
+  this.weapons = Humanoidattributes.weapons;
+  this.language = Humanoidattributes.language;
 }
 
-Humanoid.prototype.takeDamage = function() {
-  return `${Object.name} took damage.`
-};
-Humanoid.prototype.CharacterStats = function(attributes) {
-  GameObject.call(attributes)
-};
-Humanoid.prototype.CharacterStats = function(destroy) {
-  GameObject.call(destroy)
-}
+Humanoid.prototype.greet = function() {
+  return `${object.name} offers a greeting in ${object.language}`
 };
 
 Humanoid.prototype = Object.create(CharacterStats.prototype)
@@ -129,8 +129,8 @@ Humanoid.prototype = Object.create(CharacterStats.prototype)
   console.log(swordsman.faction); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(archer.prototype.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.archertakeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
