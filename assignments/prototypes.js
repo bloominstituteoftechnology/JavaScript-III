@@ -135,16 +135,48 @@ Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in
   function Hero(heroAttributes) {
     Humanoid.call(this, heroAttributes);
     this.basicAttack = heroAttributes.basicAttack,
-    this.special = heroAttributes.special
+    this.specialAbility = heroAttributes.specialAbility
   };
   Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.attack = function(target) {
+    target.hp += this.basicAttack[1];
+    this.hp += this.basicAttack[2];
+    console.log(`${this.name} used ${this.basicAttack[0]}!`);
+    console.log(target.hp <= 0 ? `${target.name} has been defeated! Justice Prevails!` 
+      : `| ${target.name} has ${target.hp}hp | | ${this.name} has ${this.hp}hp |`);
+  };
+
+  Hero.prototype.special = function(target) {
+    target.hp += this.specialAbility[1];
+    this.hp += this.specialAbility[2];
+    console.log(`${this.name} used special ability: ${this.specialAbility[0]}!`);
+    console.log(target.hp <= 0 ? `${target.name} has been defeated! Justice Prevails!` 
+      : `| ${target.name} has ${target.hp}hp | | ${this.name} has ${this.hp}hp |`);
+  };
 
   function Villain(villainAttributes) {
     Humanoid.call(this, villainAttributes);
     this.basicAttack = villainAttributes.basicAttack,
-    this.special = villainAttributes.special
+    this.specialAbility = villainAttributes.specialAbility
   };
   Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.attack = function(target) {
+    target.hp += this.basicAttack[1];
+    this.hp += this.basicAttack[2];
+    console.log(`${this.name} used ${this.basicAttack[0]}!`);
+    console.log(target.hp <= 0 ? `${target.name} has been defeated! Evil triumphs!` 
+      : `| ${target.name} has ${target.hp}hp | | ${this.name} has ${this.hp}hp |`);
+  };
+
+  Villain.prototype.special = function(target) {
+    target.hp += this.specialAbility[1];
+    this.hp += this.specialAbility[2];
+    console.log(`${this.name} used special ability: ${this.specialAbility[0]}!`);
+    console.log(target.hp <= 0 ? `${target.name} has been defeated! Evil triumphs!` 
+      : `| ${target.name} has ${target.hp}hp | | ${this.name} has ${this.hp}hp |`);
+  };
 
 //Create Hero & Villain
 
@@ -162,8 +194,8 @@ const wizard = new Hero({
     'Gnarled Wand',
   ],
   language: 'Common Tongue',
-  basicAttack: 'Magic Missile',
-  special: 'Fireblast'
+  basicAttack: ['Magic Missile', -2, 0],
+  specialAbility: ['Health Potion', 0, 3]
 });
 
 const warlock = new Villain({
@@ -175,14 +207,22 @@ const warlock = new Villain({
   },
   hp: 11,
   name: 'Yalverath',
-  faction: 'Servants of Sithrak',
+  faction: 'Disciples of Sithrak',
   weapons: [
     'Hand of Krul'
   ],
   language: 'Blacktongue',
-  basicAttack: ('Wither', ,
-  special: 'Life Drain'
+  basicAttack: ['Wither', -2, 0],
+  specialAbility: ['Life Drain', -1, 1]
 });
 
 //Fite!
 
+wizard.attack(warlock);
+warlock.attack(wizard);
+wizard.attack(warlock);
+warlock.attack(wizard);
+wizard.attack(warlock);
+warlock.attack(wizard);
+wizard.special(warlock);
+warlock.attack(wizard);
