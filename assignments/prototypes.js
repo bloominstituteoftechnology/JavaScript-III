@@ -78,6 +78,31 @@ Humanoid.prototype.greet = function () {
 }
 
 
+function Villian(evil) {
+  Humanoid.call(this, evil)
+  this.faction = evil.faction;
+  this.weapons = evil.weapons;
+  this.language = evil.language;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.slash = function () {
+  return `${this.name} slashes to the bone.`;
+}
+
+function Hero(good) {
+  Humanoid.call(this, good)
+  this.faction = good.faction;
+  this.weapons = good.weapons;
+  this.language = good.language;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.bodyslam = function () {
+  return `${this.name} off the top ropes!`;
+}
 
 
 
@@ -89,6 +114,39 @@ Humanoid.prototype.greet = function () {
 
 // Test your work by uncommenting these 3 objects and the list of console logs below:
 
+const demon = new Villian ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+    name: 'Tommie',
+    faction: '5th Circle',
+    weapons: [
+      'Smoking Rock',
+      'Darts'
+    ],
+    language: 'Demon Babble',
+})
+
+const hero = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 9,
+    name: 'Rekt',
+    faction: 'Gunners Quarry',
+    weapons: [
+      'Left Arm',
+      'Right Leg'
+    ],
+    language: 'Smack Talk',
+})
 
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -139,7 +197,8 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Elvish',
   });
-
+  console.log(hero.bodyslam());
+  console.log(demon.faction);
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
