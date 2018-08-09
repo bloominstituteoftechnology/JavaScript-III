@@ -5,6 +5,7 @@
 This type of binding depends on where you are working. If you are working in the browser the 
 default global context is Window unless you state strict mode, in which case the default is unedfined. Stated another way, the context is large and
 non-specific which can be problematic when the code gets complex.
+
 * 2.  Implicit Binding - 
 This type of binding is very specific and is illustrated when using dot notation. Ex: 
 
@@ -31,7 +32,7 @@ with that same context.
 
 * 4.  Explicit Binding - 
 
-This type of binding occurs when .call() , .appy() are used.
+This type of binding occurs when .call(), .apply() are used.
 
 We are explicitly passing in 'this' context into .call() or .apply().
 
