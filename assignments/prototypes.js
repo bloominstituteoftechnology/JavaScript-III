@@ -72,81 +72,81 @@ Villain.prototype = Object.create(Humanoid.prototype);
 
 // Methods
 GameObject.prototype.destroy = function () {
-    console.log(`${this.name} ran out of health and was removed from the game.`);
+    return (`${this.name} ran out of health and was removed from the game.`);
 }
 
 CharacterStats.prototype.takeDamage = function () {
-    console.log(`${this.name} took damage. ${this.name} now has ${this.hp} health.`);
     if (this.hp <= 0) {
-        this.destroy();
+        return this.destroy();
     }
+    return (`${this.name} took damage. ${this.name} now has ${this.hp} health.`);
 }
 
 Humanoid.prototype.greet = function () {
-    console.log(`${this.name} offers a greeting in ${this.language}`);
+    return (`${this.name} offers a greeting in ${this.language}`);
 }
 
 Hero.prototype.heroicSlash = function () {
     villain.hp = villain.hp - 5;
     console.log(`${this.name} heroically slashed ${villain.name} for 5 damage.`);
-    villain.takeDamage();
+    return villain.takeDamage();
 }
 
 Villain.prototype.shadowSlash = function () {
     hero.hp = hero.hp - 2.5;
     console.log(`${this.name} slashed ${hero.name} with the power of shadow for 2.5 damage.`);
-    hero.takeDamage();
+    return hero.takeDamage();
 }
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 
-  const mage = new Humanoid({
+const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
+        length: 2,
+        width: 1,
+        height: 1,
     },
     hp: 5,
     name: 'Bruce',
     faction: 'Mage Guild',
     weapons: [
-      'Staff of Shamalama',
+        'Staff of Shamalama',
     ],
     language: 'Common Toungue',
-  });
+});
 
-  const swordsman = new Humanoid({
+const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
+        length: 2,
+        width: 2,
+        height: 2,
     },
     hp: 15,
     name: 'Sir Mustachio',
     faction: 'The Round Table',
     weapons: [
-      'Giant Sword',
-      'Shield',
+        'Giant Sword',
+        'Shield',
     ],
     language: 'Common Toungue',
-  });
+});
 
-  const archer = new Humanoid({
+const archer = new Humanoid({
     createdAt: new Date(),
     dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
+        length: 1,
+        width: 2,
+        height: 4,
     },
     hp: 10,
     name: 'Lilith',
     faction: 'Forest Kingdom',
     weapons: [
-      'Bow',
-      'Dagger',
+        'Bow',
+        'Dagger',
     ],
     language: 'Elvish',
 });
@@ -186,18 +186,18 @@ const villain = new Villain({
     powerSource: 'the Shadow'
 });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log(villain.shadowSlash()); // Villain attacks Hero
-  console.log(hero.heroicSlash()); // Hero attacks Villain
+console.log(mage.createdAt); // Today's date
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+console.log(swordsman.hp); // 15
+console.log(mage.name); // Bruce
+console.log(swordsman.faction); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+console.log(archer.language); // Elvish
+console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage()); // Bruce took damage.
+console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+console.log(villain.shadowSlash()); // Villain attacks Hero
+console.log(hero.heroicSlash()); // Hero attacks Villain
 
 
   // Stretch task: 
