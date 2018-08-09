@@ -16,9 +16,9 @@
 */
 function OB(GameObject) {
   this.createdAt = GameObject.createdAt;
-  this.dimensions = GameObject.createdAt;
+  this.dimensions = GameObject.dimensions;
     } 
- OB.prototype.destroy = () =>{
+ OB.prototype.destroy = function() {
  return `Object was removed from the game`
   };
 
@@ -36,7 +36,7 @@ function CS(CharacterStats) {
 }
 
 CS.prototype = Object.create(OB.prototype);
-CS.prototype.takeDamage = ()=>{
+CS.prototype.takeDamage = function(){
   return `${this.name} took damage`
 };
 
@@ -58,7 +58,7 @@ this.weapons = Hu.weapons;
 this.language = Hu.language;
 }
 Humanoid.prototype = Object.create(CS.prototype)
-Humanoid.prototype.greet = ()=>{
+Humanoid.prototype.greet = function(){
 return `${this.name} offers a greeting in ${this.language}.`
 };
 
