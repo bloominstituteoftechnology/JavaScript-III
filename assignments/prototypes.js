@@ -34,14 +34,14 @@ GameObject.prototype.destroy = function() {
 
 
 function CharacterStats(stats) {
-  GameObject.call(this, stats);
+  GameObject.call(this, stats); 
   this.hp = stats.hp;
   this.name = stats.name;
 }
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype = Object.create(GameObject.prototype); //CharacterStats.prototype inherits everything from GameObject.prototype
 
-CharacterStats.prototype.takeDamage = function() {
+CharacterStats.prototype.takeDamage = function() { //Add a new function called takeDamage to CharacterStats.prototype
   return `${this.name} took damage.`
 }
 
@@ -63,9 +63,9 @@ CharacterStats.prototype.takeDamage = function() {
    this.language = attributes.language;
  }
 
- Humanoid.prototype = Object.create(CharacterStats.prototype);
+ Humanoid.prototype = Object.create(CharacterStats.prototype); //Humanoid.prototype inherits everything from CharacterStats.prototype
 
- Humanoid.prototype.greet = function() {
+ Humanoid.prototype.greet = function() {  //Add a new function called greet to Humanoid.prototype
    return `${this.name} offers a greeting in ${this.language}`
  }
 

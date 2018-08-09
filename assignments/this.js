@@ -3,7 +3,7 @@
 *
 * 1. Window Binding: if no other binding is attached, the window is used for the this keyword.
 * 2. Implicit Binding: the this keyword is bound to an object or function upon invocation.
-* 3. Explicit Binding
+* 3. Explicit Binding: Whenever call or apply methods are used
 * 4. New Binding: Whenever a constructor function is used, this refers to the specific instance of the object that is created and returned by the constructor function.
 
 *
