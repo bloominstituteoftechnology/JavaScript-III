@@ -72,9 +72,9 @@ function Humanoid(Humattributes) {
   // GameObject.call(this, Humattributes)
   CharacterStats.call(this, Humattributes)
   //properties
-  this.faction = this.faction;
-  this.weapon = this.weapon;
-  this.language = this.language;
+  this.faction = Humattributes.faction;
+  this.weapons = Humattributes.weapons;
+  this.language = Humattributes.language;
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 //methods
