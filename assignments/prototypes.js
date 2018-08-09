@@ -17,7 +17,7 @@
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions; 
-}
+};
   GameObject.prototype.destroy = function() {
   return `Object was removed from the game.`
 };  
@@ -32,13 +32,14 @@ function CharacterStats(CharacterStatsattributes) {
   GameObject.call(this, CharacterStatsattributes);
   this.hp = CharacterStatsattributes.hp;
   this.name = CharacterStatsattributes.name;
-}
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${object.name} took damage.`
-}
+  return `${this.name} took damage.`
+};
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
+
 /*
   === Humanoid ===
   * faction
@@ -53,13 +54,14 @@ function Humanoid(Humanoidattributes) {
   this.faction = Humanoidattributes.faction;
   this.weapons = Humanoidattributes.weapons;
   this.language = Humanoidattributes.language;
-}
+};
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-  return `${object.name} offers a greeting in ${object.language}`
+  return `${this.name} offers a greeting in ${this.language}`
 };
 
-Humanoid.prototype = Object.create(CharacterStats.prototype)
+
 
 
  
@@ -129,8 +131,8 @@ Humanoid.prototype = Object.create(CharacterStats.prototype)
   console.log(swordsman.faction); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
-  console.log(archer.prototype.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.archertakeDamage()); // Bruce took damage.
+  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
