@@ -14,6 +14,12 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(objAttributes) {
+  this.createdAt = objAttributes.createdAt,
+  this.dimensions = objAttributes.dimensions
+};
+
+GameObject.prototype.destroy = function() {return `${this.name} was removed from the game.`};
 
 /*
   === CharacterStats ===
@@ -22,6 +28,14 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(charAttributes) {
+  GameObject.call(this, charAttributes);
+  this.hp = charAttributes.hp,
+  this.name = charAttributes.name
+};
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {return `${this.name} took damage.`};
 
 /*
   === Humanoid ===
@@ -32,6 +46,15 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+function Humanoid(humanAttributes) {
+  CharacterStats.call(this, humanAttributes);
+  this.faction = humanAttributes.faction,
+  this.weapons = humanAttributes.weapons,
+  this.language = humanAttributes.language
+};
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in ${this.language}.`};
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +64,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +125,106 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.basicAttack = heroAttributes.basicAttack,
+    this.specialAbility = heroAttributes.specialAbility
+  };
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.attack = function(target) {
+    target.hp += this.basicAttack[1];
+    this.hp += this.basicAttack[2];
+    return (`${this.name} used ${this.basicAttack[0]}! `)
+      + (target.hp <= 0 ? `${target.name} has been defeated! Justice prevails!` 
+      : `[${this.name} has ${this.hp}hp] [${target.name} has ${target.hp}hp]`);
+  };
+
+  Hero.prototype.special = function(target) {
+    target.hp += this.specialAbility[1];
+    this.hp += this.specialAbility[2];
+    return (`${this.name} used ${this.specialAbility[0]}! `)
+      + (target.hp <= 0 ? `${target.name} has been defeated! Justice prevails!` 
+      : `[${this.name} has ${this.hp}hp] [${target.name} has ${target.hp}hp]`);
+  };
+
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+    this.basicAttack = villainAttributes.basicAttack,
+    this.specialAbility = villainAttributes.specialAbility
+  };
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.attack = function(target) {
+    target.hp += this.basicAttack[1];
+    this.hp += this.basicAttack[2];
+    return (`${this.name} used ${this.basicAttack[0]}! `)
+      + (target.hp <= 0 ? `${target.name} has been defeated! Evil triumphs!` 
+      : `[${target.name} has ${target.hp}hp] [${this.name} has ${this.hp}hp]`);
+  };
+
+  Villain.prototype.special = function(target) {
+    target.hp += this.specialAbility[1];
+    this.hp += this.specialAbility[2];
+    return (`${this.name} used ${this.specialAbility[0]}! `)
+      + (target.hp <= 0 ? `${target.name} has been defeated! Evil triumphs!` 
+      : `[${target.name} has ${target.hp}hp] [${this.name} has ${this.hp}hp]`);
+  };
+
+//Create Hero & Villain
+
+const wizard = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 1,
+    height: 2,
+  },
+  hp: 7,
+  name: 'Vorlin',
+  faction: 'Mage Guild',
+  weapons: [
+    'Gnarled Wand',
+  ],
+  language: 'Common Tongue',
+  basicAttack: ['Magic Missile', -3, 0],
+  specialAbility: ['Health Potion', 0, 5]
+});
+
+const warlock = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 3,
+  },
+  hp: 9,
+  name: 'Nezerod',
+  faction: 'Disciples of Sithrak',
+  weapons: [
+    'Hand of Krul'
+  ],
+  language: 'Blacktongue',
+  basicAttack: ['Wither', -3, 0],
+  specialAbility: ['Life Drain', -2, 2]
+});
+
+//Fite!
+
+console.log(wizard.attack(warlock));
+console.log(warlock.attack(wizard));
+console.log(wizard.attack(warlock));
+console.log(warlock.attack(wizard));
+console.log(wizard.special(wizard));
+console.log(warlock.special(wizard));
+console.log(wizard.attack(warlock));
+console.log(warlock.special(wizard));
+console.log(wizard.attack(warlock));
+console.log(warlock.attack(wizard));
