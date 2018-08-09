@@ -44,6 +44,9 @@ const CharacterStats = function(statAttrs) {
   }
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.constructor = CharacterStats;
+
 /*
   === Humanoid ===
   * faction
@@ -63,6 +66,9 @@ const Humanoid = function(humanoidAttrs){
     return `${this.name} offers a greeting in ${this.language}.`
   }
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.constructor = Humanoid;
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -151,6 +157,9 @@ const archer = new Humanoid({
     }
   }
 
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.constructor = Hero;
+
   const Villain = function(attrs){
     Humanoid.call(this, attrs);
     this.avadaKedavra = function(enemy){
@@ -163,6 +172,9 @@ const archer = new Humanoid({
       }
     }
   }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.constructor = Villain;
 
   const voldemort = new Villain({
     createdAt: Date.now(),
