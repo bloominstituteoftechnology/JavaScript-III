@@ -2,7 +2,7 @@
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. Window/Global Object Binding: "This" will point to the window/console when used in the global scope.
-* 2. Under Implicit Binding, "this" will direct to the function being called after the preceding dot.
+* 2. Under Implicit Binding, "this" will direct to the object before the preceding dot if a fuction is being called.
 * 3. Under New Binding, "this" will refer to the specific instance of the object that is created and returned under the constructor function.
 * 4. Under Explicit Binding, "this" is explicitly defined whenever a call or apply method is used.
 *
@@ -60,7 +60,7 @@ const engineer = {
 
 const skills = ['warping time', 'traveling space'];
 
-function introduce () {
+function introduce() {
     console.log(`Hello, I am: ${this.name} and I enjoy: ${skills} while: ${this.hobbies}`);
 }
 
