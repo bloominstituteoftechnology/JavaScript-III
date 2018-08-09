@@ -50,6 +50,9 @@ function CharacterStats(attr) {
   CharacterStats.prototype.takeDamage = function(amt) {
     return `${this.name} took ${amt} damage.`;
   }
+
+  CharacterStats.prototype.lowerHP = function(amt) {
+    return `${this.name} took ${amt} damage.`
 /*
   === Humanoid ===
   * faction
