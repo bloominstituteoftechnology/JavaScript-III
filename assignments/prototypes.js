@@ -52,16 +52,30 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid(atrib) {
-  CharacterStats.call(this, atrib);
-  this.faction = atrib.faction,
-  this.weapons = atrib.weapons,
-  this.language = atrib.language
+// function Humanoid(atrib) {
+//   CharacterStats.call(this, atrib);
+//   this.faction = atrib.faction,
+//   this.weapons = atrib.weapons,
+//   this.language = atrib.language
+// }
+// Humanoid.prototype = Object.create(CharacterStats.prototype);
+// Humanoid.prototype.greet = function() {
+//   return `${this.name} offers a greeting in ${this.language}.`;
+// }
+
+// ES6 class
+class Humanoid extends CharacterStats {
+  constructor(atrib) {
+    super(atrib);
+    this.faction = atrib.faction,
+    this.weapons = atrib.weapons,
+    this.language = atrib.language      
+  }
+  greet() {
+    return `${this.name} offers a greeting in ${this.language}.`;
+  }
 }
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}.`;
-}
+
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -136,3 +150,16 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  // function Humanoid(atrib) {
+  //   CharacterStats.call(this, atrib);
+    // this.faction = atrib.faction,
+    // this.weapons = atrib.weapons,
+    // this.language = atrib.language
+  // }
+  // Humanoid.prototype = Object.create(CharacterStats.prototype);
+  // Humanoid.prototype.greet = function() {
+  //   return `${this.name} offers a greeting in ${this.language}.`;
+  // }
+
+  
