@@ -59,6 +59,32 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
  Humanoid.prototype.greet = function(){
    return `${this.name} offers a greeting in ${this.language}`;
  };
+
+ function Hero(heroParams){
+   Humanoid.call(this, heroParams);
+   this.specialPower = heroParams.cripplingCollegeDebt
+ }
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Humanoid.prototype.attack = function(victim){
+  victim.hp -=5;
+  if(victim.hp >=1){
+  return `${victim.name} was hit with cripplingCollegeDebt they lost 5 health points`;
+} else {return `The crushing weight of debt has killed ${victim.name}. ${victim.destroy()}`}
+}
+
+function Villian (villianParams){
+  Humanoid.call(this, villianParams);
+}
+Villian.prototype=Object.create(Humanoid.prototype);
+
+Villian.prototype.attack = function(victim){
+  victim.hp -=5;
+  if(victim.hp >= 1){
+  return `${victim.name} was hit with extensive experience requirements for an entry level job. -5 health points.`
+  } else {return `${victim.name} was hit with extensive experience requirements for an entry level job. ${victim.name} has succumbed to the inflicted injuries. ${victim.destroy()}` }
+};
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -67,6 +93,36 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 1,
+    name: 'Scott',
+    faction: 'Private College',
+    weapons: 'Liberal Arts',
+    language: '2 years of spanish',
+    weapons: 'Crippling College Debt',
+  });
+
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 1,
+    name: 'Workforce',
+    faction: 'Margins',
+    weapons: 'Unreasonable expectations',
+    language: 'Money',
+    weapons: 'fear',
+  });
+  
 
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -128,6 +184,16 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+  console.log(hero.name);
+  console.log(hero.faction);
+  console.log(hero.greet());
+  console.log(hero.attack(swordsman));
+
+  console.log(villian.name);
+  console.log(villian.faction);
+  console.log(villian.greet());
+  console.log(hero.attack(villian));
 
 
   // Stretch task: 
