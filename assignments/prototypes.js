@@ -90,7 +90,7 @@ const mage = new Humanoid({
   hp: 5,
   name: 'Bruce',
   faction: 'Mage Guild',
-  weapons: ['Staff of Shamalama'],
+  weapons: 'Staff of Shamalama',
   language: 'Common Toungue'
 });
 
