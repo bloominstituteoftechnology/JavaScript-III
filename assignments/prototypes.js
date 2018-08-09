@@ -137,3 +137,93 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(villAttr) {
+    Humanoid.call(this, villAttr);
+    this.weapons = villAttr.weapons;
+    this.attack = villAttr.attack;
+  }
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype.stab = function() {
+    return `${this.name} stabbed ${hero.name}`;
+    return `${this.name} took damage 5 times`;
+    if (`${this.name} took damage 5 times`) {
+      villian.hp -= 5;
+    }
+    if (villian.hp <= 0) {
+      return `${this.name} :loser ${hero.name} :winner!`;
+    }
+  }
+
+
+  function Hero(heroAttr) {
+    Humanoid.call(this, heroAttr);
+    this.weapons = heroAttr.weapons;
+    this.attack = heroAttr.attack;
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.pierce = function() {
+    return `${this.name} pierce ${villian.name}`;
+    return `${this.name} took damage 3 times`;
+    if (`${this.name} took damage 3 times`) {
+      hero.hp -= 3;
+    }
+    if (hero.hp <= 0) {
+      return `${this.name} :loser ${villian.name} :winner!`;
+    }
+  }
+
+
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 5,
+      width: 3,
+      height: 7,
+    },
+    hp: 48,
+    name: 'Nero',
+    faction: 'Knights of Mars',
+    weapons: [
+      'Sword of Ruin',
+    ],
+    language: 'Common Toungue',
+    attack: 'Stab',
+  });
+
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 6,
+      width: 3,
+      height: 6,
+    },
+    hp: 42,
+    name: 'Tiberius',
+    faction: 'Order of The Fallen God',
+    weapons: [
+      'Sword of Prosperity',
+    ],
+    language: 'Common Toungue',
+    attack: 'Pierce',
+  });
+
+
+
+  hero.pierce();
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  villian.stab();
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  hero.pierce();
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  villian.stab();
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  hero.pierce();
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  villian.stab();
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  hero.pierce();
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  villian.stab();
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+ 
