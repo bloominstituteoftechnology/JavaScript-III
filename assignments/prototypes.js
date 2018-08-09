@@ -142,17 +142,17 @@ Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in
   Hero.prototype.attack = function(target) {
     target.hp += this.basicAttack[1];
     this.hp += this.basicAttack[2];
-    console.log(`${this.name} used ${this.basicAttack[0]}!`);
-    console.log(target.hp <= 0 ? `${target.name} has been defeated! Justice Prevails!` 
-      : `| ${target.name} has ${target.hp}hp | | ${this.name} has ${this.hp}hp |`);
+    return (`${this.name} used ${this.basicAttack[0]}! `)
+      + (target.hp <= 0 ? `${target.name} has been defeated! Justice prevails!` 
+      : `[${this.name} has ${this.hp}hp] [${target.name} has ${target.hp}hp]`);
   };
 
   Hero.prototype.special = function(target) {
     target.hp += this.specialAbility[1];
     this.hp += this.specialAbility[2];
-    console.log(`${this.name} used special ability: ${this.specialAbility[0]}!`);
-    console.log(target.hp <= 0 ? `${target.name} has been defeated! Justice Prevails!` 
-      : `| ${target.name} has ${target.hp}hp | | ${this.name} has ${this.hp}hp |`);
+    return (`${this.name} used ${this.specialAbility[0]}! `)
+      + (target.hp <= 0 ? `${target.name} has been defeated! Justice prevails!` 
+      : `[${this.name} has ${this.hp}hp] [${target.name} has ${target.hp}hp]`);
   };
 
   function Villain(villainAttributes) {
@@ -165,17 +165,17 @@ Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in
   Villain.prototype.attack = function(target) {
     target.hp += this.basicAttack[1];
     this.hp += this.basicAttack[2];
-    console.log(`${this.name} used ${this.basicAttack[0]}!`);
-    console.log(target.hp <= 0 ? `${target.name} has been defeated! Evil triumphs!` 
-      : `| ${target.name} has ${target.hp}hp | | ${this.name} has ${this.hp}hp |`);
+    return (`${this.name} used ${this.basicAttack[0]}! `)
+      + (target.hp <= 0 ? `${target.name} has been defeated! Evil triumphs!` 
+      : `[${target.name} has ${target.hp}hp] [${this.name} has ${this.hp}hp]`);
   };
 
   Villain.prototype.special = function(target) {
     target.hp += this.specialAbility[1];
     this.hp += this.specialAbility[2];
-    console.log(`${this.name} used special ability: ${this.specialAbility[0]}!`);
-    console.log(target.hp <= 0 ? `${target.name} has been defeated! Evil triumphs!` 
-      : `| ${target.name} has ${target.hp}hp | | ${this.name} has ${this.hp}hp |`);
+    return (`${this.name} used ${this.specialAbility[0]}! `)
+      + (target.hp <= 0 ? `${target.name} has been defeated! Evil triumphs!` 
+      : `[${target.name} has ${target.hp}hp] [${this.name} has ${this.hp}hp]`);
   };
 
 //Create Hero & Villain
@@ -187,15 +187,15 @@ const wizard = new Hero({
     width: 1,
     height: 2,
   },
-  hp: 8,
+  hp: 7,
   name: 'Vorlin',
   faction: 'Mage Guild',
   weapons: [
     'Gnarled Wand',
   ],
   language: 'Common Tongue',
-  basicAttack: ['Magic Missile', -2, 0],
-  specialAbility: ['Health Potion', 0, 3]
+  basicAttack: ['Magic Missile', -3, 0],
+  specialAbility: ['Health Potion', 0, 5]
 });
 
 const warlock = new Villain({
@@ -205,24 +205,26 @@ const warlock = new Villain({
     width: 2,
     height: 3,
   },
-  hp: 11,
-  name: 'Yalverath',
+  hp: 9,
+  name: 'Nezerod',
   faction: 'Disciples of Sithrak',
   weapons: [
     'Hand of Krul'
   ],
   language: 'Blacktongue',
-  basicAttack: ['Wither', -2, 0],
-  specialAbility: ['Life Drain', -1, 1]
+  basicAttack: ['Wither', -3, 0],
+  specialAbility: ['Life Drain', -2, 2]
 });
 
 //Fite!
 
-wizard.attack(warlock);
-warlock.attack(wizard);
-wizard.attack(warlock);
-warlock.attack(wizard);
-wizard.attack(warlock);
-warlock.attack(wizard);
-wizard.special(warlock);
-warlock.attack(wizard);
+console.log(wizard.attack(warlock));
+console.log(warlock.attack(wizard));
+console.log(wizard.attack(warlock));
+console.log(warlock.attack(wizard));
+console.log(wizard.special(wizard));
+console.log(warlock.special(wizard));
+console.log(wizard.attack(warlock));
+console.log(warlock.special(wizard));
+console.log(wizard.attack(warlock));
+console.log(warlock.attack(wizard));
