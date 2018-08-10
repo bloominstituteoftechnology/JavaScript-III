@@ -144,14 +144,14 @@ Humanoid.prototype.greet = function() {
     this.attack = villAttr.attack;
   }
   Villian.prototype = Object.create(Humanoid.prototype);
-  Villian.prototype.stab = function() {
-    return `${this.name} stabbed ${hero.name}`;
-    return `${this.name} took damage 5 times`;
-    if (`${this.name} took damage 5 times`) {
-      villian.hp -= 5;
-    }
+  Villian.prototype.stab = function(villian) {
+    console.log(`${this.name} stabbed ${hero.name}`);
+    console.log(`${this.name} took damage 5 times`);
     if (villian.hp <= 0) {
       return `${this.name} :loser ${hero.name} :winner!`;
+    }
+    if (`${this.name} took damage 5 times`) {
+      villian.hp -= 5;
     }
   }
 
@@ -162,16 +162,18 @@ Humanoid.prototype.greet = function() {
     this.attack = heroAttr.attack;
   }
   Hero.prototype = Object.create(Humanoid.prototype);
-  Hero.prototype.pierce = function() {
-    return `${this.name} pierce ${villian.name}`;
-    return `${this.name} took damage 3 times`;
-    if (`${this.name} took damage 3 times`) {
-      hero.hp -= 3;
-    }
+  Hero.prototype.pierce = function(hero) {
+    console.log(`${this.name} pierce ${villian.name}`);
+    console.log(`${this.name} took damage 3 times`);
     if (hero.hp <= 0) {
       return `${this.name} :loser ${villian.name} :winner!`;
     }
+    if (`${this.name} took damage 3 times`) {
+      hero.hp -= 3;
+    }
   }
+
+
 
 
   const villian = new Villian({
@@ -209,21 +211,48 @@ Humanoid.prototype.greet = function() {
   });
 
 
+  
 
-  hero.pierce();
+
+
+  console.log(hero.pierce(villian));
   console.log(`${villian.name} has ${villian.hp} hp left`);
-  villian.stab();
+  console.log(villian.stab(hero));
   console.log(`${hero.name} has ${hero.hp} hp left`);
-  hero.pierce();
+  console.log(hero.pierce(villian));
   console.log(`${villian.name} has ${villian.hp} hp left`);
-  villian.stab();
+  console.log(villian.stab(hero));
   console.log(`${hero.name} has ${hero.hp} hp left`);
-  hero.pierce();
+  console.log(hero.pierce(villian));
   console.log(`${villian.name} has ${villian.hp} hp left`);
-  villian.stab();
+  console.log(villian.stab(hero));
   console.log(`${hero.name} has ${hero.hp} hp left`);
-  hero.pierce();
+  console.log(hero.pierce(villian));
   console.log(`${villian.name} has ${villian.hp} hp left`);
-  villian.stab();
+  console.log(villian.stab(hero));
   console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log(hero.pierce(villian));
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  console.log(villian.stab(hero));
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log(hero.pierce(villian));
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  console.log(villian.stab(hero));
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log(hero.pierce(villian));
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  console.log(villian.stab(hero));
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log(hero.pierce(villian));
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  console.log(villian.stab(hero));
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log(hero.pierce(villian));
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  console.log(villian.stab(hero));
+  console.log(`${hero.name} has ${hero.hp} hp left`);
+  console.log(hero.pierce(villian));
+  console.log(`${villian.name} has ${villian.hp} hp left`);
+  console.log(villian.stab(hero));
+  
  
