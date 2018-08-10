@@ -174,30 +174,42 @@ function Hero(heroAttributes) {
 Hero.prototype = Object.create(Humanoid.prototype);
 
 
+
 Humanoid.prototype.attack = function(victim) {
   const chooseWeapon = Math.floor(Math.random() * this.weapons.length);
   const damage = Math.round(Math.random() * 5);
   console.log(`${this.name} attaks with ${this.weapons[chooseWeapon]}, minus ${damage} points from hp.`);
   victim.hp = victim.hp - damage;
   console.log(victim.takeDamage());
-  console.log(`Minus ${damage} points, the new hp is ${victim.hp}.`);
+  console.log(`Minus ${damage} points from ${victim.name}, the new hp is ${victim.hp}.`);
   if (victim.hp <= 0) {
     console.log(victim.destroy());
     console.log(`${this.name} has won.`)
   } else {
-    console.log(`Next turn.`)
+    console.log('Next turn.');
   }
 }
 
+Humanoid.prototype.heal = function() {
+  let healing = Math.floor(Math.random() * 5)
+  this.hp += healing;
+  console.log(`${this.name} has healed.`);
+  console.log(`${this.name} has healed for ${healing} points.`);
+  console.log(`The new hp is ${this.hp}.`);
+  console.log('Next turn.');
+  return this.hp;
+}
 
-const bad = new Villian ({
+
+
+const villian = new Villian ({
   createdAt: new Date(),
   dimensions: {
     length: 4,
     width: 5,
     height: 4,
   },
-  hp: 15,
+  hp: 10,
   name: 'Steve',
   faction: 'Dark Woods',
   weapons: [
@@ -209,14 +221,14 @@ const bad = new Villian ({
   language: 'Infernal',
 });
 
-const good = new Hero ({
+const hero = new Hero ({
   createdAt: new Date(),
   dimensions: {
     length: 2,
     width: 3,
     height: 6,
   },
-  hp: 13,
+  hp: 10,
   name: 'Jeff',
   faction: 'Heavenly Forest',
   weapons: [
@@ -229,16 +241,83 @@ const good = new Hero ({
 });
 
 
-function play() {
-  while (bad.hp > 0 && good.hp > 0) {
-    const choose = ['good', 'bad'];
-    const choice = choose[Math.round(Math.random())];
-    if(choice === 'bad') {
-      bad.attack(good);
-    } else if (choice === 'good') {
-      good.attack(bad);
-    }
-  }
-}
+const readline = require('readline');
+const rl = readline.createInterface(
+  {
+    input : process.stdin,
+    output : process.stdout
+  });
 
-play();
+  let person = hero;
+  let enemy = villian;
+
+rl.question("Do you want to be the Hero or the Villian? (Hero or Villian) ", function(answer) {
+  if (answer.toLowerCase() === 'villian') {
+    person = villian;
+    enemy = hero;
+  } else if (answer.toLowerCase() === 'hero') {
+    person = hero;
+    enemy = villian;
+  } else {
+    console.log(`Not a correct input. (Hero or Villian)`)
+    process.exit(0);
+  }
+  console.log(`You are the ${answer} ${person.name}. Let's fight!`);
+  rl.setPrompt("Do you want to fight or heal? ") 
+  rl.prompt();
+  rl.on('line', function(newAnswer) {
+    console.log('-------------');
+    if(newAnswer === 'heal') {
+      person.heal();
+    } else if (newAnswer === 'fight') {
+      person.attack(enemy);
+    }
+
+    if(enemy.hp <= 0 || person.hp <= 0) {
+      rl.close();
+    } else {
+      console.log('-------------')
+      let randomEnemy = Math.random();
+      if(randomEnemy > 0.5) {
+        enemy.attack(person)
+      } else {
+        enemy.heal()
+      }
+    }
+    if(enemy.hp <= 0 || person.hp <= 0) {
+      rl.close();
+    } else {
+      rl.prompt();
+    }
+  })
+})
+
+rl.on('close', function() {
+  if (person.hp <= 0) {
+    console.log(`You have lost.`);
+    process.exit(0);
+  } else if (enemy.hp <= 0) {
+    console.log(`You have won!`);
+    process.exit(0);
+  } else {
+    console.log(`\nCome again soon!`)
+    process.exit(1);
+  }
+});
+
+
+// function play() {
+//   while (villian.hp > 0 && hero.hp > 0) {
+//     console.log('-------------------------------')
+//     const choose = ['good', 'bad'];
+//     const choice = choose[Math.round(Math.random())];
+//     if(choice === 'bad') {
+//       villian.attack(hero);
+//     } else if (choice === 'good') {
+//       hero.attack(villian);
+//       hero.heal();
+//     }
+//   }
+// }
+
+// play();
