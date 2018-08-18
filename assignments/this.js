@@ -9,6 +9,11 @@
 * write out a code example of each explanation above
 */
 
+
+
+// testing global .gitignore
+
+
 // Principle 1
 
 // code example for Window Binding
