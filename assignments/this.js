@@ -25,11 +25,11 @@ function saySomething(){
 let car = {
     model: 'Mazda CX3',
     vroom: function(){
-      return `${this.model} is silky smooth!`
+    return `${this.model} is silky smooth!`
     }
-  }
-  
-  car.vroom()
+}
+
+car.vroom()
 
 // Principle 3
 
@@ -38,6 +38,7 @@ function User(obj) {
     // this = {};
     this.firstName = obj.firstName;
     this.lastName = obj.lastName;
+    this.livesIn = 'Bangkok';
     this.lovesJavascript = true;
     this.saysHi = function(person) {
         return `${this.firstName} says hi to ${person}!`
@@ -45,10 +46,16 @@ function User(obj) {
     // return this
 };
 
-let Corey = new User({
+let Corey = new User({      //new instatiates Corey object as part of User class
     firstName: 'Corey',
     lastName: 'Feldman'
-})
+});
+
+Corey;
+Corey.saysHi("joe");
+Corey.lovesJavascript;
+
+
 
 // Principle 4
 
@@ -59,16 +66,24 @@ const yourObject = {
     city: 'BKK'
 }
 
-const thingsYouEnjoy = ['bball', 'card collecting', 'coding', 'fire']
+const thingsYouEnjoy = ['bball', 'card collecting', 'coding', 'browsing bookstores']
 
 function tellUsAboutYourself(thing1, thing2, thing3, thing4){
 return `Hi! My name is ${this.name}, I live in ${this.city}, and I enjoy ${thing1}, ${thing2}, and ${thing3} and ${thing4}.`
 }
 
+
+// .bind() .call() .apply() -- do similar things
+// .bind(one argument);
+// .call -c arguments ares are most applic
+
 const paulIntro = tellUsAboutYourself.bind(yourObject);
-paulIntro(...thingsYouEnjoy);
 
-// tellUsAboutYourself.call(yourObject, ...thingsYouEnjoy );
+paulIntro(...thingsYouEnjoy);   //spread operator
 
-// tellUsAboutYourself.apply(yourObject, thingsYouEnjoy);
+paulIntro('bball', 'card collecting', 'coding', 'browsing bookstores');  //alternative; 
+
+tellUsAboutYourself.call(yourObject, ...thingsYouEnjoy );
+
+tellUsAboutYourself.apply(yourObject, thingsYouEnjoy);
 
