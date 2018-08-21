@@ -1,0 +1,119 @@
+function User(obj) {
+  // this = {};
+    this.firstName = obj.firstName;
+    this.lastName = obj.lastName;
+    this.lovesJavascript = true;
+    this.saysHi = function(person) {
+      return `${this.firstName} says hi to ${person}!`
+    };
+  // return this
+};
+
+let Dan = new User({
+  firstName: 'Dan',
+  lastName: 'Frehner'
+})
+
+let Corey = new User({
+  firstName: 'Corey',
+  lastName: 'Kohler'
+})
+
+// 4 'this' bindings
+
+//New this binding
+Dan.saysHi('Demetri')
+Corey.saysHi('Oliver')
+
+// Window binding
+function saySomething(){
+  console.log(this)
+}
+
+setTimeout( function() {console.log(this)}, 200)
+
+// implicit 
+
+let car = {
+  model: 'Mustang',
+  vroom: function(){
+    return `${this.model} goes vrrrooooommm!`
+  }
+}
+
+car.vroom()
+
+
+// Explicit
+// .call .apply .bind
+
+const dan = {
+  name: 'Dan'
+}
+
+const venky = {
+  name: 'Venky'
+}
+
+const skillz = ['Javascript', 'HTML', 'LESS']
+function introduce(s1, s2, s3){
+  console.log("The this context:", this)
+ return `My name is ${this.name} and I like to program in ${s1}, ${s2}, ${s3}`
+}
+
+introduce.apply(dan, skillz)
+      // .call(venky)
+      // Immediatly invoke the function
+
+const venkySkillz = introduce.bind(venky)
+const danSkillz = introduce.bind(dan)
+venkySkillz('Javascript', 'CSS', 'C++')
+
+danSkillz('Javascript', 'Ruby', 'C#')
+
+
+// Class constructors and prototypal inheritance 
+function Animal(AnimalObj){
+  // this = {}
+  this.species = AnimalObj.species;
+  this.sound = AnimalObj.sound;
+  this.isADog = AnimalObj.isADog;
+  // return this
+}
+
+
+Animal.prototype.speak = function(){
+  return `The ${this.species} says ${this.sound}!`
+}
+
+const chester = new Animal('Cheetah', '...', false)
+chester.speak()
+
+function Dog(breed) {
+  //this = {}
+  Animal.call(this, 'Dog', 'Woof!', true)
+  this.breed = breed;
+
+  // return this
+}
+
+function Cat(breed) {
+  // this = {}
+  Animal.call(this, 'Cat', 'Meow', false);
+  this.breed = breed;
+  // return this
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+const Lab = new Dog('Lab');
+Lab.speak()
+
+Cat.prototype = Object.create(Animal.prototype)
+Cat.prototype.speak = function(){
+  console.log("I'm I cat!!!")
+}
+
+const Tabby = new Cat('Tabby')
+Tabby.speak()
+// Lab.speak()
+
