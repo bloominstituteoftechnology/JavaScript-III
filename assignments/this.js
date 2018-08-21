@@ -57,8 +57,31 @@ const objConstructorFunc = function (str) {
 }
 
 const newBoundExample = new objConstructorFunc(' key 3 is a string argument for my "aFunction" function, which is my fourth key!');
-console.log(newBoundExample.aFunction());
+// console.log(newBoundExample.aFunction());
 
 // Principle 4
 
 // code example for Explicit Binding
+
+//Drawing from the above code:
+
+const giveCompliment = function (str){
+
+    this.key1 = 'value1',
+    
+    this.key2 = 'value2',
+
+    this.flatterThem = function (){
+        console.log(`${str} take ${this.key1} and ${this.key2}`);
+    }
+}
+
+// const hairCompliment = new giveCompliment(`You have nice hair, you can have ${this.key1} and ${this.key2}.`)
+
+const eyeCompliment = new giveCompliment('I complement your eyes!') ;
+
+const hairCompliment = new giveCompliment('I complement your hair!');
+console.log(eyeCompliment.flatterThem());
+console.log(hairCompliment.flatterThem());
+console.log(eyeCompliment.flatterThem.call(hairCompliment));
+console.log(hairCompliment.flatterThem.call(eyeCompliment));
