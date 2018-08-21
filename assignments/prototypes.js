@@ -1,9 +1,11 @@
 /*
-  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
+  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing 
+  several constructor functions with their correct inheritance heirarchy.
 
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
 
-  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
+  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom 
+  of the page to test your constructor functions.
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
@@ -106,5 +108,6 @@
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects which 
+  // could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
