@@ -3,7 +3,7 @@ This challenge focuses on using the `this` keyword as well as getting comfortabl
 
 ## Assignment Description
 
-* Fork/Clone this repository.
+[x] Fork/Clone this repository.
 * Complete all the exercises as described inside each assignment file.
 * Use `console.log()` statements to check to see if your code does what it is supposed to do.
 * To test your `console` statements you can run `node /assignments/<fileName>` and see what prints in your terminal. You can also use an online tool like `JSBin`, `REPL.it`, `JSFiddle`, or even your `Chrome developer console`.
