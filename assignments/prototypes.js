@@ -15,24 +15,63 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject () {
+  this.createdAt = createdAt;
+  this.dimensions = {length: , width: , height: };
+}
+
+GameObject.prototype.destroy = function() {
+  return 'Object was removed from the game.'
+}
+
 /*
   === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
+  * hp      done
+  * name    done
+  * takeDamage() // prototype method -> returns the string '<object name> took damage.'       done
+  * should inherit destroy() from GameObject's prototype                                      done
 */
+
+function CharacterStats() {
+  this.hp = hp;
+  this.name = name;
+}
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+const sampleCharacterStats = new CharacterStats('sampleCharacterStats');
+sampleCharacterStats.destory();     //from GameObject
+
 
 /*
   === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
+  * faction      done
+  * weapons      done
+  * language      done
+  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'       done
+  * should inherit destroy() from GameObject through CharacterStats       done
+  * should inherit takeDamage() from CharacterStats                       done
 */
- 
+
+function Humanoid() {
+  this.faction = faction;
+  this.weapons = weapons;
+  this.language = language;
+
+}
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+const sampleHumanoid = new Humanoid('sampleHumanoid');
+sampleHumanoid.takeDamage();     //from CharacterStats
+sampleHumanoid.destroy();        //from GameObject
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
