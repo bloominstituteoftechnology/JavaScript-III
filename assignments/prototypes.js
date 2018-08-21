@@ -23,7 +23,7 @@ function GameObject(attributesObj) {
   //return this
 }
 GameObject.prototype.destroy = function(){
-  return `Object was removed from the game.`
+  return `${this.name} was removed from the game.`
 }
 /*
   === CharacterStats ===
@@ -34,7 +34,7 @@ GameObject.prototype.destroy = function(){
 */
 function CharacterStats(stats) {
 // this{}
-GameObject.call(this, CharacterStats);
+GameObject.call(this, stats);
 this.hp = stats.hp;
 this.name = stats.name;
 // return this
