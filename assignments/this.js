@@ -29,16 +29,16 @@ function Person(name, age, sex) {
     this.sex=sex;
 }
 // Principle 3
-
+var Peggy = new Person ("Peggy", 30, "female");
 // code example for New Binding
 
 // Principle 4
-var Peggy = new Person ("Peggy", 30, "female");
+
 // code example for Explicit Binding
 
 function SayHello () { 
     console.log("I am: ", this.name)
- }
+}
 
 SayHello.call (Peggy);
 SayHello.call(Jerrard);
