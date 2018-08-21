@@ -145,7 +145,6 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   //    could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  CharacterStats
 
 // Villian constructor
 function Villian(obj){
