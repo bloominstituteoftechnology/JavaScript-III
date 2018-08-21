@@ -67,6 +67,36 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`
 }
+/*<--------- Added Constructor for Hero ------>*/
+function Hero(heros) {
+  this.blood = heros.blood;
+  Humanoid.call(this, heros);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.winner = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+};
+
+
+
+/*<--------- Added Constructor for Villain ------>*/
+
+function Villain(villains) {
+
+
+  this.bookOfDruids = villains.bookOfDruids;
+  Humanoid.call(this, villains);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.fight = function () {
+  return `${this.name} offers a greeting in ${this.language}`
+}
+
+
+
+
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -129,7 +159,46 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Elvish',
   });
-  
+
+
+
+ // Added New Hero
+const ohsmford = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  hp: 85,
+  name: "Will Ohsmford",
+  faction: "Shady Vale",
+  weapons: ["The Sword Of Shannara", "Elfstones"],
+  language: "Common",
+  blood: 'magic',
+});
+
+// Added New Villan
+
+const warlockLord = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 100,
+  name: 'Warlock Lord',
+  faction: 'Skull Kingdom',
+  weapons: [
+    'Mord Wraiths',
+    'Warlock Sword',
+  ],
+  language: 'Demon',
+  bookOfDruids: 'Codex',
+});
+
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
