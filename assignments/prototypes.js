@@ -8,7 +8,7 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
   
-/*
+/** 
   === GameObject ===
   * createdAt
   * dimensions
@@ -23,7 +23,7 @@ function GameObject(gameObj) {
 GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the game`;
 }
-/*
+/**
   === CharacterStats ===
   * hp
   * name
@@ -44,8 +44,7 @@ CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage`; 
 } 
 
-/*
-  === Humanoid ===
+/**  === Humanoid ===
   * faction
   * weapons
   * language
@@ -55,11 +54,12 @@ CharacterStats.prototype.takeDamage = function () {
 */
 function Humanoid(human) {
   
-
+   // this {};
   this.faction = human.faction;
   this.weapons = human.weapons;
   this.language = human.language; 
   CharacterStats.call(this,human);
+  //return this {};
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
@@ -70,12 +70,15 @@ Humanoid.prototype.greet = function () {
 /*<--------- Added Constructor for Hero ------>*/
 function Hero(heros) {
   this.blood = heros.blood;
+  this.race = heros.race;
   Humanoid.call(this, heros);
 }
 
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.winner = function() {
-  return `${this.name} offers a greeting in ${this.language}`;
+   
+  return `${this.name} is the last remaining of the ${this.race} race.
+  And is the only one who can wield, ${this.weapons[0]}`;
 };
 
 
@@ -83,10 +86,10 @@ Hero.prototype.winner = function() {
 /*<--------- Added Constructor for Villain ------>*/
 
 function Villain(villains) {
-
-
+   // this {};
   this.bookOfDruids = villains.bookOfDruids;
   Humanoid.call(this, villains);
+  //returns  this {};
 }
 
 Villain.prototype = Object.create(Humanoid.prototype);
@@ -175,6 +178,7 @@ const ohsmford = new Hero({
   faction: "Shady Vale",
   weapons: ["The Sword Of Shannara", "Elfstones"],
   language: "Common",
+  race: 'Shannara',
   blood: 'magic',
 });
 
