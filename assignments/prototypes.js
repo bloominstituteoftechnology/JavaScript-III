@@ -16,7 +16,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(attrs) {
+  this.createdAt = attrs.createdAt;
+  this.dimensions = attrs.dimensions;
+}
 
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
 /*
   === CharacterStats ===
   * hp
@@ -24,7 +31,16 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(CSattrs) {
+  this.hp = CSattrs.hp;
+  this.name = CSattrs.name;
+  GameObject.call(this, CSattrs);
+}
 
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
+CharacterStats.prototype.destroy = GameObject.prototype.destroy;
 /*
   === Humanoid ===
   * faction
@@ -34,7 +50,17 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+ function Humanoid(Hattrs) {
+   this.faction = Hattrs.faction;
+   this.weapons = Hattrs.weapons;
+   this.language = Hattrs.language;
+   CharacterStats.call(this, Hattrs);
+ }
+ Humanoid.prototype.greet = function() {
+   `${this.name} offers a greeting in ${this.language}`;
+ }
+ Humanoid.prototype.destroy = CharacterStats.prototype.destroy;
+ Humanoid.prototype.takeDamage = CharacterStats.prototype.takeDamage;
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -111,3 +137,78 @@
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which 
   // could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(Vattrs) {
+    this.alignment = Vattrs.alignment;
+    Humanoid.call(this, Vattrs);
+  }
+
+    Villian.prototype.proselytized = function () {
+    this.hp = this.hp - 5;
+    if (this.hp <= 0) {
+    return `${this.name} has been preached to about compassion. ${this.destroy()}`;
+    }
+    else {
+    return `${this.name} has been preached to about compassion. ${this.name} now has a health of ${this.hp}`;
+    }
+  }
+
+ Villian.prototype.destroy = Humanoid.prototype.destroy;
+ Villian.prototype.takeDamage = Humanoid.prototype.takeDamage;
+
+  function Hero(Heroattrs) {
+    this.alignment = Heroattrs.alignment;
+    Humanoid.call(this, Heroattrs);
+  }
+
+  Hero.prototype.blackmailed = function () {
+    this.hp = this.hp - 5;
+    if (this.hp <= 0) {
+    return `${this.name} has been blackmailed. ${this.destroy()}`;
+    }
+    else {
+    return `${this.name} has been blackmailed. ${this.name} now has a health of ${this.hp}`;
+    }
+  }
+ Hero.prototype.destroy = Humanoid.prototype.destroy;
+ Hero.prototype.takeDamage = Humanoid.prototype.takeDamage;
+
+ const darkArcher = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'Ramon',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Poisoned Dagger',
+    ],
+    language: 'Elvish',
+    alignment: 'chaotic evil',
+ });
+
+ const lightKnight = new Hero ({
+       createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'Sira',
+    faction: 'The Round Table',
+    weapons: [
+      'Holy Mace',
+      'Shield of Light',
+    ],
+    language: 'Common Tongue',
+ });
+lightKnight.blackmailed();
+lightKnight.blackmailed();
+
+darkArcher.proselytized();
+darkArcher.proselytized();
