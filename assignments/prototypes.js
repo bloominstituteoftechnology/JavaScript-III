@@ -73,13 +73,15 @@ function Hero(heros) {
   this.race = heros.race;
   Humanoid.call(this, heros);
 }
-
+// Linking the Humanoid Prototype
 Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.shannara = function() {
   return `${this.name} is the last remaining of the ${this.race} race.
   And is the only one who can wield, ${this.weapons[0]}.`;
 };
+
+//Different fight methods for the Hero.
 
 Hero.prototype.loosing = function() {
   this.hp -= 20;
@@ -102,7 +104,10 @@ function Villain(villains) {
   //returns  this {};
 }
 
+// Inherits the Humanoid prototype
 Villain.prototype = Object.create(Humanoid.prototype);
+
+// Different fighting methods for the Villain
 Villain.prototype.fight = function () {
        this.hp -= 10;
   return `${this.name} cuts into the palm of his hand releasing his blood to flow into the sliver river reducing his hitpoints ${this.hp}.
