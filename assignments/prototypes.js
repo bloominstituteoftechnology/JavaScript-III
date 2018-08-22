@@ -153,19 +153,31 @@ Humanoid.prototype.greet = function(name){
     GameObject.call(this, characteristics)
     CharacterStats.call(this, characteristics)
     Humanoid.call(this, characteristics)
+    this.attackStrength = characteristics.attackStrength;
   }
 
   function Hero(characteristics) {
   GameObject.call(this, characteristics)
   CharacterStats.call(this, characteristics)
   Humanoid.call(this, characteristics)
+  this.attackStrength = characteristics.attackStrength;
+
 }
 
-  Villain.prototype.attackHero = function(Hero) {
-    if (Hero.hp > this.attackStrength) {
-      return Hero.hp-this.attackStrength;
-    } else if (Hero.hp <= this.attackStrength) {
-      return `${Hero.name} has been destroyed.`
+
+Villain.prototype.attackHero = function(Hero) {
+  if (Hero.hp > this.attackStrength) {
+    return Hero.hp-=this.attackStrength;
+  } else if (Hero.hp <= this.attackStrength) {
+    return `${Hero.name} has been destroyed.`
+  }
+  }
+
+  Hero.prototype.attackVillain = function(Villain) {
+    if (Villain.hp > this.attackStrength) {
+      return Villain.hp-=this.attackStrength;
+    } else if (Villain.hp <= this.attackStrength) {
+      return `${Villain.name} has been destroyed.`
     }
   }
 
@@ -204,3 +216,37 @@ Humanoid.prototype.greet = function(name){
   })
 
 console.log(Voldemort.attackHero(HarryPotter));
+console.log(HarryPotter.attackVillain(Voldemort));
+
+console.log(Voldemort.attackHero(HarryPotter));
+console.log(HarryPotter.attackVillain(Voldemort));
+
+console.log(Voldemort.attackHero(HarryPotter));
+console.log(HarryPotter.attackVillain(Voldemort));
+
+console.log(Voldemort.attackHero(HarryPotter));
+console.log(HarryPotter.attackVillain(Voldemort));
+
+console.log(Voldemort.attackHero(HarryPotter));
+console.log(HarryPotter.attackVillain(Voldemort));
+
+console.log(Voldemort.attackHero(HarryPotter));
+console.log(HarryPotter.attackVillain(Voldemort));
+
+console.log(Voldemort.attackHero(HarryPotter));
+console.log(HarryPotter.attackVillain(Voldemort));
+
+// 56
+// 34
+// 52
+// 28
+// 48
+// 22
+// 44
+// 16
+// 40
+// 10
+// 36
+// 4
+// 32
+// Voldemort has been destroyed.
