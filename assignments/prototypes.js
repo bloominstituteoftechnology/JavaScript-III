@@ -7,7 +7,8 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
+// SuperClass
 const GameObject = function(gameObj) {
   this.createdAt = gameObj.createdAt
   this.dimensions = gameObj.dimensions
@@ -16,27 +17,26 @@ const GameObject = function(gameObj) {
 GameObject.prototype.destroy = function() { 
   return `${this.name} was removed from the game.`
 }
-
+// SubClass
 const CharacterStats = function(charStat) {
-  GameObject.call(this, charStat)
+  GameObject.call(this, charStat) // Set GameObject properties
   this.hp = charStat.hp
   this.name = charStat.name
 }
 
-CharacterStats.prototype = Object.create(GameObject.prototype)
+CharacterStats.prototype = Object.create(GameObject.prototype)// Inherit GameObject methods
 CharacterStats.prototype.takeDamage = function() { 
-  this.hp--
   return `${this.name} took damage.`
 }
-
+// SubClass
 const Humanoid = function (humanoidObj) {
-  CharacterStats.call(this, humanoidObj)
+  CharacterStats.call(this, humanoidObj) // Set CharacterStats properties
   this.faction = humanoidObj.faction
   this.weapons = humanoidObj.weapons
   this.language = humanoidObj.language
-};
+}
 
-Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype); // Inherit CharacterStats methods
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`
 }
