@@ -7,11 +7,13 @@
 * 4. 
 *
 * write out a code example of each explanation above
-*/
+*//
 
 // Principle 1
 
 // code example for Window Binding
+
+test
 
 // Principle 2
 
