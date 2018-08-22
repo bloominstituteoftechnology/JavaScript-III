@@ -10,7 +10,7 @@
 */
 
 // Principle 1
-
+// code example for window Binding
 function greet(name) {
     console.log('Hello ' + name);
     console.log(this);
@@ -18,7 +18,7 @@ function greet(name) {
 greet('Courtney');
 
 // Principle 2
-
+// code example for Implicit Binding
 const User = {
     greeting: 'Heya',
     speak: function(name) {

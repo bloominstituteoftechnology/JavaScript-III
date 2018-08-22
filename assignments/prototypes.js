@@ -32,6 +32,7 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 function CharacterStats(obj) {
+  GameObject.call(this, obj);
   this.hp = obj.hp;
   this.name = obj.name;
 }
@@ -65,7 +66,7 @@ Humanoid.prototype.greet = function () {
 }
 
 // * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-// Test you work by uncommenting these 3 objects and the list of console logs below:
+// Test your work by uncommenting these 3 objects and the list of console logs below:
 
   const mage = new Humanoid({
     createdAt: new Date(),
