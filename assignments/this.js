@@ -13,17 +13,45 @@ being made.
 */
 
 // Principle 1
+function sayHello(item){
+  console.log(this)
+}
+console.log(sayHello());
 
 // code example for Window Binding
 
 // Principle 2
-
+let pizzaPizza = {
+    firstName: 'Wes',
+    bestFood: 'pizza',
+    worstTopping: 'anchovies',
+    dude: function(){
+        return `My name is ${this.firstName}. I love ${this.bestFood} but, I can't stand when they put ${this.worstTopping} on it.`
+    }
+}
+pizzaPizza.dude();
 // code example for Implicit Binding
 
 // Principle 3
-
+function saladBar(greens, proteins, dressing){
+    this.greens = greens;
+    this.proteins = proteins;
+    this.dressing = dressing;
+    this.feedMe = function(){
+        return `I want a salad with ${greens}, ${proteins}, and smothered in ${dressing}.`
+    }
+}
+ let tacoSalad = new saladBar('lettuce', 'taco meat', 'ranch');
+ tacoSalad.feedMe();
 // code example for New Binding
 
 // Principle 4
-
+const greetings = function ()
+{
+  console.log(`Hello ${this.name}, welcome to my humble abode.`);
+};
+const guestOne={
+   name: 'Jiminy'
+};
+greetings.call(guestOne);
 // code example for Explicit Binding
