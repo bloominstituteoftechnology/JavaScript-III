@@ -7,7 +7,7 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
@@ -15,14 +15,14 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject (obj) {
+function GameObject(obj) {
   this.createdAt = obj.createdAt;
   this.dimensions = obj.dimensions;
   // this.destroy = function() {
   //   return `${obj} was removed from the game.`
   // }
 }
-GameObject.prototype.destroy = function() {
+GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the game`
 }
 
@@ -34,7 +34,7 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats (stats){
+function CharacterStats(stats) {
   GameObject.call(this, stats)
   this.hp = stats.hp;
   this.name = stats.name;
@@ -44,7 +44,7 @@ function CharacterStats (stats){
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function() {
+CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage.`
 }
 
@@ -58,8 +58,8 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid (hdata) {
-  CharacterStats.call(this,hdata)
+function Humanoid(hdata) {
+  CharacterStats.call(this, hdata)
   this.faction = hdata.faction;
   this.weapons = hdata.weapons;
   this.language = hdata.language;
@@ -73,12 +73,12 @@ Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}.`
 }
 
- 
+
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+ * Inheritance chain: GameObject -> CharacterStats -> Humanoid
+ * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+ * Instances of CharacterStats should have all of the same properties as GameObject.
+ */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
@@ -145,33 +145,98 @@ Humanoid.prototype.greet = function () {
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+// Stretch task: 
+// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  function Villian (villianStats) {
-    Humanoid.call(this, villianStats);
-    this.superblaster = function () {
-      
-    }
+function Villian(villianStats) {
+  Humanoid.call(this, villianStats);
+  this.specialPower = villianStats.specialPower;
+  this.powerStregth = villianStats.powerStregth;
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+Villian.prototype.attack = function (Hero) {
+  if (Hero.hp >= this.powerStregth) {
+    Hero.hp -= this.powerStregth
+    return `${this.name} has attacked ${Hero.name}. ${Hero.name} now has ${Hero.hp} power remaining!`
+  } else if (Hero.hp === 0) {
+    return `${this.name} wins! ${Hero.name} is a loser`
   }
+}
 
-  function Hero(heroStats) {
-    Humanoid.call(this, heroStats);
-    this.awesomeAttack = function () {
 
-    }
-  }function Villian (villianStats) {
-    Humanoid.call(this, villianStats);
-    this.superblaster = function () {
-      
-    }
-  }
 
-  function Hero(heroStats) {
-    Humanoid.call(this, heroStats);
-    this.awesomeAttack = function () {
+function Hero(heroStats) {
+  Humanoid.call(this, heroStats);
+  this.heroAttack = heroStats.heroAttack;
+  this.powerStregth = heroStats.powerStregth;
+}
 
-    }
-  }
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.attack = function(Villian) {
+ if(Villian.hp >= this.powerStregth ) {
+   Villian.hp -= Math.round((this.powerStregth + Math.random()));
+   return `${this.name} has attacked ${Villian.name}. ${Villian.name} now has ${Villian.hp} power remaining!` 
+ } else if (Villian.hp === 0) {
+   return `${this.name} wins! ${Villian.name} is a loser! `+ Villian.destroy();
+ }
+}
+
+const theJoker = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 2,
+    height: 8,
+  },
+  hp: 80,
+  name: 'Joker',
+  faction: 'Gotham Villans',
+  weapons: ['Guns', 'Bad Jokes'],
+  language: 'English',
+  powerStregth: 5,
+});
+
+const batman = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 6,
+    width: 3,
+    height: 12,
+  },
+  hp: 100,
+  name: 'Batman',
+  faction: 'Gotham Heros',
+  weapons: ['Bat Gadgets', 'Guns'],
+  language: 'English',
+  powerStregth: 10,
+});
+
+
+// console.log(batman.createdAt);
+// console.log(batman.dimensions);
+// console.log(batman.hp);
+// console.log(batman.name);
+// console.log(batman.faction);
+// console.log(batman.weapons);
+// console.log(batman.language);
+// console.log(batman.greet())
+// console.log(batman.destroy())
+console.log(batman.attack(theJoker));
+console.log(theJoker.attack(batman));
+console.log(batman.attack(theJoker));
+console.log(theJoker.attack(batman));
+console.log(batman.attack(theJoker));
+console.log(theJoker.attack(batman));
+console.log(batman.attack(theJoker));
+console.log(theJoker.attack(batman));
+console.log(batman.attack(theJoker));
+console.log(theJoker.attack(batman));
+console.log(batman.attack(theJoker));
+console.log(theJoker.attack(batman));
+console.log(batman.attack(theJoker));
+console.log(theJoker.attack(batman));
+console.log(batman.attack(theJoker));
+console.log(theJoker.attack(batman));
+console.log(batman.attack(theJoker));
