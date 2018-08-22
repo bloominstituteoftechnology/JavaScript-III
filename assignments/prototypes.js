@@ -149,16 +149,41 @@ Humanoid.prototype.greet = function(name){
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 
-  function Villain(characteristics {
+  function Villain(characteristics) {
     GameObject.call(this, characteristics)
     CharacterStats.call(this, characteristics)
     Humanoid.call(this, characteristics)
-  })
+  }
 
-  Villain.prototype.attackHero = function(hero) {
-    if (hero.hp > 2) {
-      return hero.hp-2;
-    } else if (hero.hp <= 2) {
-      return `${hero.name} has been destroyed.`
+  function Hero(characteristics) {
+  GameObject.call(this, characteristics)
+  CharacterStats.call(this, characteristics)
+  Humanoid.call(this, characteristics)
+}
+
+  Villain.prototype.attackHero = function(Hero) {
+    if (Hero.hp > this.attackStrength) {
+      return Hero.hp-this.attackStrength;
+    } else if (Hero.hp <= this.attackStrength) {
+      return `${Hero.name} has been destroyed.`
     }
   }
+
+  const Voldemort = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 10,
+      width: 5,
+      height: 2,
+    },
+    hp: 40,
+    attackStrength: 4,
+    name: 'Voldemort',
+    faction: 'The Death Eaters',
+    weapons: [
+      'Yew Wand,'
+    ],
+    language: 'British',
+  })
+
+console.log(Voldemort.attackHero());
