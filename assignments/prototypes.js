@@ -7,7 +7,7 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-   
+ 
 /*
   === GameObject ===
   * createdAt
@@ -17,8 +17,10 @@
 
 function GameObject (gameAttributes) {
   this.createdAt = gameAttributes.createdAt;
-  // this.dimensions = {length: , width: , height: };
+  this.dimensions = gameAttributes.dimensions;
 }
+
+// GameObject.prototype.createdAt = new Date();
 
 GameObject.prototype.destroy = function() {
   return `${this.name} was removed from the game.`
@@ -35,6 +37,7 @@ GameObject.prototype.destroy = function() {
 function CharacterStats(charAttributes) {
   this.hp = charAttributes.hp;
   this.name = charAttributes.name;
+  GameObject.call(this, charAttributes);
 }
 
 // Referencing GameObject.prototype to access its properties, including destroy() from GameObject.prototype
@@ -60,10 +63,10 @@ CharacterStats.prototype.takeDamage = function() {
 */
 
 function Humanoid(humanAttributes) {
+  CharacterStats.call(this, humanAttributes);
   this.faction = humanAttributes.faction;
   this.weapons = humanAttributes.weapons;
   this.language = humanAttributes.language;
-  CharacterStats.call(this, humanAttributes);
 }
 
 // Referencing CharacterStats.prototype to have access its properties and GameObject as well. 
@@ -136,7 +139,7 @@ Humanoid.prototype.greet = function() {
   });
 
   console.log(mage.createdAt); // Today's date
-  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
   console.log(swordsman.faction); // The Round Table
