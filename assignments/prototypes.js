@@ -7,7 +7,7 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+   
 /*
   === GameObject ===
   * createdAt
@@ -15,13 +15,13 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject () {
-  this.createdAt = createdAt;
-  this.dimensions = {length: , width: , height: };
+function GameObject (gameAttributes) {
+  this.createdAt = gameAttributes.createdAt;
+  // this.dimensions = {length: , width: , height: };
 }
 
 GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game.'
+  return `${this.name} was removed from the game.`
 }
 
 /*
@@ -32,18 +32,21 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype                                      done
 */
 
-function CharacterStats() {
-  this.hp = hp;
-  this.name = name;
+function CharacterStats(charAttributes) {
+  this.hp = charAttributes.hp;
+  this.name = charAttributes.name;
 }
 
+// Referencing GameObject.prototype to access its properties, including destroy() from GameObject.prototype
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+// takeDamage() // prototype method -> reference this.name from itself
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`
 }
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
-const sampleCharacterStats = new CharacterStats('sampleCharacterStats');
-sampleCharacterStats.destory();     //from GameObject
+
+
 
 
 /*
@@ -56,21 +59,22 @@ sampleCharacterStats.destory();     //from GameObject
   * should inherit takeDamage() from CharacterStats                       done
 */
 
-function Humanoid() {
-  this.faction = faction;
-  this.weapons = weapons;
-  this.language = language;
-
+function Humanoid(humanAttributes) {
+  this.faction = humanAttributes.faction;
+  this.weapons = humanAttributes.weapons;
+  this.language = humanAttributes.language;
+  CharacterStats.call(this, humanAttributes);
 }
 
-Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}`
-}
-
+// Referencing CharacterStats.prototype to have access its properties and GameObject as well. 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-const sampleHumanoid = new Humanoid('sampleHumanoid');
-sampleHumanoid.takeDamage();     //from CharacterStats
-sampleHumanoid.destroy();        //from GameObject
+
+
+//greet() // prototype method -> referencing this.name from CharacterStats and this.language from itself
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`
+}
+
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -80,7 +84,7 @@ sampleHumanoid.destroy();        //from GameObject
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -132,7 +136,7 @@ sampleHumanoid.destroy();        //from GameObject
   });
 
   console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
   console.log(swordsman.faction); // The Round Table
@@ -141,7 +145,7 @@ sampleHumanoid.destroy();        //from GameObject
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
