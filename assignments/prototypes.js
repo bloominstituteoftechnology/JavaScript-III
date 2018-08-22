@@ -32,6 +32,7 @@ GameObject.prototype.destroy = function(){
 */
 
 function CharacterStats(obj){
+  GameObject.call(this, obj);
   this.hp = obj.hp;
   this.name = obj.name
 }
@@ -52,7 +53,6 @@ CharacterStats.prototype.takeDamage = function(){
 */
 
 function Humanoid(obj){
-  GameObject.call(this, obj)
   CharacterStats.call(this, obj);
   this.faction = obj.faction;
   this.weapons = obj.weapons;
