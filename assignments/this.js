@@ -13,10 +13,10 @@
 
 // code example for Window Binding
 const myFunc = function(){
-    console.log(this);
+    return this;
 };
 
-myFunc()
+console.log(myFunc());
 
 // Principle 2
 
@@ -24,11 +24,11 @@ myFunc()
 const jesseObj = {
     'name': 'Jesse',
     'sayHi': function(){
-        console.log(`${this.name} says hello!`)
+        return `${this.name} says hello!`;
     }
-}
+};
 
-jesseObj.sayHi();
+console.log(jesseObj.sayHi());
 
 // Principle 3
 
@@ -41,17 +41,27 @@ function Car(carObj){
     this.sound = function(){
         return `When the ${this.make} ${this.model} is running, you hear: ${this.engineNoise}!`;
     }
-}
+};
 
 const teslaModel3 = new Car({
     make: 'Tesla',
     model: 'Model 3',
     year: 2018,
     engineNoise: `...(silence)...`
-})
+});
 
-console.log(teslaModel3.sound())
+console.log(teslaModel3.sound());
 
 // Principle 4
 
 // code example for Explicit Binding
+const jesse = {
+    'name': 'Jesse',
+    'age': 27,
+};
+
+function introduction(){
+    return `Hello! My name is ${this.name} and I am getting into web development at ${this.age} years old!`;
+};
+
+console.log(introduction.apply(jesse));
