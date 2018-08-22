@@ -14,6 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+ GameObject.prototype.destroy = function() {
+     return `${this.name} was removed from the game.`;
+ }
+
 
 /*
   === CharacterStats ===
@@ -22,6 +30,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(stats) {
+  GameObject.call(this, stats)
+  this.hp = stats.hp;
+  this.name = stats.name;
+}
+  CharacterStats.prototype = Object.create(GameObject.prototype);
+
+  CharacterStats.prototype.takeDamage = function () {
+      return `${this.name} took damage.`;
+  }
 
 /*
   === Humanoid ===
@@ -38,10 +57,97 @@
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+// function GameObject (createdAt, dimensions, destroy) {
+//   this.dateCreated = createdAt;
+//   this.sizeOf = dimensions;
+//   this.killed = function destroy () {
+//     return 'Object was removed from the game.';
+//   }
+// }
 
-// Test you work by uncommenting these 3 objects and the list of console logs below:
+function Humanoid(items) {
+  CharacterStats.call(this, items)
+  this.faction = items.faction;
+  this.weapons = items.weapons;
+  this.language = items.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-/*
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+
+function Villian(evil) {
+  Humanoid.call(this, evil)
+  this.faction = evil.faction;
+  this.weapons = evil.weapons;
+  this.language = evil.language;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.slash = function () {
+  return `${this.name} slashes to the bone.`;
+}
+
+function Hero(good) {
+  Humanoid.call(this, good)
+  this.faction = good.faction;
+  this.weapons = good.weapons;
+  this.language = good.language;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.bodyslam = function () {
+  return `${this.name} off the top ropes!`;
+}
+
+
+
+
+
+
+
+
+
+// Test your work by uncommenting these 3 objects and the list of console logs below:
+
+const demon = new Villian ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+    name: 'Tommie',
+    faction: '5th Circle',
+    weapons: [
+      'Smoking Rock',
+      'Darts'
+    ],
+    language: 'Demon Babble',
+})
+
+const hero = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 9,
+    name: 'Rekt',
+    faction: 'Gunners Quarry',
+    weapons: [
+      'Left Arm',
+      'Right Leg'
+    ],
+    language: 'Smack Talk',
+})
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -91,7 +197,8 @@
     ],
     language: 'Elvish',
   });
-
+  console.log(hero.bodyslam());
+  console.log(demon.faction);
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -102,7 +209,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
