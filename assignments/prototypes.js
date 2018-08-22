@@ -21,9 +21,9 @@ function GameObject(GameObj) {
   this.dimensions = GameObj.dimensions;
   
   GameObj.prototype.destroy = function(obj) {
-    return `${obj} was removed from the game.`;
+    return '${obj} was removed from the game.';
   }
-}
+};
 
 /*
   === CharacterStats ===
@@ -39,8 +39,8 @@ function CharacterStats(CharStat) {
   this.hp = CharStat.hp;
 
   GameObj.prototype.takeDamage = function(obj) {
-    returns `${obj} took damage.`;
-}
+    return '${obj} took damage.';
+};
 
 /*
   === Humanoid ===
@@ -54,8 +54,16 @@ function CharacterStats(CharStat) {
  
 function Humanoid(Hooman) {
   GameObject.call(this, Hooman);
-  this.faction = Hooman.faction
-}
+  CharacterStats.call(this, CharStat);
+  this.faction = Hooman.faction;
+  this.weapons = Hooman.weapons;
+  this.language = Hooman.language;
+
+  Hooman.prototype.greet = function(name) {
+    return '${name} offers a greeting in ${this.language}';
+  }
+
+};
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -118,17 +126,17 @@ function Humanoid(Hooman) {
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  // console.log(swordsman.hp); // 15
-  // console.log(mage.name); // Bruce
-  // console.log(swordsman.faction); // The Round Table
-  // console.log(mage.weapons); // Staff of Shamalama
-  // console.log(archer.language); // Elvish
-  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // console.log(mage.takeDamage()); // Bruce took damage.
-  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(swordsman.hp); // 15
+  console.log(mage.name); // Bruce
+  console.log(swordsman.faction); // The Round Table
+  console.log(mage.weapons); // Staff of Shamalama
+  console.log(archer.language); // Elvish
+  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
-
+}
