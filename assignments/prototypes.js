@@ -55,7 +55,7 @@ Object.prototype.takeDamage = function (){
 */
  
 
-const Humanoid = (obj) => {
+const Humanoid = function (obj){
   this.faction = obj.faction;
   this.weapons = obj.weapons;
   this.language = obj.language;
