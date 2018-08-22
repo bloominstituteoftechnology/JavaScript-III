@@ -204,7 +204,5 @@ CharacterStats.prototype.destroy = GameObject.prototype.destroy;
     language: 'Common Tongue',
  });
 lightKnight.proselytize(darkArcher);
+darkArcher.blackmail(lightKnight);
 lightKnight.proselytize(darkArcher);
-
-darkArcher.blackmail(lightKnight);
-darkArcher.blackmail(lightKnight);
