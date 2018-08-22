@@ -141,3 +141,91 @@ Humanoid.prototype.greet = function (){
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(villianAttributes){
+    Humanoid.call(this, villianAttributes);
+    this.attack = villianAttributes.attack;
+    this.type = villianAttributes.type;
+  }
+
+  function Hero(heroAttributes){
+    Humanoid.call(this, heroAttributes);
+    this.attack = heroAttributes.attack;
+    this.type = heroAttributes.type;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Villian.prototype.destroy = function () {
+    return `${this.name} is defeated, and the town is saved! \n You Win!`;
+  }
+
+  Hero.prototype.destroy = function () {
+    return `You failed to save the town, ${this.name} has died. \n Game Over!`;
+  }
+
+  Humanoid.prototype.fight = function (hero) {
+    if(hero.type === this.type) {
+      return `${this.name} refuses to engage.`
+    }
+    while(hero.hp > 0 && this.hp > 0) {
+      random = Math.random();
+      if(random > .5){
+        hero.hp = hero.hp - this.attack;
+          if (hero.hp > 0){
+            console.log(`${hero.name} takes ${this.attack} damage. Hero hp ${hero.hp}`)
+          } else {
+            return (hero.destroy());
+          }
+      }
+      if(random < .5) {
+        this.hp = this.hp - hero.attack;
+        if (this.hp > 0){
+          console.log(`${this.name} takes ${hero.attack} damage. Villian hp ${this.hp}`)
+        } else {
+          return (this.destroy());
+        }
+      }
+    }
+  }
+
+const darknessFalls = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 10,
+    width: 20,
+    height: 400,
+  },
+  hp: 66,
+  name: 'Lucifer',
+  faction: 'Underworld',
+  weapons: [
+    'Hell Hounds',
+    'Sicle',
+  ],
+  language: 'Demon',
+  attack: 10,
+  type: "villain",
+});
+
+const Harmony = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 100,
+  },
+  hp: 50,
+  name: 'Lance',
+  faction: 'Heavens',
+  weapons: [
+    'Trumpet of Truth',
+    'Staff',
+  ],
+  language: 'Angel',
+  attack: 8,
+  type: "hero",
+});
+
+console.log(darknessFalls.fight(Harmony));

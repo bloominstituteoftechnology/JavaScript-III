@@ -80,3 +80,17 @@ const Snuggles = new Cat("Tabby");
 
 console.log(Teddy);
 console.log(Snuggles);
+
+const Turtle =  {
+    name: "Franklin",
+}
+
+const actions = ["walk", "sleep", "eat", "poop"];
+
+function printActions(walk, sleep, eat, poop){
+    console.log(`Hi, my name is ${this.name}. I like to ${walk}, ${sleep}, ${eat}, and ${poop}`);
+}
+
+printActions.call(Turtle, ...actions);
+printActions.apply(Turtle, actions);
+const turtleMessage = printActions.bind(Turtle) ("walk", "sleep", "eat", "poop");
