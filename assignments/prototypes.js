@@ -67,12 +67,10 @@ function Humanoid(characteristics) {
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
- 
-Humanoid.prototype = Object.create(GameObject.prototype);
 
-Humanoid.prototype.greet() = function(objectLanguage){
-  return `${objectName} offers a greeting in ${objectLanguage}`
-}
+Humanoid.prototype.greet = function(name){
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -149,3 +147,18 @@ Humanoid.prototype.greet() = function(objectLanguage){
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function Villain(characteristics {
+    GameObject.call(this, characteristics)
+    CharacterStats.call(this, characteristics)
+    Humanoid.call(this, characteristics)
+  })
+
+  Villain.prototype.attackHero = function(hero) {
+    if (hero.hp > 2) {
+      return hero.hp-2;
+    } else if (hero.hp <= 2) {
+      return `${hero.name} has been destroyed.`
+    }
+  }
