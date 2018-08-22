@@ -17,6 +17,13 @@
 
 // code example for Implicit Binding
 
+let user = {
+    name: 'Mitchell',
+    speak: function () {
+        return `${this.name} says hello!`
+    }
+}
+
 // Principle 3
 
 // code example for New Binding
