@@ -19,11 +19,13 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+// GameObject constructor function
 function GameObject(obj) {
   this.createdAt = obj.createdAt;
   this.dimensions = obj.dimensions;
 }
 
+// Protoype method for GameObject 
 GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the game.`
 }
@@ -36,14 +38,18 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 
+// CharacterStats constructor function
 function CharacterStats(obj) {
+  // Inherit GameObject attributes
   GameObject.call(this, obj);
   this.hp = obj.hp;
   this.name = obj.name;
 }
 
+// Manually tell CharacterStats about GameObject using Object.create
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
+// Protoype method for CharacterStats 
 CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage.`;
 }
@@ -58,15 +64,19 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit takeDamage() from CharacterStats
 */
 
+// Humanoid constructor function
 function Humanoid(obj) {
+  // Inherit CharacterStats attributes
   CharacterStats.call(this, obj);
   this.faction = obj.faction;
   this.weapons = obj.weapons;
   this.language = obj.language;
 }
 
+// Manually tell Humanoid about CharacterStats using Object.create
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
+// Protoype method for Humanoid
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`;
 }
@@ -148,6 +158,7 @@ Humanoid.prototype.greet = function () {
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 function Hero(obj) {
+  // Inherit Humanoid attributes
   Humanoid.call(this, obj);
   this.isHero = true;
 }
@@ -155,6 +166,7 @@ function Hero(obj) {
 Hero.prototype = Object.create(Humanoid.prototype);
 
 function Villian(obj) {
+  // Inherit Humanoid attributes
   Humanoid.call(this, obj);
   this.isHero = false;
 }
