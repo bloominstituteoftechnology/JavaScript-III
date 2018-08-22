@@ -139,3 +139,86 @@ Object.setPrototypeOf(Humanoid.prototype, CharacterStats.prototype);
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(villianProps){
+    Humanoid.call(this, villianProps);
+  }
+
+  Villian.prototype.castSpell = function(heroObj){
+    heroObj.hp -= 3;
+    if(heroObj.hp <= 0){
+      return 'destroy hero';
+    }else {
+      return 'still alive';
+    }
+  }
+
+  function Hero(heroProps){
+    Humanoid.call(this, heroProps);
+  }
+
+  Hero.prototype.swordStrike = function(villianObj){
+    villianObj.hp -= 3;
+    if (villianObj.hp <= 0) {
+      return 'destroy villian';
+    }else
+      return 'still alive';
+  }
+  //Link Villian and Hero prototypes to the Humanoid prototype
+  Object.setPrototypeOf(Villian.prototype, Humanoid.prototype);
+  Object.setPrototypeOf(Hero.prototype, Humanoid.prototype);
+
+const sorcerer = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Dargul',
+  faction: 'Dark Forest',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Parseltongue',
+});
+
+const knight = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Darius',
+  faction: 'Forest Kingdom',
+  weapons: [
+    'Sword',
+    'Dagger',
+  ],
+  language: 'Common Tongue',
+});
+
+let whomToDestroy = '';
+while(true){
+  if (((Math.floor(Math.random() * 10)) % 2) === 0){
+    whomToDestroy = sorcerer.castSpell(knight);
+  }else
+    whomToDestroy = knight.swordStrike(sorcerer);
+
+  if(whomToDestroy === "destroy hero"){
+    console.log(knight.destroy());
+    break;
+  }else if(whomToDestroy === 'destroy villian'){
+    console.log(sorcerer.destroy());
+    break;
+  }
+}
+
+
+
+
+
