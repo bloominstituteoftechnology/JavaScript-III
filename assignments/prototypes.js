@@ -39,9 +39,43 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+
+function GameObject(gameAttribute) {
+	this.createdAt = gameAttribute.createdAt;
+	this.dimensions = gameAttribute.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+	return `Object was removed from the game.`
+};
+
+function CharacterStats(playerStats){
+	GameObject.call(this, CharacterStats);
+	this.hp = playerStats.hp;
+	this.name = playerStats.name;
+};
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+	return `${this.name} took damage.`
+};
+
+function Humanoid(humanoidopt){
+	this.faction = humanoidopt.faction;
+	this.weapons = humanoidopt.weapons;
+	this.language = humanoidopt.language;
+	CharacterStats.call(this, humanoidopt);
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function () {
+	return `${this.name} offers a greeting in ${this.language}.`
+}
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +136,50 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
+  function SuperHero(SHAttributes){
+    this.power = SHAttributes.power;
+    this.villianHealth = SHAttributes.villianHealth;
+
+    Humanoid.call(this, SHAttributes);
+  }
+
+  SuperHero.prototype = Object.create(Humanoid.prototype);
+
+  SuperHero.prototype.superPunch = function() {
+    this.villianHealth -=20;
+    console.log(this.villian);
+    return `${this.name} deals the super sonic punch.`;
+  }
+
+  SuperHero.prototype.superSwirl = function() {
+    this.villianHealth -=50;
+    return `${this.name} uses the super swirl to strike the villian.`;
+  }
+
+  const flash = new SuperHero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 3,
+    },
+    hp: 30,
+    name: 'The Flash',
+    faction: 'Central City',
+    weapons: ['Super Sonic Punch', 'Super Swirl', 'Phazing', 'Time Travel'],
+    power: 'Super Speed',
+    villianHealth: 100
+  });
+
+console.log(`${flash.name} uses his weapons of ${flash.weapons} to defeat Zoom.`);
+
+
+
+
+
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
