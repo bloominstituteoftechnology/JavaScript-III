@@ -65,6 +65,14 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 };
+
+/* IMPORTANT: Inherit before adding methods to prototypes, or
+ * the chain will be broken for that specific method or methods.
+ * Example: If I add a greet() prototype method to Humanoid before
+ * creating the link to CharacterStats.prototype, it'll look to
+ * CharacterStats.prototype for greet() and not find it because
+ * there is no CharacterStats.prototype.greet.
+*/
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
