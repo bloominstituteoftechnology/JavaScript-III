@@ -41,6 +41,17 @@ ThisIsObject.prototype.doStuff = function (action) {
 
 // code example for New Binding
 
+function Console(maker, model, resolution, year) {
+    this.maker = maker;
+    this.model = model;
+    this.resolution = resolution;
+    this.year = year;
+   }
+   
+   var console1 = new Console('Nintendo', 'Switch', '720/1080', '2017');
+   
+   console.log(console1);
+
 // Principle 4
 
 // code example for Explicit Binding
