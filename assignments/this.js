@@ -13,7 +13,7 @@
 
 // code example for Window Binding
 function dontSpeak() {
-  console.log('I know just what you\'re saying.')
+  console.log('I know just what you\'re saying.');
 };
 
 dontSpeak(); // call-site for dontSpeak is in the global scope; call-stack is: dontSpeak
@@ -21,6 +21,14 @@ dontSpeak(); // call-site for dontSpeak is in the global scope; call-stack is: d
 // Principle 2
 
 // code example for Implicit Binding
+const whatIs = {
+  name: 'Andres',
+  myName: function(name) {
+    console.log(`My name is ${this.name}.`);
+  }
+};
+
+whatIs.myName(); // call-site for myName is in whatIs; call-stack is whatIs -> myName
 
 // Principle 3
 
