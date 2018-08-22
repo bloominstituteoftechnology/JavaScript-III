@@ -155,14 +155,16 @@ Humanoid.prototype.greet = function(name){
     Humanoid.call(this, characteristics)
     this.attackStrength = characteristics.attackStrength;
   }
+  Villain.prototype = Object.create(Humanoid.prototype);
 
   function Hero(characteristics) {
   GameObject.call(this, characteristics)
   CharacterStats.call(this, characteristics)
   Humanoid.call(this, characteristics)
   this.attackStrength = characteristics.attackStrength;
-
 }
+Hero.prototype = Object.create(Humanoid.prototype);
+
 
 
 Villain.prototype.attackHero = function(Hero) {
