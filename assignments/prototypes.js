@@ -10,7 +10,7 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
   
-/*
+  /*
   === GameObject ===
   * createdAt
   * dimensions
@@ -69,7 +69,7 @@ CharacterStats.prototype.destroy = GameObject.prototype.destroy;
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -130,26 +130,21 @@ CharacterStats.prototype.destroy = GameObject.prototype.destroy;
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which 
-  // could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+  
   function Villian(Vattrs) {
     this.alignment = Vattrs.alignment;
     Humanoid.call(this, Vattrs);
   }
 
-    Villian.prototype.proselytized = function () {
-    this.hp = this.hp - 5;
-    if (this.hp <= 0) {
-    return `${this.name} has been preached to about compassion. ${this.destroy()}`;
+    Villian.prototype.blackmail = function (type) {
+    type.hp = type.hp - 5;
+    if (type.hp <= 0) {
+    return `${type.name} has been blackmailed. ${type.destroy()}`;
     }
     else {
-    return `${this.name} has been preached to about compassion. ${this.name} now has a health of ${this.hp}`;
+    return `${type.name} has been blackmailed. ${type.name} now has a health of ${type.hp}`;
     }
   }
 
@@ -161,15 +156,16 @@ CharacterStats.prototype.destroy = GameObject.prototype.destroy;
     Humanoid.call(this, Heroattrs);
   }
 
-  Hero.prototype.blackmailed = function () {
-    this.hp = this.hp - 5;
-    if (this.hp <= 0) {
-    return `${this.name} has been blackmailed. ${this.destroy()}`;
+    Hero.prototype.proselytize = function (type) {
+    type.hp = type.hp - 5;
+    if (type.hp <= 0) {
+    return `${type.name} has been preached to about compassion. ${type.destroy()}`;
     }
     else {
-    return `${this.name} has been blackmailed. ${this.name} now has a health of ${this.hp}`;
+    return `${type.name} has been preached to about compassion. ${type.name} now has a health of ${type.hp}`;
     }
   }
+
  Hero.prototype.destroy = Humanoid.prototype.destroy;
  Hero.prototype.takeDamage = Humanoid.prototype.takeDamage;
 
@@ -207,8 +203,8 @@ CharacterStats.prototype.destroy = GameObject.prototype.destroy;
     ],
     language: 'Common Tongue',
  });
-lightKnight.blackmailed();
-lightKnight.blackmailed();
+lightKnight.proselytize(darkArcher);
+lightKnight.proselytize(darkArcher);
 
-darkArcher.proselytized();
-darkArcher.proselytized();
+darkArcher.blackmail(lightKnight);
+darkArcher.blackmail(lightKnight);
