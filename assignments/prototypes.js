@@ -130,16 +130,16 @@ Humanoid.prototype.greet = function(){
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  //console.log(mage.createdAt); // Today's date
+  //console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  //console.log(swordsman.hp); // 15
+  //console.log(mage.name); // Bruce
+  //console.log(swordsman.faction); // The Round Table
+  //console.log(mage.weapons); // Staff of Shamalama
+  //console.log(archer.language); // Elvish
+  //console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  //console.log(mage.takeDamage()); // Bruce took damage.
+  //console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
@@ -157,7 +157,7 @@ Humanoid.prototype.greet = function(){
         return `${this.name} wins! Current score is ${this.hp} to ${villan.hp}.`
       } else {
       this.hp -= 1;
-        return `${villan.name} wins! Current score is ${this.hp} to ${villan.hp}.`
+        return `${villan.name} win! Current score is ${this.hp} to ${villan.hp}.`
       }
     } else {
       return `${this.name} has no Fs left to give. ${villan.name} can have whatever they were whining about.`;
@@ -223,30 +223,16 @@ Humanoid.prototype.greet = function(){
   })
 
 
+function runFight(hero, villan) {
+  if (hero.hp > 0 && villan.hp > 0) {
+    console.log(hero.fightVillan(villan));
+    console.log(villan.fightHero(hero));
+    runFight(hero, villan);
+  } else {
+    console.log('GAME OVER');
+  }
+}
 
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
-console.log(auntAbi.fightVillan(joLo));
-console.log(joLo.fightHero(auntAbi));
+runFight(auntAbi, joLo);
+
+
