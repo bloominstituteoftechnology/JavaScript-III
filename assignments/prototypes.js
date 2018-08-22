@@ -7,7 +7,7 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /** 
   === GameObject ===
   * createdAt
@@ -17,12 +17,12 @@
 
 function GameObject(gameObj) {
   this.createdAt = gameObj.createdAt;
-  this.dimensions= gameObj.dimensions;
-  }
-
-GameObject.prototype.destroy = function () {
-  return `${this.name} was removed from the game`;
+  this.dimensions = gameObj.dimensions;
 }
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game`;
+};
 /**
   === CharacterStats ===
   * hp
@@ -31,34 +31,16 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 function CharacterStats(stats) {
- 
   this.hp = stats.hp;
   this.name = stats.name;
-  GameObject.call(this,stats);
-  
-  
+  GameObject.call(this, stats);
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function () {
-  return `${this.name} took damage`; 
-} 
-//Testing Hitpoint function
-
-function Hitpoints(hitpoints) {
-  // this {};
-this.hp = hitpoints
-CharacterStats.call(this, hitpoints);
-
- //returns  this {};
-}
-
-Hitpoints.prototype = Object.create(CharacterStats.prototype);
-
-Hitpoints.prototype.kill = function () {
-  this.hp -= 30;
-  return `${this.hp}`;
-}
+CharacterStats.prototype.takeDamage = function(attack) {
+  this.hp -= attack;
+  return `${this.name} took damage ${this.hp}`;
+};
 
 /**  === Humanoid ===
  * faction
@@ -69,23 +51,22 @@ Hitpoints.prototype.kill = function () {
  * should inherit takeDamage() from CharacterStats
  */
 function Humanoid(human) {
-  
   // this {};
   this.faction = human.faction;
   this.weapons = human.weapons;
-  this.language = human.language; 
-  CharacterStats.call(this,human);
-  Hitpoints.call(this, human);
+  this.language = human.language;
+  CharacterStats.call(this, human);
+  // Hitpoints.call(this, human);
 
   //return this {};
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-Humanoid.prototype = Object.create(Hitpoints.prototype);
+// Humanoid.prototype = Object.create(Hitpoints.prototype);
 
-Humanoid.prototype.greet = function () {
-  return `${this.name} offers a greeting in ${this.language}`
-}
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+};
 /*<--------- Added Constructor for Hero ------>*/
 function Hero(heros) {
   this.blood = heros.blood;
@@ -102,22 +83,25 @@ And is the only one who can wield, ${this.weapons[0]}.`;
 
 //Different fight methods for the Hero.
 
-Hero.prototype.loosing = function() {
-  this.hp -= 20;
-  return `${this.name} enraged with anger for the fate of the 4 lands lunges at the ${warlock.name}, 
-with the ${this.weapons[0]}.`
-}
-Hero.prototype.recovering = function () {
-
-  this.hp -= 60
-  return `${this.name} recovers his ${this.weapons[1]} and uses them against the ${warlock.name}.`
-}
-
+Hero.prototype.attacking = function() {
+  return `${
+    this.name
+  } enraged with anger for the fate of the 4 lands lunges at the ${
+    warlock.name
+  }, 
+with the ${this.weapons[0]}.`;
+};
+Hero.prototype.recoverItems = function() {
+  this.hp -= 60;
+  return `${this.name} recovers his ${
+    this.weapons[1]
+  } and uses them against the ${warlock.name}.`;
+};
 
 /*<--------- Added Constructor for Villain ------>*/
 
 function Villain(villains) {
-   // this {};
+  // this {};
   this.bookOfDruids = villains.bookOfDruids;
   Humanoid.call(this, villains);
   //returns  this {};
@@ -127,18 +111,21 @@ function Villain(villains) {
 Villain.prototype = Object.create(Humanoid.prototype);
 
 // Different fighting methods for the Villain
-Villain.prototype.fight = function () {
-       this.hp -= 10;
-  return `${this.name} cuts into the palm of his hand releasing his blood to flow into the sliver river reducing his hitpoints ${this.hp}.
-Reading and chanting from the ${this.bookOfDruids}`
-}
+Villain.prototype.fight = function() {
+  this.hp -= 10;
+  return `${
+    this.name
+  } cuts into the palm of his hand releasing his blood to flow into the sliver river reducing his hitpoints ${
+    this.hp
+  }.
+Reading and chanting from the ${this.bookOfDruids}`;
+};
 
-Villain.prototype.dead = function () {
-  this.hp -=90
-  return `In the mist of his delight the ${this.name} believing to have the upper hand. Smiled and laughed.`
-  
-}
-
+Villain.prototype.upperHand = function() {
+  return `In the mist of his delight the ${
+    this.name
+  } believing to have the upper hand. Smiled and laughed.`;
+};
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -146,65 +133,51 @@ Villain.prototype.dead = function () {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
+const mage = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1
+  },
+  hp: 5,
+  name: "Bruce",
+  faction: "Mage Guild",
+  weapons: ["Staff of Shamalama"],
+  language: "Common Toungue"
+});
 
-  const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    hp: 5,
-    name: 'Bruce',
-    faction: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Toungue',
-  });
+const swordsman = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  hp: 15,
+  name: "Sir Mustachio",
+  faction: "The Round Table",
+  weapons: ["Giant Sword", "Shield"],
+  language: "Common Toungue"
+});
 
+const archer = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  hp: 10,
+  name: "Lilith",
+  faction: "Forest Kingdom",
+  weapons: ["Bow", "Dagger"],
+  language: "Elvish"
+});
 
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    hp: 15,
-    name: 'Sir Mustachio',
-    faction: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Toungue',
-    
-  });
-
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    hp: 10,
-    name: 'Lilith',
-    faction: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
-
-
-
- // Added New Hero
+// Added New Hero
 const ohsmford = new Hero({
   createdAt: new Date(),
   dimensions: {
@@ -217,8 +190,8 @@ const ohsmford = new Hero({
   faction: "Shady Vale",
   weapons: ["The Sword Of Shannara", "Elfstones"],
   language: "Common",
-  race: 'Shannara',
-  blood: 'magic',
+  race: "Shannara",
+  blood: "magic"
 });
 
 // Added New Villan
@@ -228,51 +201,70 @@ const warlock = new Villain({
   dimensions: {
     length: 1,
     width: 2,
-    height: 4,
+    height: 4
   },
   hp: 100,
-  name: 'Warlock Lord',
-  faction: 'Skull Kingdom',
-  weapons: [
-    'Mord Wraiths',
-    'Warlock Sword',
-  ],
-  language: 'Demon',
-  bookOfDruids: 'Codex',
+  name: "Warlock Lord",
+  faction: "Skull Kingdom",
+  weapons: ["Mord Wraiths", "Warlock Sword"],
+  language: "Demon",
+  bookOfDruids: "Codex"
 });
 
+console.log(mage.createdAt); // Today's date
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+console.log(swordsman.hp); // 15
+console.log(mage.name); // Bruce
+console.log(swordsman.faction); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+console.log(archer.language); // Elvish
+console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage());
+console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); 
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+// Stretch task:
+// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+/* < ----- Spoilers of the Shannara Chronicles if you have not seen it or read the books ------>*/
 
-  /* < ----- Spoilers of the Shannara Chronicles if you have not seen it or read the books ------>*/
+console.log(ohsmford.name);
+console.log(ohsmford.shannara());
+console.log(ohsmford.attacking());
+console.log(ohsmford.takeDamage(20));
+console.log(`The ${warlock.name} throws ${
+  ohsmford.name
+} reducing his hitpoints to: ${ohsmford.hp}. 
+While he looses the ${ohsmford.weapons[1]} in the process.`);
 
-console.log(ohsmford.name)
-console.log(ohsmford.shannara())
-console.log(ohsmford.loosing())
+// Back and Forth Fights
 
-console.log(`The ${warlock.name} throws ${ohsmford.name} reducing his hitpoints to: ${ohsmford.hp}. 
-While he looses the ${ohsmford.weapons[1]} in the process.`)
-console.log(warlock.fight())
-
-console.log(ohsmford.recovering())
-console.log(`Pushing the ${warlock.name} back away from the sliver river. But suddenly feels the ${warlock.weapons[1]} slip deep into his stomach. 
+console.log(warlock.takeDamage(10));
+console.log(ohsmford.recoverItems());
+console.log(`Pushing the ${
+  warlock.name
+} back away from the sliver river. But suddenly feels the ${
+  warlock.weapons[1]
+} slip deep into his stomach. 
 Reducing his hitpoints to ${ohsmford.hp} points`);
 
-console.log(warlock.dead())
-console.log(`Merth, the last druid calls to ${ohsmford.name}. Sending him the ${ohsmford.weapons[0]}. He slips the blade deep
-into the heart of the ${warlock.name} reducing his hitpoints to ${warlock.hp}. And so the body evaporates into thin air.`)
-console.log(`${ohsmford.name} now realizing that his blood is the ${ohsmford.blood} to clean the silver river. Giving his last hitpoints ${ohsmford.hp -= 5}`)
+console.log(warlock.upperHand());
+console.log(warlock.takeDamage(90));
+console.log(`Merth, the last druid calls to ${ohsmford.name}. Sending him the ${
+  ohsmford.weapons[0]
+}. He slips the blade deep
+into the heart of the ${warlock.name} reducing his hitpoints to ${
+  warlock.hp
+}. And so the body evaporates into thin air.`);
+
+// End of Story
+
+console.log(
+  `${ohsmford.name} now realizing that his blood is the ${
+    ohsmford.blood
+  } to clean the silver river. Giving his last hitpoints ${ohsmford.takeDamage(
+    5
+  )}`
+);
+/*<-- Story Ends Here -->*/
