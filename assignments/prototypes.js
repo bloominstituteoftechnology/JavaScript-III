@@ -15,9 +15,9 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject (createdAt, dimensions){
-  this.createdAt = createdAt;
-  this.dimensions = dimensions;
+function GameObject (attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
   this.destroy = function(objectDestroy){
     return `Object was removed from the game.`
   };
@@ -33,13 +33,13 @@ function GameObject (createdAt, dimensions){
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats(hp, name){
-  this.hp = hp;
-  this.name = name;
+function CharacterStats(attributes){
+  this.hp = attributes.hp;
+  this.name = attributes.name;
   this.takeDamage = function (takenDamage){
     return `${this.name} took damage.`
   };
-  GameObject.call(this, this.destroy, this.createdAt, this.dimensions);
+  GameObject.call(this, attributes);
 
 }
 
@@ -56,15 +56,15 @@ function CharacterStats(hp, name){
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid(faction, weapons, language){
-  this.faction = faction;
-  this.weapons = weapons;
-  this.language = language;
+function Humanoid(attributes){
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
   this.greet = function (){
     return `${this.name} offers a greeting in ${this.language}`
-  };
-  GameObject.call(this, this.destroy, this.createdAt, this.dimensions);
-  CharacterStats.call(this, this.takeDamage, this.hp, this.name);
+  };i
+  GameObject.call(this, attributes);
+  CharacterStats.call(this, attributes);
 
 }
  
@@ -110,6 +110,7 @@ function Humanoid(faction, weapons, language){
     language: 'Common Toungue',
   });
 
+  
   const archer = new Humanoid({
     createdAt: new Date(),
     dimensions: {
