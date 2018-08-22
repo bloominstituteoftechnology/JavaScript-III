@@ -27,8 +27,28 @@ anObj.iAmImplicit();
 
 // Principle 3
 
-// code example for New Binding
+function Human(iAmNew) {
+    this.name = iAmNew.name;
+    this.age = iAmNew.age;
+    this.city = iAmNew.city;
+};
+
+let clyde = new Human({
+    name: 'Clyde',
+    age: 37,
+    city: 'Boston'
+});
 
 // Principle 4
+const aBro = {
+    name: 'David',
+    age: 22
+}
 
-// code example for Explicit Binding
+const iAmExplicit = ['motorcycles', 'computers', 'cameras'];
+
+function coolStuff(cool1, cool2, cool3){
+    return `${this.name} thinks that these are the coolest stuff ever: ${cool1}, ${cool2}, and ${cool3}`;
+};
+
+coolStuff.apply(aBro, iAmExplicit);
