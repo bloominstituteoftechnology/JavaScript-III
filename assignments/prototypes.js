@@ -1,9 +1,13 @@
 /*
-  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
+  Object oriented design is commonly used in video games.  
+  For this part of the assignment you will be implementing several 
+  constructor functions with their correct inheritance heirarchy.
 
-  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
+  In this file you will be creating three constructor functions: 
+  GameObject, CharacterStats, Humanoid.  
 
-  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
+  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  
+  Use the objects at the bottom of the page to test your constructor functions.
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
@@ -15,6 +19,17 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+// GameObject constructor function
+function GameObject(obj) {
+  this.createdAt = obj.createdAt;
+  this.dimensions = obj.dimensions;
+}
+
+// Protoype method for GameObject 
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +37,22 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+// CharacterStats constructor function
+function CharacterStats(obj) {
+  // Inherit GameObject attributes
+  GameObject.call(this, obj);
+  this.hp = obj.hp;
+  this.name = obj.name;
+}
+
+// Manually tell CharacterStats about GameObject using Object.create
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+// Protoype method for CharacterStats 
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -32,6 +63,23 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+// Humanoid constructor function
+function Humanoid(obj) {
+  // Inherit CharacterStats attributes
+  CharacterStats.call(this, obj);
+  this.faction = obj.faction;
+  this.weapons = obj.weapons;
+  this.language = obj.language;
+}
+
+// Manually tell Humanoid about CharacterStats using Object.create
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+// Protoype method for Humanoid
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +89,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +150,80 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Hero(obj) {
+  // Inherit Humanoid attributes
+  Humanoid.call(this, obj);
+  this.isHero = true;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villian(obj) {
+  // Inherit Humanoid attributes
+  Humanoid.call(this, obj);
+  this.isHero = false;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Humanoid.prototype.damage = function(num) {
+  this.hp = this.hp - num;
+
+  if (this.hp > 0) {
+    return `${this.name} has been hit! HP is now ${this.hp}.`
+  } else {
+    return this.destroy();
+  }
+}
+
+Humanoid.prototype.heart = function(num) {
+  this.hp = this.hp + num;
+  return `${this.name} has found a heart! HP is now ${this.hp}.`
+}
+
+const batman = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 10,
+    width: 10,
+    height: 10,
+  },
+  hp: 100,
+  name: 'Batman',
+  faction: 'Bats',
+  weapons: [
+    'Utility Belt',
+    'Batarang',
+  ],
+  language: 'Echolocation',
+  isHero: true,
+});
+
+const joker = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 6,
+    width: 6,
+    height: 6,
+  },
+  hp: 9,
+  name: 'Joker',
+  faction: 'Injustice League',
+  weapons: [
+    'Cards',
+    'Poison',
+  ],
+  language: 'Chaos',
+  isHero: false,
+});
+
+console.log(batman.damage(10));
+console.log(joker.damage(6));
+console.log(batman.heart(15))
