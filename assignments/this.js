@@ -28,11 +28,22 @@ const whatIs = {
   }
 };
 
-whatIs.myName(); // call-site for myName is in whatIs; call-stack is whatIs -> myName
+whatIs.myName(); // call-site for myName is in whatIs; call-stack is: whatIs -> myName
 
 // Principle 3
 
 // code example for New Binding
+function CreateCharacter(obj) {
+  this.race = obj.a;
+  this.charClass = obj.b;
+};
+
+const PlayerOne = new CreateCharacter({
+  a: 'Orc',
+  b: 'Warrior'
+});
+
+console.log(PlayerOne.charClass);
 
 // Principle 4
 
