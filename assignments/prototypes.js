@@ -43,6 +43,40 @@
 ////////////////////////////////////////
 
 
+// Build constructor for GameObject
+function GameObject(GameProperties){
+	this.createdAt = GameProperties.createdAt;	// set "createdAt" to to the Properties arg
+	this.dimensions = GameProperties.dimensions;	// set "dimensions" to the properties arg
+
+}
+
+// Create destroy prototype for GameObject 
+GameObject.prototype.destroy = function(){return `${this.name} was removed from the game.`;};
+
+
+// Build CharacterStats constructor
+function CharacterStats(CharProperties){
+	GameObject.call(this,CharProperties);	// call GameObject the root
+	this.hp = CharProperties.hp;		// set "hp" to properties arg
+	this.name = CharProperties.name;	// set "name" to properties arg
+}
+
+// Set up the prototype for CharStats
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(){return `${this.name} took damage`;};
+
+function Humanoid(HumanProperties){
+	CharacterStats.call(this, HumanProperties);
+	this.faction = HumanProperties.faction;
+	this.weapons = [HumanProperties.weapons];
+	this.language = HumanProperties.language;
+
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in ${this.language}`};
+
 
 /**************************************/
   const mage = new Humanoid({
