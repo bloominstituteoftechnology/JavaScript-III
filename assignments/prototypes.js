@@ -144,14 +144,17 @@ Humanoid.prototype.constructor = Humanoid;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
   // added attack here for dry code
   Humanoid.prototype.attack = function(personAttacked) {
+    this.personAttacked = personAttacked;
+    //Edge Case: Humanoid already at 0
+    if(personAttacked.hp < 0) {
+      return `${personAttacked.name} does not exist. Attack another Player`;
+    }
+
     //set the res to change the hp to new hp
     let res = personAttacked.hp - this.attackRate;
 
     //call takeDamage
-    // BUG: wont call take damage and output it
-    // FIXME:
-
-    this.takeDamage();
+    console.log(this.personAttacked.takeDamage());
 
     personAttacked.hp = res;
 
@@ -159,7 +162,7 @@ Humanoid.prototype.constructor = Humanoid;
       return personAttacked.destroy();
     }
 
-    return `${personAttacked.name} took ${this.attackRate} damage and has ${personAttacked.hp}hp left`;
+    return `${personAttacked.name} has ${personAttacked.hp}hp left`;
   };
 const hero = new Hero({
   createdAt: new Date(),
@@ -197,7 +200,9 @@ const villian = new Villian({
   attackRate : 3
 });
 
+console.log(hero.attack(villian));
 console.log(villian.attack(hero));
+console.log(hero.attack(villian));
 console.log(villian.attack(hero));
-console.log(villian.attack(hero));
-console.log(villian.attack(hero));
+console.log(hero.attack(villian));
+console.log(hero.attack(villian));
