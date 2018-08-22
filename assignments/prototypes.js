@@ -40,8 +40,11 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+////////////////////////////////////////
 
-/*
+
+
+/**************************************/
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -52,9 +55,7 @@
     hp: 5,
     name: 'Bruce',
     faction: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
+    weapons: ['Staff of Shamalama',],
     language: 'Common Toungue',
   });
 
@@ -68,10 +69,7 @@
     hp: 15,
     name: 'Sir Mustachio',
     faction: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
+    weapons: ['Giant Sword','Shield',],
     language: 'Common Toungue',
   });
 
@@ -85,10 +83,7 @@
     hp: 10,
     name: 'Lilith',
     faction: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
+    weapons: ['Bow','Dagger',],
     language: 'Elvish',
   });
 
@@ -102,7 +97,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
