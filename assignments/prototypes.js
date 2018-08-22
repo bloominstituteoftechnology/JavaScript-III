@@ -14,6 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(obj){
+  this.createdAt = obj.createdAt;
+  this.dimensions = obj.dimensions
+}
+
+GameObject.prototype.destroy = function(){
+  return `Object was removed from the game.`
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +30,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(obj){
+  GameObject.call(this, obj);
+  this.hp = obj.hp;
+  this.name = obj.name
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`
+}
 
 /*
   === Humanoid ===
@@ -32,7 +51,40 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(obj){
+  CharacterStats.call(this, obj);
+  this.faction = obj.faction;
+  this.weapons = obj.weapons;
+  this.language = obj.language
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`
+}
+Humanoid.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`
+}
+
+// Stretch goal method
+Humanoid.prototype.attack = function(enemy){
+  const damage = Math.floor(Math.random() * Math.floor(this.power + 1))
+  if(this.hp === 0){
+    return `${this.name} has lost the battle and can no longer attack.`
+  } else {
+      if(enemy.hp === 0){
+        return `${enemy.name} is no longer alive. Attack someone else!`
+      } else if(enemy.hp - damage < 1){
+        enemy.hp = 0;
+        return enemy.destroy();
+      } else {
+        enemy.hp = enemy.hp - damage;
+        return `${enemy.name} took ${damage} damage from ${this.name}. ${enemy.name} has ${enemy.hp}hp remianing!`
+      }
+    }
+  }
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +93,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +154,127 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  function Villain(obj){
+    Humanoid.call(this, obj);
+    this.power = obj.power;
+    // Moved the attck method to the Humanoid object
+    // this.attack = function(enemy){
+    //   const damage = Math.floor(Math.random() * Math.floor(this.power))
+    //   if(enemy.hp - damage < 1){
+    //     enemy.hp = 0;
+    //     return enemy.destroy();
+    //   } else {
+    //     enemy.hp = enemy.hp - damage;
+    //     return `${enemy.name} took ${damage} damage from ${this.name}. ${enemy.name} has ${enemy.hp}hp remianing!`
+    //   }
+    // }
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  function Hero(obj){
+    Humanoid.call(this, obj);
+    this.power = obj.power;
+    // Moved the attck method to the Humanoid object
+    // this.attack = function(enemy){
+    //   if(enemy.hp - this.power < 1){
+    //     enemy.hp = 0;
+    //     return enemy.destroy();
+    //   } else {
+    //     enemy.hp = enemy.hp - this.power;
+    //     return `${enemy.name} took ${this.power} damage from ${this.name}. ${enemy.name} has ${enemy.hp}hp remianing!`
+    //   }
+    // }
+  }
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  const orc = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 1,
+    },
+    hp: 100,
+    name: 'Azog',
+    faction: 'Orc',
+    weapons: [
+      'Swords', 'Axes',
+    ],
+    language: 'Orkish',
+    power: 10,
+  });
+
+  const wizard = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 5,
+    },
+    hp: 100,
+    name: 'Gandalf',
+    faction: 'Wizard',
+    weapons: [
+      'Staff'
+    ],
+    language: 'common tongue',
+    power: 12,
+  });
+
+
+  console.log(wizard.hp);
+  console.log(orc.hp);
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  // console.log(wizard.attack(orc));
+  // console.log(orc.attack(wizard));
+  // console.log(wizard.attack(orc));
+  console.log(wizard.hp);
+  console.log(orc.hp);
