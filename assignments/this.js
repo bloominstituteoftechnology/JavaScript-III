@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1. implicit: 
+* 2. new:
+* 3. window: the global object, the parent/holder of Javascript
+* 4. explicit:
 *
 * write out a code example of each explanation above
 */
