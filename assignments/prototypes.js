@@ -154,3 +154,47 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function Villain(villainAttributes) {
+    this.hp = villainAttributes.hp;  //might not be required
+    Humanoid.call(this, villainAttributes);   
+    //call to inherit from Humanoid constructor function
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.attack = function(obj, hp) {
+    // check your health points
+    console.log(obj.name);   //testing
+    console.log(obj.hp);     //testing
+    let count = obj.hp;
+    // decrement one health points
+    const decrement = (count) => {
+      console.log(count - 1);
+      console.log(`${this.name} took damage.`)
+    }
+    // return new lowered health points
+    console.log(decrement());
+    // if hp === 0,
+    if (obj.hp === 0) {
+      destroy(obj.name);
+    } else {
+      console.log (`${obj} has ${obj.hp} health points left.`)
+    }
+    // invoke destroy()
+    // console.log(`${obj.name} was removed from the game.`);
+  }
+
+
+  function Hero(heroAttributes) {
+    this.hp = heroAttributes.hp;    //might not be required
+    Humanoid.call(this, heroAttributes);
+    //call to inherit from Humanoid constructor function
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.attack(archer, 10);
+  // Villain.prototype.attack(archer);
+  // Villain.prototype.attack(archer);
