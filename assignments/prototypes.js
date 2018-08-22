@@ -169,17 +169,17 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 Villain.prototype.attackHero = function(Hero) {
   if (Hero.hp > this.attackStrength) {
-    return Hero.hp-=this.attackStrength;
+    return `${Hero.name} suffered ${this.attackStrength} damage from ${this.name}. ${Hero.name} has ${Hero.hp-=this.attackStrength}hp remaining.`;
   } else if (Hero.hp <= this.attackStrength) {
-    return `${Hero.name} has been destroyed.`
+    return `${Hero.name} has been defeated.`
   }
   }
 
   Hero.prototype.attackVillain = function(Villain) {
     if (Villain.hp > this.attackStrength) {
-      return Villain.hp-=this.attackStrength;
+      return `${Villain.name} suffered ${this.attackStrength} damage from the brave hero ${this.name}! ${Villain.name} has ${Villain.hp-=this.attackStrength}hp until defeat.`;
     } else if (Villain.hp <= this.attackStrength) {
-      return `${Villain.name} has been destroyed.`
+      return `${Villain.name} has been utterly destroyed.`
     }
   }
 
