@@ -190,42 +190,42 @@ Humanoid.prototype.greet = function (){
     }
   }
 
-const darknessFalls = new Villian({
+const Meowth = new Villian({
   createdAt: new Date(),
   dimensions: {
     length: 10,
     width: 20,
-    height: 400,
+    height: 40,
   },
   hp: 66,
-  name: 'Lucifer',
-  faction: 'Underworld',
+  name: 'Meowth',
+  faction: 'Team Rocket',
   weapons: [
-    'Hell Hounds',
-    'Sicle',
+    'Scratch',
+    'Bite',
   ],
-  language: 'Demon',
-  attack: 10,
-  type: "villain",
+  language: 'English',
+  attack: 8,
+  type: "Villain",
 });
 
-const Harmony = new Hero({
+const Pikachu = new Hero({
   createdAt: new Date(),
   dimensions: {
     length: 1,
     width: 2,
-    height: 100,
+    height: 10,
   },
   hp: 50,
-  name: 'Lance',
-  faction: 'Heavens',
+  name: 'Pickachu',
+  faction: 'Pallet Town',
   weapons: [
-    'Trumpet of Truth',
-    'Staff',
+    'Thunder',
+    'Head Butt',
   ],
-  language: 'Angel',
-  attack: 8,
+  language: 'Pika-Pika',
+  attack: 10,
   type: "hero",
 });
 
-console.log(darknessFalls.fight(Harmony));
+console.log(Meowth.fight(Pikachu));
