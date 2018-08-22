@@ -1,21 +1,29 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. implicit: 
-* 2. new:
-* 3. window: the global object, the parent/holder of Javascript
-* 4. explicit:
+* 1. window: the global object, the parent/holder of Javascript 
+* 2. implicit: within an object
+* 3. new: creates a new object based off a constructor 
+* 4. explicit: refers to an object or something outside the block but not the window
 *
 * write out a code example of each explanation above
 */
 
 // Principle 1
 
-// code example for Window Binding
+function iAmWindow() {
+    return this;
+};
 
 // Principle 2
 
-// code example for Implicit Binding
+let anObj = {
+    obj: 'human',
+    iAmImplicit: function() {
+        return `${this.obj} screams in frustration!`;
+    }
+};
+anObj.iAmImplicit();
 
 // Principle 3
 
