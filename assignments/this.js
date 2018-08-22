@@ -41,3 +41,7 @@ Scooby.greet();
 
 // Principle 4
 // code example for Explicit Binding
+function Bus(attrs) {
+    Person.call(this, attrs);
+    this.busName = attrs.busName;
+}
