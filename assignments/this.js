@@ -10,10 +10,6 @@
 */
 
 
-
-
-
-
 // Principle 1 - Window/Global Object binding: this refers to Global Object(window) in a function declaration
 // code example for Window Binding
 function basicFunction() {
@@ -51,7 +47,7 @@ counterObj1.increment(); // 1000
 
 
 
-// Principle 4  - Explicit Binding:
+// Principle 4  - Explicit Binding: this is attached to a different object that is  assigned to specific function
 // code example for Explicit Binding
 var MyObj2 = function() {
   this.name = 'myObj2_name';
