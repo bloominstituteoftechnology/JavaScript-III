@@ -28,10 +28,10 @@ function Game(GameObj){
     * should inherit destroy() from GameObject's prototype
   */
   function Character(Stats){
-    Game.call(this)
+    Game.call(this, Stats)
     this.hp = Stats.hp;
     this.name = Stats.name;
-    this.takeDamage = function (){return Stats.name + "took damage"}
+    this.takeDamage = function (){return Stats.name + " took damage "}
   }
   /*
     === Humanoid ===
@@ -43,11 +43,11 @@ function Game(GameObj){
     * should inherit takeDamage() from CharacterStats
   */
   function Humanoid(HumanoidObj){
-  Character.call(this)
+  Character.call(this, HumanoidObj)
   this.faction = HumanoidObj.faction;
   this.weapons = HumanoidObj.weapons;
   this.language = HumanoidObj.language;
-  this.greet = function () {return HumanoidObj.greet + this.name + this.language}
+  this.greet = function () {return this.name + " offers a greeting in " + this.language + "."}
   
   
   }
