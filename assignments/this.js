@@ -14,7 +14,7 @@
 // code example for Window Binding
 function dontSpeak() {
   console.log('I know just what you\'re saying.');
-};
+}
 
 dontSpeak(); // call-site for dontSpeak is in the global scope; call-stack is: dontSpeak
 
@@ -36,7 +36,7 @@ whatIs.myName(); // call-site for myName is in whatIs; call-stack is: whatIs -> 
 function CreateCharacter(obj) {
   this.race = obj.a;
   this.charClass = obj.b;
-};
+}
 
 const PlayerOne = new CreateCharacter({
   a: 'Orc',
@@ -48,3 +48,12 @@ console.log(PlayerOne.charClass);
 // Principle 4
 
 // code example for Explicit Binding
+const playerTwo = {
+  true_identity: 'the Real Player One'
+};
+
+function helloThere() {
+  console.log(`I'm ${this.true_identity}.`);
+}
+
+console.log(helloThere.call(playerTwo));
