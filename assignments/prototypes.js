@@ -15,6 +15,8 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject
+
 /*
   === CharacterStats ===
   * hp
