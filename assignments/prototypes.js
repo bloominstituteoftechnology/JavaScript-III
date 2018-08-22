@@ -144,5 +144,109 @@ Humanoid.prototype.greet = function(){
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  function Hero(attrHero) {
+    Humanoid.call(this, attrHero);
+    this.heroFactor = attrHero.heroFactor ;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.fightVillan = function (villan) {
+    if (this.hp > 0) {
+      if ((this.hp * this.heroFactor) * Math.random() >= (villan.hp * villan.evilFactor) * Math.random()) {
+        villan.hp -= 1;
+        return `${this.name} wins! Current score is ${this.hp} to ${villan.hp}.`
+      } else {
+      this.hp -= 1;
+        return `${villan.name} wins! Current score is ${this.hp} to ${villan.hp}.`
+      }
+    } else {
+      return `${this.name} has no Fs left to give. ${villan.name} can have whatever they were whining about.`;
+  }
+  }
+
+  const auntAbi = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 20,
+    name: 'Aunt Abi',
+    faction: 'Cool Aunts Across America',
+    weapons: [
+      'Kindle Password',
+      'Phone Number for Mom',
+      'Time Out'
+    ],
+    language: 'English',
+    heroFactor: 2
+  })
+
+  function Villan(attrV) {
+    Humanoid.call(this, attrV);
+    this.evilFactor = attrV.evilFactor ;
+  }
+
+  Villan.prototype = Object.create(Humanoid.prototype);
+  Villan.prototype.fightHero = function (hero) {
+    if (this.hp > 0) {
+      if ((this.hp * this.evilFactor) * Math.random() >= (hero.hp * hero.heroFactor) * Math.random()) {
+        hero.hp -= 1;
+        return `${this.name} win! Current score is ${hero.hp} to ${this.hp}.`
+      } else {
+      this.hp -= 1;
+        return `${hero.name} wins! Current score is ${hero.hp} to ${this.hp}.`
+      }
+    } else {
+      return `${this.name} are too busy plotting to fight. ${hero.name} is going to try to get a nap in.`;
+    }
+  }
+
+  const joLo = new Villan({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 20,
+    name: 'Josiah & Lorelai',
+    faction: 'Rachel\'s Minions',
+    weapons: [
+      'Sugar',
+      'Too Much Energy',
+      'Bag of Cats'
+    ],
+    language: 'Common Toungue',
+    evilFactor: 1
+  })
+
+
+
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
+console.log(auntAbi.fightVillan(joLo));
+console.log(joLo.fightHero(auntAbi));
