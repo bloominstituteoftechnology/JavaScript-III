@@ -141,7 +141,6 @@ Humanoid.prototype.greet = function() {
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
   function Hero(Obj) {
     Humanoid.call(this, Obj);
-
   }
   Hero.prototype = Object.create(Humanoid.prototype);
 
@@ -151,7 +150,6 @@ Hero.prototype.attack = function() {
 
 function Villan(Obj) {
   Humanoid.call(this, Obj);
-
 }
 Villan.prototype = Object.create(Humanoid.prototype);
 
@@ -159,7 +157,37 @@ Villan.prototype.attacks = function() {
 return (`Villan attacks the Hero with ${this.weapons[0]} does 1 point damage. Hero has ${this.hp - 1} points left.`);
 }
 
-function damage(obj)
+const Gollum = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Joe',
+    faction: 'Mage Guild',
+    weapons: [
+      'Staff of Joe',
+    ],
+    language: 'Common Toungue',
+  });
 
-console.log(swordsman.attack());
-console.log(mage,attacks());
+const Shazam = new Villan({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Golly',
+    faction: 'Mage Guild',
+    weapons: [
+      'Sword of Shazam',
+    ],
+    language: 'Common Toungue',
+  });
+
+console.log(Gollum.attack());
+console.log(Shazam.attacks());
