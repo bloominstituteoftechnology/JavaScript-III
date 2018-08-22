@@ -139,6 +139,52 @@ Humanoid.prototype.greet = function () {
 */
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  
+
+//Villain constructor and prototype
+
+function Villain(vil) {
+  Humanoid.call(this, vil);
+  this.minions = vil.minions;
+  this.lair = vil.lair;
+  this.strength = vil.strength;
+}
+  
+Villain.prototype = Object.create(Humanoid.prototype);
+  
+Villain.prototype.inflictDamage = function (target) {
+  target.hp = target.hp - this.strength;
+  if (target.hp > 1) {
+    return `${this.name} inflicted ${this.strength} points of damage and ${target.name} has ${target.hp} hit points left!`;
+  }
+  else if (target.hp === 1) {
+    return `${this.name} inflicted ${this.strength} points of damage and ${target.name} has ${target.hp} hit point left!`;
+  }
+  return `${this.name} annihilated ${target.name}!!!`
+}
+
+//Villain object
+
+const balmy = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 2,
+    height: 6,
+  },
+  hp: 10,
+  name: 'Balmoloch',
+  faction: 'League of Darkness',
+  weapons: [
+    'Mace'
+  ],
+  language: 'Orcish',
+  minions: ['Orcs', 
+    'Goblins', 
+    'Bats'],
+  lair: 'The Castle of Shadows',
+  strength: 3,
+});
