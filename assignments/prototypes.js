@@ -40,8 +40,43 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+function GameObject(props) {
+    this.createdAt = props.createdAt;
+    this.dimensions = props.dimensions;
+}
 
-/*
+GameObject.prototype.destroy = function() {
+    return 'Object was remove from the game'
+};
+
+function CharacterStats(props) {
+    GameObject.call(this, props);
+    this.hp = props.hp;
+    this.name = props.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+    return `${this.name} took damage`
+};
+
+
+function Humanoid(props) {
+    CharacterStats.call(this, props);
+    this.faction = props.faction;
+    this.weapons = props.weapons;
+    this.language = props.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+    return `${this.name} offers a greeting in ${this.language}.`
+};
+
+
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -58,6 +93,17 @@
     language: 'Common Toungue',
   });
 
+console.log(mage.createdAt); // Today's date
+// console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+// console.log(swordsman.hp); // 15
+console.log(mage.name); // Bruce
+// console.log(swordsman.faction); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+// console.log(archer.language); // Elvish
+// console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage()); // Bruce took damage.
+console.log(mage.destroy()); // Sir Mustachio was removed from the game.
+/*
   const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
