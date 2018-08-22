@@ -20,7 +20,7 @@ function GameObject(gameObj) {
   this.dimensions = gameObj.dimensions;
 }
 
-GameObject.prototype.destroy = function() {
+GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the game`;
 };
 /**
@@ -37,9 +37,12 @@ function CharacterStats(stats) {
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function(attack) {
+CharacterStats.prototype.takeDamage = function (attack) {
   this.hp -= attack;
-  return `${this.name} took damage ${this.hp}`;
+  if (this.hp <= 0){
+  console.log(`${this.name} dead Jim! No returning. And now has ${this.hp} remaining.`);
+  } 
+  return `${this.name} took damage and now has ${this.hp} remaining.`;
 };
 
 /**  === Humanoid ===
@@ -64,7 +67,7 @@ function Humanoid(human) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 // Humanoid.prototype = Object.create(Hitpoints.prototype);
 
-Humanoid.prototype.greet = function() {
+Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`;
 };
 /*<--------- Added Constructor for Hero ------>*/
@@ -76,14 +79,14 @@ function Hero(heros) {
 // Linking the Humanoid Prototype
 Hero.prototype = Object.create(Humanoid.prototype);
 
-Hero.prototype.shannara = function() {
+Hero.prototype.shannara = function () {
   return `${this.name} is the last remaining of the ${this.race} race.
 And is the only one who can wield, ${this.weapons[0]}.`;
 };
 
 //Different fight methods for the Hero.
 
-Hero.prototype.attacking = function() {
+Hero.prototype.attacking = function () {
   return `${
     this.name
   } enraged with anger for the fate of the 4 lands lunges at the ${
@@ -91,8 +94,7 @@ Hero.prototype.attacking = function() {
   }, 
 with the ${this.weapons[0]}.`;
 };
-Hero.prototype.recoverItems = function() {
-  this.hp -= 60;
+Hero.prototype.recoverItems = function () {
   return `${this.name} recovers his ${
     this.weapons[1]
   } and uses them against the ${warlock.name}.`;
@@ -111,8 +113,7 @@ function Villain(villains) {
 Villain.prototype = Object.create(Humanoid.prototype);
 
 // Different fighting methods for the Villain
-Villain.prototype.fight = function() {
-  this.hp -= 10;
+Villain.prototype.fight = function () {
   return `${
     this.name
   } cuts into the palm of his hand releasing his blood to flow into the sliver river reducing his hitpoints ${
@@ -121,17 +122,17 @@ Villain.prototype.fight = function() {
 Reading and chanting from the ${this.bookOfDruids}`;
 };
 
-Villain.prototype.upperHand = function() {
+Villain.prototype.upperHand = function () {
   return `In the mist of his delight the ${
     this.name
   } believing to have the upper hand. Smiled and laughed.`;
 };
 
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+ * Inheritance chain: GameObject -> CharacterStats -> Humanoid
+ * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+ * Instances of CharacterStats should have all of the same properties as GameObject.
+ */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
@@ -219,7 +220,7 @@ console.log(swordsman.faction); // The Round Table
 console.log(mage.weapons); // Staff of Shamalama
 console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage());
+mage.takeDamage(5);
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task:
@@ -235,36 +236,31 @@ console.log(ohsmford.attacking());
 console.log(ohsmford.takeDamage(20));
 console.log(`The ${warlock.name} throws ${
   ohsmford.name
-} reducing his hitpoints to: ${ohsmford.hp}. 
-While he looses the ${ohsmford.weapons[1]} in the process.`);
+} against the wall.  ${
+  ohsmford.name
+} looses the ${ohsmford.weapons[1]} in the process.`);
 
 // Back and Forth Fights
 
-console.log(warlock.takeDamage(10));
 console.log(ohsmford.recoverItems());
 console.log(`Pushing the ${
   warlock.name
 } back away from the sliver river. But suddenly feels the ${
   warlock.weapons[1]
-} slip deep into his stomach. 
-Reducing his hitpoints to ${ohsmford.hp} points`);
+} slip deep into his stomach.`);
 
 console.log(warlock.upperHand());
-console.log(warlock.takeDamage(90));
-console.log(`Merth, the last druid calls to ${ohsmford.name}. Sending him the ${
-  ohsmford.weapons[0]
-}. He slips the blade deep
-into the heart of the ${warlock.name} reducing his hitpoints to ${
-  warlock.hp
-}. And so the body evaporates into thin air.`);
+warlock.takeDamage(90);
+console.log(`Merth, the last druid calls to ${ohsmford.name}. Sending him the ${ohsmford.weapons[0]}. He slips the blade deep
+into the heart of the ${warlock.name}. And so the body evaporates into thin air.`);
+
 
 // End of Story
 
 console.log(
   `${ohsmford.name} now realizing that his blood is the ${
     ohsmford.blood
-  } to clean the silver river. Giving his last hitpoints ${ohsmford.takeDamage(
-    5
-  )}`
+  } to clean the silver river.`
 );
+ohsmford.takeDamage(65);
 /*<-- Story Ends Here -->*/
