@@ -67,6 +67,33 @@ Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`;
 };
 
+let attack = function (player1, player2) {
+  let p1hp = player1.hp;
+  let p2hp = player2.hp;
+  let p1damage = player1.damage;
+  let p2damage = player2.damage;
+
+  while (p2hp > 0) {
+    p2hp = p2hp - p1damage;
+    console.log(`${player1.name} has attacked ${player2.name} for ${player1.damage} damage.  ${player2.name} has ${p2hp}hp remaining`);
+  };
+  
+};
+
+function Hero (obj) {
+  Humanoid.call(this, obj)
+  this.damage = obj.damage;
+  };
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villain (obj) {
+  Humanoid.call(this, obj)
+  this.damage = obj.damage;
+  };
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -127,17 +154,50 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
+  const Batman = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 50,
+    name: 'Batman',
+    faction: 'The League of Shadows',
+    weapons:'Batarang',
+    language: 'Common Toungue',
+    damage: 8,
+  });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  const Joker = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 50,
+    name: 'The Joker',
+    faction: 'None',
+    weapons:'Grenade',
+    language: 'Common Toungue',
+    damage: 10,
+  });
+
+
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(Batman);
+
+attack(Batman, Joker);
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
