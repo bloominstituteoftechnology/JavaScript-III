@@ -143,7 +143,6 @@ Humanoid.prototype.greet = function () {
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
   
-
 //Villain constructor and prototype
 
 function Villain(vil) {
@@ -188,3 +187,55 @@ const balmy = new Villain({
   lair: 'The Castle of Shadows',
   strength: 3,
 });
+
+//Hero constructor and prototype
+
+function Hero(heroobj) {
+  Humanoid.call(this, heroobj);
+  this.sidekick = heroobj.sidekick;
+  this.fortress = heroobj.fortress;
+  this.might = heroobj.might;
+}
+  
+Hero.prototype = Object.create(Humanoid.prototype);
+  
+Hero.prototype.inflictDamage = function (target) {
+  target.hp = target.hp - this.might;
+  if (target.hp > 1) {
+    return `${this.name} inflicted ${this.might} points of damage and ${target.name} has ${target.hp} hit points left!`;
+  }
+  else if (target.hp === 1) {
+    return `${this.name} inflicted ${this.might} points of damage and ${target.name} has ${target.hp} hit point left!`;
+  }
+  return `${this.name} defeated ${target.name}!!!`
+}
+
+//Hero object
+
+const orvy = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 4,
+    height: 3,
+  },
+  hp: 8,
+  name: 'Orville',
+  faction: 'Red Guard',
+  weapons: [
+    'Sword',
+    'Crossbow'
+  ],
+  language: 'Dwarf',
+  sidekick: 'Fox',
+  fortress: 'The Den of Warriors',
+  might: 2,
+});
+
+//The epic showdown!! 
+
+console.log(balmy.inflictDamage(orvy)); //returns Balmoloch inflicted 3 points of damage and Orville has 5 hit points left!
+console.log(orvy.inflictDamage(balmy)); // Orville inflicted 2 points of damage and Balmoloch has 8 hit points left!
+console.log(balmy.inflictDamage(orvy)); // Balmoloch inflicted 3 points of damage and Orville has 2 hit points left!
+console.log(orvy.inflictDamage(balmy)); // Orville inflicted 2 points of damage and Balmoloch has 6 hit points left!
+console.log(balmy.inflictDamage(orvy)); //Balmoloch annihilated Orville!!!
