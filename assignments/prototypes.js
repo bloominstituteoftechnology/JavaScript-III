@@ -160,8 +160,8 @@ Humanoid.prototype.greet = function(){
         return `${villan.name} win! Current score is ${this.hp} to ${villan.hp}.`
       }
     } else {
-      return `${this.name} has no Fs left to give. ${villan.name} can have whatever they were whining about.`;
-  }
+      return '';
+    }
   }
 
   const auntAbi = new Hero({
@@ -199,7 +199,7 @@ Humanoid.prototype.greet = function(){
         return `${hero.name} wins! Current score is ${hero.hp} to ${this.hp}.`
       }
     } else {
-      return `${this.name} are too busy plotting to fight. ${hero.name} is going to try to get a nap in.`;
+      return '';
     }
   }
 
@@ -210,7 +210,7 @@ Humanoid.prototype.greet = function(){
       width: 2,
       height: 2,
     },
-    hp: 20,
+    hp: 100,
     name: 'Josiah & Lorelai',
     faction: 'Rachel\'s Minions',
     weapons: [
@@ -228,7 +228,11 @@ function runFight(hero, villan) {
     console.log(hero.fightVillan(villan));
     console.log(villan.fightHero(hero));
     runFight(hero, villan);
+  } else if (hero.hp <= 0) {
+    console.log(`${hero.name} has no Fs left to give. ${villan.name} can have whatever they were whining about.`)
+    console.log('GAME OVER');
   } else {
+    console.log(`${villan.name} are too busy plotting to fight. ${hero.name} is going to try to get a nap in.`)
     console.log('GAME OVER');
   }
 }
