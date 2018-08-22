@@ -56,4 +56,4 @@ function helloThere() {
   console.log(`I'm ${this.true_identity}.`);
 }
 
-console.log(helloThere.call(playerTwo));
+helloThere.call(playerTwo);
