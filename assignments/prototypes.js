@@ -39,9 +39,62 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+const GameObject = function (gameObjectData) {
+    this.createdAt = gameObjectData.createdAt;
+    this.dimensions = gameObjectData.dimensions;
+};
+
+GameObject.prototype.destroy = function () {return `${this.name} was removed from the game.`};
+
+
+const CharacterStats = function (characterStatData) {
+    GameObject.call(this, characterStatData);
+    this.hp = characterStatData.hp;
+    this.name = characterStatData.name;
+};
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {this.hp--; return `${this.name} took damage.`};
+
+
+const Humanoid = function (humanoidData) {
+    CharacterStats.call(this, humanoidData);
+    this.faction = humanoidData.faction;
+    this.weapons = humanoidData.weapons;
+    this.language = humanoidData.language;
+};
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {return `${this.name} offers a greeting in ${this.language}`};
+
+// villain
+const Villain = function (villainData) {
+    Humanoid.call(this, villainData)
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.punch = function (hero) {
+    let damage = Math.floor(Math.random() * 10);
+    hero.hp -= damage;
+    return `${this.name} dealt ${damage} damage to ${hero.name}!`;
+};
+
+// hero
+const Hero = function (heroData) {
+    Humanoid.call(this, heroData);
+};
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.sonicScrewdriver = function (villain) {
+    let damage = Math.floor(Math.random() * 10);
+    villain.hp -= damage;
+    return `${this.name} dealt ${damage} damage to ${villain.name}!`;
+};
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +145,53 @@
     language: 'Elvish',
   });
 
+const theDoctor = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 2,
+    },
+    hp: 300,
+    name: 'The Doctor',
+    faction: 'Gallifrey',
+    weapons: [
+        'Brain',
+    ],
+    language: 'All',
+});
+
+const theMaster = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 1,
+    },
+    hp: 250,
+    name: 'The Master',
+    faction: 'Gallifrey',
+    weapons: [
+        'Psychosis',
+    ],
+    language: 'All',
+});
+
+let fight = function (hero, villain) {
+    let winner = hero.name;
+    while (villain.hp > 0 || hero.hp > 0) {
+        console.log('\n' + hero.sonicScrewdriver(villain));
+        console.log('\n' + villain.punch(hero));
+    }
+    if (villain.hp > 0) {
+        winner = villain.name; console.log('\n' + hero.destroy());
+    }
+    else {
+        console.log('\n' + villain.destroy())
+    };
+    return `\n ${winner} is victorious!`;
+}
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -102,7 +202,8 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
+  console.log(fight(theDoctor, theMaster)); // Good and Evil battle it out...
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
