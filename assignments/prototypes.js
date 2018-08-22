@@ -36,7 +36,9 @@ function CharacterStats(obj) {
   this.name = obj.name;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function() {
+CharacterStats.prototype.takeDamage = function(hp) {
+  this.hp -= hp;
+  if (this.hp <= 0) return this.destroy();
   return `${this.name} took damage.`;
 }
 
@@ -134,3 +136,58 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Hero(obj) {
+  Humanoid.call(this, obj);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.strike = function(villain) {
+  return villain.takeDamage(5);
+}
+
+function Villain(obj) {
+  Humanoid.call(this, obj);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.fireball = function(hero) {
+  return hero.takeDamage(4);
+}
+
+const hero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 5,
+  },
+  hp: 15,
+  name: 'Eric',
+  faction: 'Light',
+  weapons: [
+    'Sword',
+  ],
+  language: 'English',
+});
+
+const villain = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 3,
+    height: 4,
+  },
+  hp: 15,
+  name: 'Erica',
+  faction: 'Dark',
+  weapons: [
+    'Magic',
+  ],
+  language: 'Enochian',
+});
+
+console.log(villain.fireball(hero));
+console.log(hero.strike(villain));
+console.log(villain.fireball(hero));
+console.log(hero.strike(villain));
+console.log(villain.fireball(hero));
+console.log(hero.strike(villain));
