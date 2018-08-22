@@ -141,4 +141,87 @@ Humanoid.prototype.destroy = function(){
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  function Villain(obj){
+    Humanoid.call(this, obj);
+    this.power = obj.power;
+    this.attack = function(enemy){
+      if(enemy.hp - this.power < 1){
+        enemy.hp = 0;
+        return enemy.destroy();
+      } else {
+        enemy.hp = enemy.hp - this.power;
+        return `${enemy.name} took ${this.power} damage from ${this.name}. ${enemy.name} has ${enemy.hp}hp remianing!`
+      }
+    }
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  function Hero(obj){
+    Humanoid.call(this, obj);
+    this.power = obj.power;
+    this.attack = function(enemy){
+      if(enemy.hp - this.power < 1){
+        enemy.hp = 0;
+        return enemy.destroy();
+      } else {
+        enemy.hp = enemy.hp - this.power;
+        return `${enemy.name} took ${this.power} damage from ${this.name}. ${enemy.name} has ${enemy.hp}hp remianing!`
+      }
+    }
+  }
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  const orc = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 1,
+    },
+    hp: 100,
+    name: 'Azog',
+    faction: 'Orc',
+    weapons: [
+      'Swords', 'Axes',
+    ],
+    language: 'Orkish',
+    power: 10,
+  });
+
+  const wizard = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 5,
+    },
+    hp: 100,
+    name: 'Gandalf',
+    faction: 'Wizard',
+    weapons: [
+      'Staff'
+    ],
+    language: 'common tongue',
+    power: 15,
+  });
+
+
+  console.log(wizard.hp);
+  console.log(orc.hp);
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(orc.attack(wizard));
+  console.log(wizard.attack(orc));
+  console.log(wizard.hp);
+  console.log(orc.hp);
