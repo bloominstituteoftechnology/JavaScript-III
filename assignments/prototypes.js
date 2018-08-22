@@ -1,4 +1,4 @@
-/*
+6/*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
 
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
@@ -14,6 +14,13 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(GameObj) {
+  this.createdAt = GameObj.createdAt;
+  this.dimensions = GameObj.dimensions;
+};
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`
+};
 
 /*
   === CharacterStats ===
@@ -22,6 +29,15 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(charObj) {
+  GameObject.call(this, charObj);
+  this.hp = charObj.hp;
+  this.name = charObj.name;
+};
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`
+};
 
 /*
   === Humanoid ===
@@ -32,6 +48,18 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+function Humanoid(humanoidObj) {
+  GameObject.call(this, humanoidObj);
+  CharacterStats.call(this, humanoidObj);
+  this.faction = humanoidObj.faction;
+  this.weapons = humanoidObj.weapons;
+  this.language = humanoidObj.language;
+}
+Humanoid.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`
+};
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
