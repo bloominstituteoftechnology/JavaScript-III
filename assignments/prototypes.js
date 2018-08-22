@@ -33,7 +33,6 @@ GameObject.prototype.destroy = function() {
 
 function CharacterStats(obj) {
   GameObject.call(this, obj);
-  //alert();
   this.hp = obj.hp;
   this.name = obj.name;
 }
@@ -140,3 +139,27 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  function Hero(Obj) {
+    Humanoid.call(this, Obj);
+
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.attack = function() {
+  return (`Hero attacks the Villan with ${this.weapons[0]} does 1 point damage. Villan has ${this.hp - 2} points left.`);
+}
+
+function Villan(Obj) {
+  Humanoid.call(this, Obj);
+
+}
+Villan.prototype = Object.create(Humanoid.prototype);
+
+Villan.prototype.attacks = function() {
+return (`Villan attacks the Hero with ${this.weapons[0]} does 1 point damage. Hero has ${this.hp - 1} points left.`);
+}
+
+function damage(obj)
+
+console.log(swordsman.attack());
+console.log(mage,attacks());
