@@ -18,7 +18,7 @@
 * 4. explicity binding 
      call , apply and bind 
 *    if we have standalone function in the global scope and we have and object and 
-     we want to call tha  function  in the context of the object and we use the method "call apply and bind" in this way 
+     we want to call that function  in the context of the object and we use the method "call apply and bind" in this way 
      we have an explicit binding of "this " .
 
 
@@ -51,8 +51,8 @@
 
 function Person (name , age ){
     //this 
-    name: this.name,
-    age : this.age
+    name = this.name,
+    age = this.age
     // return this 
 }
 
