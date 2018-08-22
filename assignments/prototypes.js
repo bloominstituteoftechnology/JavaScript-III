@@ -147,9 +147,71 @@ Humanoid.prototype.greet = function () {
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+function Hero(obj) {
+  Humanoid.call(this, obj);
+  this.isHero = true;
+}
 
+Hero.prototype = Object.create(Humanoid.prototype);
 
-  // Hero.prototype = Object.create(CharacterStats.prototype);
+function Villian(obj) {
+  Humanoid.call(this, obj);
+  this.isHero = false;
+}
 
+Villian.prototype = Object.create(Humanoid.prototype);
 
-  // Villian.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.damage = function(num) {
+  this.hp = this.hp - num;
+
+  if (this.hp > 0) {
+    return `${this.name} has been hit! HP is now ${this.hp}.`
+  } else {
+    return this.destroy();
+  }
+}
+
+Humanoid.prototype.heart = function(num) {
+  this.hp = this.hp + num;
+  return `${this.name} has found a heart! HP is now ${this.hp}.`
+}
+
+const batman = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 10,
+    width: 10,
+    height: 10,
+  },
+  hp: 100,
+  name: 'Batman',
+  faction: 'Bats',
+  weapons: [
+    'Utility Belt',
+    'Batarang',
+  ],
+  language: 'Echolocation',
+  isHero: true,
+});
+
+const joker = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 6,
+    width: 6,
+    height: 6,
+  },
+  hp: 9,
+  name: 'Joker',
+  faction: 'Injustice League',
+  weapons: [
+    'Cards',
+    'Poison',
+  ],
+  language: 'Chaos',
+  isHero: false,
+});
+
+console.log(batman.damage(10));
+console.log(joker.damage(6));
+console.log(batman.heart(15))
