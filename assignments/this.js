@@ -15,15 +15,17 @@
 function myTest() {
     console.log(this.width);
 }
-
 // Principle 2
 
 // code example for Implicit Binding
-
+function User(name, pw) {
+    this.userName = name;
+    this.password = pw;
+} 
 // Principle 3
 
 // code example for New Binding
-
+let Willie = new User('willie','abc123');
 // Principle 4
 
 // code example for Explicit Binding
