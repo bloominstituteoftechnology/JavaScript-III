@@ -39,9 +39,36 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+const GameObject = function (gameObjectData) {
+    this.createdAt = gameObjectData.createdAt;
+    this.dimensions = gameObjectData.dimensions;
+};
+
+GameObject.prototype.destroy = function () {return `${this.name} was removed from the game.`};
+
+
+const CharacterStats = function (characterStatData) {
+    GameObject.call(this, characterStatData);
+    this.hp = characterStatData.hp;
+    this.name = characterStatData.name;
+};
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function () {this.hp--; return `${this.name} took damage.`};
+
+
+const Humanoid = function (humanoidData) {
+    CharacterStats.call(this, humanoidData);
+    this.faction = humanoidData.faction;
+    this.weapons = humanoidData.weapons;
+    this.language = humanoidData.language;
+};
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function () {return `${this.name} offers a greeting in ${this.language}`};
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +129,6 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
