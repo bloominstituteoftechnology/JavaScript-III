@@ -139,6 +139,47 @@ Humanoid.prototype.greet = function () {
 
 
   // Stretch task: 
+  function SuperHero(SHAttributes){
+    this.power = SHAttributes.power;
+    this.villianHealth = SHAttributes.villianHealth;
+
+    Humanoid.call(this, SHAttributes);
+  }
+
+  SuperHero.prototype = Object.create(Humanoid.prototype);
+
+  SuperHero.prototype.superPunch = function() {
+    this.villianHealth -=20;
+    console.log(this.villian);
+    return `${this.name} deals the super sonic punch.`;
+  }
+
+  SuperHero.prototype.superSwirl = function() {
+    this.villianHealth -=50;
+    return `${this.name} uses the super swirl to strike the villian.`;
+  }
+
+  const flash = new SuperHero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 3,
+    },
+    hp: 30,
+    name: 'The Flash',
+    faction: 'Central City',
+    weapons: ['Super Sonic Punch', 'Super Swirl', 'Phazing', 'Time Travel'],
+    power: 'Super Speed',
+    villianHealth: 100
+  });
+
+console.log(`${flash.name} uses his weapons of ${flash.weapons} to defeat Zoom.`);
+
+
+
+
+
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
