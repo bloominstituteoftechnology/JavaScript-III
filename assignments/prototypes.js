@@ -1,19 +1,27 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
 
-  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
+  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.
 
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
-  
+
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(GameObjectProps){
+  this.createdAt = GameObjectProps.createdAt;
+  this.dimensions = GameObjectProps.dimensions;
+}
+
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;
+};
 
 /*
   === CharacterStats ===
@@ -22,6 +30,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats (CharacterStatsProps){
+  this.hp = CharacterStatsProps.hp;
+  this.name = CharacterStatsProps.name;
+  GameObject.call(this, CharacterStatsProps);
+}
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+};
+
+Object.setPrototypeOf(CharacterStats.prototype, GameObject.prototype);
 
 /*
   === Humanoid ===
@@ -32,7 +51,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(HumanoidProps){
+  this.faction = HumanoidProps.faction;
+  this.weapons = HumanoidProps.weapons;
+  this.language = HumanoidProps.language;
+  CharacterStats.call(this, HumanoidProps);
+}
+
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`;
+};
+
+Object.setPrototypeOf(Humanoid.prototype, CharacterStats.prototype);
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +72,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +133,92 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+
+  // Stretch task:
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(villianProps){
+    Humanoid.call(this, villianProps);
+  }
+
+  Villian.prototype.castSpell = function(heroObj){
+    heroObj.hp -= 3;
+    if(heroObj.hp <= 0){
+      return 'destroy hero';
+    }else {
+      return 'still alive';
+    }
+  }
+
+  function Hero(heroProps){
+    Humanoid.call(this, heroProps);
+  }
+
+  Hero.prototype.swordStrike = function(villianObj){
+    villianObj.hp -= 3;
+    if (villianObj.hp <= 0) {
+      return 'destroy villian';
+    }else
+      return 'still alive';
+  }
+  //Link Villian and Hero prototypes to the Humanoid prototype
+  Object.setPrototypeOf(Villian.prototype, Humanoid.prototype);
+  Object.setPrototypeOf(Hero.prototype, Humanoid.prototype);
+
+const sorcerer = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Dargul',
+  faction: 'Dark Forest',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Parseltongue',
+});
+
+const knight = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Darius',
+  faction: 'Forest Kingdom',
+  weapons: [
+    'Sword',
+    'Dagger',
+  ],
+  language: 'Common Tongue',
+});
+
+let whomToDestroy = '';
+while(true){
+  if (((Math.floor(Math.random() * 10)) % 2) === 0){
+    whomToDestroy = sorcerer.castSpell(knight);
+  }else
+    whomToDestroy = knight.swordStrike(sorcerer);
+
+  if(whomToDestroy === "destroy hero"){
+    console.log(knight.destroy());
+    break;
+  }else if(whomToDestroy === 'destroy villian'){
+    console.log(sorcerer.destroy());
+    break;
+  }
+}
+
+
+
+
+
