@@ -131,3 +131,60 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Hero(obj) {
+    Humanoid.call(this, obj);
+    this.isHero = true;
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villian(obj) {
+    Humanoid.call(this, obj);
+    this.isHero = false;
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Humanoid.prototype.damaged = function(num) {
+    this.hp = this.hp - num;
+    if (this.hp > 0) {
+        return `${this.name}'s HP is now ${this.hp}.`;
+    }
+    return this.destroy();
+}
+
+const monk = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 4,
+    },
+    hp: 10,
+    name: 'Peony',
+    faction: 'Forest Kingdom',
+    weapons: [
+        'Mace',
+        'Sword',
+    ],
+    language: 'Elvish',
+})
+
+const warlock = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 4,
+    },
+    hp: 12,
+    name: 'Sho',
+    faction: 'Bad People',
+    weapons: [
+        'wand',
+        'bad stuff',
+    ],
+    language: 'Elvish',
+})
+
+console.log(monk.damaged(11));
+console.log(warlock.damaged(2));
