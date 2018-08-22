@@ -111,3 +111,85 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+const Soldier = function (villianAttr) {
+  Humanoid.call(this, villianAttr);
+  this.constructor.prototype.attack = function (target) {
+    if (target.hp > 0) {
+      target.hp -= 10;
+      return `${this.name} attacked ${target.name}! ${target.name} has ${target.hp} hp remaining!`
+    }
+    else {
+      return this.destroy();
+    }
+  }
+}
+
+const Targaryen = function (tarAttr) {
+  Humanoid.call(this, tarAttr);
+  this.constructor.prototype.dracarys = function (target) {
+    target.hp = 0;
+    return `${this.name} used Dracarys! ${target.name} is burned to ashes...` + target.destroy();
+  }
+}
+
+const jonSnow = new Soldier({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 6,
+  },
+  hp: 100,
+  name: 'Jon Snow',
+  faction: 'Night\'s Watch',
+  weapons: [
+    'Longclaw',
+  ],
+  language: 'Valyrian',
+});
+
+
+const nightKing = new Soldier({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 1,
+    height: 7,
+  },
+  hp: 99,
+  name: 'The Night King',
+  faction: 'Night Walker',
+  weapons: [
+    'Ice Blade',
+  ],
+  language: 'Silence',
+});
+
+const danny = new Targaryen ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 9,
+    width: 6,
+    height: 9,
+  },
+  hp: 100,
+  name: 'Daenerys Targaryen',
+  faction: 'Dothraki',
+  weapons: [
+    'Dragons',
+  ],
+  language: 'Valyrian',
+});
+
+console.log(jonSnow.attack(nightKing));
+console.log(nightKing.attack(jonSnow));
+console.log(jonSnow.attack(nightKing));
+console.log(nightKing.attack(jonSnow));
+console.log(jonSnow.attack(nightKing));
+console.log(nightKing.attack(jonSnow));
+console.log(jonSnow.attack(nightKing));
+console.log(nightKing.attack(jonSnow));
+console.log(danny.dracarys(nightKing));
+console.log(jonSnow.greet());
