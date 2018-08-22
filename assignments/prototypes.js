@@ -186,4 +186,21 @@ Humanoid.prototype.greet = function(name){
     language: 'British',
   })
 
-console.log(Voldemort.attackHero());
+  const HarryPotter = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 5,
+      width: 2,
+      height: 8,
+    },
+    hp: 60,
+    attackStrength: 6,
+    name: 'Harry Potter',
+    faction: 'The Order of the Phoenix',
+    weapons: [
+      'Holly Wand,'
+    ],
+    language: 'British',
+  })
+
+console.log(Voldemort.attackHero(HarryPotter));
