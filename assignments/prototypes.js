@@ -47,28 +47,31 @@ function GameObject(options) {
   };
 }
 
-function CharacterStats(stats) {
-  GameObject.call(this);
-  this.hp = stats.hp;
-  this.name = stats.name;
+function CharacterStats(information) {
+  GameObject.call(this, information);
+  this.hp = information.hp;
+  this.name = information.name;
   this.takeDamage = function() {
     console.log(`${this.name} took damage`);
   };
 }
 
-function Humanoid(faction, weapons, language) {
-  GameObject.call(this);
-  // CharacterStats.call(this, hp, name);
-  this.faction = faction;
-  this.weapons = weapons;
-  this.language = language;
+function Humanoid(setup) {
+  GameObject.call(this, setup);
+  CharacterStats.call(this, setup);
+  this.faction = setup.faction;
+  this.weapons = setup.weapons;
+  this.language = setup.language;
   this.greet = function() {
     console.log(`${this.faction} offers a greeting in ${this.language}`);
   };
 }
 
 CharacterStats.protoype = Object.create(GameObject.prototype);
+GameObject.prototype.constructor = GameObject;
+
 Humanoid.protoype = Object.create(CharacterStats.protoype);
+CharacterStats.prototype.constructor = CharacterStats;
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
@@ -124,6 +127,7 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+console.log(archer.takeDamage());
 
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
