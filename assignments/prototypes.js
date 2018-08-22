@@ -32,37 +32,56 @@ GameObject.prototype.destroy = function () {
 */
 function CharacterStats(stats) {
  
- this.hp = stats.hp;
- this.name = stats.name;
- GameObject.call(this,stats);
-
-
+  this.hp = stats.hp;
+  this.name = stats.name;
+  GameObject.call(this,stats);
+  
+  
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage`; 
 } 
+//Testing Hitpoint function
+
+function Hitpoints(hitpoints) {
+  // this {};
+this.hp = hitpoints
+CharacterStats.call(this, hitpoints);
+
+ //returns  this {};
+}
+
+Hitpoints.prototype = Object.create(CharacterStats.prototype);
+
+Hitpoints.prototype.kill = function () {
+  this.hp -= 30;
+  return `${this.hp}`;
+}
 
 /**  === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
-*/
+ * faction
+ * weapons
+ * language
+ * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
+ * should inherit destroy() from GameObject through CharacterStats
+ * should inherit takeDamage() from CharacterStats
+ */
 function Humanoid(human) {
   
-   // this {};
+  // this {};
   this.faction = human.faction;
   this.weapons = human.weapons;
   this.language = human.language; 
   CharacterStats.call(this,human);
+  Hitpoints.call(this, human);
+
   //return this {};
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype = Object.create(Hitpoints.prototype);
 
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`
@@ -120,21 +139,6 @@ Villain.prototype.dead = function () {
   
 }
 
-// Testing Hitpoint function
-
-// function Hitpoints(hitpoints) {
-//   // this {};
-// CharacterStats.call(this, hitpoints);
-
-//  //returns  this {};
-// }
-
-// Hitpoints.prototype = Object.create(CharacterStats.prototype);
-
-// Hitpoints.prototype.kill = function () {
-//   this.hp -= 30;
-//   return this.hp;
-// }
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -260,7 +264,7 @@ console.log(ohsmford.name)
 console.log(ohsmford.shannara())
 console.log(ohsmford.loosing())
 
-console.log(`The ${warlock.name} throws ${ohsmford.name} reducing his hitpoints to :${ohsmford.hp}. 
+console.log(`The ${warlock.name} throws ${ohsmford.name} reducing his hitpoints to: ${ohsmford.hp}. 
 While he looses the ${ohsmford.weapons[1]} in the process.`)
 console.log(warlock.fight())
 
