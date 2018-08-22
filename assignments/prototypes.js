@@ -135,7 +135,7 @@ console.log(swordsman.faction); // The Round Table
 console.log(mage.weapons); // Staff of Shamalama
 console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
+console.log(mage.takeDamage(1)); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
@@ -230,22 +230,24 @@ function getRandomInt(max){
 }
 
 function fight(hero, villian){
+  console.log('\nAn Epic Battle');
   console.log(hero.banter(villian.name));
   console.log(villian.evilBanter(hero.name));
 
   // Fight based on weighted scale
+  console.log('\nLet The Battle Begin');
   while(hero.hp > 0 && villian.hp > 0)
   {
     if(getRandomInt(10) < 6){
       // villian gets hit
       villian.takeDamage(getRandomInt(3));
-      console.log(`The hero strikes a blow. ${villian.name}: ${villian.hp}, ${hero.name}: ${hero.hp}`)
+      console.log(`The hero strikes a blow. ${villian.name}: ${villian.hp}hp, ${hero.name}: ${hero.hp}hp`)
     }
 
     else{
       // hero takes damage
       hero.takeDamage(getRandomInt(2));
-      console.log(`The villian strikes a blow. ${villian.name}: ${villian.hp}, ${hero.name}: ${hero.hp}`)
+      console.log(`The villian strikes a blow. ${villian.name}: ${villian.hp}hp, ${hero.name}: ${hero.hp}hp`)
     }
   }
 
