@@ -12,15 +12,43 @@
 // Principle 1
 
 // code example for Window Binding
+function doSomething(action) {
+  console.log(this);
+  return action;
+}
 
 // Principle 2
 
 // code example for Implicit Binding
+const obj = {
+  name: 'Lee',
+  gender: 'male',
+  age: 32,
+  info: function (name) {
+    console.log(`${name} is a ${this.age} year old ${this.gender}`);
+  }
+}
 
 // Principle 3
 
 // code example for New Binding
+function MobileDevice(model, os, provider) {
+  this.model = model;
+  this.os = os;
+  this.provider = provider;
+  this.info = function () {
+    console.log(`This mobile device is a ${this.model} on ${this.os} with service from ${this.provider}`);
+  }
+}
+
+const iphone = new MobileDevice('iPhone X', 'iOS', 'AT&T');
+const pixel = new MobileDevice('Google Pixel 2', 'Android', 'Verizon');
+
+iphone.info();
+pixel.info();
 
 // Principle 4
 
 // code example for Explicit Binding
+iphone.info.call(pixel);
+pixel.info.apply(iphone);
