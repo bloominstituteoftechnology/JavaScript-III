@@ -78,10 +78,10 @@ const giveCompliment = function (str){
 
 // const hairCompliment = new giveCompliment(`You have nice hair, you can have ${this.key1} and ${this.key2}.`)
 
-const eyeCompliment = new giveCompliment('I complement your eyes!') ;
+const eyeCompliment = new giveCompliment('hair') ;
 
-const hairCompliment = new giveCompliment('I complement your hair!');
-console.log(eyeCompliment.flatterThem());
-console.log(hairCompliment.flatterThem());
-console.log(eyeCompliment.flatterThem.call(hairCompliment));
-console.log(hairCompliment.flatterThem.call(eyeCompliment));
+const hairCompliment = new giveCompliment('eyes');
+// console.log(eyeCompliment.flatterThem());
+// console.log(hairCompliment.flatterThem());
+console.log(eyeCompliment.flatterThem.call('eyeCompliment'));
+console.log(hairCompliment.flatterThem.call(hairCompliment));
