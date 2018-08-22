@@ -2,9 +2,9 @@
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. this refers to the calling object. In browsers the outtermost object is the Window. In node it's global.
-* 2. 
-* 3. 
-* 4. 
+* 2. Implicit binding is where you bind 'this' automatically by wrapping it within an object
+* 3. New binding is when you bind an object to this by using the new keyword when using an object constructor function.
+* 4. Explicit binding of this is where you use a function and 'explicitly' tell Javascript which object you're calling the function from by using the .call or .apply methods
 *
 * write out a code example of each explanation above
 */
@@ -45,6 +45,7 @@ const myDog = new Animal('Dog', 4, 'Brown'); // Creates a new instance of Animal
 
 // Principle 4
 const speak = function(sound) {
+	// Without explicit binding this defaults to Window/global depending on the environment
 	if (this.sound === undefined) {
 		this.sound = sound;
 	}
@@ -52,4 +53,6 @@ const speak = function(sound) {
 }
 
 // code example for Explicit Binding
-speak(myDog);
+speak.call(myDog, "Woof");
+console.log("After explicit binding.");
+console.log(myDog);
