@@ -38,7 +38,45 @@ stefanObj.greeting('Stefan')
 // Principle 3
 
 // code example for New Binding
+ 
+ function StefanHello (stefanHi){
+     
+    this.newGreet= 'Hello CSPT2, ';
+    this.stefanHi = stefanHi;
+    this.speak =  function()
+ {
+     console.log(`${this.newGreet} my name is ${this.stefanHi}`);
+
+ };
+ }
+ const stefan = new StefanHello('Stefan');
+ const mehdi = new StefanHello('Mehdi');
+ 
+ stefan.speak();
+ mehdi.speak();
 
 // Principle 4
 
 // code example for Explicit Binding
+
+
+function User (info) {
+    this.gender = info.gender;
+    this.age = info.age;
+    this.fullname = info.fullname;
+    this.hometown = info.homeTown;
+    this.speak = function () {
+        
+        return `Hello CSPT2 and Anthony :). My name is ${this.fullname}`;
+    };
+}
+
+const stefan = new User ({
+    gender: 'Male',
+    age: 40,
+    fullname: 'Stefan Clem',
+    homeTown: 'Harlan, Ky'
+});
+
+console.log(stefan);
+console.log(stefan.speak());

@@ -78,7 +78,7 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.shannara = function() {
   return `${this.name} is the last remaining of the ${this.race} race.
-  And is the only one who can wield, ${this.weapons[0]}.`;
+And is the only one who can wield, ${this.weapons[0]}.`;
 };
 
 //Different fight methods for the Hero.
@@ -120,6 +120,21 @@ Villain.prototype.dead = function () {
   
 }
 
+// Testing Hitpoint function
+
+// function Hitpoints(hitpoints) {
+//   // this {};
+// CharacterStats.call(this, hitpoints);
+
+//  //returns  this {};
+// }
+
+// Hitpoints.prototype = Object.create(CharacterStats.prototype);
+
+// Hitpoints.prototype.kill = function () {
+//   this.hp -= 30;
+//   return this.hp;
+// }
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -239,7 +254,7 @@ const warlock = new Villain({
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  /* < ----- Spoilers of the Shannara Chronicles ------>*/
+  /* < ----- Spoilers of the Shannara Chronicles if you have not seen it or read the books ------>*/
 
 console.log(ohsmford.name)
 console.log(ohsmford.shannara())
@@ -250,7 +265,7 @@ While he looses the ${ohsmford.weapons[1]} in the process.`)
 console.log(warlock.fight())
 
 console.log(ohsmford.recovering())
-console.log(` Pushing the ${warlock.name} back away from the sliver river. But suddenly feels the ${warlock.weapons[1]} slip deep into his stomach. 
+console.log(`Pushing the ${warlock.name} back away from the sliver river. But suddenly feels the ${warlock.weapons[1]} slip deep into his stomach. 
 Reducing his hitpoints to ${ohsmford.hp} points`);
 
 console.log(warlock.dead())
