@@ -36,10 +36,11 @@ function CharacterStats(stats) {
   this.hp = stats.hp;
   this.name = stats.name;
 }
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
   return `{$this.name} took damage.`;
-};
-//CharacterStats.prototype = Object.create(GameObject.prototype);
+}
 
 /*
   === Humanoid ===
