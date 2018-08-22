@@ -9,12 +9,19 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
   
-/*
+
   === GameObject ===
+let GameObject = function(){
+
+
+}
+  
   * createdAt
   * dimensions
-  * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
-*/
+let destroyGame = function destroy(){
+  console.log('Object was removed from the game');
+} // prototype method -> returns the string: 'Object was removed from the game.'
+
 
 /*
   === CharacterStats ===
