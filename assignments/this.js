@@ -13,7 +13,7 @@
 
 // code example for Window Binding
 function Welcome(){
-    return this;
+    return this;    //example
 }
 
 // Principle 2
