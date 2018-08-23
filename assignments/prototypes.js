@@ -134,3 +134,79 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(myObj) {
+     Humanoid.call(this, myObj);
+     this.player = myObj.player;
+   }
+  Villian.prototype = Object.create(Humanoid.prototype) ;
+  Villian.prototype.reduceHealthPoints = function() {
+      return this.hp -= 1;
+  }
+  Villian.prototype.destroyObject = function() {
+      if(this.hp < 0) {
+          return `This object is destroyed`;
+      } else {
+          return `You still have some health points`;
+      }
+  }
+
+  function Hero(heroObject) {
+     Humanoid.call(this, heroObject);
+     this.nature = heroObject.nature;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.saveObject = function() {
+       return this.hp += 1;
+  }
+
+  const killMan = new Villian({
+    createdAt: new Date(),
+    player: 1,
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 3,
+    name: 'Sir Killer',
+    faction: 'The square table',
+    weapons: [
+      'Sword',
+      'Spear',
+    ],
+    language: 'Common Toungue',
+  });
+
+  const saveMan = new Hero({
+    createdAt: new Date(),
+    nature: "Kind",
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 3,
+    name: 'Sir Killer',
+    faction: 'The square table',
+    weapons: [
+      'Sword',
+      'Spear',
+    ],
+    language: 'Common Toungue',
+  });
+  console.log("Below is villian work:")
+  console.log(killMan.hp);
+  console.log(killMan.reduceHealthPoints());
+  console.log(killMan.reduceHealthPoints());
+  console.log(killMan.reduceHealthPoints());
+  console.log(killMan.reduceHealthPoints());
+  console.log(killMan.hp);
+  console.log(killMan.destroyObject());
+
+  console.log("Below is hero work:")
+  console.log(saveMan.saveObject());
+  console.log(saveMan.saveObject());
+  console.log(saveMan.saveObject());
+  
