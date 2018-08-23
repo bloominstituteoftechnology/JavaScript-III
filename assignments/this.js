@@ -35,8 +35,23 @@ function Vehicle(obj){
     this.year = obj.year;
 }
 
-const BMW = new Vehicle({model: "X5", year: 2019});
+const bmw = new Vehicle({model: "X5", year: 2019});
 
 // Principle 4
 
 // code example for Explicit Binding
+function Car(obj){
+    this.model = obj.model;
+    this.year = obj.year;
+}
+
+function aiCar(obj){
+    if(obj.year === 2019){
+        return `This car is autonomous.`;
+    }
+    return `Get a 2019 car!`;
+}
+
+const mercedes = new Car({model: "X5", year: 2019});
+
+aiCar.call(mercedes)
