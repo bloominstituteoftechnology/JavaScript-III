@@ -19,11 +19,11 @@
 function GameObject(GameObj) {
   this.createdAt = GameObj.createdAt;
   this.dimensions = GameObj.dimensions;
-  
-  GameObj.prototype.destroy = function(obj) {
-    return '${obj} was removed from the game.';
-  }
 };
+
+GameObject.prototype.destroy = function(obj) {
+  return `${this.name} was removed from the game.`;
+}
 
 /*
   === CharacterStats ===
@@ -37,10 +37,14 @@ function CharacterStats(CharStat) {
   GameObject.call(this, CharStat);
   this.name = CharStat.name;
   this.hp = CharStat.hp;
+}
 
-  GameObj.prototype.takeDamage = function(obj) {
-    return '${obj} took damage.';
-};
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(obj) {
+  return `${this.name} took damage.`;
+} 
+
 
 /*
   === Humanoid ===
@@ -52,18 +56,21 @@ function CharacterStats(CharStat) {
   * should inherit takeDamage() from CharacterStats
 */
  
+
 function Humanoid(Hooman) {
-  GameObject.call(this, Hooman);
-  CharacterStats.call(this, CharStat);
+  // GameObject.call(this, Hooman);
+  CharacterStats.call(this, Hooman);
   this.faction = Hooman.faction;
   this.weapons = Hooman.weapons;
   this.language = Hooman.language;
 
-  Hooman.prototype.greet = function(name) {
-    return '${name} offers a greeting in ${this.language}';
-  }
-
 };
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function(name) {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -139,4 +146,3 @@ function Humanoid(Hooman) {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
-}
