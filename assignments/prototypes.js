@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(attrGO) {
+  this.createdAt = attrGO.createdAt;
+  this.dimensions = attrGO.dimensions;
+};
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+};
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +31,20 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(attrCS) {
+  GameObject.call(this, attrCS);
+  this.hp = attrCS.hp;
+  this.name = attrCS.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype)
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+};
+
+
 
 /*
   === Humanoid ===
@@ -33,6 +56,21 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(attrH) {
+  CharacterStats.call(this, attrH);
+  this.faction = attrH.faction;
+  this.weapons = attrH.weapons;
+  this.language = attrH.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function(){
+  return`${this.name} offers a greeting in ${this.language}.`;
+};
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +79,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,19 +130,113 @@
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  //console.log(mage.createdAt); // Today's date
+  //console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  //console.log(swordsman.hp); // 15
+  //console.log(mage.name); // Bruce
+  //console.log(swordsman.faction); // The Round Table
+  //console.log(mage.weapons); // Staff of Shamalama
+  //console.log(archer.language); // Elvish
+  //console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  //console.log(mage.takeDamage()); // Bruce took damage.
+  //console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  function Hero(attrHero) {
+    Humanoid.call(this, attrHero);
+    this.heroFactor = attrHero.heroFactor ;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.fightVillan = function (villan) {
+    if (this.hp > 0) {
+      if ((this.hp * this.heroFactor) * Math.random() >= (villan.hp * villan.evilFactor) * Math.random()) {
+        villan.hp -= 1;
+        return `${this.name} wins! Current score is ${this.hp} to ${villan.hp}.`
+      } else {
+      this.hp -= 1;
+        return `${villan.name} win! Current score is ${this.hp} to ${villan.hp}.`
+      }
+    } else {
+      return '';
+    }
+  }
+
+  const auntAbi = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 20,
+    name: 'Aunt Abi',
+    faction: 'Cool Aunts Across America',
+    weapons: [
+      'Kindle Password',
+      'Phone Number for Mom',
+      'Time Out'
+    ],
+    language: 'English',
+    heroFactor: 2
+  })
+
+  function Villan(attrV) {
+    Humanoid.call(this, attrV);
+    this.evilFactor = attrV.evilFactor ;
+  }
+
+  Villan.prototype = Object.create(Humanoid.prototype);
+  Villan.prototype.fightHero = function (hero) {
+    if (this.hp > 0) {
+      if ((this.hp * this.evilFactor) * Math.random() >= (hero.hp * hero.heroFactor) * Math.random()) {
+        hero.hp -= 1;
+        return `${this.name} win! Current score is ${hero.hp} to ${this.hp}.`
+      } else {
+      this.hp -= 1;
+        return `${hero.name} wins! Current score is ${hero.hp} to ${this.hp}.`
+      }
+    } else {
+      return '';
+    }
+  }
+
+  const joLo = new Villan({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 100,
+    name: 'Josiah & Lorelai',
+    faction: 'Rachel\'s Minions',
+    weapons: [
+      'Sugar',
+      'Too Much Energy',
+      'Bag of Cats'
+    ],
+    language: 'Common Toungue',
+    evilFactor: 1
+  })
+
+
+function runFight(hero, villan) {
+  if (hero.hp > 0 && villan.hp > 0) {
+    console.log(hero.fightVillan(villan));
+    console.log(villan.fightHero(hero));
+    runFight(hero, villan);
+  } else if (hero.hp <= 0) {
+    console.log(`${hero.name} has no Fs left to give. ${villan.name} can have whatever they were whining about.`)
+    console.log('GAME OVER');
+  } else {
+    console.log(`${villan.name} are too busy plotting to fight. ${hero.name} is going to try to get a nap in.`)
+    console.log('GAME OVER');
+  }
+}
+
+runFight(auntAbi, joLo);
+
+
