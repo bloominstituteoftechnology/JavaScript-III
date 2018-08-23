@@ -14,13 +14,15 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-function GameObject(createdAt, dimensions, destroy) {
-  this.date = createdAt;
-  this.dimensions = dimensions;
-  this.destroy = function () {
-    return 'Object was removed from the game.';
-  };
-}
+function GameObject(objects) {
+  this.createdAt = objects.createdAt;
+  this.dimensions = objects.dimensions;
+ }
+
+GameObject.property.destroy = function() {
+  return 'Object was removed from the game.';
+}; 
+
 /*
   === CharacterStats ===
   * hp
@@ -28,14 +30,17 @@ function GameObject(createdAt, dimensions, destroy) {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(hp,name,takeDamage,destroy) {
-  this.hp = hp;
-  this.name = name;
-  GameObjects.call(this, destroy);
-  this.takeDamage = function () {
-    return '${this.name} took damage.';
-  };
+function CharacterStats(stats) {
+  GameObjects.call(this, stats);
+  this.hp = stats.hp;
+  this.name = stats.name;
 }
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return'${this.name} took damage.';
+};
 /*
   === Humanoid ===
   * faction
@@ -45,15 +50,17 @@ function CharacterStats(hp,name,takeDamage,destroy) {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid(faction, weapons, language, greet) {
-  this.faction = faction;
-  this.weapons = weapons;
-  this.language = language;
-  CharacterStats.call(this, destroy);
-  CharacterStats.call(this. takeDamage);
-  this.greeting = function () {
-    return '${this.faction} offers a greeting in ${this.language}.';
-  };
+function Humanoid(humanoidOptions) {
+  CharacterStats.call(this, humanoidOptions);
+  this.faction = humanoidOptions.faction;
+  this.weapons = humanoidOptions.weapons;
+  this.language = humanoidOptions.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return '${this.name} offers a greeting in ${this.language}.';
 }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -130,3 +137,4 @@ function Humanoid(faction, weapons, language, greet) {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+*/
