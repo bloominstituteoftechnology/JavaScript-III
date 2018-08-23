@@ -35,12 +35,11 @@ function NewPerson(name) {
     this.greeting = 'Hi, my name is';
     this.name = name;
     this.speak = function() {
-        console.log(this greeting + ' ' + this.name);
+        console.log(this.greeting + ' ' + this.name);
         console.log(this);
     };
 }
 const akira = new NewPerson('Akira');
-
 akira.speak();
 // Principle 4
 
