@@ -136,16 +136,102 @@ Humanoid.prototype.greet = function() {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+  //created hero constructor
   function Hero (HeroObj) {
     Humanoid.call(this, HeroObj);
+    this.attack = HeroObj.attack;
   }
 
+  //attached hero prototype to humanoid prototype
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  //created light damage attack function on hero prototype
+  Hero.prototype.lightAttack = function(enemy) {
+    const lightDmg = Math.floor((Math.random() * this.attack)+ 1);
+    if (this.hp === 0) {
+      return `${this.name} has stopped breathing... ${enemy.name} cries out in hollow victory.`
+    } else {
+      if (enemy.hp === 0) {
+        return `${enemy.name} is dead. The pool of blood around cold body creeps in size. Victory?`
+      } else if (enemy.hp - lightDmg < 1) {
+        enemy.hp = 0;
+        return `${this.name} roars in victory. ${enemy.destroy()}`;
+      } else {
+        enemy.hp = enemy.hp - lightDmg;
+        return `${this.name} deals ${lightDmg} damage! ${enemy.name} has ${enemy.hp} health left!`
+      }
+    }
+  }
+
+  //created hero constructor;
   function Villian (VillianObj) {
     Humanoid.call(this, VillianObj);
+    this.attack = VillianObj.attack;
   }
+
+  //attached villian prototype to humanoid prototype
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  //created light damage attack function on villian prototype
+  Villian.prototype.lightAttack = function(enemy) {
+    const lightDmg = Math.floor((Math.random() * this.attack)+ 1);
+    if (this.hp === 0) {
+      return `${this.name} has stopped breathing... Conflict resolution?`
+    } else {
+      if (enemy.hp === 0) {
+        return `${enemy.name} has been killed. Who said the bad guys can't win?`
+      } else if (enemy.hp - lightDmg < 1) {
+        enemy.hp = 0;
+        return `${this.name} shrieks in glee. ${enemy.destroy()}`;
+      } else {
+        enemy.hp = enemy.hp - lightDmg;
+        return `${this.name} deals ${lightDmg} damage! ${enemy.name} has ${enemy.hp} health left!`
+      }
+    }
+  }
+
+  //created a new hero
+  const Gin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 4,
+      height: 2,
+    },
+    hp: 120,
+    name: 'Gin',
+    faction: 'Sylvarant',
+    weapons: [
+      'Sword',
+      'Shield',
+    ],
+    language: 'English',
+    attack: 20,
+  });
+
+  //created a new villian
+  const Tonic = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 7,
+    },
+    hp: 100,
+    name: 'Tonic',
+    faction: 'Venus',
+    weapons: [
+      'Bowstaff',
+      'Dagger',
+    ],
+    language: 'Latin',
+    attack: 24,
+  });
+
+  console.log(Tonic.lightAttack(Gin));
+  console.log(Gin.lightAttack(Tonic));
