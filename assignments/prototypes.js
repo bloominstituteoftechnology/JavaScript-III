@@ -1,3 +1,4 @@
+
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
 
@@ -15,6 +16,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(GameObj) {
+  this.createdAt = GameObj.createdAt;
+  this.dimensions = GameObj.dimensions;
+};
+
+GameObject.prototype.destroy = function(obj) {
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +32,19 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(CharStat) {
+  GameObject.call(this, CharStat);
+  this.name = CharStat.name;
+  this.hp = CharStat.hp;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(obj) {
+  return `${this.name} took damage.`;
+} 
+
 
 /*
   === Humanoid ===
@@ -33,6 +56,22 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+
+function Humanoid(Hooman) {
+  // GameObject.call(this, Hooman);
+  CharacterStats.call(this, Hooman);
+  this.faction = Hooman.faction;
+  this.weapons = Hooman.weapons;
+  this.language = Hooman.language;
+
+};
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function(name) {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +80,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +141,6 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
