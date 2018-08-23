@@ -73,9 +73,17 @@ let attack = function (player1, player2) {
   let p1damage = player1.damage;
   let p2damage = player2.damage;
 
-  while (p2hp > 0) {
+  while ((p2hp && p1hp) > 0) {
     p2hp = p2hp - p1damage;
     console.log(`${player1.name} has attacked ${player2.name} for ${player1.damage} damage.  ${player2.name} has ${p2hp}hp remaining`);
+    p1hp = p1hp - p2damage;
+    console.log(`${player2.name} has attacked ${player1.name} for ${player2.damage} damage.  ${player1.name} has ${p1hp}hp remaining`);
+
+    if (p1hp <= 0) {
+      console.log(`${player2.name} has defeated ${player1.name}`)
+    } if (p2hp <= 0) {
+      console.log(`${player1.name} has defeated ${player2.name}`)
+    }
   };
   
 };
