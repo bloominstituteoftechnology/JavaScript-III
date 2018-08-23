@@ -57,4 +57,4 @@ let PBAndJ = {
     spread: 'Peanut butter and jelly'
 }
   
-switchBread.call(PBAndJ, BeefWithMustard); // logs White bread is toasted! due to explicit binding
+switchBread.call(PBAndJ, BeefWithMustard); // logs Switched White for Rye
