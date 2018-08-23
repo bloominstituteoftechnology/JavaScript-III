@@ -47,10 +47,14 @@ BeefWithMustard.toast(); //logs Rye bread is toasted! due to new binding
 
 // Principle 4
 
+function switchBread(betterBread) {
+    console.log(`Switched ${this.bread} for ${betterBread.bread}`)
+}
+
 let PBAndJ = {
     bread:'White',
     meat: 'None',
     spread: 'Peanut butter and jelly'
-  }
+}
   
-BeefWithMustard.toast.call(PBAndJ); // logs White bread is toasted! due to explicit binding
+switchBread.call(PBAndJ, BeefWithMustard); // logs White bread is toasted! due to explicit binding
