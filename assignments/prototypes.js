@@ -20,7 +20,7 @@ function GameObject(attributes) {
 }
 
 GameObject.prototype.destroy = function() {
-  return 'Object was removed from game.';
+  return `${this.name} was removed from game.`;
 }
 
 // const Player = new GameObject({createdAt: 'today', dimensions:{height:10, str:10}});
