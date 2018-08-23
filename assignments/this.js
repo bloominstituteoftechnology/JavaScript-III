@@ -40,3 +40,15 @@ console.log(Jesse.name);
 
 // Principle 4
 // code example for Explicit Binding
+
+const yourObject = {
+    name: 'Jesse Theisen',
+    city: 'Apple Valley, Minnesota'
+  }
+  
+  const thingsYouEnjoy = ['Video Games', 'Paranormal Phenomena', 'Museums']
+  
+  function tellUsAboutYourself(thing1, thing2, thing3){
+    return `Hi! My name is ${this.name}, I live in ${this.city}, and I enjoy ${thing1}, ${thing2}, and ${thing3}.`
+  }
+  tellUsAboutYourself.call(yourObject, thingsYouEnjoy[0], thingsYouEnjoy[1], thingsYouEnjoy[2])
