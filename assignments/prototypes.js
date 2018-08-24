@@ -74,6 +74,17 @@ Humanoid.prototype.greet = function (){
   return `${this.name} offers a greeting in ${this.language}`
 }
 
+const Hero = function (traits){
+  Humanoid.call(this, traits);
+  this.alignment = traits.alignment;
+  
+}
+
+const Villain = function (traits){
+  Humanoid.call(this, traits);
+  this.alignment = traits.alignment ;
+}
+
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -134,6 +145,36 @@ Humanoid.prototype.greet = function (){
     language: 'Elvish',
   });
 
+  const Warlock = new Villain ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 6,
+    },
+    hp: 25,
+    name: 'Deucidius',
+    faction: 'Annunaki',
+    weapons: ['Dark Matter', 'Black Hole', 'Scepter'],
+    language: 'Sumerian',
+    alignment: 'Chaotic Evil',
+  });
+
+  const AncientOne = new Hero ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 3,
+      height: 6,
+    },
+    hp: 30,
+    name: 'Unknown',
+    faction: 'Buddha',
+    weapons: ['Spirit', 'Light', 'Prayer Beads'],
+    language: 'Vendergood',
+    alignment: 'Chaotic Good',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -145,6 +186,10 @@ Humanoid.prototype.greet = function (){
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   console.log(Humanoid);
+  console.log(Hero);
+  console.log(Villain);
+  console.log(Warlock);
+  console.log(AncientOne);
 
 
   // Stretch task: 
