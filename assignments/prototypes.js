@@ -173,6 +173,7 @@ Humanoid.prototype.greet = function() {
     const decrement = (count) => {
       console.log(count - 1);
       console.log(`${this.name} took damage.`)
+      return count;
     }
     // return new lowered health points
     console.log(decrement());
