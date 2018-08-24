@@ -38,10 +38,11 @@ const characterStats = (objStat) => {
   gameObject.call(this, objStat)
   this.hp = objStat.hp;
   this.name = objStat.name ;
-  this.destroy = gameObject.destroy.call(characterStats);
 }
 
-Object.prototype.takeDamage = function (){
+characterStats.prototype = Object.create(gameObject.prototype);
+
+characterStats.prototype.takeDamage = function (){
     return `${this.name} took damage.`
   }
 
@@ -57,10 +58,11 @@ Object.prototype.takeDamage = function (){
 */
  
 
-const Humanoid = function (obj) {
-  this.faction = obj.faction;
-  this.weapons = obj.weapons;
-  this.language = obj.language;
+const Humanoid = function (traits) {
+  characterStats.call(this, traits)
+  this.faction = traits.faction;
+  this.weapons = traits.weapons;
+  this.language = traits.language;
   
 }
 
@@ -136,8 +138,8 @@ Object.prototype.greet = function (){
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // console.log(mage.takeDamage()); // Bruce took damage.
-  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 

@@ -65,23 +65,23 @@ const newBoundExample = new objConstructorFunc(' key 3 is a string argument for 
 
 //Drawing from the above code:
 
-const giveCompliment = function (str){
-
-    this.key1 = 'value1',
-    
-    this.key2 = 'value2',
-
-    this.flatterThem = function (){
-        console.log(`${str} take ${this.key1} and ${this.key2}`);
-    }
+const myObject = {
+    name: 'Lorenzo',
+    age: 24,
 }
 
-// const hairCompliment = new giveCompliment(`You have nice hair, you can have ${this.key1} and ${this.key2}.`)
+const likedThings = ['Investing', 'Metaphysics'];
+const aboutMe = function (thing1, thing2){
+    return `My name is ${this.name}, and I am ${this.age} years old. I like ${thing1}, and ${thing2}.`
+}
 
-const eyeCompliment = new giveCompliment('hair') ;
+const myObjectLikes = aboutMe.call(myObject, ...likedThings);
 
-const hairCompliment = new giveCompliment('eyes');
-// console.log(eyeCompliment.flatterThem());
-// console.log(hairCompliment.flatterThem());
-console.log(eyeCompliment.flatterThem.call('eyeCompliment'));
-console.log(hairCompliment.flatterThem.call(hairCompliment));
+const otherObjectLikes = aboutMe.apply(myObject, likedThings);
+
+const aboutMyObject = aboutMe.bind(myObject)
+
+const objectBind = aboutMyObject(...likedThings)
+
+
+console.log(myObjectLikes, otherObjectLikes, objectBind);
