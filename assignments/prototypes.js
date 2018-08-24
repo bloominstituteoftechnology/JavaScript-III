@@ -34,11 +34,13 @@ gameObject.prototype.destroy = function (){
   * should inherit destroy() from GameObject's prototype
 */
 
-const characterStats = (objStat) => {
+const characterStats = function (objStat)  {
   gameObject.call(this, objStat)
   this.hp = objStat.hp;
   this.name = objStat.name ;
 }
+
+
 
 characterStats.prototype = Object.create(gameObject.prototype);
 
@@ -66,8 +68,10 @@ const Humanoid = function (traits) {
   
 }
 
-Object.prototype.greet = function (){
+Humanoid.prototype = Object.create(characterStats.prototype);
 
+Humanoid.prototype.greet = function (){
+  return `${this.name} offers a greeting in ${this.language}`
 }
 
 
@@ -140,6 +144,7 @@ Object.prototype.greet = function (){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(Humanoid);
 
 
   // Stretch task: 
