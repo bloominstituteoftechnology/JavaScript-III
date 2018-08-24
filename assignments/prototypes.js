@@ -35,6 +35,12 @@ function CharacterStats(characterStatsOptions) {
   this.name = characterStatsOptions.name;
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+};
+
 /*
   === Humanoid ===
   * faction
@@ -44,17 +50,6 @@ function CharacterStats(characterStatsOptions) {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-CharacterStats.prototype = Object.create(GameObject.prototype);
-
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`;
-};
-
-/*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
 
 function Humanoid(humanoidOptions) {
   CharacterStats.call(this, humanoidOptions);
@@ -62,6 +57,50 @@ function Humanoid(humanoidOptions) {
   this.weapons = humanoidOptions.weapons;
   this.language = humanoidOptions.language;
 }
+
+/*
+* Inheritance chain: GameObject -> CharacterStats -> Humanoid
+* Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+* Instances of CharacterStats should have all of the same properties as GameObject.
+*/
+// Stretch task: 
+// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+function Villian(villianOptions) {
+  Humanoid.call(this, villianOptions);
+  this.catchPhrase = villianOptions.catchPhrase;
+  this.preferredCrimes = villianOptions.preferredCrimes;
+}
+
+function Hero(heroOptions) {
+  Humanoid.call(this, heroOptions);
+  this.catchPhrase = heroOptions.catchPhrase;
+  this.mascot = heroOptions.mascot;
+}
+
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// Hero methods: dematerialized, dissolved, evaporated, faded
+// villian method melted, fractured, particulated 
+
+Hero.prototype.dematerialized = function() {
+  return `${this.name} dematerialized ${villian.name}.`;
+};
+
+Hero.prototype.dissolved = function() {
+  return `${this.name} dissolved ${villian.name}.`;
+};
+
+Villian.prototype.fractured = function() {
+  return `${this.name} fractured ${hero.name}.`;
+};
+
+Villian.prototype.particulated = function() {
+  return `${this.name} particulated ${hero.name}.`;
+};
+
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+Hero.prototype = Object.create(Humanoid.prototype);
+Villian.prototype = Object.create(Humanoid.prototype);
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 const mage = new Humanoid({
@@ -124,10 +163,3 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
-// Stretch task: 
-// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-
-// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-
-// * Create two new objects, one a villian and one a hero and fight it out with methods!
