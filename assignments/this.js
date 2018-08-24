@@ -9,13 +9,13 @@
 * write out a code example of each explanation above
 */
 
-// Principle 1
+// Principle 1 - Window (Global)
 
 function(window) {
 	return this;
 }
 
-// Principle 2
+// Principle 2 - Implicit
 
 const me = {
 	name: 'Erin',
@@ -26,11 +26,25 @@ const me = {
 me.SayName();
 
 
-// Principle 3
+// Principle 3 - New
 
-// code example for New Binding
+function Pet(obj) {
+	this.petName = 'Shadow';
+	this.species = 'cat';
+	this.age = 14;
+	this.whatAmI = function(iAm){
+		return `${this.petName} is a ${species}`
+	}
+}
 
-// Principle 4
+let Toby = new Pet({
+	petName: 'Toby';
+	species: 'dog';
+	age: 17;
+})
+
+
+// Principle 4 - Explicit
 
 const sayName = function(){
 	console.log('My name is ' + this.name);
