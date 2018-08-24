@@ -11,7 +11,8 @@
 
 // Principle 1
 
-// code example for Window Binding
+//Display an alert box after 5 second (5000 miliseconds)
+setTimeout(function(){ alert(“Welcome Guest”); }, 5000;)
 
 // Principle 2
 

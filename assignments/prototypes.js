@@ -57,7 +57,6 @@ function CharacterStats(information) {
 }
 
 function Humanoid(setup) {
-  GameObject.call(this, setup);
   CharacterStats.call(this, setup);
   this.faction = setup.faction;
   this.weapons = setup.weapons;
