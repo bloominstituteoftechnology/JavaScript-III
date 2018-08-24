@@ -13,7 +13,9 @@
 
 // code example for Window Binding
 
-(x) => console.log(this); return x;
+var windowBinding = () => console.log(this);
+
+windowBinding();
 
 // Principle 2
 
