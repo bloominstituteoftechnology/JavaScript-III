@@ -20,7 +20,7 @@ console.log(this); //since this is in the global scope it will return Window obj
 const implicit = {
   explanation: "implicit example",
   whoDis: function (name) {
-         console.log(` ${'this is'} ${name} ${this.explanation}`);
+    console.log(` ${'this is'} ${name} ${this.explanation}`);
   },
 };
 implicit.whoDis('Javier\'s');
@@ -29,7 +29,7 @@ implicit.whoDis('Javier\'s');
 
 // code example for New Binding
 function ToyBin(toy) {
-    this.favoriteStatment = 'is my favorite toy',
+  this.favoriteStatment = 'is my favorite toy',
     this.favorite = toy,
     this.favoriteToy = function (favToy) {
       console.log(`${this.favorite} ${this.favoriteStatment}`);
@@ -37,11 +37,49 @@ function ToyBin(toy) {
 };
 
 const voltron = new ToyBin('Voltron');
-
+const myFavoriteToy = "HE-MAN!!"
 voltron.favoriteToy('Voltron');
 
 
 // Principle 4
 
 // code example for Explicit Binding
-implicit.call(this, )
+let heMan = {
+  name: "He-man",
+  skills: 'kick names take ass',
+  age: 2500,
+  catchPhrase: 'I have the POWER!!',
+
+}
+let intro = function (catchPhrase) {
+  console.log(this.catchPhrase);
+}
+intro.call(heMan)
+
+let blackPanther = {
+  name: "Black Panther",
+  skills: 'kick names take ass',
+  age: 25,
+  catchPhrase: 'Get this man a Shield!!',
+
+}
+intro.call(blackPanther);
+
+const javi = {
+  name: "javi",
+  age: 36,
+  bankAccount: 100000000,
+}
+
+const myke = {
+  name: "myke",
+  age: 36,
+  bankAccount: 50000,
+}
+
+let payYoBills = function (person1, person2) {
+  let billsPaid = this.bankAccount + this.bankAccount;
+  console.log(billsPaid);
+
+}
+payYoBills.call(javi, myke);
