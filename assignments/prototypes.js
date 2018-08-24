@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(obj) {
+  this.createdAt = obj.createdAt;
+  this.dimensions = obj.dimensions;
+}
+
+GameObject.prototype.destroy = function () {
+  return 'Object was removed from the game.'
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +31,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(char) {
+  GameObject.call(this, char);
+  this.hp = char.hp;
+  this.name = char.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -32,7 +53,20 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(hum) {
+  CharacterStats.call(this, hum);
+  this.faction = hum.faction;
+  this.weapons = hum.weapons;
+  this.language = hum.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -105,6 +139,103 @@
 */
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  
+//Villain constructor and prototype
+
+function Villain(vil) {
+  Humanoid.call(this, vil);
+  this.minions = vil.minions;
+  this.lair = vil.lair;
+  this.strength = vil.strength;
+}
+  
+Villain.prototype = Object.create(Humanoid.prototype);
+  
+Villain.prototype.inflictDamage = function (target) {
+  target.hp = target.hp - this.strength;
+  if (target.hp > 1) {
+    return `${this.name} inflicted ${this.strength} points of damage and ${target.name} has ${target.hp} hit points left!`;
+  }
+  else if (target.hp === 1) {
+    return `${this.name} inflicted ${this.strength} points of damage and ${target.name} has ${target.hp} hit point left!`;
+  }
+  return `${this.name} annihilated ${target.name}!!!`
+}
+
+//Villain object
+
+const balmy = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 2,
+    height: 6,
+  },
+  hp: 10,
+  name: 'Balmoloch',
+  faction: 'League of Darkness',
+  weapons: [
+    'Mace'
+  ],
+  language: 'Orcish',
+  minions: ['Orcs', 
+    'Goblins', 
+    'Bats'],
+  lair: 'The Castle of Shadows',
+  strength: 3,
+});
+
+//Hero constructor and prototype
+
+function Hero(heroobj) {
+  Humanoid.call(this, heroobj);
+  this.sidekick = heroobj.sidekick;
+  this.fortress = heroobj.fortress;
+  this.might = heroobj.might;
+}
+  
+Hero.prototype = Object.create(Humanoid.prototype);
+  
+Hero.prototype.inflictDamage = function (target) {
+  target.hp = target.hp - this.might;
+  if (target.hp > 1) {
+    return `${this.name} inflicted ${this.might} points of damage and ${target.name} has ${target.hp} hit points left!`;
+  }
+  else if (target.hp === 1) {
+    return `${this.name} inflicted ${this.might} points of damage and ${target.name} has ${target.hp} hit point left!`;
+  }
+  return `${this.name} defeated ${target.name}!!!`
+}
+
+//Hero object
+
+const orvy = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 4,
+    height: 3,
+  },
+  hp: 8,
+  name: 'Orville',
+  faction: 'Red Guard',
+  weapons: [
+    'Sword',
+    'Crossbow'
+  ],
+  language: 'Dwarf',
+  sidekick: 'Fox',
+  fortress: 'The Den of Warriors',
+  might: 2,
+});
+
+//The epic showdown!! 
+
+console.log(balmy.inflictDamage(orvy)); //returns Balmoloch inflicted 3 points of damage and Orville has 5 hit points left!
+console.log(orvy.inflictDamage(balmy)); // Orville inflicted 2 points of damage and Balmoloch has 8 hit points left!
+console.log(balmy.inflictDamage(orvy)); // Balmoloch inflicted 3 points of damage and Orville has 2 hit points left!
+console.log(orvy.inflictDamage(balmy)); // Orville inflicted 2 points of damage and Balmoloch has 6 hit points left!
+console.log(balmy.inflictDamage(orvy)); //Balmoloch annihilated Orville!!!
