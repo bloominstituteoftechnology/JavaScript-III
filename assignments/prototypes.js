@@ -15,13 +15,13 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject(obj) {
-  this.createdAt = obj.createdAt;
-  this.dimensions = obj.dimensions;
+function GameObject(gameObj) {
+  this.createdAt = gameObj.createdAt;
+  this.dimensions = gameObj.dimensions;
 }
 
 GameObject.prototype.destroy = function(){
-  return `Object was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -32,10 +32,10 @@ GameObject.prototype.destroy = function(){
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats(obj) {
-  GameObject.call(this, obj);
-  this.hp = obj.hp;
-  this.name = obj.name;
+function CharacterStats(charObj) {
+  GameObject.call(this, charObj);
+  this.hp = charObj.hp;
+  this.name = charObj.name;
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -54,17 +54,18 @@ CharacterStats.prototype.takeDamage = function(){
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid(obj) {
-  CharacterStats.call(this, obj);
-  this.faction = obj.faction;
-  this.weapons = obj.weapons;
-  this.language = obj.language;
+function Humanoid(humObj) {
+  CharacterStats.call(this, humObj);
+  this.faction = humObj.faction;
+  this.weapons = humObj.weapons;
+  this.language = humObj.language;
 }
 
-Humanoid.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-  `${this.name} offers a greeting in ${this.language} and ${this}`;
+  // console.log(this);
+  return `${this.name} offers a greeting in ${this.language} and ${this}`;
 }
 
 
@@ -127,21 +128,132 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   // console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-  // console.log(mage)
+  // console.log(archer)
 
+/*
+function greetTwo(str) {
+  if (str == "yes")
+  {
+    return true;
+  }
+  return false;
+  // console.log(this);
+}
+
+console.log(greetTwo("no"));
+console.log(greetTwo("yes"));
+*/
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian(villObj) {
+    Humanoid.call(this, villObj);
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  Villian.prototype.healthBeat = function(strStatus) {
+    if (strStatus === "beat"){
+      --this.hp;
+    }
+    else{
+      ++this.hp;
+    }
+    
+    if (this.hp <= 0) {
+      return `You are dead. You lost`;
+    }
+    return `Game on, you still have ${this.hp} lives.`;
+  }
+
+  function Hero(heroObj) {
+    Humanoid.call(this, heroObj);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+
+
+  const villianOne = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 2,
+    name: 'Lilith',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  const heroOne = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 2,
+    name: 'Jenkins',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  // console.log(villianOne.healthBeat("beat"));
+  // console.log(villianOne.healthBeat("beat"));
+  // console.log(villianOne.healthBeat("beat"));
+
+  warAction = {
+    hero: "sword",
+    villian: "defense",
+    turn: 1
+  }
+
+  function fightItOut(Hero, Villian, action){
+    let heroHp = Hero.hp;
+    let villianHp = Villian.hp;
+    switch (action.turn){
+      case 1:
+        switch (action.hero){
+          case "sword":
+            if (action.villian === "defense"){
+              // return --Villian.hp;
+              console.log(--Villian.hp);
+            }
+            else if (action.villian === "sheild"){
+              // return Villian.hp;
+              console.log (Villian.hp);
+            }
+            else{
+              // return ++Villian.hp;
+              console.log(++Villian.hp);
+            }
+        }
+    }
+    console.log(`Hero: ${Hero.hp} and Villian: ${Villian.hp}`)
+  }
+
+  fightItOut(heroOne, villianOne, warAction);
