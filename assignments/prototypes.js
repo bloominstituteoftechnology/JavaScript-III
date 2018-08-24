@@ -19,7 +19,7 @@ function GameObject(obj) {
     this.dimensions = obj.dimensions;
 }
 GameObject.prototype.destroy = function() {
-    return `Object was removed from the game.`;
+    return `{this.name} was removed from the game.`;
 }
 /*
   === CharacterStats ===
@@ -127,7 +127,7 @@ Humanoid.prototype.greet = function() {
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log("Check this " + swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
