@@ -12,6 +12,7 @@
 // Principle 1
 
 // code example for Window Binding
+
 // function window(){
 //     console.log(this.time);
 // }
@@ -70,6 +71,8 @@ var Vehicle = function(make,model,color){
 }
 
 var inventory001 = new Vehicle('Ford','Ranger','White');
+
+console.log(inventory001);
 
 
 
