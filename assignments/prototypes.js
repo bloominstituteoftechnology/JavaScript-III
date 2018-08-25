@@ -34,9 +34,18 @@ function CharacterStats(charStats) {
     this.hp = charStats.hp;
     this.name = charStats.name;
 }
+<<<<<<< HEAD
+=======
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+>>>>>>> a87e6082257c66414ebcf26fb6a336e1bfbd989c
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
+
+CharacterStats.prototype.takeDamage = function () {
+    console.log(`${this.name} took damage.`);
+}
 
 CharacterStats.prototype.takeDamage = function () {
     console.log(`${this.name} took damage.`);
