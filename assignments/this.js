@@ -11,7 +11,7 @@
 
 // Principle 1 - Window (Global)
 
-function(window) {
+function window() {
 	return this;
 }
 
@@ -29,20 +29,24 @@ me.SayName();
 // Principle 3 - New
 
 function Pet(obj) {
-	this.petName = 'Shadow';
-	this.species = 'cat';
-	this.age = 14;
+	this.petName = obj.petName;
+	this.species = obj.species;
 	this.whatAmI = function(iAm){
-		return `${this.petName} is a ${species}`
+		return `${this.petName} is a ${this.species}`
 	}
 }
 
 let Toby = new Pet({
-	petName: 'Toby';
-	species: 'dog';
-	age: 17;
+	petName: 'Toby'
+	species: 'dog'
 })
 
+let Shadow = new Pet({
+	petName: 'Shadow'
+	species: 'cat'
+})
+
+whatAmI(Toby)
 
 // Principle 4 - Explicit
 
