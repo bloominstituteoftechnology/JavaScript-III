@@ -11,7 +11,7 @@
 
 // Principle 1
 // code example for Window Binding
-const Hi = () => {
+const Hi = function () {
     console.log(this.name);
 }
 
@@ -27,7 +27,7 @@ car.sayMake();
 
 // Principle 3
 // code example for New Binding
-const User = (name) => {
+const User = function (name) {
     this.name = name;
 }
 const louis = new User('Louis');
