@@ -58,25 +58,15 @@ stefanObj.greeting('Stefan')
 // Principle 4
 
 // code example for Explicit Binding
-
-
-function User (info) {
-    this.gender = info.gender;
-    this.age = info.age;
-    this.fullname = info.fullname;
-    this.hometown = info.homeTown;
-    this.speak = function () {
-        
-        return `Hello CSPT2 and Anthony :). My name is ${this.fullname}`;
-    };
-}
+function User (fullname, age, homeTown) {
+   
+    console.log( `Hello CSPT2 and Anthony :). My name is ${this.fullname}.I am orignal from ${this.homeTown} and I am currently ${this.age} years old.`)
+};
 
 const stefan = new User ({
-    gender: 'Male',
-    age: 40,
-    fullname: 'Stefan Clem',
-    homeTown: 'Harlan, Ky'
+age: 40,
+fullname: 'Stefan Clem',
+homeTown: 'Harlan, Ky'
 });
 
-console.log(stefan);
-console.log(stefan.speak());
+User.call(stefan);
