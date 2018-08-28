@@ -12,15 +12,15 @@
 // Principle 1
 
 // code example for Window Binding
-let sayAge = function() {
-    console.log(this.age);
-};
+// let sayAge = function() {
+//     console.log(this.age);
+// };
 
-let me = {
-    age: 25
-};
+// let me = {
+//     age: 25
+// };
 
-sayAge();
+// sayAge();
 
 // Principle 2
 
