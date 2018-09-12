@@ -144,6 +144,23 @@ function Villian(villianAttrs) {
   Hero.call(this, villianAttrs);
 }
 Villian.prototype = Object.create(Hero.prototype);
+
+const aizen = new Villian({
+  createdAt: new Date();
+  dimensions {
+    length: 2,
+    width: 2,
+    height: 3,
+  },
+  hp: 45,
+  name: 'Sosuke Aizen',
+  weapons: ['Kyoka Suigetsu', 'Unknown'],
+  language: 'Japanese',
+  equipment: ['Reiatsu Concealing Cloak'],
+  abilities: ['Kido', 'Shunpo', 'Kanzen Saimin', 'Bankdai'],
+  transformations: ['Hogyoku Fusion'],
+})
+
 const ichigo = new Hero({
   createdAt: new Date(),
   dimensions: {
@@ -157,4 +174,5 @@ const ichigo = new Hero({
   language: 'Japanese',
   equipment: ['Substitute Shinigami Badge', 'Protective Charm', 'Oken Clothing'],
   abilities: ['Shunpo', 'Getsuga Tensho', 'Bankai', 'Hollowfication'],
+  transformations: ['Vizard Form', 'Bankai Form', 'Saigo no Getsuga Tensho Form'],
 })
