@@ -14,7 +14,13 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-
+function GameObject(attrs) { 
+  this.createdAt = attrs.createdAt;
+  this.dimensions = attrs.dimensions;
+ }
+ GameObject.prototype.destroy = function() {
+   return 'Object was removed from the game';
+ }
 /*
   === CharacterStats ===
   * hp
@@ -22,7 +28,15 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
+function CharacterStats(stats) {
+  this.hp = stats.hp;
+  this.name = stats.name;
+  GameObject.call(this, stats);
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
 /*
   === Humanoid ===
   * faction
@@ -32,7 +46,20 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+ function Humanoid(humanoidAttrs) {
+   this.faction = humanoidAttrs.faction;
+   this.weapons = humanoidAttrs.weapons;
+   this.language = humanoidAttrs.language;
+   CharacterStats.call(this, humanoidAttrs);
+ }
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
+Humanoid.prototype.attack = function(opponent) {
+  opponent.hp -= 5;
+  return console.log(`${this.name} has attacked ${opponent.name} with ${this.abilities[1]}: ${opponent.name}'s health is now at ${opponent.hp}`);
+}
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +68,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +129,57 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Hero(heroAttrs) {
+  Humanoid.call(this, heroAttrs);
+  this.transformations = heroAttrs.transformations;
+  this.abilities = heroAttrs.abilities;
+  this.equipment = heroAttrs.equipment;
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villain(villainAttrs) {
+  Hero.call(this, villainAttrs);
+}
+Villain.prototype = Object.create(Hero.prototype);
+
+const aizen = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 3,
+  },
+  hp: 45,
+  name: 'Sosuke Aizen',
+  weapons: ['Kyoka Suigetsu', 'Unknown'],
+  language: 'Japanese',
+  equipment: ['Reiatsu Concealing Cloak'],
+  abilities: ['Kido', 'Shunpo', 'Kanzen Saimin', 'Bankai'],
+  transformations: ['Hogyoku Fusion'],
+});
+
+const ichigo = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 3,
+  },
+  hp: 30,
+  name: 'Ichigo Kurosaki',
+  weapons: ['Zangetsu', 'Tensa Zangetsu'],
+  language: 'Japanese',
+  equipment: ['Substitute Shinigami Badge', 'Protective Charm', 'Oken Clothing'],
+  abilities: ['Shunpo', 'Getsuga Tensho', 'Bankai', 'Hollowfication'],
+  transformations: ['Vizard Form', 'Bankai Form', 'Saigo no Getsuga Tensho Form'],
+});
+
+ichigo.attack(aizen);
+// console.log(ichigo.greet());
