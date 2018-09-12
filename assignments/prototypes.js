@@ -50,6 +50,26 @@ Humanoid.prototype.greet = function() {
 } // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
   //* should inherit destroy() from GameObject through CharacterStats
   //* should inherit takeDamage() from CharacterStats
+
+  function Hero (goodAttributes) {
+    Humanoids.call(this, goodAttributes);
+    this.alignment = goodAttributes.alignment;
+    this.strength = goodAttributes.strength;
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.attack = function() {
+    
+  }
+ 
+  function Villain (badAttributes) {
+    Humanoids.call(this, badAttributes);
+    this.misalignment = badAttributes.misalignment;
+    this.deception = badAttributes.deception;
+  }
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.stabInTheBack = function() {
+ 
+  }
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
