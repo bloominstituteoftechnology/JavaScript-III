@@ -145,5 +145,74 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+ 
+  function Hero(heroAttributes) {
+    this.weapon = heroAttributes.weapon;
+    this.weakness = heroAttributes.weakness;
+    this.power = heroAttributes.power;
+    this.enemy = heroAttributes.enemy;
+    Humanoid.call(this, heroAttributes);
+    }
+
+    function Villian(villAttributes) {
+      this.weapon = villAttributes.weapon;
+      this.weakness = villAttributes.weakness;
+      this.power = villAttributes.power;
+      this.enemy = villAttributes.enemy;
+      Humanoid.call(this, villAttributes);
+      }
+   Villian.prototype = Object.create(Humanoid.prototype);
+
+   Hero.prototype = Object.create(Humanoid.prototype);
+
+    Villian.prototype.challenge = function(name) {
+      return(`${this.name} challenges you to a duel using their ${this.weapon}`);
+    }
+
+    Hero.prototype.challenge = function() {
+      return(`${this.name} challenges you to a duel using their ${this.weapon}`);
+    }
+
+    Villian.prototype.strike = function(enemy) {
+      let points = this.enemy.hp;
+      if (points > 0) {
+        return hp--;
+      }
+    }
+
+    Hero.prototype.stab = function(enemy) {
+      let points = this.enemy.hp;
+      if (points > 0) {
+        return hp--;
+      }
+    }
+
+
+ 
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  const goodGuy = new Hero({
+    createdAt: new Date(),
+    hp: 12,
+    name: 'Batman',
+    faction: 'Gotham City',
+    weapon: 'Bat power',
+    language: 'English',
+    enemy: badGuy,
+    weakness: 'garlic',
+    power: 'flying',
+  });
+
+  const badGuy = new Villian({
+    createdAt: new Date(),
+    hp: 10,
+    name: 'Frankenstein',
+    faction: 'Germany',
+    weapon: 'Creepy moans',
+    language: 'German',
+    enemy: goodGuy,
+    weakness: 'surgical tools',
+    power: 'smashing',
+  });
