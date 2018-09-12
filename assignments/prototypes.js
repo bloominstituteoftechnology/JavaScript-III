@@ -146,8 +146,8 @@ function Villian(villianAttrs) {
 Villian.prototype = Object.create(Hero.prototype);
 
 const aizen = new Villian({
-  createdAt: new Date();
-  dimensions {
+  createdAt: new Date(),
+  dimensions: {
     length: 2,
     width: 2,
     height: 3,
@@ -157,7 +157,7 @@ const aizen = new Villian({
   weapons: ['Kyoka Suigetsu', 'Unknown'],
   language: 'Japanese',
   equipment: ['Reiatsu Concealing Cloak'],
-  abilities: ['Kido', 'Shunpo', 'Kanzen Saimin', 'Bankdai'],
+  abilities: ['Kido', 'Shunpo', 'Kanzen Saimin', 'Bankai'],
   transformations: ['Hogyoku Fusion'],
 })
 
