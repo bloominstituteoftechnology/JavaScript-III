@@ -38,11 +38,13 @@ function CharacterStats(attributes) {
   GameObject.call(this, attributes);
 }
 
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
   console.log(`${this.name} took damage.`);
 }
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /*
   === Humanoid ===
@@ -61,11 +63,12 @@ function Humanoid(attributes) {
   CharacterStats.call(this, attributes);
 }
 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 Humanoid.prototype.greet = function() {
   console.log(`${this.name} offers a greeting in ${this.language}.`);
 }
 
-Humanoid.prototype = Object.create(CharacterStats.prototype);
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
