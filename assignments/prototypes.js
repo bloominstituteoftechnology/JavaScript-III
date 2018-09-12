@@ -39,7 +39,7 @@ function CharacterStats(charAttributes) {
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function() {
+CharacterStats.prototype.takeDamage = function(num) {
   return `${this.name} took damage.`;
 }
 
@@ -72,7 +72,83 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 }
 
-// Test you work by uncommenting these 3 objects and the list of console logs below:
+// === Hero ===
+function Hero (heroAttr) {
+  Humanoid.call(this,heroAttr);
+  this.opponent = heroAttr.opponent;
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.fight = function() {
+  let damage = Math.floor((Math.random() * 20));
+  lizardman.hp = lizardman.hp - damage;
+  if (lizardman.hp > 0) {
+    return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has ${lizardman.hp} hp left.`
+  }
+  return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has ${lizardman.hp} hp left. ${lizardman.destroy()}`;
+}
+
+// === Villain ===
+function Villain (vilAttr) {
+  Humanoid.call(this,vilAttr);
+  this.opponent = vilAttr.opponent;
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.fight = function() {
+  let damage = Math.floor((Math.random() * 20));
+  warlock.hp = warlock.hp - damage;
+  if (warlock.hp > 0) {
+    return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has ${warlock.hp} hp left.`
+  }
+  else {
+    return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has ${warlock.hp} hp left. ${warlock.destroy()}`
+  }
+}
+
+// === Hero and Villain duke it out below ===
+
+const warlock = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 25,
+  name: 'Varis',
+  faction: 'Mage Guild',
+  weapons: [
+    'Eldritch Blast',
+  ],
+  language: 'Elvish',
+  opponent: 'Mr. Lizard',
+});
+
+const lizardman = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 3,
+    height: 2,
+  },
+  hp: 25,
+  name: 'Mr. Lizard',
+  faction: 'Lizardmen',
+  weapons: [
+    'Acid Breath',
+  ],
+  language: 'Draconic',
+  opponent: 'Varis',
+});
+
+console.log(warlock.fight()) 
+console.log(lizardman.fight()) 
+console.log(warlock.fight()) 
+console.log(lizardman.fight()) 
+
+
+// Test your work by uncommenting these 3 objects and the list of console logs below:
 
 
   const mage = new Humanoid({
