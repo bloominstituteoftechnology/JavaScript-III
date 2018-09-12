@@ -143,6 +143,8 @@ Humanoid.prototype.greet = function () {
     this.attack = heroAttribute.attack;
     Humanoid.call(this, heroAttribute);
   }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
   
 
   console.log(mage.createdAt); // Today's date
