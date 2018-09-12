@@ -143,10 +143,14 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+const heroBar = document.getElementsByClassName('hero')[0];
+const villainBar = document.querySelector('.villain');
+const heroStatus = document.getElementById('heroStatus');
+const villainStatus = document.getElementById('villainStatus');
+
 function Villain(attributes) {
   Humanoid.call(this, attributes);
-  this.spellName = attributes.spellName;
-  this.spellDamage = attributes.spellDamage;
+  this.spell = attributes.spell;
 }
 
 Villain.prototype = Object.create(Humanoid.prototype);
@@ -162,8 +166,7 @@ Villain.prototype = Object.create(Humanoid.prototype);
 
 function Hero(attributes) {
   Humanoid.call(this, attributes);
-  this.spellName = attributes.spellName;
-  this.spellDamage = attributes.spellDamage;
+  this.spell = attributes.spell;
 }
 
 Hero.prototype = Object.create(Humanoid.prototype);
@@ -176,16 +179,17 @@ const badGuy = new Villain({
     width: 2,
     height: 4,
   },
-  hp: 10,
+  hp: 45,
   name: 'Dr. Evil',
   faction: 'Villaindia',
   weapons: [
     'Magic wand',
   ],
   language: 'Villainese',
-  spell: {name: 'fireball',
-  damage: 6
-  }
+  spell: {
+    name: 'fireball',
+    damage: 6,
+  },
 });
 
 const goodGuy = new Hero({
@@ -195,40 +199,52 @@ const goodGuy = new Hero({
     width: 2,
     height: 4,
   },
-  hp: 10,
+  hp: 50,
   name: 'Lightning Man',
   faction: 'Hero Village',
   weapons: [
     'Charm', 'Guile',
   ],
   language: 'Gamehenge',
-  spellName: 'lightning',
-  spellDamage: 8,
+  spell: {
+    name: 'lightning',
+    damage: 8},
 });
 
-Villain.prototype.spellName
 
 function cast(caster, defender) {
-  console.log(`${caster.name} casts ${caster.spellName} at ${defender.name}!`);
-  const damage = Math.floor(Math.random() * caster.spellDamage);
+  console.log(`${caster.name} casts ${caster.spell.name} at ${defender.name}!`);
+  const damage = Math.floor(Math.random() * caster.spell.damage);
   defender.takeDamage(damage);
 
 }
 
+function updateHealthBars() {
+  heroBar.style.height = (goodGuy.hp * 5) + 'px';
+  villainBar.style.height = (badGuy.hp * 5) + 'px';
+}
+
+function updateStatus() {
+  heroStatus.innerText = `${goodGuy.name}: ${goodGuy.hp}`;
+  villainStatus.innerText = `${badGuy.name}: ${badGuy.hp}`;
+
+}
 function battle(attacker, defender) {
   while (attacker.hp > 0 && defender.hp > 0) {
-    cast(attacker, defender);
+    setTimeout(cast(attacker, defender), 8000);
     if (defender.hp <= 0) {
       console.log(`${defender.name} has perished.`);
       defender.destroy();
       break;
     }
-    cast(defender, attacker);
+    setTimeout(cast(defender, attacker), 8000);
     if (attacker.hp <= 0) {
       console.log(`${attacker.name} has perished.`);
       attacker.destroy();
       break;
     }
+    updateHealthBars();
+    updateStatus();
   }
 }
 

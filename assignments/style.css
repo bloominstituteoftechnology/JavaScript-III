@@ -1,0 +1,11 @@
+
+.fighters {
+  display: flex;
+
+}
+.fighters div {
+
+  height: 500px;
+  border: 1px solid blue;
+  width: 48%;
+}
