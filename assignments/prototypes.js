@@ -34,17 +34,19 @@ GameObject.prototype.destroy = function() {
 */
 
 function CharacterStats(charStats) {
-  GameObject.call(this, charStats, charStats.takeDamage);
+  GameObject.call(this, charStats);
   this.hp = charStats.hp;
   this.name = charStats.name;
   
 }
 
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`;
-}
-
 CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return this.name + ' took damage.';
+};
+
+
 
 /*
   === Humanoid ===
@@ -57,17 +59,16 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 */
 
 function Humanoid(humanoidInfo) {
-  CharacterStats.call(this, humanoidInfo, humanoidInfo.greet);
+  CharacterStats.call(this, humanoidInfo);
   this.faction = humanoidInfo.faction;
   this.weapons = humanoidInfo.weapons;
   this.language = humanoidInfo.language;
 }
-
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}.`;
+  return this.name + ' offers a greeting in ' + this.language;
 }
 
-Humanoid.prototype = Object.create(CharacterStats.prototype);
 
  
 /*

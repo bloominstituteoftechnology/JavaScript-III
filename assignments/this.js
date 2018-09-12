@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1.  When the 'this' keyword references the window object.
+* 2.  When the 'this' keyword references whatever is left to the 'this' aka the object.
+* 3.  Referencing this through a newly created object.
+* 4.  Using things like call, bind, or apply to give access to 'this' to reference an object.
 *
 * write out a code example of each explanation above
 */
