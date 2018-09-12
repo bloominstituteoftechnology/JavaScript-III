@@ -11,11 +11,17 @@
 
 // Principle 1
 
-// code example for Window Binding
+this.name = 'hello world'
+console.log(this.name)
 
 // Principle 2
 
-// code example for Implicit Binding
+const obj = {
+  name: 'name',
+  speak: () => console.log(this.name)
+}
+
+obj.speak()
 
 // Principle 3
 
