@@ -96,7 +96,7 @@ Hero.prototype.entrance = function(){
 }
 
 Hero.prototype.win = function(){
-  return(`Your winner, ${this.name}! ${this.catchphrase}!!`)
+  return(`Your winner, ${this.nickname} ${this.name}! ${this.catchphrase}!!`)
 }
 
 Hero.prototype.taunt = function(){
@@ -235,7 +235,7 @@ Villian.prototype.underHandedTactic = function(target){
       height: "6'1",
     },
     hp: 5,
-    name: 'Macho Man Randy Savage',
+    name: 'Randy Savage',
     nickname: 'Macho Man',
     faction: 'Mega Powers',
     weapons: [
