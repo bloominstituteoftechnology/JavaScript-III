@@ -20,7 +20,7 @@
  }
 
  GameObject.prototype.destroy = function () {
-  console.log(`${this.name} was removed from the game`);
+  return (`${this.name} was removed from the game`);
  }
 
 /*
@@ -38,7 +38,7 @@ function CharacterStats (CSattributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype)
 
 CharacterStats.prototype.takeDamage = function () {
-  console.log(`${this.name} took damage`)
+  return (`${this.name} took damage`)
 }
 
 /*
@@ -60,7 +60,7 @@ CharacterStats.prototype.takeDamage = function () {
 Humanoid.prototype = Object.create(CharacterStats.prototype)
 
  Humanoid.prototype.greet = function () {
-  console.log(`${this.name} offers a greeting in ${this.language}`)
+  return(`${this.name} offers a greeting in ${this.language}`)
  }
 
 
@@ -130,9 +130,9 @@ Humanoid.prototype = Object.create(CharacterStats.prototype)
   console.log(swordsman.faction); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish. THE ANSWER IS ABOVE FOR SOME REASON
-  console.log(mage.takeDamage()); // Bruce took damage. THE ANSWER IS ABOVE FOR SOME REASON
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game. THE ANSWER IS ABOVE FOR SOME REASON
+  console.log(archer.greet()); // Lilith offers a greeting in Elvish. 
+  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game. 
 
 
   // Stretch task: 
