@@ -56,7 +56,7 @@ function CharacterStats(attributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${name} took damage.`;
+  return `${this.name} took damage.`;
 }
 
 function Humanoid(attributes) {
@@ -68,7 +68,7 @@ function Humanoid(attributes) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-  return `${name} offers a greeting in ${language}.`;
+  return `${this.name} offers a greeting in ${this.language}.`;
 }
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
@@ -123,6 +123,10 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'Elvish',
   });
+
+CharacterStats.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
