@@ -82,6 +82,16 @@ Villian.prototype.darkness = function(target) {
   target.takeDamage();
 }
 
+Villian.prototype.swordattack = function(target) {
+  target.hp -= 20;
+  target.takeDamage();
+}
+
+Villian.prototype.punch = function(target) {
+  target.hp -= 10;
+  target.takeDamage();
+}
+
 function Hero(attributes) {
   Humanoid.call(this, attributes);
 }
@@ -90,6 +100,16 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.endingBlow = function(target) {
   target.hp -= 100;
+  target.takeDamage();
+}
+
+Hero.prototype.bowattack = function(target) {
+  target.hp -= 15;
+  target.takeDamage();
+}
+
+Hero.prototype.swordattack = function(target) {
+  target.hp -= 25;
   target.takeDamage();
 }
  
