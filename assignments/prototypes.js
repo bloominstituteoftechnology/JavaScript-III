@@ -14,6 +14,13 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function  GameObject(){
+    let createdAt;
+    let dimensions;
+    let destroy = function(){
+        return 'Object was removed from the game. ';
+    }
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +29,14 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(name) {
+    let hp;
+    this.name = name;
+    let takeDamage = function() {
+        return `${this.name} took damage`;
+    }
+
+}
 
 /*
   === Humanoid ===
@@ -32,6 +47,14 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+function Humanoid () {
+    let faction;
+    let weapons;
+    let language;
+    let greet = function () {
+        return `${this.name} offers a greeting in ${this.language}`;
+    }
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
