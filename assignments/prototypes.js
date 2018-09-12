@@ -140,6 +140,10 @@ function Hero(heroAttrs) {
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 
+function Villian(villianAttrs) {
+  Hero.call(this, villianAttrs);
+}
+Villian.prototype = Object.create(Hero.prototype);
 const ichigo = new Hero({
   createdAt: new Date(),
   dimensions: {
