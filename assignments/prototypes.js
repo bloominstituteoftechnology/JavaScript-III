@@ -6,7 +6,15 @@
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
-*/
+*/// constructor function: to build objects
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  console.log(`Object was removed from the game`)
+}
   
 /*
   === GameObject ===
@@ -15,6 +23,20 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function CharacterStats(characterattributes){
+  //This binds the "this" keyword to GameObject
+  GameObject.call(this, characterattributes);
+  this.hp = characterattributes.hp;
+  this.name = characterattributes.name;
+}
+
+CharacterStats.prototype.takeDamage = function() {
+  console.log(`${this.name} took damage`)
+}
+
+// this sets up the __proto__ and allows us to use methods now across objects (destroy)
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +44,20 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function Humanoid(humanoidattributes){
+  //This binds the "this" keyword to GameObject
+  GameObject.call(this, characterattributes);
+  this.faction = humanoidattributes.faction;
+  this.weapons = humanoidattributes.weapons;
+  this.language = humanoidattributes.language;
+}
+
+Humanoid.prototype.greet = function() {
+  console.log(`${this.name} offers a greeting in ${this.language}`)
+}
+
+// this sets up the __proto__ and allows us to use methods now across objects (destroy & takeDamage)
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 /*
   === Humanoid ===
