@@ -17,9 +17,10 @@
 function GameObject(gameAttr) {
   this.createdAt = gameAttr.createdAt;
   this.dimensions = gameAttr.dimensions;
+  this.name = gameAttr.name;
 }
 GameObject.prototype.destroy = function() {
-  return "Object was removed from the game.";
+  return `${this.name} was removed from the game.`;
 };
 /*
   === CharacterStats ===
