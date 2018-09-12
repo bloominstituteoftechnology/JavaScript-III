@@ -216,7 +216,11 @@ Hero.prototype.swordattack = function(target) {
   // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   // console.log(mage.takeDamage()); // Bruce took damage.
   // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log('Ganon uses Darkness');
   ganon.darkness(link);
+  console.log("Links HP: " + link.hp);
+  console.log("Link is fed up and ends it all with EndingBlow!");
+  console.log("Ganons HP: " + ganon.hp);
   link.endingBlow(ganon);
   //delete object.archer;
   //console.log(archer);
