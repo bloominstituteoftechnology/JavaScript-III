@@ -10,20 +10,13 @@
 // Principle 1
 
 // code example for Window Binding
-function greet(name) {
-    console.log(`Hello ${name}`);
-    console.log(this); 
-}
-greet('Chris')
+// function greet(name) {}
+
 
 
 // code example for Implicit Binding
-const me = {
-  name: 'Chris',
-  sayName: function() {
-    console.log(this.name);
-  }
-}
+// const me = {}
+
 
 // Principle 3
 
@@ -31,10 +24,9 @@ const me = {
 
 // Principle 4
 
-function greeting () {
-    return `Hello, my name is ${this.name}`;
-  }
+// function greeting () {}
 
-let user = {
-    name: 'Chris',
+function add(n) {
+  return n + 5;
 }
+console.log(add(5));
