@@ -142,7 +142,7 @@ Humanoid.prototype.greet = function() {
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  
+
 
   // === Hero ===
 function Hero (heroAttr) {
@@ -157,7 +157,7 @@ Hero.prototype.fight = function() {
   if (lizardman.hp > 0) {
     return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has ${lizardman.hp} hp left.`
   }
-  return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has ${lizardman.hp} hp left. ${lizardman.destroy()}`;
+  return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has no hp left. ${lizardman.destroy()}`;
 }
 
 // === Villain ===
@@ -174,7 +174,7 @@ Villain.prototype.fight = function() {
     return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has ${warlock.hp} hp left.`
   }
   else {
-    return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has ${warlock.hp} hp left. ${warlock.destroy()}`
+    return `${this.name} deals ${damage} damage to ${this.opponent} using ${this.weapons}. ${this.opponent} has no hp left. ${warlock.destroy()}`
   }
 }
 
@@ -218,4 +218,3 @@ console.log(warlock.fight())
 console.log(lizardman.fight()) 
 console.log(warlock.fight()) 
 console.log(lizardman.fight()) 
-
