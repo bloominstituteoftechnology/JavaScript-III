@@ -10,11 +10,22 @@
 */
 
 // Principle 1
-
+function sayHello(greeting) {
+    console.log(this);
+    return greeting;
+  }
+  sayName("Hello!");
 // code example for Window Binding
 
 // Principle 2
-
+const imp = {
+    greeting: 'Hello',
+    sayHello: function(name) {
+      console.log(`${this.greeting} my name is ${name}`);
+      console.log(this);
+    }
+  };
+  imp.sayHello('Phil');
 // code example for Implicit Binding
 
 // Principle 3
