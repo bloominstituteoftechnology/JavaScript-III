@@ -14,16 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-const GameObject = function(createdAt, dimensions) {
-  this.createdAt = createdAt,
-  this.dimensions = dimensions
+
+const GameObject = function(stats) {
+  this.createdAt = stats.createdAt;
 }
 
-GameObject.prototype.destroy = function() { 
-  console.log('destroy') 
-};
+const g = new GameObject({createdAt: 'today'})
 
-
+// const g = new GameObject({dimension: 10});
 /*
   === CharacterStats ===
   * hp
@@ -31,19 +29,25 @@ GameObject.prototype.destroy = function() {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-const CharacterStats = function(hp, name) {
+const CharacterStats = function(attributes) {
   this.hp = hp,
   this.name = name
+  //GameObject.call(this, hp, name)
 }
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 }
 
-// const c = new CharacterStats(10, 'grizz');
+GameObject.call(this,)
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
-// console.log(c);
+ const c = new CharacterStats({'hp': 10, 'name': 'grizz'});
+
+ console.log(c.destroy());
 // console.log(c.takeDamage());
+ 
 /*
+
   === Humanoid ===
   * faction
   * weapons
@@ -52,7 +56,21 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(faction, weapons, language)  {
+  this.faction = faction,
+  this.weapons = weapons,
+  this.language = language
+  // this.greet = function() {
+  //   return `${this.name} offers a greeting in ${this.language}`
+  // }
+}
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`
+}
+
+const h = new Humanoid('thief', 'sword', 'french');
+console.log(h.greet());
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
