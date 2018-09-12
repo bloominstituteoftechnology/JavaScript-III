@@ -40,6 +40,46 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+function GameObject (ourObj) {
+  this.createdAt = ourObj.createdAt;
+  this.dimensions = ourObj.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed the the game.`;
+}
+
+
+
+function CharacterStats (charStats) {
+  GameObject.call(this, charStats);
+  this.hp = charStats.hp;
+  this.name = charStats.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`;
+}
+
+
+
+function Humanoid (stats) {
+  CharacterStats.call(this, stats);
+  GameObject.call(this, stats);
+  this.faction = stats.faction;
+  this.weapons = stats.weapons;
+  this.language = stats.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+
 
 /*
   const mage = new Humanoid({
