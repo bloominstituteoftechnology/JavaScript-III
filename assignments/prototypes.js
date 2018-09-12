@@ -15,9 +15,6 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-
 function GameObject(attrs) {
   this.createdAt = attrs.createdAt;
   this.dimensions = attrs.dimensions;
@@ -41,6 +38,8 @@ function CharacterStats(characterAttrs) {
   this.name = characterAttrs.name;
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 }
@@ -62,6 +61,8 @@ function Humanoid(humanAttrs) {
   this.weapons = humanAttrs.weapons;
   this.language = humanAttrs.language;
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
@@ -131,5 +132,72 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
+
+function Villain(darkAttrs) {
+  Humanoid.call(this, darkAttrs);
+  this.greed = darkAttrs.greed;
+  this.lust = darkAttrs.greed;
+  this.cackle = darkAttrs.cackle;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+function Hero(lightAttrs) {
+  Humanoid.call(this, lightAttrs);
+  this.valor = lightAttrs.valor;
+  this.honor = lightAttrs.honor;
+  this.bravery = lightAttrs.bravery;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+Villain.prototype.attack = function(foe) {
+  return foe.hp -= 3;
+}
+
+Hero.prototype.defend = function(foe) {
+  return foe.hp -= 2;
+}
+
+const lich = new Villain({
+  hp: 30,
+  name: 'Lich King'
+});
+
+const paladin = new Hero({
+  hp: 40,
+  name: 'King Arthur'
+});
+
+console.log(`${lich.attack(paladin)} / ${paladin.takeDamage()}`);
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.defend(lich));
+console.log(lich.attack(paladin));
+console.log(paladin.destroy());
+
