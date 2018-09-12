@@ -143,11 +143,11 @@ function Hero(attributes) {
 }
 Hero.prototype = Object.create(Humanoid.prototype)
 Hero.prototype.attack = function(object) {
-  object.hp--;
+  object.hp -= 1.5;
   return object.hp <= 0 ? `${object.name} ${object.destroy()}` : `${object.takeDamage()} Now at ${object.hp} hp.`;
 }
 Hero.prototype.heal = function() {
-  this.hp += 10;
+  this.hp <= 5 ? this.hp += 10 : this.hp = 15;
   return `${this.name} healed to ${this.hp} hp.`;
 }
 
@@ -207,10 +207,4 @@ console.log(swordhero.attack(villain))
 console.log(villain.attack(swordhero))
 console.log(swordhero.attack(villain))
 console.log(villain.attack(swordhero))
-console.log(swordhero.heal());
-console.log(swordhero.attack(villain))
-console.log(villain.attack(swordhero))
-console.log(swordhero.attack(villain))
-console.log(villain.attack(swordhero))
-console.log(swordhero.attack(villain))
-console.log(villain.attack(swordhero))
+console.log(swordhero.heal())
