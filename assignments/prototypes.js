@@ -64,6 +64,29 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`
 }
 
+Hero.prototype = Object.create(Humanoid.prototype);
+Villain.prototype = Object.create(Humanoid.prototype);
+
+function Hero(heroAttribs) {
+  Humanoid.call(this, heroAttribs)
+  this.power = heroAttribs.power;
+  this.weakness = heroAttribs.weakness;
+}
+
+function Villain(villainAttribs) {
+  Humanoid.call(this, villainAttribs)
+  this.superWeapon = villainAttribs.superWeapon;
+  this.weakness = villainAttribs.weakness;
+}
+
+
+
+
+// Stretch task: 
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
 /*
   === Humanoid ===
   * faction
@@ -96,7 +119,7 @@ Humanoid.prototype.greet = function() {
     weapons: [
       'Staff of Shamalama',
     ],
-    language: 'Common Toungue',
+    language: 'Common Tongue',
   });
 
   const swordsman = new Humanoid({
@@ -113,7 +136,7 @@ Humanoid.prototype.greet = function() {
       'Giant Sword',
       'Shield',
     ],
-    language: 'Common Toungue',
+    language: 'Common Tongue',
   });
 
   const archer = new Humanoid({
