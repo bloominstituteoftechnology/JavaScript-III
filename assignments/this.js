@@ -1,8 +1,9 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
+* 1. Principle 1: Window/Global Object Binding: If you are in the global scope the value of this will refer to the window or console Object.
+
+* 2.  
 * 3. 
 * 4. 
 *
