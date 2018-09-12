@@ -14,11 +14,12 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+GameObject.prototype = Object.create(CharacterStats.prototype);
 function  GameObject(gameAttributes){
      this.createdAt = gameAttributes.createdAt;
      this.dimensions = gameAttributes.dimensions;
     GameObject.prototype.destroy = function(){
-        return 'Object was removed from the game. ';
+        return `${this.name} was removed from the game.`;
     }
 }
 
