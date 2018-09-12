@@ -115,7 +115,7 @@ Hero.prototype.attack = function(target){
   let output = [];
   output.push(`${this.name} uses ${this.atk} on ${target.name} dealing ${this.atkDmg} damage.`);
   if (target.hp <= 0){
-    output.push(target.destroy());
+    output.push(`Here's the pin... 1... 2... 3.`);
     output.push(this.win());
   }
   else {
@@ -138,7 +138,7 @@ Villian.prototype.underHandedTactic = function(target){
   let output = [];
   output.push(`${this.sidekick} distracts the referee, allowing ${this.name} to use ${this.UHT} on ${target.name} dealing ${this.UHTDMG} damage.`);
   if (target.hp <= 0){
-    output.push(target.destroy());
+    output.push(`Here's the pin ... 1... 2... 3.`);
     output.push(this.win())
     output.push(`What a shame.`)
   }
