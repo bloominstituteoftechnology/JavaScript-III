@@ -20,6 +20,8 @@ function GameObject(attributes) {
   this.dimensions = attributes.dimensions;
 }
 
+GameObject.prototype.constructor = GameObject;
+
 GameObject.prototype.destroy = function() {
   return 'Object was removed from the game.';
 }
@@ -39,6 +41,8 @@ function CharacterStats(charAttributes) {
   this.name = charAttributes.name;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.constructor = CharacterStats;
 
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`
@@ -66,11 +70,26 @@ function Humanoid(humanAttributes) {
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
+Humanoid.prototype.constructor = Humanoid;      // parent parent
+
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 }
 
-// this sets up the __proto__ and allows us to use methods now across objects
+function Hero(heroAttributes) {
+  //This binds the "this" keyword to Parent
+  Humanoid.call(this, heroAttributes);   //parent childAttributes
+  this.nemesis = heroAttributes.nemisis;   // childAttributes
+  this.exterior = heroAttributes.exterior; // childAttributes
+  this.needsToSave = heroAttributes.needsToSave; // childAttributes
+}
+Hero.prototype = Object.create(Humanoid.prototype); // child parent
+
+Hero.prototype.story = function() {                         // child
+  return `${this.name}, a ${this.exterior} ${this.faction} who speaks ${this.language}, needs to save ${this.needsToSave} from ${this.nemesis} using a ${this.weapons}`;
+}
+
+
 
 
 
@@ -143,6 +162,29 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+
+  const princess = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 3,
+    },
+    hp: 15,
+    name: 'Leia',
+    faction: 'Alderaan',
+    weapons: [
+      'Blaster Pistol',
+    ],
+    language: 'Galactic Basic & some Shyriiwook',
+    exterior: 'princess',
+    needsToSave: 'Han Solo',
+    nemisis: 'Darth Vader'
+
+    // Hero.prototype.story = function() {                         // child
+  // return `${this.name}, a ${this.exterior}, needs to save ${this.needsToSave} from ${this.nemesis}`;
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -153,6 +195,7 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(princess.story()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
