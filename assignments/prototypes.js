@@ -134,18 +134,26 @@ const mage = new Humanoid({
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
+
 function Villian(villianAttributes) {
   Humanoid.call(this, villianAttributes);
   this.level = villianAttributes.level;
+  this.equippedWeapon = this.weapons[0];
   this.salves = villianAttributes.salves;
   this.heal = function() {
     if (this.salves === 0) {
-      return `${this.name} attempted to use a healing salve even though healing goes against everything they stand but forgot they were out. `
+      return `${this.name} attempted to use a healing salve from that nice witch but forgot they were out. `
     } else {
       this.salves -= 1;
       let healNum = Math.floor(Math.random() * this.level)
+      if (healNum === 0){
+        return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. Darn children. `
+      }
+      else{
       this.hp = this.hp + healNum;
-      return `${this.name} uses a healing salve for ${healNum} HP regeneration because healing is okay if it's only them.`
+      return `${this.name} uses a healing salve for ${healNum} HP regeneration`
+      }
+
     };
   } //end heal
   this.attack = function(opponent) {
@@ -154,13 +162,13 @@ function Villian(villianAttributes) {
     } else {
       let damageNum = Math.floor(Math.random() * this.level);
       if (damageNum === 0) {
-        return `${this.name} evilly tried to attack with their evil ${this.weapons} but missed.`
+        return `${this.name} evilly tried to attack with their evil ${this.equippedWeapon} but missed.`
       } else {
         opponent.hp = opponent.hp - damageNum;
         if (opponent.hp <= 0) {
           return opponent.destroy();
         } else {
-          return `${this.name} wickedly uses ${this.weapons} for ${damageNum} dark HP damage to ${opponent.name}.`;
+          return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} dark HP damage to ${opponent.name}. ` + opponent.takeDamage();
         } //end successful hit
       } //end destroy or hit
     }
@@ -172,6 +180,7 @@ Villian.prototype = Object.create(Humanoid.prototype);
 function Hero(heroAttributes) {
   Humanoid.call(this, heroAttributes);
   this.level = heroAttributes.level;
+  this.equippedWeapon = this.weapons[0];
   this.salves = heroAttributes.salves;
   this.heal = function() {
     if (this.salves === 0) {
@@ -179,8 +188,14 @@ function Hero(heroAttributes) {
     } else {
       this.salves -= 1;
       let healNum = Math.floor(Math.random() * this.level)
+      if (healNum === 0){
+        return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.name} so we'll just try again later.`
+      }
+      else{
       this.hp = this.hp + healNum;
       return `${this.name} uses a healing salve for ${healNum} HP regeneration`
+      }
+
     };
   } //end heal
   this.attack = function(opponent) {
@@ -189,13 +204,13 @@ function Hero(heroAttributes) {
     } else {
       let damageNum = Math.floor(Math.random() * this.level);
       if (damageNum === 0) {
-        return `${this.name} heroically tried to attack with their light and fluffy ${this.weapons} but missed.`
+        return `${this.name} heroically tried to attack with their light and fluffy ${this.equippedWeapon} but missed.`
       } else {
         opponent.hp = opponent.hp - damageNum;
         if (opponent.hp <= 0) {
           return opponent.destroy();
         } else {
-          return `${this.name} bravely uses ${this.weapons} for ${damageNum} HP damage to ${opponent.name}.`;
+          return `${this.name} bravely uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage();
         } //end successful hit
       } //end destroy or hit
     }
@@ -210,6 +225,7 @@ const snowWhite = new Hero({
   faction: 'The Princesses',
   weapons: [
     'dwarf magic',
+    'frying pan',
   ],
   language: 'Common Toungue',
   level: 6,
@@ -218,16 +234,24 @@ const snowWhite = new Hero({
 
 const evilQueen = new Villian({
   createdAt: new Date(),
-  hp: 10,
+  hp: 20,
   name: 'Evil Queen',
   faction: 'Terrible Stepmothers',
   weapons: [
-    'poison apple'
+    'poison apple',
+    'that creepy mirror',
   ],
   language: 'Common Toungue',
   level: 5,
   salves: 2,
 })
+
+//character object names: snowWhite, evilQueen
+//method options:
+//.attack(opponent) to go after that terrible other person!
+//.heal() attempt to get back in the game with some magic salve. Or at least stall the inevitable embrace of death.
+
+console.log(snowWhite.attack(evilQueen));
 
 //character object names: snowWhite, evilQueen
 //method options:
