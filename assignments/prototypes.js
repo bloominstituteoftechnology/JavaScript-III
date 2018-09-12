@@ -17,10 +17,10 @@
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
-  this.destroy = function() {
+}
+GameObject.prototype.destroy = function() {
     return `${this.name} was removed from the game`
   };
-}
 
 /*
   === CharacterStats ===
@@ -33,11 +33,13 @@ function CharacterStats(characterAttributes) {
   GameObject.call(this, characterAttributes);
   this.hp = characterAttributes.hp;
   this.name = characterAttributes.name;
-  this.takeDamage = function() {
-    return `${this.name} took damage`
-  }
-}
+};
+
 CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+    return `${this.name} took damage`
+  };
 /*
   === Humanoid ===
   * faction
@@ -52,11 +54,12 @@ function Humanoid(humanoidAttributes) {
   this.faction = humanoidAttributes.faction;
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
-  this.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}.`
-  }
+
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+    return `${this.name} offers a greeting in ${this.language}.`
+  };
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -144,31 +147,32 @@ function Villain(villainAttributes) {
     if (this.salves === 0) {
       return `${this.name} attempted to use a healing salve but forgot they were out. `
     }
-      this.salves -= 1;
-      let healNum = Math.floor(Math.random() * this.level)
-      if (healNum === 0){
-        return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. Darn children. `
-      }
-      this.hp = this.hp + healNum;
+    this.salves -= 1;
+    let healNum = Math.floor(Math.random() * this.level)
+    if (healNum === 0) {
+      return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. Darn children. `
+    } else {
+      this.hp += healNum;
       return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
+    }
   } //end heal
   this.attack = function(opponent) {
     if (opponent.name === this.name) {
-      this.hp = this.hp - 1;
+      this.hp -= 1;
       return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. you are now at ${this.hp} HP.`
     }
     if (opponent.hp <= 0) {
       return `Dude, ${opponent.name} is already out of the game. Stop beating a dead horse.`
     }
-      let damageNum = Math.floor(Math.random() * this.level);
-      if (damageNum === 0) {
-        return `${this.name} evilly tried to attack with their evil ${this.equippedWeapon} but missed.`
-      }
-        opponent.hp = opponent.hp - damageNum;
-        if (opponent.hp <= 0) {
-          return opponent.destroy();
-        }
-          return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    let damageNum = Math.floor(Math.random() * this.level);
+    if (damageNum === 0) {
+      return `${this.name} evilly tried to attack with their evil ${this.equippedWeapon} but missed.`
+    }
+    opponent.hp -= damageNum;
+    if (opponent.hp <= 0) {
+      return opponent.destroy();
+    }
+    return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   } //attack
 }
 Villain.prototype = Object.create(Humanoid.prototype);
@@ -183,31 +187,33 @@ function Hero(heroAttributes) {
     if (this.salves === 0) {
       return `${this.name} attempted to use a healing salve from that nice witch but forgot they were out. `
     }
-      this.salves -= 1;
-      let healNum = Math.floor(Math.random() * this.level)
-      if (healNum === 0){
-        return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.name} so we'll just try again later.`
-      }
-      this.hp = this.hp + healNum;
+    this.salves -= 1;
+    let healNum = Math.floor(Math.random() * this.level)
+    if (healNum === 0) {
+      return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.name} so we'll just try again later.`
+    } else {
+      this.hp += healNum;
       return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
+    }
+
   } //end heal
   this.attack = function(opponent) {
     if (opponent.name === this.name) {
-      this.hp = this.hp -1;
+      this.hp -= 1;
       return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on yours foot and lost 1 HP. you are now at ${this.hp} HP.`
     }
     if (opponent.hp <= 0) {
       return `Dude, ${opponent.name} is already out of the game. Stop beating a dead horse.`
     }
-      let damageNum = Math.floor(Math.random() * this.level);
-      if (damageNum === 0) {
-        return `${this.name} heroically tried to attack with their light and fluffy ${this.equippedWeapon} but missed.`
-      }
-        opponent.hp = opponent.hp - damageNum;
-        if (opponent.hp <= 0) {
-          return opponent.destroy();
-        }
-          return `${this.name} bravely uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    let damageNum = Math.floor(Math.random() * this.level);
+    if (damageNum === 0) {
+      return `${this.name} heroically tried to attack with their light and fluffy ${this.equippedWeapon} but missed.`
+    }
+    opponent.hp -= damageNum;
+    if (opponent.hp <= 0) {
+      return opponent.destroy();
+    }
+    return `${this.name} bravely uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   } //end attack
 }
 Hero.prototype = Object.create(Humanoid.prototype);
@@ -249,9 +255,15 @@ const evilQueen = new Villain({
 // console.log(snowWhite.attack(evilQueen));
 // console.log(evilQueen.attack(snowWhite));
 // console.log(evilQueen.attack(evilQueen));
-console.log(evilQueen.heal());
-console.log(evilQueen.heal());
-console.log(evilQueen.heal());
-console.log(snowWhite.heal());
-console.log(snowWhite.heal());
-console.log(snowWhite.heal());
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
