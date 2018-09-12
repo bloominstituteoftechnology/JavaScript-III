@@ -15,16 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject() {
-  this.createdAt = createdAt;
-  this.dimensions = dimensions;
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
 }
 
 GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game.';
+  return `${this.name} was removed from the game.`;
 }
 
-console.log(GameObject());
 
 /*
   === CharacterStats ===
@@ -34,14 +33,19 @@ console.log(GameObject());
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats() {
-  this.hp = hp;
-  this.name = name;
+function CharacterStats(attributes) {
+  this.hp = attributes.hp;
+  this.name = attributes.name;
+  GameObject.call(this, attributes);
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
-  GameObject.call(this);
+  if(this.hp <= 0) {
+    console.log(this.destroy());
   return `${this.name} took damage.`;
+   }
 }
 
 /*
@@ -54,16 +58,39 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid() {
-  this.faction = faction;
-  this.weapons = weapons;
-  this.language = language;
+function Humanoid(attributes) {
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+  CharacterStats.call(this, attributes);
 }
 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 Humanoid.prototype.greet = function() {
-  GameObject.call(this);
-  CharacterStats.call(this);
   return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+function Villian(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.darkness = function(target) {
+  target.hp -= 40;
+  target.takeDamage();
+}
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.endingBlow = function(target) {
+  target.hp -= 100;
+  target.takeDamage();
 }
  
 /*
@@ -74,7 +101,7 @@ Humanoid.prototype.greet = function() {
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -125,17 +152,55 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  const ganon = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 50,
+    name: 'Ganondorf',
+    faction: 'King of Thieves',
+    weapons: [
+      'Sword',
+      'Fists',
+    ],
+    language: 'Gerudo',
+  });
+
+  const link = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 50,
+    name: 'Link',
+    faction: 'Hero of Hyrule',
+    weapons: [
+      'Sword',
+      'Bow',
+    ],
+    language: 'Hylian',
+  });
+
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  ganon.darkness(link);
+  link.endingBlow(ganon);
+  //delete object.archer;
+  //console.log(archer);
+  //console.log(link.hp);
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
