@@ -14,10 +14,10 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-function  GameObject(){
-    let createdAt;
-    let dimensions;
-    let destroy = function(){
+function  GameObject(gameAttributes){
+     this.createdAt = gameAttributes.createdAt;
+     this.dimensions = gameAttributes.dimensions;
+    GameObject.prototype.destroy = function(){
         return 'Object was removed from the game. ';
     }
 }
@@ -29,13 +29,14 @@ function  GameObject(){
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(name) {
-    let hp;
-    this.name = name;
-    let takeDamage = function() {
+CharacterStats.prototype = Object.create(GameObject.prototype);
+function CharacterStats(charAttributes) {
+    this.hp = charAttributes.hp;
+    this.name = charAttributes.name;
+    CharacterStats.prototype.takeDamage = function() {
         return `${this.name} took damage`;
-    }
-
+    };
+    GameObject.call(this, charAttributes);
 }
 
 /*
@@ -46,14 +47,20 @@ function CharacterStats(name) {
   * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
+  *
+  * Are these parameters?
 */
-function Humanoid () {
-    let faction;
-    let weapons;
-    let language;
-    let greet = function () {
+
+Humanoid.prototype  = Object.create(CharacterStats.prototype, GameObject.prototype);
+function Humanoid (humanAttributes) {
+     this.faction = humanAttributes.faction;
+     this.weapons = humanAttributes.weapons;
+     this.language = humanAttributes.language;
+    Humanoid.prototype.greet = function () {
         return `${this.name} offers a greeting in ${this.language}`;
-    }
+    };
+    GameObject.call(this, humanAttributes);
+    CharacterStats.call(this, humanAttributes);
 }
  
 /*
@@ -64,7 +71,7 @@ function Humanoid () {
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -80,6 +87,7 @@ function Humanoid () {
     ],
     language: 'Common Toungue',
   });
+
 
   const swordsman = new Humanoid({
     createdAt: new Date(),
@@ -125,7 +133,7 @@ function Humanoid () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
