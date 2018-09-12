@@ -10,17 +10,49 @@
 */
 
 // Principle 1
-
-// code example for Window Binding
+function confusingStuff(stuff) {
+    console.log(this);
+    return stuff;
+  }
+  confusingStuff("This is confusing stuff");
 
 // Principle 2
-
-// code example for Implicit Binding
+const slangExample = {
+    greeting: 'Yo, Wat Up Dawg,',
+    sayWatUp: function(name) {
+      console.log(`${this.greeting} my name is ${name}`);
+      console.log(this);
+    }
+  };
+  slangExample.sayWatUp('Homie Sav Swag');
 
 // Principle 3
+function afterLongDay(actions) {
+    this.action = 'relax';
+    this.actions = actions;
+    this.speak = function () {
+        console.log(this.action + this.actions);
+        console.log(this);
+    };
 
-// code example for New Binding
+}
+const relax = new afterLongDay('I want to')
 
-// Principle 4
+relax.speak();
 
-// code example for Explicit Binding
+
+
+// // Principle 4 
+ let sayName = function(lang1, lang2, lang3) {
+     console.log('My name is ' + this.name + ' and i kinda sorta know ' + lang1 + ',' + lang2 + ',and ' + lang3);
+ };
+
+ let savannah = {
+     name: 'Savannah',
+     age: 20
+ };
+
+ let languages = ['English', ' Spanish', 'Javascript'];
+
+ sayName.apply(savannah, languages);
+ 
