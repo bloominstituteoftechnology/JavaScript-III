@@ -56,6 +56,10 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 }
+Humanoid.prototype.attack = function(opponent) {
+  opponent.hp -= 5;
+  return console.log(`${this.name} has attacked ${opponent.name} with ${this.abilities[1]}: ${opponent.name}'s health is now at ${opponent.hp}`);
+}
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -64,7 +68,7 @@ Humanoid.prototype.greet = function() {
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -125,7 +129,7 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
@@ -145,7 +149,7 @@ function Villain(villainAttrs) {
 }
 Villain.prototype = Object.create(Hero.prototype);
 
-const aizen = new Villian({
+const aizen = new Villain({
   createdAt: new Date(),
   dimensions: {
     length: 2,
@@ -176,3 +180,6 @@ const ichigo = new Hero({
   abilities: ['Shunpo', 'Getsuga Tensho', 'Bankai', 'Hollowfication'],
   transformations: ['Vizard Form', 'Bankai Form', 'Saigo no Getsuga Tensho Form'],
 });
+
+ichigo.attack(aizen);
+// console.log(ichigo.greet());
