@@ -179,12 +179,18 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
         goodGuy.hp--;
         return (`${goodGuy.enemy} got hit and lost 1 HP! New HP total: ${goodGuy.hp}`);
       }
+      else {
+        return(`${goodGuy.enemy} died!`)
+      }
     }
 
     Hero.prototype.stab = function() {
       if (badGuy.hp > 0) {
         badGuy.hp--;
         return (`${badGuy.enemy} got stabbed and lost 1 HP! New HP total: ${badGuy.hp}`);
+      }
+      else {
+        return(`${badGuy.enemy} died!`)
       }
     }
 
