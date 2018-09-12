@@ -45,8 +45,8 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   * should inherit destroy() from GameObject's prototype
 */
 function Humanoid(humanoidattributes){
-  //This binds the "this" keyword to GameObject
-  GameObject.call(this, characterattributes);
+  //This binds the "this" keyword to CharacterStats
+  CharacterStats.call(this, humanoidattributes);
   this.faction = humanoidattributes.faction;
   this.weapons = humanoidattributes.weapons;
   this.language = humanoidattributes.language;
@@ -57,7 +57,15 @@ Humanoid.prototype.greet = function() {
 }
 
 // this sets up the __proto__ and allows us to use methods now across objects (destroy & takeDamage)
-Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype = Object.create(GameObject.prototype);
+
+function Child(childAttributes) {
+  //This binds the "this" keyword to Parent
+  Parent.call(this, childAttributes);
+  this.toy = childAttributes.toy;
+}
+
+Child.prototype = Object.create(Parent.prototype);
 
 /*
   === Humanoid ===
@@ -77,7 +85,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -138,7 +146,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
