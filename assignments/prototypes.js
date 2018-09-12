@@ -150,6 +150,16 @@ const messages = document.querySelector('.messages');
 villainHPBar = document.querySelector('.villain-hp-bar');
 heroHPBar = document.querySelector('.hero-hp-bar');
 
+// FUNCTIONS
+function messageFlicker() {
+  messages.style.background = '#ff7878';
+  messages.style.color = '#fff';
+  setTimeout(() => {
+    messages.style.background = '#eee';
+    messages.style.color = '#000';
+  }, 350);
+}
+
 // HERO
 function Hero(heroAttributes) {
   Humanoid.call(this, heroAttributes);
@@ -167,24 +177,28 @@ Hero.prototype.castSpell = function(villain) {
     messages.textContent = `${
       michael.name
     } casted Paper Cut!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
+    messageFlicker();
   } else if (villain.hp === 1) {
     villain.hp -= 1;
     villainHPBar.style.width =
       ((villain.hp / villain.maxHP) * 100).toString() + '%';
     messages.textContent = `${villain.destroy()}`;
+    messageFlicker();
   }
 };
 
 Hero.prototype.superAttack = function(villain) {
-  if (villain.hp >= 3) {
+  if (villain.hp >= 4) {
     villain.hp -= 3;
     villainHPBar.style.width =
       ((villain.hp / villain.maxHP) * 100).toString() + '%';
     messages.textContent = `${
       michael.name
     } Threw a Party!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
+    messageFlicker();
   } else if (villain.hp === 0) {
     messages.textContent = `${villain.destroy()}`;
+    messageFlicker();
   } else {
     messages.textContent = 'Use normal attack... super is too much';
   }
@@ -206,10 +220,12 @@ Villain.prototype.baseAttack = function(hero) {
     } attacked with Endless Paperwork!!! ${hero.takeDamage()}... HP: ${
       hero.hp
     }`;
+    messageFlicker();
   } else if (hero.hp === 1) {
     hero.hp -= 1;
     heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
     messages.textContent = `${hero.destroy()}`;
+    messageFlicker();
   }
 };
 
@@ -220,8 +236,10 @@ Villain.prototype.superAttack = function(hero) {
     messages.textContent = `${
       charles.name
     } Threw Bureaucratic Shade!!! ${hero.takeDamage()}... HP: ${hero.hp}`;
+    messageFlicker();
   } else if (hero.hp === 0) {
     messages.textContent = `${hero.destroy()}`;
+    messageFlicker();
   } else {
     messages.textContent = 'Use normal attack... super is too much';
   }
