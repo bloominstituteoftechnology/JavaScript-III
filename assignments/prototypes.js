@@ -31,6 +31,7 @@ function GameObject(attrs) {
 function CharacterStats(stats) {
   this.hp = stats.hp;
   this.name = stats.name;
+  GameObject.call(this, stats);
 }
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
