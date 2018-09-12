@@ -140,10 +140,10 @@ function Hero(heroAttrs) {
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 
-function Villain(villianAttrs) {
-  Hero.call(this, villianAttrs);
+function Villain(villainAttrs) {
+  Hero.call(this, villainAttrs);
 }
-Villian.prototype = Object.create(Hero.prototype);
+Villain.prototype = Object.create(Hero.prototype);
 
 const aizen = new Villian({
   createdAt: new Date(),
