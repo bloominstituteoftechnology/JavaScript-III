@@ -32,6 +32,9 @@ function CharacterStats(stats) {
   this.hp = stats.hp;
   this.name = stats.name;
 }
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
 /*
   === Humanoid ===
   * faction
