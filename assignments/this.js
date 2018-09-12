@@ -1,7 +1,7 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
+* 1. this
 * 2. 
 * 3. 
 * 4. 
@@ -24,3 +24,5 @@
 // Principle 4
 
 // code example for Explicit Binding
+
+this
