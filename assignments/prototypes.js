@@ -234,13 +234,11 @@ Villian.prototype.underHandedTactic = function(target){
       weight: '224 lbs',
       height: "6'1",
     },
-    hp: 5,
+    hp: 7,
     name: 'Randy Savage',
     nickname: 'Macho Man',
     faction: 'Mega Powers',
-    weapons: [
-      'Staff of Shamalama',
-    ],
+    
     language: 'English',
     atk: 'Flying Elbow Drop',
     atkDmg: 4,
@@ -278,11 +276,12 @@ Villian.prototype.underHandedTactic = function(target){
   console.log(macho.entrance());
   console.log(flair.entrance());
   console.log(macho.basicAttack('punch', flair));
+  console.log(macho.taunt());
   console.log(flair.basicAttack('hard irish whip into the corner', macho));
   console.log(flair.taunt());
   console.log(flair.basicAttack('backchop', macho));
   console.log(flair.underHandedTactic(macho));
+  console.log(flair.attack(macho));
   console.log(macho.basicAttack('nice standing dropkick', flair));
   console.log(macho.basicAttack('double ax handle from the top rope',flair));
-  console.log(macho.taunt());
   console.log(macho.attack(flair))
