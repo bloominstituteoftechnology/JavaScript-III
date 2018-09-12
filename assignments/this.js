@@ -13,14 +13,41 @@ the format of a new binding tells the parameters to attach in the new object bei
 // Principle 1
 
 // code example for Window Binding
+function sayHello(greeting) {
+    console.log(this);
+    return greeting;
+  }
+ sayHello("howdy!");
 
 // Principle 2
 
 // code example for Implicit Binding
+const newObj = {
+    foodOrder: 'french fries',
+    confirmOrder: function(name) {
+      console.log(`${name}, your order of ${this.foodOrder} will be out soon`);
+      console.log(this);
+    }
+  };
+  newObj.confirmOrder('Katie');
 
 // Principle 3
 
 // code example for New Binding
+
+function FoodOrder(name,order) {
+     this.name = name;
+     this.order = order;
+     this.confirmation = `Hello ${this.name}, your ${this.order} will be right out`;
+     this.speak = function() {
+      console.log(this.confirmation);
+      console.log(this);
+    };
+  }
+  
+  const katie = new FoodOrder('Katie', 'french fries');
+ 
+  katie.speak();
 
 // Principle 4
 
