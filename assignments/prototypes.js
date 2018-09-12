@@ -157,7 +157,13 @@ Humanoid.prototype.greet = function() {
   Villain.prototype.normalAttack = function(fightArray, opponentName){
     const opponent = fightArray.find(person => person.name === opponentName);
     if(opponent){
-      return --opponent.hp ? opponent.hp : console.log(opponent.destroy());
+      --opponent.hp;
+      if(opponent.hp <= 0){
+        document.getElementById('hero').src="img/heroDead.png";
+        document.getElementById('villainAttack').disabled = true;
+        document.getElementById('heroAttack').disabled = true;
+        document.getElementById('victory').innerHTML = `${orcVillain.name} the villain is victorious...`;
+      }
     } else {
       console.log(`${opponentName} is not in this battle!`)
     }
@@ -178,14 +184,25 @@ Humanoid.prototype.greet = function() {
     const opponent = fightArray.find(person => person.name === opponentName);
     if(opponent){
       if(Math.round(Math.random()) === 0){
-        return --opponent.hp ? opponent.hp : console.log(opponent.destroy());
+        --opponent.hp;
+        if(opponent.hp > 0){
+          return opponent.hp;
+        } else {
+          document.getElementById('villain').src="img/villainDead.png";
+          document.getElementById('villainAttack').disabled = true;
+          document.getElementById('heroAttack').disabled = true;
+          document.getElementById('victory').innerHTML = `${orcHero.name} the hero is victorious!`;
+        }
       } else {
         --opponent.hp;
         --opponent.hp;
         if(opponent.hp > 0){
           return opponent.hp;
         } else {
-          console.log(opponent.destroy());
+          document.getElementById('villain').src="img/villainDead.png";
+          document.getElementById('villainAttack').disabled = true;
+          document.getElementById('heroAttack').disabled = true;
+          document.getElementById('victory').innerHTML = `${orcHero.name} the hero is victorious!`;
         }
       }
     } else {
@@ -200,7 +217,7 @@ Humanoid.prototype.greet = function() {
       width: 2,
       height: 4,
     },
-    hp: 2,
+    hp: 15,
     name: 'Ghorza',
     faction: 'The Banished',
     weapons: [
@@ -216,7 +233,7 @@ Humanoid.prototype.greet = function() {
       width: 2,
       height: 3,
     },
-    hp: 20,
+    hp: 10,
     name: 'Rodagog',
     faction: 'The Blood Orcs',
     weapons: [
@@ -230,7 +247,32 @@ Humanoid.prototype.greet = function() {
 
   const theFinalBattle = [orcHero, orcVillain];
 
-  orcVillain.normalAttack(theFinalBattle, orcVillain.nemesis);
-  orcHero.normalAttack(theFinalBattle, orcHero.nemesis);
+  //orcVillain.normalAttack(theFinalBattle, orcVillain.nemesis);
+  //orcHero.normalAttack(theFinalBattle, orcHero.nemesis);
+
+  // ---------------------------------------------
+
+  document.getElementById('heroHP').innerHTML = orcHero.hp;
+  document.getElementById('villainHP').innerHTML = orcVillain.hp;
+
+  document.getElementById('heroAttack').addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById('hero').src="img/heroAttack.png";
+    setTimeout(function() {
+      document.getElementById('hero').src="img/heroFront.png";
+    }, 300);
+    orcHero.normalAttack(theFinalBattle, orcHero.nemesis);
+    document.getElementById('villainHP').innerHTML = orcVillain.hp;
+  });
+
+  document.getElementById('villainAttack').addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById('villain').src="img/villainAttack.png";
+    setTimeout(function() {
+      document.getElementById('villain').src="img/villainFront.png";
+    }, 300);
+    orcVillain.normalAttack(theFinalBattle, orcVillain.nemesis);
+    document.getElementById('heroHP').innerHTML = orcHero.hp;
+  });
 
   

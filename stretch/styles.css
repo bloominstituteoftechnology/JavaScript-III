@@ -1,0 +1,46 @@
+.graphics {
+    width: 100px;
+    height: 100px;
+    background: black;
+    color: white;
+    margin: 0 auto;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.graphics img {
+    height: 50px;
+    width: auto;
+}
+
+.graphics #hero {
+    justify-self: flex-start;
+}
+
+.graphics #villain {
+    justify-self: flex-end;
+}
+
+.graphics #heroHP {
+    width: 50%;
+}
+
+.graphics #villainHP {
+    width: 50%;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+}
+
+#victory {
+    color: red;
+    margin: 0 auto;
+    font-size: 72px;
+    text-align: center;
+}
