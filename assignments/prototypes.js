@@ -195,7 +195,7 @@ const deku = new Hero({
 const bakugo = new Hero({
   createdAt: new Date(),
   hp: 100,
-  name: 'Bukugo',
+  name: 'Bakugo',
   group: 'Heroes: UA Class A',
   quirk: 'Explosion'
 });
