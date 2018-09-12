@@ -142,3 +142,95 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+    this.nemesis = villainAttributes.nemesis;
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.chooseNemesis = function(nemesisObject){
+    this.nemesis = nemesisObject.name;
+  }
+
+  Villain.prototype.normalAttack = function(fightArray, opponentName){
+    const opponent = fightArray.find(person => person.name === opponentName);
+    if(opponent){
+      return --opponent.hp ? opponent.hp : console.log(opponent.destroy());
+    } else {
+      console.log(`${opponentName} is not in this battle!`)
+    }
+  }
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.nemesis = heroAttributes.nemesis;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.chooseNemesis = function(nemesisObject){
+    this.nemesis = nemesisObject.name;
+  }
+
+  Hero.prototype.normalAttack = function(fightArray, opponentName){
+    const opponent = fightArray.find(person => person.name === opponentName);
+    if(opponent){
+      if(Math.round(Math.random()) === 0){
+        return --opponent.hp ? opponent.hp : console.log(opponent.destroy());
+      } else {
+        --opponent.hp;
+        --opponent.hp;
+        if(opponent.hp > 0){
+          return opponent.hp;
+        } else {
+          console.log(opponent.destroy());
+        }
+      }
+    } else {
+      console.log(`${opponentName} is not in this battle!`)
+    }
+  }
+
+  const orcVillain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 2,
+    name: 'Ghorza',
+    faction: 'The Banished',
+    weapons: [
+      'Great maul'
+    ],
+    language: 'Orcish'
+  });
+
+  const orcHero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 3,
+    },
+    hp: 20,
+    name: 'Rodagog',
+    faction: 'The Blood Orcs',
+    weapons: [
+      'Umog the Reckoning'
+    ],
+    language: 'Orcish',
+    nemesis: orcVillain.name
+  });
+
+  orcVillain.chooseNemesis(orcHero);
+
+  const theFinalBattle = [orcHero, orcVillain];
+
+  orcVillain.normalAttack(theFinalBattle, orcVillain.nemesis);
+  orcHero.normalAttack(theFinalBattle, orcHero.nemesis);
+
+  
