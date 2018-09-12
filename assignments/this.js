@@ -14,6 +14,16 @@
 */
 
 // Principle 1  WINDOW/OBJECT BINDING
+let declareHackerName = function() {
+  console.log(this.hackerName);
+}
+
+let hackerName = {
+  handle: 'ZeroCool'
+};
+
+Window.declareHackerName();  //this only seems to have a reaction in Chrome devtool's console.
+
 
 
 
@@ -30,15 +40,18 @@ robotCashier.salute('Blockbuster');
 
 
 
-// Principle 3 NEW BINDING
 
-function WuTangClan(member, verse) {
-  this.chant = 'Wu, Wu, ';
+
+// Principle 3 NEW BINDING
+function WuTangClan(member, verse) {  //capital W since it's a constructor, y'know y'know
   this.member = member;
   this.verse = verse;
   this.rap = function(){
     console.log(this.verse);
   };
+  this.chant = function() {
+    console.log('Wu, Wu, ');
+  }
 }
 
 const gza = new WuTangClan('Gza', 'Clan in da front, let ya feet stomp');
@@ -49,6 +62,19 @@ methodman.rap();
 
 
 
-// Principle 4
 
-// code example for Explicit Binding
+
+// Principle 4  EXPLICIT BINDING
+let saySup = function(instrument) {
+  console.log(`Sup, my name is ${this.name} and I play ${instrument} `);
+};
+
+let thatGuyOverThere = {
+  name: 'Shabazz',
+  age: 85
+};
+
+let instruments = ['trumpet', 'xylophone', 'lyre'];
+
+let executeBind = saySup.bind(thatGuyOverThere, instruments);
+executeBind();
