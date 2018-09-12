@@ -76,68 +76,68 @@ Humanoid.prototype.greet = function(){
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 
-  const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    hp: 5,
-    name: 'Bruce',
-    faction: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Toungue',
-  });
+  // const mage = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 2,
+  //     width: 1,
+  //     height: 1,
+  //   },
+  //   hp: 5,
+  //   name: 'Bruce',
+  //   faction: 'Mage Guild',
+  //   weapons: [
+  //     'Staff of Shamalama',
+  //   ],
+  //   language: 'Common Toungue',
+  // });
 
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    hp: 15,
-    name: 'Sir Mustachio',
-    faction: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Toungue',
-  });
+  // const swordsman = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 2,
+  //     width: 2,
+  //     height: 2,
+  //   },
+  //   hp: 15,
+  //   name: 'Sir Mustachio',
+  //   faction: 'The Round Table',
+  //   weapons: [
+  //     'Giant Sword',
+  //     'Shield',
+  //   ],
+  //   language: 'Common Toungue',
+  // });
 
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    hp: 10,
-    name: 'Lilith',
-    faction: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
+  // const archer = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 1,
+  //     width: 2,
+  //     height: 4,
+  //   },
+  //   hp: 10,
+  //   name: 'Lilith',
+  //   faction: 'Forest Kingdom',
+  //   weapons: [
+  //     'Bow',
+  //     'Dagger',
+  //   ],
+  //   language: 'Elvish',
+  // });
 
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log('\n\n\n\n-------------------------------------------\n\n\n\n');
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log('\n\n\n\n-------------------------------------------\n\n\n\n');
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
@@ -156,4 +156,88 @@ Humanoid.prototype.greet = function(){
   Villian.prototype = Object.create(Humanoid.prototype);
   Hero.prototype = Object.create(Humanoid.prototype);
 
+
+  Villian.prototype.attack = function(target){
+    //console.log(this.weaponDamage);
+    let damage =  Math.ceil(Math.random() * this.weaponDamage);
+    target.hp -= damage;
+    if(target.hp < 1){
+      return target.destroy();
+    } else {
+      return `${this.name} attacks ${target.name} and causes ${damage} hp's of damage.\n${target.name} has ${target.hp} hp's left.`;    
+    }
+  }  
   
+  Hero.prototype.attack = function(target){
+    let damage =  Math.ceil(Math.random() * this.weaponDamage);
+    target.hp -= damage;
+    if(target.hp < 1){
+      return target.destroy();
+    } else {
+      return `${this.name} attacks ${target.name} and causes ${damage} hp's of damage.\n${target.name} has ${target.hp} hp's left.`;    
+    }
+  }
+
+  const bob = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 45,
+    name: 'Bob',
+    faction: 'Burgermakers',
+    weapons: [
+      'Spatula',
+    ],
+    language: 'Common Toungue',
+    weaponDamage: 10
+  });
+
+  const fishoder = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 40,
+    name: 'Mr. Fishoder',
+    faction: 'Landlords',
+    weapons: [
+      'Rent',
+    ],
+    language: 'Common Toungue',
+    weaponDamage: 10
+  });
+  
+console.log('BATTLE!\n\n');  
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
+console.log(bob.attack(fishoder));
+console.log(fishoder.attack(bob));
