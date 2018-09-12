@@ -14,6 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(obj){
+  this.createdAt = obj.createdAt;
+  this.dimensions = obj.dimensions;
+}
+
+GameObject.prototype.destroy = function(){
+  return 'Object was removed from the game.';
+};
 
 /*
   === CharacterStats ===
@@ -22,6 +30,21 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(char){
+  GameObject.call(this, char);
+  this.hp = char.hp;
+  this.name = char.name;
+ 
+}
+
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`;
+};
+
 
 /*
   === Humanoid ===
@@ -33,6 +56,28 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(type){
+  CharacterStats.call(this,type);
+  this.faction = type.faction;
+  this.language = type.language;
+}
+
+
+
+
+
+
+// class Humanoid {
+//   constructor(type){
+//     this.language = type.faction;
+//     this.weapons = type.weapons;
+//     this.faction = type.faction;
+//   }
+// }
+
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -103,6 +148,7 @@
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
