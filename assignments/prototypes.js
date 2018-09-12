@@ -142,36 +142,33 @@ function Villain(villainAttributes) {
   this.salves = villainAttributes.salves;
   this.heal = function() {
     if (this.salves === 0) {
-      return `${this.name} attempted to use a healing salve from that nice witch but forgot they were out. `
-    } else {
+      return `${this.name} attempted to use a healing salve but forgot they were out. `
+    }
       this.salves -= 1;
       let healNum = Math.floor(Math.random() * this.level)
       if (healNum === 0){
         return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. Darn children. `
       }
-      else{
       this.hp = this.hp + healNum;
       return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
-      }
-
-    };
   } //end heal
   this.attack = function(opponent) {
+    if (opponent.name === this.name) {
+      this.hp = this.hp - 1;
+      return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. you are now at ${this.hp} HP.`
+    }
     if (opponent.hp <= 0) {
       return `Dude, ${opponent.name} is already out of the game. Stop beating a dead horse.`
-    } else {
+    }
       let damageNum = Math.floor(Math.random() * this.level);
       if (damageNum === 0) {
         return `${this.name} evilly tried to attack with their evil ${this.equippedWeapon} but missed.`
-      } else {
+      }
         opponent.hp = opponent.hp - damageNum;
         if (opponent.hp <= 0) {
           return opponent.destroy();
-        } else {
-          return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} dark HP damage to ${opponent.name}. ` + opponent.takeDamage(); + ` and is now at ${opponent.hp} HP. `
-        } //end successful hit
-      } //end destroy or hit
-    }
+        }
+          return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   } //attack
 }
 Villain.prototype = Object.create(Humanoid.prototype);
@@ -185,35 +182,32 @@ function Hero(heroAttributes) {
   this.heal = function() {
     if (this.salves === 0) {
       return `${this.name} attempted to use a healing salve from that nice witch but forgot they were out. `
-    } else {
+    }
       this.salves -= 1;
       let healNum = Math.floor(Math.random() * this.level)
       if (healNum === 0){
         return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.name} so we'll just try again later.`
       }
-      else{
       this.hp = this.hp + healNum;
       return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
-      }
-
-    };
   } //end heal
   this.attack = function(opponent) {
+    if (opponent.name === this.name) {
+      this.hp = this.hp -1;
+      return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on yours foot and lost 1 HP. you are now at ${this.hp} HP.`
+    }
     if (opponent.hp <= 0) {
       return `Dude, ${opponent.name} is already out of the game. Stop beating a dead horse.`
-    } else {
+    }
       let damageNum = Math.floor(Math.random() * this.level);
       if (damageNum === 0) {
         return `${this.name} heroically tried to attack with their light and fluffy ${this.equippedWeapon} but missed.`
-      } else {
+      }
         opponent.hp = opponent.hp - damageNum;
         if (opponent.hp <= 0) {
           return opponent.destroy();
-        } else {
+        }
           return `${this.name} bravely uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
-        } //end successful hit
-      } //end destroy or hit
-    }
   } //end attack
 }
 Hero.prototype = Object.create(Humanoid.prototype);
@@ -246,30 +240,18 @@ const evilQueen = new Villain({
   salves: 2,
 })
 
-//character object names: snowWhite, evilQueen
-//method options:
-//.attack(opponent) to go after that terrible other person!
-//.heal() attempt to get back in the game with some magic salve. Or at least stall the inevitable embrace of death.
-
-console.log(snowWhite.attack(evilQueen));
 
 //character object names: snowWhite, evilQueen
 //method options:
 //.attack(opponent) to go after that terrible other person!
 //.heal() attempt to get back in the game with some magic salve. Or at least stall the inevitable embrace of death.
 
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.hp);
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.hp);
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
 console.log(evilQueen.heal());
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.hp);
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.hp);
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.hp);
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.hp);
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.hp);
+console.log(evilQueen.heal());
+console.log(evilQueen.heal());
+console.log(snowWhite.heal());
+console.log(snowWhite.heal());
+console.log(snowWhite.heal());
