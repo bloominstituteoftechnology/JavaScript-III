@@ -15,7 +15,6 @@ img {
 .container {
   max-width: 800px;
   margin: 0 auto;
-  border: 1px solid black;
   padding: 1rem 2rem;
 }
 header {
@@ -60,7 +59,7 @@ header .hero-header h2 {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 5rem;
+  margin-top: 3rem;
   height: auto;
   align-items: baseline;
 }
