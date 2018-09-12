@@ -39,6 +39,41 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+function GameObject() {
+  this.createdAt =
+  this.dimensions =
+  this.destroy =
+}
+
+function CharacterStats(){
+  this.hp =
+  this.name = 
+  this.takeDamage = 
+  this.destroy =
+}
+
+
+function Humanoid() {
+  this.faction = 
+  this.weapons = 
+  this.language = 
+  this.greet = 
+  this.destroy = 
+  theis.takeDamage = 
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 /*
