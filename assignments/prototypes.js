@@ -171,6 +171,9 @@ function Hero(attr) {
   };
 }
 
+Villian.prototype = Object.create(Humanoid.prototype);
+Hero.prototype = Object.create(Humanoid.prototype);
+
 const darthVader = new Villian({
   createdAt: new Date(),
   dimensions: {
