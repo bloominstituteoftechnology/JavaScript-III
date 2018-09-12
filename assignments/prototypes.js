@@ -14,6 +14,15 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+const GameObject = function(createdAt, dimensions) {
+  this.createdAt = createdAt,
+  this.dimensions = dimensions
+}
+
+GameObject.prototype.destroy = function() { 
+  console.log('destroy') 
+};
+
 
 /*
   === CharacterStats ===
@@ -22,7 +31,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+const CharacterStats = function(hp, name) {
+  this.hp = hp,
+  this.name = name
+}
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
 
+// const c = new CharacterStats(10, 'grizz');
+
+// console.log(c);
+// console.log(c.takeDamage());
 /*
   === Humanoid ===
   * faction
