@@ -129,3 +129,103 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  
+function Villian(attr) {
+  this.type = 'Villain'
+  Humanoid.call(this, attr);
+  this.attacked = (victim) => {
+    if (victim.type === this.type){
+      console.log(`\n${this.type}s' cant attack other ${this.type}s'`)
+    } else {
+      if (victim.hp === 0) {
+        console.log(`\n${victim.name} [${victim.type}] is no longer in game!`);
+      } else {
+        victim.hp = victim.hp - 1;
+        console.log(`\n${this.name} [${this.type}] attacked ${victim.name} [${victim.type}] \n${this.name} [${this.type}] HP: ${this.hp} \n${victim.name} [${victim.type}] HP: ${victim.hp}\n`);
+        if(victim.hp === 0) {
+          console.log(victim.destroy());
+        }
+      }
+    }
+  };
+}
+
+function Hero(attr) {
+  this.type = 'Hero';
+  Humanoid.call(this, attr);
+  this.attacked = (victim) => {
+    if (victim.type === this.type){
+      console.log(`\n${this.type}s' cant attack other ${this.type}s'`)
+    } else {
+      if (victim.hp === 0) {
+        console.log(`\n${victim.name} [${victim.type}] is no longer in game!`);
+      } else {
+        victim.hp = victim.hp - 1;
+        console.log(`\n${this.name} [${this.type}] attacked ${victim.name} [${victim.type}] \n${this.name} [${this.type}] HP: ${this.hp} \n${victim.name} [${victim.type}] HP: ${victim.hp}\n`);
+        if(victim.hp === 0) {
+          console.log(victim.destroy());
+        }
+      }
+    }
+  };
+}
+
+const darthVader = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Darth Vador',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
+
+const obi1 = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Obi 1',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
+
+const obi2 = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Obi 1',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
+
+obi1.attacked(darthVader);
+darthVader.attacked(obi1);
+obi1.attacked(darthVader);
+darthVader.attacked(obi1);
+obi1.attacked(darthVader);
+obi1.attacked(darthVader);
+obi1.attacked(darthVader);
+obi1.attacked(darthVader);
+obi1.attacked(darthVader);
+obi1.attacked(obi2);
