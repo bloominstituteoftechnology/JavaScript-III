@@ -16,14 +16,61 @@
 
 // code example for Window Binding
 
+const imWindow = {
+    'name' : this
+}
+
+console.log(imWindow.name);
+
 // Principle 2
 
 // code example for Implicit Binding
+
+const imImplicit = {
+    'name' : 'Ninja',
+    'weapon' : function(weapon1, weapon2){
+        console.log(`That ${this.name} uses ${weapon1} and ${weapon2}, so be cautios!`)
+    }
+}
+
+imImplicit.weapon('kunai', 'smokebombs');
 
 // Principle 3
 
 // code example for New Binding
 
+function Preserve(jamType){
+    this.jamType = jamType;
+    this.jelly = 'Jelly';
+    this.select = function(){
+        console.log(`${this.jamType} ${this.jelly} Please!`)
+    }
+}
+
+const strawberry = new Preserve('Strawberry');
+const grape = new Preserve('Grape');
+
+console.log(strawberry);
+console.log(grape);
+
+strawberry.select();
+grape.select();
+
 // Principle 4
 
 // code example for Explicit Binding
+
+const myInfo = {
+    'name': 'David'
+}
+
+const favoriteColors = [ 'Blue', 'White', 'Salmon'];
+
+function introduction(color1, color2, color3){
+    console.log(`Hi! My name is ${this.name} and my 3 favorite colors are ${color1}, ${color2}, and ${color3}.`)
+}
+
+// ================ .call();
+introduction.call(myInfo, favoriteColors[0], favoriteColors[1], favoriteColors[2]);
+// ================ .apply();
+introduction.apply(myInfo, favoriteColors);
