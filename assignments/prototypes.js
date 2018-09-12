@@ -15,12 +15,13 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject() {
-  this.createdAt = "date";
-  this.dimensions = "dimensions";
-  this.destroy = function() {
-    console.log('Object was removed from the game.')
-  }
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.createdAt;
+}
+
+GameObject.prototype.destroy = function() {
+  console.log('Object was removed from the game.')
 }
 
 /*
@@ -31,12 +32,14 @@ function GameObject() {
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats() {
-  this.hp = "hp";
-  this.name = "name";
-  this.takeDamage = function() {
-    console.log(`${this.name} took damage.`)
-  }
+function CharacterStats(charAttributes) {
+  this.hp = charAttributes.hp;
+  this.name = charAttributes.name;
+  GameObject.call(this, charAttributes);
+}
+
+CharacterStats.prototype.takeDamage = function() {
+  console.log(`${this.name} took damage.`);
 }
 
 /*
