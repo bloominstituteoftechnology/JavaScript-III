@@ -12,15 +12,65 @@
 // Principle 1
 
 // code example for Window Binding
+// function windoze() {
+//   console.log(this);
+//   return;
+// }
+
+// windoze();
+
+
 
 // Principle 2
 
 // code example for Implicit Binding
 
+// const rocky = {
+//   salutation: 'Yo!',
+//   action: 'Punch',
+
+//   adrian: function() {
+//     console.log(`${this.salutation} Adrian!`);
+//   },
+
+//   drago: function() {
+//     console.log(`${this.action} Drago until he's knocked out.`);
+//   }
+// }
+
+// rocky.adrian();
+// rocky.drago();
+
+
+
 // Principle 3
 
 // code example for New Binding
 
+// function MovieBoxer(theme) {
+//   this.themeSong = theme;
+//   this.fight = function(opponent) {
+//     console.log(`The crowd goes wild as "${this.themeSong}" plays before the big fight with ${opponent}.`);
+//   }
+// }
+
+// const apollo = new MovieBoxer('Living in America');
+
+// apollo.fight('Ivan Drago');
+
 // Principle 4
 
 // code example for Explicit Binding
+
+const fighterName = {
+  'name': 'Rocky'
+}
+
+const trainingLocations = ['meatlockers', 'the beach', 'the arctic', 'the gym'];
+
+function trainingRegimen(loc1, loc2, loc3, loc4) {
+  console.log(`${this.name} trains at places like ${loc1}, ${loc2}, ${loc3}, and ${loc4}`);
+}
+
+trainingRegimen.call(fighterName, ...trainingLocations);
+
