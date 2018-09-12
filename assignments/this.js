@@ -75,7 +75,7 @@ const newObj = {
     'favoritegame' : 'Half-Life 2'
 }
 
-const myHobbies = ["Music Production", "PC Gaming", "Writing Poetry", "Reading"];
+const myHobbies = ["Music Production", "PC Gaming", "Write Poetry", "Read"];
 const myKnowledge = ["Biology", "Native Culture", "Lambda School"];
 
 function introduction (myHobbies1, myHobbies2, myHobbies3, myHobbies4, myKnowledge1, myKnowledge2, myKnowledge3 ){
