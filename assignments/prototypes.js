@@ -127,3 +127,97 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+//both Hero and Villain objects have the .attack method which reduces a passed-through enemy object's hp by 50 points,
+//then runs an if statement and returns a "still-fighting" or "victorious" dynamic string depending on the enemy's health
+//an extra if statement is first passed to determine if the Hero or Villain is still above 0 hp, if not then a "defeated" string is returned
+function Villain(villainStats) {
+  Humanoid.call(this, villainStats);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.attack = function(character) {
+  if (this.hp > 0) {
+    character.hp -= 50;
+    if (character.hp > 0) {
+      return `${this.name} hits ${character.name} with an ${
+        this.weapons[0]
+      } and does 50 points of damage! Are ${character.faction} doomed?`;
+    } else {
+      return `${this.name} strikes ${character.name} down with an ${
+        this.weapons[1]
+      }! With that final blow, ${
+        this.faction
+      } are victorious! The world weeps in terror!`;
+    }
+  } else {
+    return `${
+      this.name
+    } has been defeated and can no longer attack! Remember kids, villains never win!`;
+  }
+};
+
+function Hero(heroStats) {
+  Humanoid.call(this, heroStats);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.attack = function(character) {
+  if (this.hp > 0) {
+    character.hp -= 50;
+    if (character.hp > 0) {
+      return `${this.name} hits ${character.name} with a ${
+        this.weapons[0]
+      } and does 50 points of damage! ${character.name} taunts ${
+        this.name
+      } in anger!`;
+    } else {
+      return `${this.name} uses ${this.weapons[1]}! ${
+        character.name
+      } has been defeated, and ${this.faction} are victorious!`;
+    }
+  } else {
+    return `${
+      this.name
+    } has been defeated and can no longer attack! With the Symbol of Peace slain, what hope is there for ${
+      this.faction
+    }?`;
+  }
+};
+
+const allMight = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 5
+  },
+  hp: 100,
+  name: "All-Might",
+  faction: "the Heroes",
+  weapons: ["smash", "United States of Smash"],
+  language: "English"
+});
+
+const allForOne = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 4
+  },
+  hp: 100,
+  name: "All for One",
+  faction: "the League of Villains",
+  weapons: ["Air Cannon", "overpowered Air Cannon"],
+  language: "English"
+});
+
+console.log(allMight.attack(allForOne));
+//All-Might hits All for One with a smash and does 50 points of damage! All for One taunts All-Might in anger!​​​​​
+console.log(allForOne.attack(allMight));
+//All for One hits All-Might with an Air Cannon and does 50 points of damage! Are the Heroes doomed?
+console.log(allMight.attack(allForOne));
+//All-Might uses United States of Smash! All for One has been defeated, and the Heroes are victorious!​​​​​
+console.log(allForOne.attack(allMight));
+//All for One has been defeated and can no longer attack! Remember kids, villains never win!
