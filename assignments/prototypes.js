@@ -20,7 +20,8 @@ function GameObject(attributes) {
 }
 
 GameObject.prototype.destroy = function() {
-  return `${this.name} was removed from the game`;
+  //return `${this.name} was removed from the game`;
+  console.log(`${this.name} was removed from the game`);
 };
 
 /*
@@ -38,8 +39,10 @@ function CharacterStats(attributes) {
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`;
+CharacterStats.prototype.takeDamage = function(damage) {
+  this.hp -= damage;
+  // return `${this.name} took ${damage} points of damage.`;
+  console.log(`${this.name} took ${damage} points of damage.`);
 };
 
 /*
@@ -135,12 +138,100 @@ console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
-// Stretch task: 
+// Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 function Villain(attributes) {
-
-  
+  Humanoid.call(this, attributes);
+  this.spellName = attributes.spellName;
+  this.spellDamage = attributes.spellDamage;
 }
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+/* Villain.prototype.fireball = function(defender) {
+  console.log(`${this.name} hurls a fireball at ${defender.name}.`);
+  defender.takeDamage(1);
+  if (defender.hp <= 0) {
+    defender.destroy();
+  }
+}; */
+
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+  this.spellName = attributes.spellName;
+  this.spellDamage = attributes.spellDamage;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
+const badGuy = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Dr. Evil',
+  faction: 'Villaindia',
+  weapons: [
+    'Magic wand',
+  ],
+  language: 'Villainese',
+  spell: {name: 'fireball',
+  damage: 6
+  }
+});
+
+const goodGuy = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Lightning Man',
+  faction: 'Hero Village',
+  weapons: [
+    'Charm', 'Guile',
+  ],
+  language: 'Gamehenge',
+  spellName: 'lightning',
+  spellDamage: 8,
+});
+
+Villain.prototype.spellName
+
+function cast(caster, defender) {
+  console.log(`${caster.name} casts ${caster.spellName} at ${defender.name}!`);
+  const damage = Math.floor(Math.random() * caster.spellDamage);
+  defender.takeDamage(damage);
+
+}
+
+function battle(attacker, defender) {
+  while (attacker.hp > 0 && defender.hp > 0) {
+    cast(attacker, defender);
+    if (defender.hp <= 0) {
+      console.log(`${defender.name} has perished.`);
+      defender.destroy();
+      break;
+    }
+    cast(defender, attacker);
+    if (attacker.hp <= 0) {
+      console.log(`${attacker.name} has perished.`);
+      attacker.destroy();
+      break;
+    }
+  }
+}
+
+console.dir(badGuy);
+console.dir(goodGuy);
+battle(badGuy, goodGuy);
