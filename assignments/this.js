@@ -74,3 +74,6 @@ function introduction(color1, color2, color3){
 introduction.call(myInfo, favoriteColors[0], favoriteColors[1], favoriteColors[2]);
 // ================ .apply();
 introduction.apply(myInfo, favoriteColors);
+// ================ .bind();
+const stillWantedToTryIt = introduction.bind(myInfo, ...favoriteColors);
+stillWantedToTryIt();
