@@ -139,6 +139,61 @@ console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task:
-// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
-// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-// * Create two new objects, one a villian and one a hero and fight it out with methods!
+// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+}
+
+// Init prototype
+Hero.prototype = Object.create(Humanoid.prototype);
+
+// * Give the Hero different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+Hero.prototype.castSpell = function(villain) {
+  villain.hp -= 1;
+  return villain.takeDamage();
+};
+
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+}
+
+// Init prototype
+Villain.prototype = Object.create(Humanoid.prototype);
+
+// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+// * Create two new objects, one a villain and one a hero and fight it out with methods!
+const swordsguy = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  hp: 15,
+  name: 'Sir Mustachio',
+  faction: 'The Round Table',
+  weapons: ['Giant Sword', 'Shield'],
+  language: 'Common Toungue'
+});
+
+const archie = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  hp: 10,
+  name: 'Lex Luther',
+  faction: 'Luther Corp',
+  weapons: ['Bow', 'Dagger'],
+  language: 'Elvish'
+});
+
+console.log(swordsguy.castSpell(archie));
+console.log(swordsguy.castSpell(archie));
+
+console.log(archie.hp);
