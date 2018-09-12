@@ -81,10 +81,13 @@ Hero.prototype =
 Object.create(Humanoid.prototype);
 
 Hero.prototype.swordSlash = function(){
-  if (this.hp >= 1){
-      return (`${demon.name}'s hp has been sword slashed to ${demon.hp - Math.floor(Math.random()*30)}!`)
+  demonHp -= Math.floor(Math.random() * 100);
+  if (heroHp > 0 && demonHp > 0){
+      return (`${demon.name}'s hp has been sword slashed to ${demonHp}!`)
+  }else if(demonHp < 1) {
+      return `Hey man, the demon is already dead!`;
   }else{
-      return `Dude, you're already dead`;
+    return `${highKnight.name} is already slain.`;
   }
 }
 
@@ -97,15 +100,21 @@ Villain.prototype =
 Object.create(Humanoid.prototype);
 
 Villain.prototype.curse = function(){
-  if (this.hp >= 0){
-      return (`${highKnight.name} has been cursed to ${highKnight.hp - Math.floor(Math.random()*15)}!`)
+  heroHp -= Math.floor(Math.random() * 50);
+  if (heroHp > 0 && demonHp > 0){
+      return (`${highKnight.name} has been cursed to ${heroHp}!`)
+  }else if(heroHp < 1){
+      return `You've slain the High Knight already VILE DEMON!`;
+    }else{
+        return `The demon is DEAD!`;
   }
 }
 
 
 
 
-
+let demonHp = 66;
+let heroHp = 25;
 
 
 
@@ -207,8 +216,11 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-console.log(demon.curse());
-console.log(highKnight.swordSlash());
+// console.log(demon.curse());
+// console.log(highKnight.swordSlash());
+
+highKnight.swordSlash();
+
 
 
 // Stretch task: 
