@@ -15,6 +15,16 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(create){
+  this.createdAt = create.createdAt;
+  this.dimensions = create.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return 'Object was removed from the game.';
+}
+
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +32,19 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(charStats) {
+  GameObject.call(this, charStats, charStats.takeDamage);
+  this.hp = charStats.hp;
+  this.name = charStats.name;
+  
+}
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /*
   === Humanoid ===
@@ -32,6 +55,20 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(humanoidInfo) {
+  CharacterStats.call(this, humanoidInfo, humanoidInfo.greet);
+  this.faction = humanoidInfo.faction;
+  this.weapons = humanoidInfo.weapons;
+  this.language = humanoidInfo.language;
+}
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +78,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +139,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
