@@ -30,42 +30,33 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-
-
-
-
-
 // ======GAME OBJECT======
-// destroy() // prototype method -> returns the string: 'Object was removed from the game.'
+
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
 }
 GameObject.prototype.destroy = function() {
-  console.log("Object was removed from the game");
+  return `${this.name} was removed from the game.`;
 }
 
 
 
 // ======CHARACTER STATS======
-// takeDamage() // prototype method -> returns the string '<object name> took damage.'
-// should inherit destroy() from GameObject's prototype
 
 function CharacterStats(attributes) {
   GameObject.call(this, attributes)
   this.hp = attributes.hp;
   this.name = attributes.name;
 }
+CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() {
-  console.log(`${this.name} took damage.`);
+  return `${this.name} took damage.`;
 }
 
 
 
 // ======HUMANOID======
-// greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-// should inherit destroy() from GameObject through CharacterStats
-// should inherit takeDamage() from CharacterStats
 
 function Humanoid(attributes) {
   CharacterStats.call(this, attributes);
@@ -73,9 +64,32 @@ function Humanoid(attributes) {
   this.weapons = attributes.weapons;
   this.language = attributes.language;
 }
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
-  console.log(`${this.name} offers a greeting in ${this.language}.`);
+  return `${this.name} offers a greeting in ${this.language}.`;
 }
+
+
+
+// ======VILLAIN======
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+// Villain.prototype.attack = function() {
+//   return `${this.name} attacks using ${this.weapons}.`;
+// }
+
+
+
+// ======HERO======
+function Hero(attributes) {
+  Villain.call(this, attributes);
+}
+Hero.prototype = Object.create(Villain.prototype);
+// Hero.prototype.save = function() {
+//   return `${this.name} saves a life.`;
+// }
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
