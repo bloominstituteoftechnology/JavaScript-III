@@ -135,11 +135,11 @@ const mage = new Humanoid({
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 
-function Villian(villianAttributes) {
-  Humanoid.call(this, villianAttributes);
-  this.level = villianAttributes.level;
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+  this.level = villainAttributes.level;
   this.equippedWeapon = this.weapons[0];
-  this.salves = villianAttributes.salves;
+  this.salves = villainAttributes.salves;
   this.heal = function() {
     if (this.salves === 0) {
       return `${this.name} attempted to use a healing salve from that nice witch but forgot they were out. `
@@ -174,7 +174,7 @@ function Villian(villianAttributes) {
     }
   } //attack
 }
-Villian.prototype = Object.create(Humanoid.prototype);
+Villain.prototype = Object.create(Humanoid.prototype);
 
 
 function Hero(heroAttributes) {
@@ -232,7 +232,7 @@ const snowWhite = new Hero({
   salves: 2,
 });
 
-const evilQueen = new Villian({
+const evilQueen = new Villain({
   createdAt: new Date(),
   hp: 20,
   name: 'Evil Queen',
