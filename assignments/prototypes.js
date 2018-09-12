@@ -78,6 +78,75 @@ Humanoid.prototype.greet = function() {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+function Hero(heroStats){
+  Humanoid.call(this, heroStats);
+  this.catchphrase = heroStats.catchphrase;
+  this.atk = heroStats.atk;
+  this.atkDmg = heroStats.atkDmg;
+  this.from = heroStats.from;
+  this.nickname = heroStats.nickname;
+  this.sidekick = heroStats.sidekick;
+  this.aka = heroStats.aka
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.entrance = function(){
+  return(`Making his way to the ring, weighing in at ${this.dimensions.weight} representing the ${this.faction} and hailing from ${this.from}. Being accompanied to the ring by ${this.sidekick}, ${this.nickname} ${this.name}! ${this.catchphrase}!!!`)
+}
+
+Hero.prototype.win = function(){
+  return(`Your winner, ${this.name}! ${this.catchphrase}!!`)
+}
+
+Hero.prototype.taunt = function(){
+  this.hp += 1
+  return `${this.name} says ${this.catchphrase}! He regains 1 hp.`;
+}
+
+Hero.prototype.basicAttack = function(move, target){
+  let knownAs = [this.name, this.nickname, this.aka];
+  target.hp -= 1;
+  return `${knownAs[Math.floor(Math.random() * 3)]} with a ${move}. ${target.name} has ${target.hp} hp remaining.`
+}
+
+Hero.prototype.attack = function(target){
+  target.hp -= this.atkDmg;
+  let output = [];
+  output.push(`${this.name} uses ${this.atk} on ${target.name} dealing ${this.atkDmg} damage.`);
+  if (target.hp <= 0){
+    output.push(target.destroy());
+    output.push(this.win());
+  }
+  else {
+    output.push(`${target.name} has ${target.hp} hp remaining.`);
+  }
+  return output.join(' ');
+}
+
+function Villian(villianStats){
+  Hero.call(this, villianStats);
+  this.UHT = villianStats.UHT;
+  this.UHTDMG = villianStats.UHTDMG;
+  
+}
+
+Villian.prototype = Object.create(Hero.prototype);
+
+Villian.prototype.underHandedTactic = function(target){
+  target.hp -= this.UHTDMG;
+  let output = [];
+  output.push(`${this.sidekick} distracts the referee, allowing ${this.name} to use ${this.UHT} on ${target.name} dealing ${this.UHTDMG} damage.`);
+  if (target.hp <= 0){
+    output.push(target.destroy());
+    output.push(this.win())
+    output.push(`What a shame.`)
+  }
+  else {
+    output.push(`${target.name} has ${target.hp} hp remaining.`)
+  }
+  return output.join(' ')
+}
 
 
 
@@ -139,16 +208,16 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
   
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language);// Elvish
-  console.log(swordsman.destroy());// Sir Mustachio was removed from the game.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language);// Elvish
+  // console.log(swordsman.destroy());// Sir Mustachio was removed from the game.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
  
    
   
@@ -157,3 +226,63 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  const macho = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      weight: '224 lbs',
+      height: "6'1",
+    },
+    hp: 5,
+    name: 'Macho Man Randy Savage',
+    nickname: 'Macho Man',
+    faction: 'Mega Powers',
+    weapons: [
+      'Staff of Shamalama',
+    ],
+    language: 'English',
+    atk: 'Flying Elbow Drop',
+    atkDmg: 4,
+    catchphrase: 'Ooooooh Yeeeaaaaah',
+    from: 'Sarasota, Florida',
+    aka: 'The cream of the crop',
+    sidekick: 'The lovely Miss Elizabeth'
+  });
+
+  const flair = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      weight: '243 lbs',
+      height: "6'1",
+    },
+    hp: 5,
+    name: 'Ric Flair',
+    nickname:'Natureboy',
+    faction: 'Four Horsemen',
+    weapons: [
+      'Steel Chair',
+    ],
+    language: 'Common Toungue',
+    sidekick: 'Arn Andersen',
+    UHT: 'thumb to the eye',
+    UHTDMG: 1,
+    atk: 'Figure Four Leglock',
+    atkDmg: 4,
+    catchphrase: 'Wooooooooo',
+    from: 'Charlotte, North Carolina',
+    aka: 'The dirtiest player in the game'
+  });
+
+
+  console.log(macho.entrance());
+  console.log(flair.entrance());
+  console.log(macho.basicAttack('punch', flair));
+  console.log(flair.basicAttack('hard irish whip into the corner', macho));
+  console.log(flair.taunt());
+  console.log(flair.basicAttack('backchop', macho));
+  console.log(flair.underHandedTactic(macho));
+  console.log(macho.basicAttack('nice standing dropkick', flair));
+  console.log(macho.basicAttack('double ax handle from the top rope',flair));
+  console.log(macho.taunt());
+  console.log(macho.attack(flair))
