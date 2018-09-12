@@ -139,9 +139,9 @@ function Villian(attr) {
       console.log(`\n${this.type}s' cant attack other ${this.type}s'`)
     } else {
       if (victim.hp === 0) {
-        console.log(`\n${victim.name} [${victim.type}] is no longer in game!`);
+        console.log(`\n${victim.name} [${victim.type}] was defeated!`);
       } else {
-        victim.hp = victim.hp - 1;
+        victim.hp = victim.hp - 25;
         console.log(`\n${this.name} [${this.type}] attacked ${victim.name} [${victim.type}] \n${this.name} [${this.type}] HP: ${this.hp} \n${victim.name} [${victim.type}] HP: ${victim.hp}\n`);
         if(victim.hp === 0) {
           console.log(victim.destroy());
@@ -159,9 +159,9 @@ function Hero(attr) {
       console.log(`\n${this.type}s' cant attack other ${this.type}s'`)
     } else {
       if (victim.hp === 0) {
-        console.log(`\n${victim.name} [${victim.type}] is no longer in game!`);
+        console.log(`\n${victim.name} [${victim.type}] was defeated!`);
       } else {
-        victim.hp = victim.hp - 1;
+        victim.hp = victim.hp - 25;
         console.log(`\n${this.name} [${this.type}] attacked ${victim.name} [${victim.type}] \n${this.name} [${this.type}] HP: ${this.hp} \n${victim.name} [${victim.type}] HP: ${victim.hp}\n`);
         if(victim.hp === 0) {
           console.log(victim.destroy());
@@ -174,61 +174,39 @@ function Hero(attr) {
 Villian.prototype = Object.create(Humanoid.prototype);
 Hero.prototype = Object.create(Humanoid.prototype);
 
-const darthVader = new Villian({
+const chisaki = new Villian({
   createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 1,
-    height: 1,
-  },
-  hp: 5,
-  name: 'Darth Vador',
-  faction: 'Mage Guild',
-  weapons: [
-    'Staff of Shamalama',
-  ],
-  language: 'Common Toungue',
+  hp: 100,
+  name: 'Chisaki',
+  group: 'Eight Precepts of Death',
+  quirk: 'Overhaul'
 });
 
-const obi1 = new Hero({
+const deku = new Hero({
   createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 1,
-    height: 1,
-  },
-  hp: 5,
-  name: 'Obi 1',
-  faction: 'Mage Guild',
-  weapons: [
-    'Staff of Shamalama',
-  ],
-  language: 'Common Toungue',
+  hp: 100,
+  name: 'Deku',
+  group: 'Heroes: UA Class A',
+  quirk: 'One For All'
 });
 
-const obi2 = new Hero({
+const bakugo = new Hero({
   createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 1,
-    height: 1,
-  },
-  hp: 5,
-  name: 'Obi 1',
-  faction: 'Mage Guild',
-  weapons: [
-    'Staff of Shamalama',
-  ],
-  language: 'Common Toungue',
+  hp: 100,
+  name: 'Bukugo',
+  group: 'Heroes: UA Class A',
+  quirk: 'Explosion'
 });
 
-obi1.attacked(darthVader);
-darthVader.attacked(obi1);
-obi1.attacked(darthVader);
-darthVader.attacked(obi1);
-obi1.attacked(darthVader);
-obi1.attacked(darthVader);
-obi1.attacked(darthVader);
-obi1.attacked(darthVader);
-obi1.attacked(darthVader);
-obi1.attacked(obi2);
+deku.attacked(chisaki);
+chisaki.attacked(deku);
+chisaki.attacked(bakugo);
+bakugo.attacked(chisaki);
+deku.attacked(chisaki);
+chisaki.attacked(deku);
+chisaki.attacked(bakugo);
+chisaki.attacked(deku);
+chisaki.attacked(bakugo);
+deku.attacked(chisaki);
+deku.attacked(chisaki);
+
