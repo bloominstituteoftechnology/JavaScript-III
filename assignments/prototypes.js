@@ -14,6 +14,11 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(attr) {
+  this.createdAt = attr.createdAt;
+  this.dimensions = attr.dimensions;
+  this.destroy = () => `${attr.name} was removed from the game`;
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +27,13 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(attr) {
+  this.hp = attr.hp;
+  this.name = attr.name;
+  this.takeDamage = () => `${attr.name} took damage.`;
+  // GameObject.call(this, attr).destroy;
+  GameObject.call(this, attr);
+}
 
 /*
   === Humanoid ===
@@ -32,16 +44,26 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+function Humanoid(attr) {
+  this.faction = attr.faction;
+  this.weapons = attr.weapons;
+  this.language = attr.language;
+  this.greet = () => `${attr.name} offers a greeting in ${attr.language}.`;
+  CharacterStats.call(this, attr);
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+CharacterStats.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +124,6 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
