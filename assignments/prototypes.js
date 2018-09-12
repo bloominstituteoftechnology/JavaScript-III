@@ -39,27 +39,28 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-function GameObject() {
-  this.createdAt =
-  this.dimensions =
-  this.destroy =
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+  this.destroy = attributes.destroy;
 }
 
-function CharacterStats(){
-  this.hp =
-  this.name = 
-  this.takeDamage = 
-  this.destroy =
+function CharacterStats(characterAttributes){
+  GameObject.call(this, characterAttributes)
+  this.hp = characterAttributes.hp;
+  this.name = characterAttributes.name;
+  this.takeDamage = characterAttribute.takeDamages;
+  this.destroy = characterAttributes.destroy;
 }
 
 
-function Humanoid() {
-  this.faction = 
-  this.weapons = 
-  this.language = 
-  this.greet = 
-  this.destroy = 
-  theis.takeDamage = 
+function Humanoid(humanoidAttributes) {
+  this.faction = humanoidAttributes.faction;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
+  this.greet = humanoidAttributes.greet;
+  this.destroy = humanoidAttributes.destroy;
+  this.takeDamage = humanoidAttributes.takeDamage;
 
 }
 
