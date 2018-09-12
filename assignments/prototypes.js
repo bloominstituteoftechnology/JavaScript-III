@@ -133,6 +133,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   
 function Villian(attr) {
   this.type = 'Villain'
+  this.quirk = attr.quirk;
   Humanoid.call(this, attr);
   this.attacked = (victim) => {
     if (victim.type === this.type){
@@ -142,7 +143,7 @@ function Villian(attr) {
         console.log(`\n${victim.name} [${victim.type}] was defeated!`);
       } else {
         victim.hp = victim.hp - 25;
-        console.log(`\n${this.name} [${this.type}] attacked ${victim.name} [${victim.type}] \n${this.name} [${this.type}] HP: ${this.hp} \n${victim.name} [${victim.type}] HP: ${victim.hp}\n`);
+        console.log(`\n${this.name} [${this.type}] attacked ${victim.name} [${victim.type}] with ${this.quirk} \n${this.name} [${this.type}] HP: ${this.hp} \n${victim.name} [${victim.type}] HP: ${victim.hp}\n`);
         if(victim.hp === 0) {
           console.log(victim.destroy());
         }
@@ -153,6 +154,7 @@ function Villian(attr) {
 
 function Hero(attr) {
   this.type = 'Hero';
+  this.quirk = attr.quirk;
   Humanoid.call(this, attr);
   this.attacked = (victim) => {
     if (victim.type === this.type){
@@ -162,7 +164,7 @@ function Hero(attr) {
         console.log(`\n${victim.name} [${victim.type}] was defeated!`);
       } else {
         victim.hp = victim.hp - 25;
-        console.log(`\n${this.name} [${this.type}] attacked ${victim.name} [${victim.type}] \n${this.name} [${this.type}] HP: ${this.hp} \n${victim.name} [${victim.type}] HP: ${victim.hp}\n`);
+        console.log(`\n${this.name} [${this.type}] attacked ${victim.name} [${victim.type}] with ${this.quirk} \n${this.name} [${this.type}] HP: ${this.hp} \n${victim.name} [${victim.type}] HP: ${victim.hp}\n`);
         if(victim.hp === 0) {
           console.log(victim.destroy());
         }
