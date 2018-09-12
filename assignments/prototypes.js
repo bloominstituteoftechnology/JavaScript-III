@@ -23,7 +23,7 @@ function GameObject(parameter) {
     this.dimensions = parameter.dimensions;
 }
 GameObject.prototype.destroy = function() {
-  console.log(`Object was removed from the game.`)
+  return `Object was removed from the game.`
 }
 
 /*
@@ -41,7 +41,7 @@ function CharacterStats (charStats) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() {
-  console.log(`${this.name} took damage.`)
+  return `${this.name} took damage.`
 }
 /*
   === Humanoid ===
@@ -60,7 +60,7 @@ function Humanoid(humStats) {
   }
   Humanoid.prototype = Object.create(CharacterStats.prototype);
   Humanoid.prototype.greet = function() {
-    console.log(`${this.name} offers a greeting in ${this.language}`);
+    return `${this.name} offers a greeting in ${this.language}`;
   }
 
 
@@ -106,8 +106,8 @@ const mage = new Humanoid({
     'language': 'Elvish'
   });
 
-  console.log()
-  console.log(mage.createdAt); // Today's date
+  //console.log()
+   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
