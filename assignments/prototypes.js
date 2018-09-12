@@ -38,7 +38,8 @@ function CharacterStats(characterAttributes) {
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype)
-CharacterStats.prototype.takeDamage = function() {
+CharacterStats.prototype.takeDamage = function(hp, damage) {
+    hp -= damage;
     return `${this.name} took damage.`;
 }
 
@@ -63,11 +64,10 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
     return `${this.name} offers a greeting in ${this.language}.`;
 };
-/*
- * Inheritance chain: GameObject -> CharacterStats -> Humanoid
- * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
- * Instances of CharacterStats should have all of the same properties as GameObject.
- */
+
+
+
+
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
@@ -138,3 +138,74 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Hero(heroStats) {
+    Humanoid.call(this, heroStats);
+    this.magic = heroStats.magic;
+    this.swordsmanship = heroStats.swordsmanship;
+    this.speed = heroStats.speed;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villian(villianStats) {
+    Humanoid.call(this, villianStats);
+    this.magic = villianStats.magic;
+    this.swordsmanship = villianStats.swordsmanship;
+    this.speed = villianStats.speed;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+let damage = 0;
+
+Humanoid.prototype.castSpell = function(enemy) {
+    damage = this.magic * this.speed;
+    if (enemy.hp > 0) {
+        enemy.takeDamage(damage);
+    } else {
+        enemy.destroy();
+    }
+}
+
+const wizard = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 4,
+    },
+    hp: 40,
+    name: 'Harry',
+    faction: 'London',
+    weapons: [
+        'Wand',
+        'Dagger',
+    ],
+    language: 'English',
+    magic: 3,
+    swordsmanship: 4,
+    speed: 2
+})
+
+const darkWizard = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 4,
+    },
+    hp: 40,
+    name: 'Raspar',
+    faction: 'Cave',
+    weapons: [
+        'wand',
+        'Dagger',
+    ],
+    language: 'Elvish',
+    magic: 4,
+    swordsmanship: 0,
+    speed: 1
+})
+
+wizard.castSpell(darkWizard);
