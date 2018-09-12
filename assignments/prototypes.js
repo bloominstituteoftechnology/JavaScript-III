@@ -148,14 +148,14 @@ function Villain(villainAttributes) {
     if (this.salves === 0) {
       return `${this.name} attempted to use a healing salve but forgot they were out. `
     }
-    this.salves -= 1;
     let healNum = Math.floor(Math.random() * this.level)
     if (healNum === 0) {
       return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. Darn children. `
-    } else {
-      this.hp += healNum;
-      return `${this.name} used a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
     }
+    this.salves -= 1;
+    this.hp += healNum;
+    return `${this.name} used a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
+
   } //end heal
   this.attack = function(opponent) {
     if (opponent.name === this.name) {
@@ -188,14 +188,14 @@ function Hero(heroAttributes) {
     if (this.salves === 0) {
       return `${this.name} attempted to use a healing salve from that nice witch but forgot they were out. `
     }
-    this.salves -= 1;
     let healNum = Math.floor(Math.random() * this.level)
     if (healNum === 0) {
       return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.name} so we'll just try again later.`
-    } else {
-      this.hp += healNum;
-      return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
     }
+    this.salves -= 1;
+    this.hp += healNum;
+    return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
+
 
   } //end heal
   this.attack = function(opponent) {
@@ -268,3 +268,10 @@ const evilQueen = new Villain({
 // console.log(snowWhite.attack(evilQueen));
 // console.log(evilQueen.attack(snowWhite));
 // console.log(evilQueen.attack(evilQueen));
+
+console.log(snowWhite.heal());
+console.log(snowWhite.salves);
+console.log(snowWhite.heal())
+console.log(snowWhite.salves);
+console.log(snowWhite.heal());
+console.log(snowWhite.salves);
