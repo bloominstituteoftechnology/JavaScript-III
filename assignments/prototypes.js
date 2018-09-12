@@ -137,18 +137,18 @@ Humanoid.prototype.greet = function() {
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
 // Stretch task:
-// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
-// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-// * Create two new objects, one a villian and one a hero and fight it out with methods!
+// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
+// * Give the Hero and Villain different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villain and one a hero and fight it out with methods!
 
-// === Villian ===
-function Villian(attributes) {
+// === Villain ===
+function Villain(attributes) {
   Humanoid.call(this, attributes);
   this.attackCount = 0;
 }
-Villian.prototype = Object.create(Humanoid.prototype);
+Villain.prototype = Object.create(Humanoid.prototype);
 
-Villian.prototype.attack = function(hero, spell) {
+Villain.prototype.attack = function(hero, spell) {
   this.attackCount++;
   hero.hp--;
 
@@ -163,17 +163,17 @@ Villian.prototype.attack = function(hero, spell) {
   }
 }
 
-Villian.prototype.stats = function() {
+Villain.prototype.stats = function() {
   return `${this.name}'s Stats:\nHP: ${this.hp}`;
 }
 
 // === Hero ===
 function Hero(attributes) {
-  Villian.call(this, attributes);
+  Villain.call(this, attributes);
 }
-Hero.prototype = Object.create(Villian.prototype);
+Hero.prototype = Object.create(Villain.prototype);
 
-const voldemort = new Villian({
+const voldemort = new Villain({
   name: 'Voldemort',
   hp: 10
 });
