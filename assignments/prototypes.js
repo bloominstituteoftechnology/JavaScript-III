@@ -54,6 +54,18 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(humanoidAttribute){
+  this.faction = humanoidAttribute.faction;
+  this.weapons = humanoidAttribute.weapons;
+  this.language = humanoidAttribute.language;
+  CharacterStats.call(this, humanoidAttribute);
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -63,7 +75,7 @@ CharacterStats.prototype.takeDamage = function () {
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
