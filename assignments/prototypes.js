@@ -74,7 +74,7 @@ Humanoid.prototype.greet = function() {
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
-
+/*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -135,8 +135,60 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+*/
+// Stretch task:
+// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  // Stretch task:
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+// === Villian ===
+function Villian(attributes) {
+  Humanoid.call(this, attributes);
+  this.attackCount = 0;
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.attack = function(hero, spell) {
+  this.attackCount++;
+  hero.hp--;
+
+  if (spell.toLowerCase() === 'avada kedavra') {
+    hero.hp = 0;
+  }
+
+  if (hero.hp === 0) {
+    return `${this.name} uses ${spell}!\nAttack Count: ${this.attackCount}\n${hero.name}'s HP: ${hero.hp}\n${this.name} WINS!`;
+  } else {
+    return `${this.name} uses ${spell}!\nAttack Count: ${this.attackCount}\n${hero.name}'s HP: ${hero.hp}`;
+  }
+}
+
+Villian.prototype.stats = function() {
+  return `${this.name}'s Stats:\nHP: ${this.hp}`;
+}
+
+// === Hero ===
+function Hero(attributes) {
+  Villian.call(this, attributes);
+}
+Hero.prototype = Object.create(Villian.prototype);
+
+const voldemort = new Villian({
+  name: 'Voldemort',
+  hp: 10
+});
+
+const harry = new Hero({
+  name: 'Harry',
+  hp: 10
+});
+
+// Harry vs Voldemort!
+console.log(harry.attack(voldemort, 'Sectumsempra'));
+console.log('---------------------');
+console.log(harry.stats());
+console.log('---------------------');
+console.log(voldemort.attack(harry, 'Avada Kedavra'));
+console.log('---------------------');
+console.log(voldemort.stats());
+console.log('---------------------');
