@@ -157,6 +157,58 @@ function Humanoid(characteristics) {
   // console.log(mage.takeDamage()); // Bruce took damage.
   // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+  function Villain(mostWantedPoster) {
+    Humanoid.call(this, mostWantedPoster);
+    this.power = mostWantedPoster.power;
+  }
+
+  Villain.prototype.evilCackle = function() {
+    console.log(`Mwahaha I will rule with my mighty ${this.power}`);
+  }
+
+  const villanWillansMWP = {
+    'power': 'fireballs'
+  }
+
+  const villanWillan = new Villain(villanWillansMWP);
+
+  // console.log(villanWillan);
+  // villanWillan.evilCackle();
+
+// hero <><><><><><><><
+
+  function Hero(royalBanner) {
+    Humanoid.call(this, royalBanner);
+    this.strength = 'Agility';
+  }
+
+  Hero.prototype.beatChest = function() {
+    console.log(`Thump thump thump ouch!`);
+  }
+
+  const royalBanner = {
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Mutsy',
+    faction: 'Drunken Rabbits Orchestra',
+    weapons: [
+      'sharp tongue',
+    ],
+    language: 'An Uncommon Tongue'
+  }
+
+  const mutorgTheHumble = new Hero(royalBanner);
+
+  console.log(mutorgTheHumble);
+  console.log(mutorgTheHumble.beatChest());
+  mutorgTheHumble.hp = 5;
+  console.log(mutorgTheHumble);
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
