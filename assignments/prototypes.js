@@ -131,5 +131,79 @@ CharacterStats.prototype.takeDamage= function(){
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  function Villian(vilAttributes){
+    Humanoid.call(this, vilAttributes);
+    this.alias=vilAttributes.alias;
+  }
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype.attack= function(character){
+    while(character.hp>0){
+      return character.hp-1;
+    }
+  return character.destroy();
+  }
+  function Hero(heroAttributes){
+    this.sadBackStory= heroAttributes.sadBackStory;
+    Humanoid.call(this,heroAttributes);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  Hero.prototype.attack= function(character){
+    if(character.hp>0){
+      character.hp=character.hp-1;
+      return `${character.alias} is still alive`;
+    }
+    else{
+      return character.destroy();
+
+    }
+  
+  }
+  Hero.prototype.stateBackStory=function(){
+    return this.sadBackStory;
+  }
+  Hero.prototype.justiceCall=function(character){
+      return `For justice I- ${this.name} will fight you ${character.alias}`;
+  }
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  const myHero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Bruce',
+    faction: 'Solo',
+    weapons: [
+      'rock',
+      'paper',
+      'scissors'
+    ],
+    language: 'Common Toungue',
+    sadBackStory: "Mom died, dad died, then revenge and vow to protect justice",
+  });
+  const myVillian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 2,
+    name: 'Sir Mustachio',
+    faction: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+    alias: "The Pimples Popper"
+  });
+  console.log(myHero.stateBackStory());
+  console.log(myHero.justiceCall(myVillian));
+  console.log(myHero.attack(myVillian));
+  console.log(myHero.attack(myVillian));
+  console.log(myHero.attack(myVillian));
+  console.log(myHero.attack(myVillian));
