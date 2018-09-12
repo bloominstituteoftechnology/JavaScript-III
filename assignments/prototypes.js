@@ -143,10 +143,11 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-const heroBar = document.getElementsByClassName('hero')[0];
-const villainBar = document.querySelector('.villain');
+const heroBar = document.getElementsByClassName('goodGuy')[0];
+const villainBar = document.querySelector('.badGuy');
 const heroStatus = document.getElementById('heroStatus');
 const villainStatus = document.getElementById('villainStatus');
+const battleButton = document.getElementById('battleButton');
 
 function Villain(attributes) {
   Humanoid.call(this, attributes);
@@ -179,7 +180,7 @@ const badGuy = new Villain({
     width: 2,
     height: 4,
   },
-  hp: 45,
+  hp: 50,
   name: 'Dr. Evil',
   faction: 'Villaindia',
   weapons: [
@@ -188,7 +189,7 @@ const badGuy = new Villain({
   language: 'Villainese',
   spell: {
     name: 'fireball',
-    damage: 6,
+    damage: 5,
   },
 });
 
@@ -208,7 +209,7 @@ const goodGuy = new Hero({
   language: 'Gamehenge',
   spell: {
     name: 'lightning',
-    damage: 8},
+    damage: 5},
 });
 
 
@@ -216,7 +217,6 @@ function cast(caster, defender) {
   console.log(`${caster.name} casts ${caster.spell.name} at ${defender.name}!`);
   const damage = Math.floor(Math.random() * caster.spell.damage);
   defender.takeDamage(damage);
-
 }
 
 function updateHealthBars() {
@@ -231,13 +231,13 @@ function updateStatus() {
 }
 function battle(attacker, defender) {
   while (attacker.hp > 0 && defender.hp > 0) {
-    setTimeout(cast(attacker, defender), 8000);
+    cast(attacker, defender);
     if (defender.hp <= 0) {
       console.log(`${defender.name} has perished.`);
       defender.destroy();
       break;
     }
-    setTimeout(cast(defender, attacker), 8000);
+    cast(defender, attacker);
     if (attacker.hp <= 0) {
       console.log(`${attacker.name} has perished.`);
       attacker.destroy();

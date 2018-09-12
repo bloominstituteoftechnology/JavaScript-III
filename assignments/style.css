@@ -1,11 +1,23 @@
 
-.fighters {
+.container {
   display: flex;
-
+  justify-content: center;
 }
-.fighters div {
-
+.fighter {
+  margin: 20px;
   height: 500px;
   border: 1px solid blue;
-  width: 48%;
+  width: 20%;
+}
+
+.fighter h1 {
+  text-align: center;
+}
+
+.goodGuy {
+  background-color: blue;
+}
+
+.badGuy {
+  background-color: red;
 }
