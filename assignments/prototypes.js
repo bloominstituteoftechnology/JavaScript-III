@@ -126,6 +126,25 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
+
+  //stretch
+
+  function Villian(viilianAttribute){
+    this.attack = viilianAttribute.attack;
+    this.armor = viilianAttribute.armor;
+    Humanoid.call(this, viilianAttribute);
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  
+  function Hero(heroAttribute){
+    this.trumpCard = heroAttribute.strength;
+    this.attack = heroAttribute.attack;
+    Humanoid.call(this, heroAttribute);
+  }
+  
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -136,7 +155,7 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
