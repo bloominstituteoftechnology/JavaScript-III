@@ -38,8 +38,8 @@ function CharacterStats(characterAttributes) {
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype)
-CharacterStats.prototype.takeDamage = function(hp, damage) {
-    hp -= damage;
+CharacterStats.prototype.takeDamage = function(damage) {
+    this.hp -= damage;
     return `${this.name} took damage.`;
 }
 
@@ -161,10 +161,24 @@ let damage = 0;
 
 Humanoid.prototype.castSpell = function(enemy) {
     damage = this.magic * this.speed;
+
     if (enemy.hp > 0) {
         enemy.takeDamage(damage);
     } else {
-        enemy.destroy();
+        console.log(enemy.destroy());
+    }
+    console.log(`${enemy.name}'s health is now: ${enemy.hp}`)
+        //did the attack kill them?
+    if (enemy.hp < 0) {
+        console.log(enemy.destroy());
+        console.log(`Goodbye ${enemy.name}`);
+    }
+}
+
+const wizardsDuel = function(attacker, defender) {
+    while ((attacker.hp > 0) && (defender.hp > 0)) {
+        attacker.castSpell(defender);
+        defender.castSpell(attacker);
     }
 }
 
@@ -208,4 +222,6 @@ const darkWizard = new Villian({
     speed: 1
 })
 
+
 wizard.castSpell(darkWizard);
+wizardsDuel(darkWizard, wizard);
