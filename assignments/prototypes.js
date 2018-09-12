@@ -140,7 +140,7 @@ function Hero(heroAttrs) {
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 
-function Villian(villianAttrs) {
+function Villain(villianAttrs) {
   Hero.call(this, villianAttrs);
 }
 Villian.prototype = Object.create(Hero.prototype);
@@ -159,7 +159,7 @@ const aizen = new Villian({
   equipment: ['Reiatsu Concealing Cloak'],
   abilities: ['Kido', 'Shunpo', 'Kanzen Saimin', 'Bankai'],
   transformations: ['Hogyoku Fusion'],
-})
+});
 
 const ichigo = new Hero({
   createdAt: new Date(),
@@ -175,4 +175,4 @@ const ichigo = new Hero({
   equipment: ['Substitute Shinigami Badge', 'Protective Charm', 'Oken Clothing'],
   abilities: ['Shunpo', 'Getsuga Tensho', 'Bankai', 'Hollowfication'],
   transformations: ['Vizard Form', 'Bankai Form', 'Saigo no Getsuga Tensho Form'],
-})
+});
