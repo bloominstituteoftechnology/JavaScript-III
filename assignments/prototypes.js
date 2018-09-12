@@ -34,7 +34,7 @@ function CharacterStats(characterAttributes) {
   this.hp = characterAttributes.hp;
   this.name = characterAttributes.name;
   this.takeDamage = function() {
-    return `${this.name} took damage.`
+    return `${this.name} took damage`
   }
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -66,22 +66,22 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-
-const mage = new Humanoid({
-  createdAt: new Date(),
-  dimensions: {
-    length: 2,
-    width: 1,
-    height: 1,
-  },
-  hp: 5,
-  name: 'Bruce',
-  faction: 'Mage Guild',
-  weapons: [
-    'Staff of Shamalama',
-  ],
-  language: 'Common Toungue',
-});
+//
+// const mage = new Humanoid({
+//   createdAt: new Date(),
+//   dimensions: {
+//     length: 2,
+//     width: 1,
+//     height: 1,
+//   },
+//   hp: 5,
+//   name: 'Bruce',
+//   faction: 'Mage Guild',
+//   weapons: [
+//     'Staff of Shamalama',
+//   ],
+//   language: 'Common Toungue',
+// });
 
 // const swordsman = new Humanoid({
 //   createdAt: new Date(),
@@ -151,7 +151,7 @@ function Villain(villainAttributes) {
       }
       else{
       this.hp = this.hp + healNum;
-      return `${this.name} uses a healing salve for ${healNum} HP regeneration`
+      return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
       }
 
     };
@@ -168,7 +168,7 @@ function Villain(villainAttributes) {
         if (opponent.hp <= 0) {
           return opponent.destroy();
         } else {
-          return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} dark HP damage to ${opponent.name}. ` + opponent.takeDamage();
+          return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} dark HP damage to ${opponent.name}. ` + opponent.takeDamage(); + ` and is now at ${opponent.hp} HP. `
         } //end successful hit
       } //end destroy or hit
     }
@@ -193,7 +193,7 @@ function Hero(heroAttributes) {
       }
       else{
       this.hp = this.hp + healNum;
-      return `${this.name} uses a healing salve for ${healNum} HP regeneration`
+      return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
       }
 
     };
@@ -210,7 +210,7 @@ function Hero(heroAttributes) {
         if (opponent.hp <= 0) {
           return opponent.destroy();
         } else {
-          return `${this.name} bravely uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage();
+          return `${this.name} bravely uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
         } //end successful hit
       } //end destroy or hit
     }
