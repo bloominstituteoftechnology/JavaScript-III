@@ -67,6 +67,7 @@ function Humanoid(humanoidAttributes) {
   this.faction = humanoidAttributes.faction;
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
+  this.maxHP = humanoidAttributes.maxHP;
 }
 
 // Init prototype
@@ -139,7 +140,16 @@ console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task:
-// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
+
+// DOM MANIPULATION
+const villain = document.getElementById('villain');
+const hero = document.getElementById('hero');
+const messages = document.querySelector('.messages');
+
+// HP BARS
+villainHPBar = document.querySelector('.villain-hp-bar');
+
+// HERO
 function Hero(heroAttributes) {
   Humanoid.call(this, heroAttributes);
 }
@@ -147,10 +157,19 @@ function Hero(heroAttributes) {
 // Init prototype
 Hero.prototype = Object.create(Humanoid.prototype);
 
-// * Give the Hero different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// HERO PROTOTYPE METHODS
 Hero.prototype.castSpell = function(villain) {
-  villain.hp -= 1;
-  return villain.takeDamage();
+  if (villain.hp >= 1) {
+    villain.hp -= 1;
+    villainHPBar.style.width =
+      ((villain.hp / villain.maxHP) * 100).toString() + '%';
+    villainHPBar.style.color = 'red';
+    messages.textContent = `${villain.takeDamage()}... HP: ${villain.hp}`;
+  } else if ((villain.hp = 0)) {
+    return villain.destroy();
+  } else {
+    return 'Overkill!';
+  }
 };
 
 function Villain(villainAttributes) {
@@ -159,10 +178,6 @@ function Villain(villainAttributes) {
 
 // Init prototype
 Villain.prototype = Object.create(Humanoid.prototype);
-
-// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-
-// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
 const swordsguy = new Hero({
@@ -173,7 +188,8 @@ const swordsguy = new Hero({
     height: 2
   },
   hp: 15,
-  name: 'Sir Mustachio',
+  maxHP: 15,
+  name: 'Michael Scott',
   faction: 'The Round Table',
   weapons: ['Giant Sword', 'Shield'],
   language: 'Common Toungue'
@@ -187,6 +203,7 @@ const archie = new Villain({
     height: 4
   },
   hp: 10,
+  maxHP: 10,
   name: 'Lex Luther',
   faction: 'Luther Corp',
   weapons: ['Bow', 'Dagger'],
@@ -194,6 +211,18 @@ const archie = new Villain({
 });
 
 console.log(swordsguy.castSpell(archie));
-console.log(swordsguy.castSpell(archie));
 
 console.log(archie.hp);
+
+villain.addEventListener('click', e => {
+  if (e.target.classList.contains('attack-btn')) {
+    console.log('hello');
+  }
+});
+
+hero.addEventListener('click', e => {
+  if (e.target.classList.contains('attack-btn')) {
+    console.log('hello');
+    swordsguy.castSpell(archie);
+  }
+});

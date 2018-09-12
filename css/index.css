@@ -1,0 +1,90 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid black;
+  padding: 1rem 2rem;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+}
+header .villain-header h2,
+header .hero-header h2 {
+  text-transform: uppercase;
+}
+.hp-bar {
+  width: 300px;
+  height: 30px;
+  background: #333;
+  border-radius: 10px;
+  position: relative;
+}
+.hp-bar .villain-hp-bar {
+  content: '';
+  position: absolute;
+  background: #ff7878;
+  height: 30px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  transition: width 0.2s ease-in-out;
+}
+.hp-bar .hero-hp-bar {
+  content: '';
+  position: absolute;
+  background: #ff7878;
+  height: 30px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  transition: width 0.2s ease-in-out;
+}
+.fighters {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  height: auto;
+  align-items: baseline;
+}
+.fighters .villain .block {
+  height: 200px;
+  width: 200px;
+  background: black;
+  margin-bottom: 2rem;
+}
+.fighters .hero .block {
+  height: 400px;
+  width: 200px;
+  background: black;
+  margin-bottom: 2rem;
+}
+.btn {
+  border: transparent;
+  border-radius: 10px;
+  background: #ff7878;
+  color: white;
+  font-size: inherit;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  outline: 0;
+}
+.messages {
+  background: #eee;
+  width: 100%;
+  margin-top: 5rem;
+  border-radius: 10px;
+  padding: 2rem;
+}
