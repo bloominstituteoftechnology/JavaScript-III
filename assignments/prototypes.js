@@ -28,7 +28,10 @@ function GameObject(attrs) {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
+function CharacterStats(stats) {
+  this.hp = stats.hp;
+  this.name = stats.name;
+}
 /*
   === Humanoid ===
   * faction
