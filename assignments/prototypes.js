@@ -42,6 +42,7 @@
 
 CharacterStats.prototype = Object.create(Gameobject.prototype);
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+Hero.prototype = Object.create(Humanoid.prototype);  
 
 function Gameobject(Object) {
   this.createdAt = Object.createdAt;
@@ -73,9 +74,34 @@ function Humanoid(Character) {
   this.weapons = Character.weapons;
   this.language = Character.language;
   CharacterStats.call(this, Character);
+
   
-  
-  
+}
+
+function Hero (Good) {                                
+                         
+                                                      //*createdAt
+                                                      //*Dimensions
+                                                      //*hp
+                                                      //*name
+                                                      //*faction
+                                                      //*weapons
+                                                      //*language
+                                                      //Attacks math function: use 
+                                                      //Defense if math function
+ this.summoning = Good.summoning                      //Summoning speech
+ this.magic = Good.magic                              //Magic                      
+ this.items = Good.items;
+   Humanoid.call(this, Good);                               //Items array of items
+} 
+
+
+
+
+function Villian (Evil) {
+  Humanoid.call(this, Evil);
+
+
 }
 
 Humanoid.prototype.greet = function(){
@@ -90,11 +116,60 @@ Gameobject.prototype.destroy = function(){
  return `${this.name} was removed from the game`;
 }
 
+Hero.prototype.attack = function(){
+  let x = this.hp;
+  
+  function counting (){
+    x-=3;
+    console.log(`${this.name} took ${3} points of damage.`)
+    return x;
+    
+  }
 
+  return counting();
+
+  
+}
+
+
+
+// const counter = () => {
+//   let x = 0
+  
+//   function counting (){
+//     ++x;
+//     return x;
+    
+//   }
+
+//   return counting;
+
+  
+// }
 
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
+
+  const paladin = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 3,
+  },
+  hp: 30,
+  name: 'Akatosh',
+  faction: 'Alliance',
+  weapons:["Two-Handed Mace",],
+  language: 'Common Tongue',
+  summoning: 'Alexander',
+  magic: 'lightning',
+  items: ['health potion', 'magic ether', 'herbs', 'revive potion',],
+
+  })
+
+console.log(paladin);
 
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -156,9 +231,10 @@ Gameobject.prototype.destroy = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(paladin.attack());
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
