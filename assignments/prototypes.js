@@ -161,11 +161,12 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
       this.enemy = villAttributes.enemy;
       Humanoid.call(this, villAttributes);
       }
+
    Villian.prototype = Object.create(Humanoid.prototype);
 
    Hero.prototype = Object.create(Humanoid.prototype);
 
-    Villian.prototype.challenge = function(name) {
+    Villian.prototype.challenge = function() {
       return(`${this.name} challenges you to a duel using their ${this.weapon}`);
     }
 
@@ -173,17 +174,17 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
       return(`${this.name} challenges you to a duel using their ${this.weapon}`);
     }
 
-    Villian.prototype.strike = function(enemy) {
-      let points = this.enemy.hp;
-      if (points > 0) {
-        return hp--;
+    Villian.prototype.strike = function() {
+      if (goodGuy.hp > 0) {
+        goodGuy.hp--;
+        return (`${goodGuy.enemy} got hit and lost 1 HP! New HP total: ${goodGuy.hp}`);
       }
     }
 
-    Hero.prototype.stab = function(enemy) {
-      let points = this.enemy.hp;
-      if (points > 0) {
-        return hp--;
+    Hero.prototype.stab = function() {
+      if (badGuy.hp > 0) {
+        badGuy.hp--;
+        return (`${badGuy.enemy} got stabbed and lost 1 HP! New HP total: ${badGuy.hp}`);
       }
     }
 
@@ -200,7 +201,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
     faction: 'Gotham City',
     weapon: 'Bat power',
     language: 'English',
-    enemy: badGuy,
+    enemy: 'Frankenstein',
     weakness: 'garlic',
     power: 'flying',
   });
@@ -212,7 +213,16 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
     faction: 'Germany',
     weapon: 'Creepy moans',
     language: 'German',
-    enemy: goodGuy,
+    enemy: 'Batman',
     weakness: 'surgical tools',
     power: 'smashing',
   });
+
+
+console.log(badGuy.challenge());
+console.log(goodGuy.challenge());
+
+console.log(badGuy.strike());
+console.log(goodGuy.stab());
+console.log(badGuy.strike());
+console.log(goodGuy.stab());
