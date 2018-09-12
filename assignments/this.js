@@ -11,18 +11,45 @@
 
 // Principle 1
 
-// code example for Window Binding
-
-
+function examineWindow() {
+    console.log(this.context);
+}
+examineWindow();
 
 // Principle 2
 
-// code example for Implicit Binding
+const fruit = {
+    name: "grapefruit",
+    taste: "sour"
+};
+
+fruit.declareTaste = function() {
+    console.log(this.taste);
+}
+
+fruit.declareTaste();
 
 // Principle 3
 
-// code example for New Binding
+let Computer = function(brand, category) {
+    this.brand = brand;
+    this.category = category;
+}
+
+const myComputer = new Computer("Lenovo", "laptop");
+
+console.log(myComputer.category);
 
 // Principle 4
 
-// code example for Explicit Binding
+const furniture = {
+    type: "couch",
+    color: "black",
+    cost: 300
+};
+
+const priceTag = function() {
+    console.log(`The price of this item is \$${this.cost}.`);
+}
+
+priceTag.call(furniture);
