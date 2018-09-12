@@ -8,9 +8,13 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
 }
+img {
+  width: 100%;
+  height: auto;
+}
 .container {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 3rem auto 0;
   border: 1px solid black;
   padding: 1rem 2rem;
 }
@@ -80,6 +84,7 @@ header .hero-header h2 {
   padding: 1rem 2rem;
   text-transform: uppercase;
   outline: 0;
+  cursor: pointer;
 }
 .messages {
   background: #eee;

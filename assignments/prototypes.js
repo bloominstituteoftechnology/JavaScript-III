@@ -148,6 +148,7 @@ const messages = document.querySelector('.messages');
 
 // HP BARS
 villainHPBar = document.querySelector('.villain-hp-bar');
+heroHPBar = document.querySelector('.hero-hp-bar');
 
 // HERO
 function Hero(heroAttributes) {
@@ -159,16 +160,33 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 // HERO PROTOTYPE METHODS
 Hero.prototype.castSpell = function(villain) {
-  if (villain.hp >= 1) {
+  if (villain.hp > 1) {
     villain.hp -= 1;
     villainHPBar.style.width =
       ((villain.hp / villain.maxHP) * 100).toString() + '%';
-    villainHPBar.style.color = 'red';
-    messages.textContent = `${villain.takeDamage()}... HP: ${villain.hp}`;
-  } else if ((villain.hp = 0)) {
-    return villain.destroy();
+    messages.textContent = `${
+      michael.name
+    } casted Paper Cut!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
+  } else if (villain.hp === 1) {
+    villain.hp -= 1;
+    villainHPBar.style.width =
+      ((villain.hp / villain.maxHP) * 100).toString() + '%';
+    messages.textContent = `${villain.destroy()}`;
+  }
+};
+
+Hero.prototype.superAttack = function(villain) {
+  if (villain.hp >= 3) {
+    villain.hp -= 3;
+    villainHPBar.style.width =
+      ((villain.hp / villain.maxHP) * 100).toString() + '%';
+    messages.textContent = `${
+      michael.name
+    } Threw a Party!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
+  } else if (villain.hp === 0) {
+    messages.textContent = `${villain.destroy()}`;
   } else {
-    return 'Overkill!';
+    messages.textContent = 'Use normal attack... super is too much';
   }
 };
 
@@ -179,8 +197,38 @@ function Villain(villainAttributes) {
 // Init prototype
 Villain.prototype = Object.create(Humanoid.prototype);
 
+Villain.prototype.baseAttack = function(hero) {
+  if (hero.hp > 1) {
+    hero.hp -= 1;
+    heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
+    messages.textContent = `${
+      charles.name
+    } attacked with Endless Paperwork!!! ${hero.takeDamage()}... HP: ${
+      hero.hp
+    }`;
+  } else if (hero.hp === 1) {
+    hero.hp -= 1;
+    heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
+    messages.textContent = `${hero.destroy()}`;
+  }
+};
+
+Villain.prototype.superAttack = function(hero) {
+  if (hero.hp >= 4) {
+    hero.hp -= 3;
+    heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
+    messages.textContent = `${
+      charles.name
+    } Threw Bureaucratic Shade!!! ${hero.takeDamage()}... HP: ${hero.hp}`;
+  } else if (hero.hp === 0) {
+    messages.textContent = `${hero.destroy()}`;
+  } else {
+    messages.textContent = 'Use normal attack... super is too much';
+  }
+};
+
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
-const swordsguy = new Hero({
+const michael = new Hero({
   createdAt: new Date(),
   dimensions: {
     length: 2,
@@ -195,7 +243,7 @@ const swordsguy = new Hero({
   language: 'Common Toungue'
 });
 
-const archie = new Villain({
+const charles = new Villain({
   createdAt: new Date(),
   dimensions: {
     length: 1,
@@ -204,25 +252,27 @@ const archie = new Villain({
   },
   hp: 10,
   maxHP: 10,
-  name: 'Lex Luther',
+  name: 'Charles Minor',
   faction: 'Luther Corp',
   weapons: ['Bow', 'Dagger'],
   language: 'Elvish'
 });
 
-console.log(swordsguy.castSpell(archie));
-
-console.log(archie.hp);
+console.log(charles.hp);
 
 villain.addEventListener('click', e => {
   if (e.target.classList.contains('attack-btn')) {
     console.log('hello');
+    charles.baseAttack(michael);
+  } else if (e.target.classList.contains('super-btn')) {
+    charles.superAttack(michael);
   }
 });
 
 hero.addEventListener('click', e => {
   if (e.target.classList.contains('attack-btn')) {
-    console.log('hello');
-    swordsguy.castSpell(archie);
+    michael.castSpell(charles);
+  } else if (e.target.classList.contains('super-btn')) {
+    michael.superAttack(charles);
   }
 });
