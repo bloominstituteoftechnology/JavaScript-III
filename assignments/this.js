@@ -7,13 +7,15 @@
 
 * 2. Implicit Binding
 
-        When .this returns a value from a specific variable within an object.
+        When a function is preceded by a . .
 
 * 3. New Binding
 
         When .this returns a value from existing variables within an object and creates a new object.
 
 * 4. Explicit Binding
+
+
 
 
 
