@@ -144,7 +144,12 @@ function Villain(villainAttributes) {
   this.level = villainAttributes.level;
   this.equippedWeapon = this.weapons[0];
   this.salves = villainAttributes.salves;
-  this.heal = function() {
+
+
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.heal = function() {
     if (this.salves === 0) {
       return `${this.name} attempted to use a healing salve but forgot they were out. `
     }
@@ -157,7 +162,8 @@ function Villain(villainAttributes) {
     return `${this.name} used a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
 
   } //end heal
-  this.attack = function(opponent) {
+
+Villain.prototype.attack = function(opponent) {
     if (opponent.name === this.name) {
       this.hp -= 1;
       return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`
@@ -175,8 +181,6 @@ function Villain(villainAttributes) {
     }
     return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   } //attack
-}
-Villain.prototype = Object.create(Humanoid.prototype);
 
 
 function Hero(heroAttributes) {
@@ -184,7 +188,12 @@ function Hero(heroAttributes) {
   this.level = heroAttributes.level;
   this.equippedWeapon = this.weapons[0];
   this.salves = heroAttributes.salves;
-  this.heal = function() {
+
+
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.heal = function() {
     if (this.salves === 0) {
       return `${this.name} attempted to use a healing salve from that nice witch but forgot they were out. `
     }
@@ -196,9 +205,9 @@ function Hero(heroAttributes) {
     this.hp += healNum;
     return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
 
-
   } //end heal
-  this.attack = function(opponent) {
+
+Hero.prototype.attack = function(opponent) {
     if (opponent.name === this.name) {
       this.hp -= 1;
       return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`
@@ -216,8 +225,6 @@ function Hero(heroAttributes) {
     }
     return `${this.name} bravely uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   } //end attack
-}
-Hero.prototype = Object.create(Humanoid.prototype);
 
 const snowWhite = new Hero({
   createdAt: new Date(),
@@ -268,10 +275,10 @@ const evilQueen = new Villain({
 // console.log(snowWhite.attack(evilQueen));
 // console.log(evilQueen.attack(snowWhite));
 // console.log(evilQueen.attack(evilQueen));
-
-console.log(snowWhite.heal());
-console.log(snowWhite.salves);
-console.log(snowWhite.heal())
-console.log(snowWhite.salves);
-console.log(snowWhite.heal());
+//
+// console.log(snowWhite.heal());
+// console.log(snowWhite.salves);
+// console.log(snowWhite.heal())
+// console.log(snowWhite.salves);
+// console.log(snowWhite.heal());
 console.log(snowWhite.salves);
