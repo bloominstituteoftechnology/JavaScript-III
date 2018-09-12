@@ -132,19 +132,74 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
-console.log(mage.createdAt); // Today's date
-console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-console.log(swordsman.hp); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.faction); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+// console.log(mage.createdAt); // Today's date
+// console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+// console.log(swordsman.hp); // 15
+// console.log(mage.name); // Bruce
+// console.log(swordsman.faction); // The Round Table
+// console.log(mage.weapons); // Staff of Shamalama
+// console.log(archer.language); // Elvish
+// console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+// console.log(mage.takeDamage()); // Bruce took damage.
+// console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
 // Stretch task: 
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Hero(good) {
+  Humanoid.call(this, good);
+}
+
+Hero.prototype.smash = function (target) {
+  target.hp -= Math.ceil(Math.random() * 5)
+  return (`${this.name} smashed the ${target.name} lost two health points ${target.name} now has ${target.hp} left`)
+}
+
+function Villian(bad) {
+  Humanoid.call(this, bad);
+}
+
+
+const Superman = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Superman',
+  faction: 'Earth',
+  weapons: [
+    'Lazer',
+    'Frost Breath',
+  ],
+  language: 'English',
+})
+
+const Penguin = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Peguin',
+  faction: 'Earth',
+  weapons: [
+    'Thugs',
+    'Kife cane',
+  ],
+  language: 'English',
+})
+
+
+console.log(Penguin.hp);
+
+console.log(Superman.smash(Penguin))
+
+console.log(Penguin.hp);
