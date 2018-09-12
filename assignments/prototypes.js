@@ -142,8 +142,75 @@ function Hero(attributes) {
   Humanoid.call(this, attributes);
 }
 Hero.prototype = Object.create(Humanoid.prototype)
+Hero.prototype.attack = function(object) {
+  object.hp--;
+  return object.hp <= 0 ? `${object.name} ${object.destroy()}` : `${object.takeDamage()} Now at ${object.hp} hp.`;
+}
+Hero.prototype.heal = function() {
+  this.hp += 10;
+  return `${this.name} healed to ${this.hp} hp.`;
+}
 
 function Villian(attributes) {
   Humanoid.call(this, attributes);
 }
 Villian.prototype = Object.create(Humanoid.prototype)
+Villian.prototype.attack = function(object) {
+  object.hp -= 2;
+  return object.hp <= 0 ? `${object.name} ${object.destroy()}` : `${object.takeDamage()} Now at ${object.hp} hp.`;
+}
+
+const swordhero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2,
+  },
+  hp: 15,
+  name: 'Leona',
+  faction: 'The Round Table',
+  weapons: [
+    'Giant Sword',
+    'Shield',
+  ],
+  language: 'Common Toungue',
+});
+
+const villain = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 3,
+  },
+  hp: 10,
+  name: 'Kayn',
+  faction: 'Evil Faction',
+  weapons: [
+    'Scythe'
+  ],
+  language: 'Parseltongue',
+});
+
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.heal());
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
+console.log(swordhero.attack(villain))
+console.log(villain.attack(swordhero))
