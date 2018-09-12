@@ -19,8 +19,8 @@ function GameObject(attributes) {
   this.dimensions = attributes.dimensions;
 }
 GameObject.prototype.destroy = function() {
-    return `${this.name} was removed from the game`
-  };
+  return `${this.name} was removed from the game`
+};
 
 /*
   === CharacterStats ===
@@ -38,8 +38,8 @@ function CharacterStats(characterAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-    return `${this.name} took damage`
-  };
+  return `${this.name} took damage`
+};
 /*
   === Humanoid ===
   * faction
@@ -57,9 +57,10 @@ function Humanoid(humanoidAttributes) {
 
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 Humanoid.prototype.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}.`
-  };
+  return `${this.name} offers a greeting in ${this.language}.`
+};
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -85,7 +86,7 @@ Humanoid.prototype.greet = function() {
 //   ],
 //   language: 'Common Toungue',
 // });
-
+//
 // const swordsman = new Humanoid({
 //   createdAt: new Date(),
 //   dimensions: {
@@ -153,13 +154,13 @@ function Villain(villainAttributes) {
       return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. Darn children. `
     } else {
       this.hp += healNum;
-      return `${this.name} uses a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
+      return `${this.name} used a healing salve for ${healNum} HP regeneration and is now at ${this.hp} HP. `
     }
   } //end heal
   this.attack = function(opponent) {
     if (opponent.name === this.name) {
       this.hp -= 1;
-      return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. you are now at ${this.hp} HP.`
+      return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`
     }
     if (opponent.hp <= 0) {
       return `Dude, ${opponent.name} is already out of the game. Stop beating a dead horse.`
@@ -200,7 +201,7 @@ function Hero(heroAttributes) {
   this.attack = function(opponent) {
     if (opponent.name === this.name) {
       this.hp -= 1;
-      return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on yours foot and lost 1 HP. you are now at ${this.hp} HP.`
+      return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`
     }
     if (opponent.hp <= 0) {
       return `Dude, ${opponent.name} is already out of the game. Stop beating a dead horse.`
