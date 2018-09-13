@@ -23,7 +23,7 @@ function GameObject(attributes) {
 GameObject.prototype.constructor = GameObject;
 
 GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game.';
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -45,10 +45,20 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.constructor = CharacterStats;
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`
+  let lossHP = Math.ceil(Math.random() * 15);
+  this.hp -= lossHP;
+  return this.hp <= 0 ? `${this.name} took damage worth ${lossHP} points and died. ` + this.destroy(): `${this.name} took damage worth ${lossHP} point(s) and lived to tell the tale. Remaining hp points = ${this.hp}.` 
 }
 
-// this sets up the __proto__ and allows us to use methods now across objects
+CharacterStats.prototype.foundBonusItem = function() {
+  let gift = Math.ceil(Math.random() * 5);
+  this.hp += gift;
+  return `${this.name} found a medkit worth ${gift} point(s). Remaining hp points = ${this.hp}.`
+}
+
+CharacterStats.prototype.gitStatus = function() {
+  return `${this.name}: ${this.hp}`
+}
 
 
 /*
@@ -87,7 +97,7 @@ function Hero(heroAttributes) {
 Hero.prototype = Object.create(Humanoid.prototype); // child parent
 
 Hero.prototype.story = function() {                         // child
-  return `${this.name}, a ${this.faction} ${this.exterior} who speaks ${this.language} needs to save ${this.needsToSave} from ${this.nemesis} using a ${this.weapons}.`;
+  return `${this.name}, a ${this.faction} ${this.exterior} who speaks ${this.language} needs to save ${this.needsToSave} from ${this.nemesis} using a ${this.weapons[Math.floor(Math.random()*this.weapons.length)]}.`;
 }
 
   function Villain(villainAttributes) {
@@ -102,6 +112,8 @@ Hero.prototype.story = function() {                         // child
   Villain.prototype.villainStory = function() {                         // child
     return `${this.name}, a ${this.faction} ${this.villainExterior} (formerly known as ${this.miniVillain}) who speaks ${this.language} and despite using a ${this.weapons[Math.floor(Math.random()*this.weapons.length)]} will always ultimately lose to ${this.heroNemesis}.`;
 }
+
+
 
 
 
@@ -185,7 +197,7 @@ Hero.prototype.story = function() {                         // child
       width: 1,
       height: 3,
     },
-    hp: 15,
+    hp: 50,
     name: 'Leia',
     faction: 'Alderaan',
     weapons: [
@@ -210,24 +222,81 @@ Hero.prototype.story = function() {                         // child
     weapons: [
       'lightsaber', 'Jedi mind control'
     ],
-    language: 'Galactic Basic, Sith, Huttese some Binary(!!)',
+    language: 'Galactic Basic, Sith, Huttese some Binary',
     villainExterior: 'part-man & part-machine',
     heroNemesis: 'the Rebel Forces',
     miniVillain: 'Anakin Skywalker'
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log(princess.story()); // Sir Mustachio was removed from the game.
-  console.log(sithLord.villainStory());
+  const otherHumanoids = [mage, archer, swordsman];
+
+
+  function playBall (aHero, aVillain, otherHumanoids) {
+
+    const heroAndVillainArr = [aHero, aVillain];
+    const allChars = (heroAndVillainArr.concat(otherHumanoids));
+    const allCharsNames = (heroAndVillainArr.concat(otherHumanoids)).map(chars => chars.name);
+    const otherHumanoidsNames = otherHumanoids.map(chars => chars.name);
+    const companion = otherHumanoids[Math.floor(Math.random()*otherHumanoids.length)]
+    const companionName = companion.name;
+    
+    const heroOrVillain = function () {
+      return heroAndVillainArr[Math.floor(Math.random()*heroAndVillainArr.length)];
+    };
+
+    const charStatus = function () {
+      return allChars.map(chars => chars.gitStatus());
+    }  
+
+    console.log('"A long time ago in a galaxy far, far away....",');
+  
+    console.log(aHero.story());
+  
+    console.log(charStatus());
+
+    console.log(`After coming out of hyperspace, ${heroOrVillain().foundBonusItem()}`);
+
+    console.log(charStatus());
+  
+    function war (aHero, aVillain) {
+      if (aVillain.hp <= 0) {return `Game Over: ${aVillain.name} is dead! ${charStatus()}`} 
+      if (aHero.hp <= 0) {return `Game Over: ${aHero.name} is dead! ${charStatus()}`} 
+      let loser = heroOrVillain().takeDamage();
+      console.log(loser);
+      console.log(charStatus());
+      return aVillain.hp <= 0 ? 'Game Over: ${aVillain.name} is dead! ${charStatus()}': aHero.hp <= 0 ? 'Game Over: ${aHero.name} is dead! ${charStatus()}': war(princess, sithLord);
+    }
+    war(princess, sithLord);
+
+
+    return charStatus();
+  }
+
+  
+  let result = playBall(princess, sithLord, otherHumanoids);
+  // console.log(result)
+
+
+
+
+
+
+
+
+
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons[Math.floor(Math.random()*mage.weapons.length)]); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(princess.foundBonusItem())
+  // console.log(princess.story()); 
+  // console.log(sithLord.villainStory());
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
