@@ -14,6 +14,15 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObjectCreator(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions
+}
+// Object Methods 
+GameObjectCreator.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
+
 
 /*
   === CharacterStats ===
@@ -22,6 +31,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(characterAttributes) {
+  GameObjectCreator.call(this, characterAttributes);
+  this.hp = characterAttributes.hp;
+  this.name = characterAttributes.name;
+}
+//Character Methods 
+CharacterStats.prototype = Object.create(GameObjectCreator.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -32,16 +52,54 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+ function Humanoid(humanoidAttributes) {
+   CharacterStats.call(this, humanoidAttributes);
+   this.faction = humanoidAttributes.faction;
+   this.weapons = humanoidAttributes.weapons;
+   this.language = humanoidAttributes.language;
+ }
+
+//Humanoid Methods
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+//=======Hero=========
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+  this.morals = heroAttributes.morals;
+  this.effectiveTime = heroAttributes.effectiveTime;
+}
+// Hero Methods 
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.attack = function (opponent) {
+  return `${opponent.name}\'s hp is now ${opponent.hp -1}`;
+}
+//======Villain========
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+  this.morals = villainAttributes.morals;
+  this.effectiveTime = villainAttributes.effectiveTime;
+  this.trinket = villainAttributes.trinket;
+}
+// Villain Methods
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.attack = function (opponent) {
+  return `${opponent.name}\'s hp is now ${opponent.hp -1}`;
+}
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -91,20 +149,59 @@
     ],
     language: 'Elvish',
   });
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 6,
+    name: 'Roarke',
+    faction: 'Fraternity of the White Cloth',
+    weapons: [
+      'Crossbow',
+      'Hidden Blade', 
+      'Mace'
+    ],
+    effectiveTime: 'Day',
+    language: 'Common Toungue',
+  });
+  
+  const villain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Obradic',
+    faction: 'Mage Guild',
+    weapons: [
+      'Scythe',
+      'Poison',
+    ],
+    effectiveTime: 'Night',
+    trinket: 'Crystal Sphere',
+    language: 'Common Toungue',
+  });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  console.log(hero.attack(villain));
