@@ -25,7 +25,16 @@ a new binding, binds the "this" to a newly constructed or invoked object. the "n
 
 // code example for Window Binding
 
-console.log(this);
+window.age = 34;
+let myName = function(){
+    console.log(this.name);
+}
+
+let age = {
+    age: 41
+}
+
+myName();
 
 // Principle 2
 
@@ -73,6 +82,7 @@ let shopper = {
 }
 //call
 shoppingList.call(shopper, foodArray[0], foodArray[1], foodArray[2]);
+shoppingList.call(shopper, ...foodArray);
 //apply
 shoppingList.apply(shopper, foodArray);
 //bind
