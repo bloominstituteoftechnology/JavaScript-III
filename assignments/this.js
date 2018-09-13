@@ -27,8 +27,8 @@ const slangExample = {
   slangExample.sayWatUp('Homie Sav Swag');
 
 // Principle 3
-function afterLongDay(actions) {
-    this.action = 'relax';
+function AfterALongDay(actions) {
+    this.action = 'I want to';
     this.actions = actions;
     this.speak = function () {
         console.log(this.action + this.actions);
@@ -36,7 +36,7 @@ function afterLongDay(actions) {
     };
 
 }
-const relax = new afterLongDay('I want to')
+const relax = new AfterALongDay('Sleep')
 
 relax.speak();
 
