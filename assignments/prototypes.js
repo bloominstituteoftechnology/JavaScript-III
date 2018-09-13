@@ -38,7 +38,7 @@ function CharacterStats(characterAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage`
+  return `${this.name} doesn't duck in time`; //changed for stretch
 };
 /*
   === Humanoid ===
@@ -57,25 +57,6 @@ function Humanoid(humanoidAttributes) {
 
   //for stretch
   this.pronouns = humanoidAttributes.pronouns;
-  this.female = [
-    'she',
-    'her',
-    'was',
-    'is',
-  ]
-  this.male = [
-    'he',
-    'his',
-    'was',
-    'is',
-  ]
-  this.neither = [
-    'they',
-    'their',
-    'were',
-    'are',
-  ]
-
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
@@ -208,7 +189,7 @@ Villain.prototype.attack = function(opponent) {
       }
       this.hp -= 1;
       if (this.hp <= 0) {
-        return `Wooooooow, ${this.name}. You just managed to drop your ${this.equippedWeapon} on your foot, killing yourself. ` + this.destroy() + `.`;
+        return `Wooooooow, ${this.name}. You just managed to drop your ${this.equippedWeapon} on your foot, killing yourself.` + this.destroy() + `.`;
       }
       return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`;
     }
@@ -226,7 +207,7 @@ Villain.prototype.attack = function(opponent) {
     if (opponent.hp <= 0) {
       return `Well I guess today goes to the forces of evil. The attack lands and decimates the hero. ` + opponent.destroy();
     }
-    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} uses ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} hurls ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} and does ${damageNum} HP damage. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   } ;//attack
 
 function Hero(heroAttributes) {
@@ -257,11 +238,11 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.heal = function() {
     if (this.salves === 0) {
-      return `${this.name} attempted to use a healing salve from that nice witch but forgot ${this.pronouns[1]} ${this.pronouns[3]}  out. `;
+      return `${this.name} attempted to use a healing salve from that nice witch but forgot ${this.pronouns[1]} ${this.pronouns[3]} out. `;
     }
     let healNum = Math.floor(Math.random() * this.level);
     if (healNum === 0) {
-      return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.name} so we'll just try again later when we feel stronger.`;
+      return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.pronouns[4]} so ${this.pronouns[0]}\'ll just try again later when feeling stronger than a child.`;
     }
     this.salves -= 1;
     this.hp += healNum;
@@ -293,7 +274,7 @@ Hero.prototype.attack = function(opponent) {
     if (opponent.hp <= 0) {
       return `YEAH FORCES OF LIGHT! The attack lands and lands hard enough to kill. Wait are heroes supposed to kill people? ` + opponent.destroy();
     }
-    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} uses ${this.pronouns[1]}  ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} throws ${this.pronouns[1]}  ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   }; //end attack
 
 const snowWhite = new Hero({
@@ -314,13 +295,14 @@ const snowWhite = new Hero({
     'their',
     'were',
     'are',
+    'them',
   ],
 });
 
 const evilQueen = new Villain({
   createdAt: new Date(),
   hp: 20,
-  name: 'Evil Queen',
+  name: 'The Evil Queen',
   faction: 'Terrible Stepmothers',
   weapons: [
     'poison apple',
@@ -335,6 +317,7 @@ const evilQueen = new Villain({
     'her',
     'was',
     'is',
+    'her',
   ]
 
 })
@@ -357,12 +340,37 @@ console.log(evilQueen.attack(snowWhite));
 console.log(evilQueen.attack(snowWhite));
 console.log(evilQueen.attack(snowWhite));
 console.log(evilQueen.attack(snowWhite));
-
-
-//
-// console.log(snowWhite.heal());
-// console.log(snowWhite.salves);
-// console.log(snowWhite.heal())
-// console.log(snowWhite.salves);
-// console.log(snowWhite.heal());
-// console.log(snowWhite.salves);
+console.log(snowWhite.heal());
+console.log(snowWhite.salves);
+console.log(snowWhite.heal())
+console.log(snowWhite.salves);
+console.log(snowWhite.heal());
+console.log(snowWhite.salves);
+console.log(snowWhite.attack(evilQueen));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(evilQueen));
+console.log(snowWhite.attack(evilQueen));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
+console.log(snowWhite.heal());
+console.log(snowWhite.salves);
+console.log(snowWhite.heal())
+console.log(snowWhite.salves);
+console.log(snowWhite.heal());
+console.log(snowWhite.salves);
+console.log(snowWhite.attack(evilQueen));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(evilQueen));
+console.log(snowWhite.attack(evilQueen));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
+console.log(snowWhite.heal());
+console.log(snowWhite.salves);
+console.log(snowWhite.heal())
+console.log(snowWhite.salves);
+console.log(snowWhite.heal());
+console.log(snowWhite.salves);
