@@ -131,21 +131,78 @@ Humanoid.prototype.greet = function () {
 
   function Villian(viilianAttribute){
     this.attack = viilianAttribute.attack;
-    this.armor = viilianAttribute.armor;
+    this.health = viilianAttribute.health;
     Humanoid.call(this, viilianAttribute);
   }
 
   Villian.prototype = Object.create(Humanoid.prototype);
 
+  Villian.prototype.atk = function () {
+    this.health -= 55;
+    return `${this.name} uses ${this.attack} to attack the hero`;
+  }
+
+  Villian.prototype.speak = function () {
+    return `${this.name} says Kaio what?`;
+  }
   
   function Hero(heroAttribute){
-    this.trumpCard = heroAttribute.strength;
+    this.trumpCard = heroAttribute.trumpCard;
     this.attack = heroAttribute.attack;
+    this.health = heroAttribute.health;
     Humanoid.call(this, heroAttribute);
   }
 
   Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.attk = function () {
+    this.health -= 30;
+    return `${this.name} uses ${this.attack} to attack the villian`;
+  }
+
+  Hero.prototype.finalAtk = function () {
+    this.health -= 70;
+    return `${this.name} uses ${this.trumpCard} and ${this.attack} to defeat the villian`;
+  }
   
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 4,
+    },
+    hp: 15,
+    name: 'Vegeta',
+    faction: 'Saiyan Royalty',
+    weapons: [
+      'None'
+      ],
+    language: 'Common Toungue',
+    attack: 'Galick Gun',
+    health: 100,
+  });
+
+
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 5,
+    },
+    hp: 15,
+    name: 'Goku',
+    faction: 'Saiyan of Earth',
+    weapons: [
+      'None'
+      ],
+    language: 'Common Toungue',
+    attack: 'kamehameha',
+    trumpCard: 'kaioken x4',
+    health: 100,
+  });
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -157,6 +214,16 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+
+  console.log(`${villian.name} and ${hero.name} join the fight`);
+  console.log(villian.atk());
+  console.log(`${hero.name} has been damaged, ${hero.name} has ${villian.health} health`);
+  console.log(hero.attk());
+  console.log(`${villian.name} has been damaged, ${villian.name} has ${hero.health} health`);
+  console.log(hero.finalAtk());
+  console.log(`${villian.name} has been damaged, ${villian.name} has ${hero.health} health`);
+  console.log(villian.destroy());
 
 
   // Stretch task: 
