@@ -42,7 +42,7 @@ CharacterStats.prototype.takeDamage = function(){
   return `${this.name} took damage.`;
 };
 
-
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /*
   === Humanoid ===
@@ -57,17 +57,16 @@ CharacterStats.prototype.takeDamage = function(){
 function Humanoid(humanoidAttrs){
   CharacterStats.call(this, humanoidAttrs);
   this.faction = humanoidAttrs.faction;
-  this.weapons
+  this.weapons = humanoidAttrs.weapons;
+  this.language = humanoidAttrs.language;
 }
 
-let test = new CharacterStats({
-  "createdAt": new Date(),
-  "dimensions": 2,
-  "hp": 10,
-  "name": "test"
-});
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`
+}
 
-console.log(test);
+Humanoid.prototype = Object.create(GameObject.prototype);
+
 
  //let Humanoid = new CharacterStats();
 /*
