@@ -17,11 +17,11 @@
     this.createdAt = attributes.createdAt;
     this.dimensions = attributes.dimensions;
 
-  }
+  };
 
   GameObject.prototype.destroy = function() {
     return `${this.name} was removed from the game.`
-  }
+  };
 
   
   CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -32,53 +32,58 @@
 
 
   function CharacterStats(chrStatsAttribs) {
-    GameObject.call(this, chrStatsAttribs)
+    GameObject.call(this, chrStatsAttribs);
     this.hp = chrStatsAttribs.hp;
     this.name = chrStatsAttribs.name;
 
-  }
+  };
 
   CharacterStats.prototype.takeDamage = function() {
     return `${this.name} took damage.`
-  }
+  };
 
 
-  Humanoid.prototype = Object.create(CharacterStats.prototype);
-/*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 
 function Humanoid(humAttribs) {
-  CharacterStats.call(this, humAttribs)
+  CharacterStats.call(this, humAttribs);
   this.faction = humAttribs.faction;
   this.weapons = humAttribs.weapons;
   this.language = humAttribs.language;
 
-}
+};
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`
-}
+};
+
 
 Hero.prototype = Object.create(Humanoid.prototype);
 Villain.prototype = Object.create(Humanoid.prototype);
 
+
 function Hero(heroAttribs) {
-  Humanoid.call(this, heroAttribs)
+  Humanoid.call(this, heroAttribs);
   this.power = heroAttribs.power;
   this.weakness = heroAttribs.weakness;
+};
+
+Hero.prototype.damage = function() {
+  return ` His hitpoints are now: ` + (this.hp -1);
 }
+
 
 function Villain(villainAttribs) {
   Humanoid.call(this, villainAttribs)
   this.superWeapon = villainAttribs.superWeapon;
-  this.weakness = villainAttribs.weakness;
+  this.softSpot = villainAttribs.softSpot;
 }
 
+Villain.prototype.hit = function() {
+  return ` His hitpoints are now: ` + (this.hp -1);
+}
 
 
 
@@ -156,6 +161,40 @@ function Villain(villainAttribs) {
     language: 'Elvish',
   });
 
+  const jordan = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 20,
+    name: 'Jordan the Heroic',
+    faction: 'Lambda School',
+    weapons: ['Rapier',
+    ],
+    language: 'Common Tongue',
+    power: 'Coding',
+    weakness: 'Javascript',
+  })
+
+const phillip = new Villain ({
+  createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 20,
+    name: 'Phillip the Villainous',
+    faction: 'The Streets',
+    weapons: ['Snarkiness',
+    ],
+    language: 'Common Tongue',
+    superWeapon: 'Sarcasm',
+    softSpot: 'Ice-cream',
+})
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -166,7 +205,8 @@ function Villain(villainAttribs) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(jordan.takeDamage() + jordan.damage());
+  console.log(phillip.takeDamage() + phillip.hit());
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
