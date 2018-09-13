@@ -7,15 +7,11 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-CharacterStats.prototype = Object.create(GameObject.prototype);
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-Villain.prototype = Object.create(Humanoid.prototype);
-Hero.prototype = Object.create(Humanoid.prototype);
 /*
-  === GameObject ===
-  * createdAt
-  * dimensions
-  * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
+=== GameObject ===
+* createdAt
+* dimensions
+* destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
 function GameObject(attributes) {
@@ -23,16 +19,17 @@ function GameObject(attributes) {
   this.dimensions = attributes.dimensions;
 }
 
+
 GameObject.prototype.destroy = function() {
   return `${this.name} was removed from the game.`;
 };
 
 /*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
+=== CharacterStats ===
+* hp
+* name
+* takeDamage() // prototype method -> returns the string '<object name> took damage.'
+* should inherit destroy() from GameObject's prototype
 */
 
 function CharacterStats(statAttributes) {
@@ -41,18 +38,20 @@ function CharacterStats(statAttributes) {
   this.name = statAttributes.name;
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 };
 
 /*
-  === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
+=== Humanoid ===
+* faction
+* weapons
+* language
+* greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
+* should inherit destroy() from GameObject through CharacterStats
+* should inherit takeDamage() from CharacterStats
 */
 
 function Humanoid(humanoidAttributes) {
@@ -62,14 +61,16 @@ function Humanoid(humanoidAttributes) {
   this.language = humanoidAttributes.language;
 }
 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 };
 
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
+* Inheritance chain: GameObject -> CharacterStats -> Humanoid
+* Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+* Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
@@ -139,6 +140,8 @@ function Villain(villainAttributes) {
   this.cackle = villainAttributes.cackle;
 }
 
+Villain.prototype = Object.create(Humanoid.prototype);
+
 Villain.prototype.slap = function(foe) {
   if (foe.hp - 3 <= 0) {
     return `${foe.takeDamage()} ${foe.name}'s HP is depleted. ${foe.destroy()}`;
@@ -153,6 +156,9 @@ function Hero(heroAttributes) {
   this.charisma = heroAttributes.charisma;
   this.bravery = heroAttributes.bravery;
 }
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
 Hero.prototype.punch = function(foe) {
   if (foe.hp - 3 <= 0) {
     return `${foe.takeDamage()} ${foe.name}'s HP is depleted. ${foe.destroy()}`;
