@@ -8,20 +8,89 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
   
-/*
-  === GameObject ===
-  * createdAt
-  * dimensions
-  * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
-*/
 
-/*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
+  // === GameObject ===
+
+
+
+  function GameObject(attributes) {
+    this.createdAt = attributes.createdAt;
+    this.dimensions = attributes.dimensions;
+
+  };
+
+  GameObject.prototype.destroy = function() {
+    return `${this.name} was removed from the game.`
+  };
+
+  
+  CharacterStats.prototype = Object.create(GameObject.prototype);
+
+  // * createdAt
+  // * dimensions
+  // * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
+
+
+  function CharacterStats(chrStatsAttribs) {
+    GameObject.call(this, chrStatsAttribs);
+    this.hp = chrStatsAttribs.hp;
+    this.name = chrStatsAttribs.name;
+
+  };
+
+  CharacterStats.prototype.takeDamage = function() {
+    return `${this.name} took damage.`
+  };
+
+
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
+function Humanoid(humAttribs) {
+  CharacterStats.call(this, humAttribs);
+  this.faction = humAttribs.faction;
+  this.weapons = humAttribs.weapons;
+  this.language = humAttribs.language;
+
+};
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`
+};
+
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Villain.prototype = Object.create(Humanoid.prototype);
+
+
+function Hero(heroAttribs) {
+  Humanoid.call(this, heroAttribs);
+  this.power = heroAttribs.power;
+  this.weakness = heroAttribs.weakness;
+};
+
+Hero.prototype.damage = function() {
+  return ` His hitpoints are now: ` + (this.hp -1);
+}
+
+
+function Villain(villainAttribs) {
+  Humanoid.call(this, villainAttribs)
+  this.superWeapon = villainAttribs.superWeapon;
+  this.softSpot = villainAttribs.softSpot;
+}
+
+Villain.prototype.hit = function() {
+  return ` His hitpoints are now: ` + (this.hp -1);
+}
+
+
+
+// Stretch task: 
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 /*
   === Humanoid ===
@@ -41,7 +110,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -55,7 +124,7 @@
     weapons: [
       'Staff of Shamalama',
     ],
-    language: 'Common Toungue',
+    language: 'Common Tongue',
   });
 
   const swordsman = new Humanoid({
@@ -72,7 +141,7 @@
       'Giant Sword',
       'Shield',
     ],
-    language: 'Common Toungue',
+    language: 'Common Tongue',
   });
 
   const archer = new Humanoid({
@@ -92,6 +161,40 @@
     language: 'Elvish',
   });
 
+  const jordan = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 20,
+    name: 'Jordan the Heroic',
+    faction: 'Lambda School',
+    weapons: ['Rapier',
+    ],
+    language: 'Common Tongue',
+    power: 'Coding',
+    weakness: 'Javascript',
+  })
+
+const phillip = new Villain ({
+  createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 20,
+    name: 'Phillip the Villainous',
+    faction: 'The Streets',
+    weapons: ['Snarkiness',
+    ],
+    language: 'Common Tongue',
+    superWeapon: 'Sarcasm',
+    softSpot: 'Ice-cream',
+})
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -102,7 +205,8 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(jordan.takeDamage() + jordan.damage());
+  console.log(phillip.takeDamage() + phillip.hit());
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
