@@ -83,11 +83,26 @@ function Hero(heroAttributes) {
   this.exterior = heroAttributes.exterior; // childAttributes
   this.needsToSave = heroAttributes.needsToSave; // childAttributes
 }
+
 Hero.prototype = Object.create(Humanoid.prototype); // child parent
 
 Hero.prototype.story = function() {                         // child
-  return `${this.name}, a ${this.exterior} ${this.faction} who speaks ${this.language}, needs to save ${this.needsToSave} from ${this.nemesis} using a ${this.weapons}`;
+  return `${this.name}, a ${this.faction} ${this.exterior} who speaks ${this.language} needs to save ${this.needsToSave} from ${this.nemesis} using a ${this.weapons}.`;
 }
+
+  function Villain(villainAttributes) {
+    //This binds the "this" keyword to Parent
+    Humanoid.call(this, villainAttributes);   //parent childAttributes
+    this.heroNemesis = villainAttributes.heroNemesis;   // childAttributes
+    this.villainExterior = villainAttributes.villainExterior; // childAttributes
+    this.miniVillain = villainAttributes.miniVillain; // childAttributes
+  }
+  Villain.prototype = Object.create(Humanoid.prototype); // child parent
+  
+  Villain.prototype.villainStory = function() {                         // child
+    return `${this.name}, a ${this.faction} ${this.villainExterior} (formerly known as ${this.miniVillain}) who speaks ${this.language} and despite using a ${this.weapons[Math.floor(Math.random()*this.weapons.length)]} will always ultimately lose to ${this.heroNemesis}.`;
+}
+
 
 
 
@@ -180,9 +195,25 @@ Hero.prototype.story = function() {                         // child
     exterior: 'princess',
     needsToSave: 'Han Solo',
     nemisis: 'Darth Vader'
+  });
 
-    // Hero.prototype.story = function() {                         // child
-  // return `${this.name}, a ${this.exterior}, needs to save ${this.needsToSave} from ${this.nemesis}`;
+  const sithLord = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 3,
+      height: 6,
+    },
+    hp: 15,
+    name: 'Darth Vader',
+    faction: 'Sith',
+    weapons: [
+      'lightsaber', 'Jedi mind control'
+    ],
+    language: 'Galactic Basic, Sith, Huttese some Binary(!!)',
+    villainExterior: 'part-man & part-machine',
+    heroNemesis: 'the Rebel Forces',
+    miniVillain: 'Anakin Skywalker'
   });
 
   console.log(mage.createdAt); // Today's date
@@ -196,7 +227,7 @@ Hero.prototype.story = function() {                         // child
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   console.log(princess.story()); // Sir Mustachio was removed from the game.
-
+  console.log(sithLord.villainStory());
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
