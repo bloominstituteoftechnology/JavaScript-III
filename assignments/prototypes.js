@@ -144,6 +144,23 @@ function Villain(villainAttributes) {
   this.level = villainAttributes.level;
   this.equippedWeapon = this.weapons[0];
   this.salves = villainAttributes.salves;
+  this.adverbs = [
+      'evilly',
+      'wickedly',
+      'spitefully',
+      'villainously',
+      'meanly',
+      'malevolently',
+      'maliciously',
+    ]
+    this.adjectives = [
+      'evil',
+      'dark and stormy',
+      'noxious',
+      'mischievous',
+      'wicked',
+      'pestiferous',
+    ]
 }
 
 Villain.prototype = Object.create(Humanoid.prototype);
@@ -180,13 +197,13 @@ Villain.prototype.attack = function(opponent) {
     }
     let damageNum = Math.floor(Math.random() * this.level);
     if (damageNum === 0) {
-      return `${this.name} evilly tried to attack with their evil ${this.equippedWeapon} but missed.`;
+      return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with their ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]}  ${this.equippedWeapon} but missed.`;
     }
     opponent.hp -= damageNum;
     if (opponent.hp <= 0) {
       return `Well I guess today goes to the forces of evil. The attack lands and decimates the hero. ` + opponent.destroy();
     }
-    return `${this.name} wickedly uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} uses their ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   } ;//attack
 
 function Hero(heroAttributes) {
@@ -194,6 +211,23 @@ function Hero(heroAttributes) {
   this.level = heroAttributes.level;
   this.equippedWeapon = this.weapons[0];
   this.salves = heroAttributes.salves;
+  this.adverbs = [
+    'heroically',
+    'bravely',
+    'boldly',
+    'courageously',
+    'fearlessly',
+    'valorously',
+    'valiantly',
+    'gallantly',
+    'intrepedly',
+  ];
+  this.adjectives = [
+    'light and fluffy',
+    'hearty',
+    'well-conditioned',
+    'wholesome',
+  ]
 };
 
 Hero.prototype = Object.create(Humanoid.prototype);
@@ -230,13 +264,13 @@ Hero.prototype.attack = function(opponent) {
     }
     let damageNum = Math.floor(Math.random() * this.level);
     if (damageNum === 0) {
-      return `${this.name} heroically tried to attack with their light and fluffy ${this.equippedWeapon} but missed.`;
+      return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with their  ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} but missed.`;
     }
     opponent.hp -= damageNum;
     if (opponent.hp <= 0) {
       return `YEAH FORCES OF LIGHT! The attack lands and lands hard enough to kill. Wait are heroes supposed to kill people? ` + opponent.destroy();
     }
-    return `${this.name} bravely uses ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} uses their ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   }; //end attack
 
 const snowWhite = new Hero({
@@ -245,12 +279,13 @@ const snowWhite = new Hero({
   name: 'Snow White',
   faction: 'The Princesses',
   weapons: [
-    'dwarf magic',
+    'attack dwarf',
     'frying pan',
   ],
   language: 'Common Toungue',
   level: 6,
   salves: 2,
+
 });
 
 const evilQueen = new Villain({
@@ -265,6 +300,7 @@ const evilQueen = new Villain({
   language: 'Common Toungue',
   level: 5,
   salves: 2,
+
 })
 
 
@@ -273,14 +309,14 @@ const evilQueen = new Villain({
 //.attack(opponent) to go after that terrible other person!
 //.heal() attempt to get back in the game with some magic salve. Or at least stall the inevitable embrace of death.
 
-// console.log(snowWhite.attack(evilQueen));
-// console.log(evilQueen.attack(snowWhite));
-// console.log(evilQueen.attack(evilQueen));
-// console.log(snowWhite.attack(evilQueen));
-// console.log(evilQueen.attack(snowWhite));
-// console.log(evilQueen.attack(snowWhite));
-// console.log(evilQueen.attack(snowWhite));
-// console.log(evilQueen.attack(snowWhite));
+console.log(snowWhite.attack(evilQueen));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(evilQueen));
+console.log(snowWhite.attack(evilQueen));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
+console.log(evilQueen.attack(snowWhite));
 
 
 //
