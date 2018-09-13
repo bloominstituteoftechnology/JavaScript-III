@@ -19,7 +19,7 @@ function GameObject(attributes) {
   this.dimensions = attributes.dimensions;
 }
 GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game';
+  return `${this.name} was removed from the game`;
 }
 
 /*
@@ -35,8 +35,9 @@ function CharacterStats(charaterAttributes) {
   this.name = charaterAttributes.name;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage`;
+CharacterStats.prototype.takeDamage = function(damage) {
+  this.hp = this.hp - damage;
+  console.log(`${this.name} took ${damage} damage`);
 }
 
 /*
@@ -48,6 +49,7 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
 function Humanoid(humanoidAttributes) {
   CharacterStats.call(this, humanoidAttributes);
   this.faction = humanoidAttributes.faction;
@@ -113,7 +115,7 @@ const archer = new Humanoid({
   faction: 'Forest Kingdom',
   weapons: [
     'Bow',
-    'Dagger',
+    'Dagger', 
   ],
   language: 'Elvish',
 });
@@ -132,5 +134,69 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+function Hero(heroAtt) {
+  Humanoid.call(this, heroAtt);
+  this.power = heroAtt.power;
+
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villian(VillianAtt) {
+  Humanoid.call(this, VillianAtt);
+  this.power = VillianAtt.power;
+  this.evilness = VillianAtt.evilness;
+}
+Villian.prototype = Object.create(Humanoid.prototype);
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+function attack(target) {
+  target.takeDamage(this.power);
+}
+
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+let luke = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  power: 7,
+  name: 'Luke',
+  faction: 'Rebels',
+  weapons: [
+    'Lightsaber',
+  ],
+  language: 'Space',
+});
+
+let darthVader = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 3,
+    height: 5,
+  },
+  hp: 12,
+  power: 2,
+  evilness: 5,
+  name: 'Darth Vader',
+  faction: 'Empire',
+  weapons: [
+    'Lightsaber',
+  ],
+  language: 'Space',
+});
+
+function fight(fighter1, fighter2) {
+  while( fighter1.hp > 0 && fighter2.hp > 0) {
+    attack.call(fighter1, fighter2);
+    attack.call(fighter2, fighter1);
+  }
+  let {victor, loser} = (fighter1.hp > 0) ? {victor: fighter1, loser: fighter2} : {victor: fighter2, loser: fighter1};
+  console.log(`${victor.name} won the battle!`);
+  loser.destroy();
+}
+fight(luke, darthVader);
