@@ -8,7 +8,7 @@
 * 2. explicit binding is when this is referenced via a function/object outside of the scope of function/object and brought into that scope
 via an outside source such as another function.
 * 3. window binding
-* 4. 
+* 4. new bindng
 *
 * write out a code example of each explanation above
 */
@@ -38,3 +38,16 @@ objPerson.greeting();
 // Principle 4
 
 // code example for Explicit Binding
+let shoppingList = function(food1, food2, food3){
+    console.log( `${this.name} added ${food1}, ${food2}, & ${food3} to a shopping list.`);
+}
+
+let foodArray = ["Apples", "Steak", "Cookies"];
+
+let shopper = {
+    "name": "Corey",
+    "favorite_store": "Trader Joe's",
+    "budget": 200
+}
+
+shoppingList.call(shopper, foodArray[0], foodArray[1], foodArray[2]);
