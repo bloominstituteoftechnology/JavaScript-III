@@ -14,14 +14,16 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-
-const GameObject = function(stats) {
+function GameObject(stats) {
   this.createdAt = stats.createdAt;
+  this.dimensions = stats.dimensions;
 }
 
-const g = new GameObject({createdAt: 'today'})
+GameObject.prototype.destory = function() {
+  return `${this} was removed from the game.`;
+}
 
-// const g = new GameObject({dimension: 10});
+
 /*
   === CharacterStats ===
   * hp
@@ -29,21 +31,18 @@ const g = new GameObject({createdAt: 'today'})
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-const CharacterStats = function(attributes) {
-  this.hp = hp,
-  this.name = name
-  //GameObject.call(this, hp, name)
+function CharacterStats(attributes) {
+  this.hp = attributes.hp;
+  this.name = attributes.name;
 }
+
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 }
 
-GameObject.call(this,)
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
- const c = new CharacterStats({'hp': 10, 'name': 'grizz'});
 
- console.log(c.destroy());
 // console.log(c.takeDamage());
  
 /*
@@ -56,10 +55,10 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid(faction, weapons, language)  {
-  this.faction = faction,
-  this.weapons = weapons,
-  this.language = language
+function Humanoid(attributes)  {
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
   // this.greet = function() {
   //   return `${this.name} offers a greeting in ${this.language}`
   // }
@@ -69,8 +68,6 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`
 }
 
-const h = new Humanoid('thief', 'sword', 'french');
-console.log(h.greet());
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
