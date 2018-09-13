@@ -40,6 +40,10 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} doesn't duck in time`; //changed for stretch
 };
+//for stretch
+CharacterStats.prototype.takeOtherDamage = function() {
+  return `${this.name} almost but doesn't quite get out of the way`;
+};
 /*
   === Humanoid ===
   * faction
@@ -207,7 +211,7 @@ Villain.prototype.attack = function(opponent) {
     if (opponent.hp <= 0) {
       return `Well I guess today goes to the forces of evil. The attack lands and decimates the hero. ` + opponent.destroy();
     }
-    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} hurls ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} and does ${damageNum} HP damage. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} hurls ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} for a possible ${damageNum} HP damage. ` + opponent.takeOtherDamage() + ` and is now at ${opponent.hp} HP.`;
   } ;//attack
 
 function Hero(heroAttributes) {
@@ -274,7 +278,7 @@ Hero.prototype.attack = function(opponent) {
     if (opponent.hp <= 0) {
       return `YEAH FORCES OF LIGHT! The attack lands and lands hard enough to kill. Wait are heroes supposed to kill people? ` + opponent.destroy();
     }
-    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} throws ${this.pronouns[1]}  ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} throws ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} for a possible maximum ${damageNum} HP damage. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   }; //end attack
 
 const snowWhite = new Hero({
