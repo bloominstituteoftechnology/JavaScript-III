@@ -31,6 +31,7 @@ GameObject.prototype.destroy = function() {
 */
 function CharacterStats(characterAttributes) {
   GameObject.call(this, characterAttributes);
+  // this.hp = characterAttributes.hp;
   this.hp = characterAttributes.hp;
   this.name = characterAttributes.name;
 };
@@ -152,67 +153,67 @@ function Villain(villainAttributes) {
   this.equippedWeapon = this.weapons[0];
   this.salves = villainAttributes.salves;
   this.adverbs = [
-      'evilly',
-      'wickedly',
-      'spitefully',
-      'villainously',
-      'meanly',
-      'malevolently',
-      'maliciously',
-    ]
-    this.adjectives = [
-      'evil',
-      'dark and stormy',
-      'noxious',
-      'mischievous',
-      'wicked',
-      'pestiferous',
-    ]
+    'evilly',
+    'wickedly',
+    'spitefully',
+    'villainously',
+    'meanly',
+    'malevolently',
+    'maliciously',
+  ]
+  this.adjectives = [
+    'evil',
+    'dark and stormy',
+    'noxious',
+    'mischievous',
+    'wicked',
+    'pestiferous',
+  ]
 }
 
 Villain.prototype = Object.create(Humanoid.prototype);
 
 
 Villain.prototype.heal = function() {
-    if (this.salves === 0) {
-      return `${this.name} attempted to use a healing salve but forgot ${this.pronouns[1]} ${this.pronouns[3]} out. `;
-    }
-    let healNum = Math.floor(Math.random() * this.level);
-    if (healNum === 0) {
-      return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. Darn children.`;
-    }
-    this.salves -= 1;
-    this.hp += healNum;
-    return `${this.name} used a healing salve and it really got the evil blood pumping again! ${healNum} HP restored and ${this.pronouns[0]} ${this.pronouns[2]} now at ${this.hp} HP. `;
-  } //end heal
+  if (this.salves === 0) {
+    return `${this.name} attempted to use a healing salve but forgot ${this.pronouns[1]} ran out. `;
+  }
+  let healNum = Math.floor(Math.random() * this.level);
+  if (healNum === 0) {
+    return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. Darn children.`;
+  }
+  this.salves -= 1;
+  this.hp += healNum;
+  return `${this.name} used an abnormally bitter healing salve and it really got the evil blood pumping again! ${healNum} HP restored and ${this.pronouns[0]} ${this.pronouns[3]} now at ${this.hp} HP. `;
+} //end heal
 
 Villain.prototype.attack = function(opponent) {
-    if (opponent.name === this.name) {
-      if (this.hp <= 0){
-        return `Hey ${this.name}, I hate to have to remind you of this (because you kind of scare me), but you're dead and you can't attack anyone when you're dead. Not even yourself.`;
-      }
-      this.hp -= 1;
-      if (this.hp <= 0) {
-        return `Wooooooow, ${this.name}. You just managed to drop your ${this.equippedWeapon} on your foot, killing yourself.` + this.destroy() + `.`;
-      }
-      return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`;
+  if (opponent.name === this.name) {
+    if (this.hp <= 0) {
+      return `Hey ${this.name}, I hate to have to remind you of this (because you kind of scare me), but you're dead and you can't attack anyone when you're dead. Not even yourself.`;
     }
-    if (this.hp <= 0){
-      return `Uhhhhhh ${this.name}? You died. You can't attack anyone. Because you're dead. This isn't a zombie game.`;
+    this.hp -= 1;
+    if (this.hp <= 0) {
+      return `Wooooooow, ${this.name}. You just managed to drop your ${this.equippedWeapon} on your foot, killing yourself.` + this.destroy() + `.`;
     }
-    if (opponent.hp <= 0) {
-      return `Hey, ${opponent.name} is already out of the game. You won. Stop beating a dead horse. Go back to your evil lair and do something evil.`;
-    }
-    let damageNum = Math.floor(Math.random() * this.level);
-    if (damageNum === 0) {
-      return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]}  ${this.equippedWeapon} but missed.`;
-    }
-    opponent.hp -= damageNum;
-    if (opponent.hp <= 0) {
-      return `Well I guess today goes to the forces of evil. The attack lands and decimates the hero. ` + opponent.destroy();
-    }
-    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} hurls ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} for a possible ${damageNum} HP damage. ` + opponent.takeOtherDamage() + ` and is now at ${opponent.hp} HP.`;
-  } ;//attack
+    return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`;
+  }
+  if (this.hp <= 0) {
+    return `Uhhhhhh ${this.name}? You died. You can't attack anyone. Because you're dead. This isn't a zombie game.`;
+  }
+  if (opponent.hp <= 0) {
+    return `Hey, ${opponent.name} is already out of the game. You won. Stop beating a dead horse. Go back to your evil lair and do something evil.`;
+  }
+  let damageNum = Math.floor(Math.random() * this.level);
+  if (damageNum === 0) {
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]}  ${this.equippedWeapon} but missed.`;
+  }
+  opponent.hp -= damageNum;
+  if (opponent.hp <= 0) {
+    return `Well I guess today goes to the forces of evil. The attack lands and decimates the hero. ` + opponent.destroy();
+  }
+  return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} hurls ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} for a possible ${damageNum} HP damage. ` + opponent.takeOtherDamage() + ` and is now at ${opponent.hp} HP.`;
+}; //attack
 
 function Hero(heroAttributes) {
   Humanoid.call(this, heroAttributes);
@@ -241,45 +242,45 @@ function Hero(heroAttributes) {
 Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.heal = function() {
-    if (this.salves === 0) {
-      return `${this.name} attempted to use a healing salve from that nice witch but forgot ${this.pronouns[1]} ${this.pronouns[3]} out. `;
-    }
-    let healNum = Math.floor(Math.random() * this.level);
-    if (healNum === 0) {
-      return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.pronouns[4]} so ${this.pronouns[0]}\'ll just try again later when feeling stronger than a child.`;
-    }
-    this.salves -= 1;
-    this.hp += healNum;
-    return `${this.name} uses a delicious healing salve and feels much better. ${healNum} HP restored and ${this.pronouns[0]} ${this.pronouns[2]} now at ${this.hp} HP. `;
-  } //end heal
+  if (this.salves === 0) {
+    return `${this.name} attempted to use a healing salve from that nice witch but forgot ${this.pronouns[0]} ran out. If the darn things weren't so tasty...`;
+  }
+  let healNum = Math.floor(Math.random() * this.level);
+  if (healNum === 0) {
+    return `Oops ${this.name} can't get the top off of the healing salve bottle. Darn childproof tops. But child safety is important to ${this.pronouns[4]} so ${this.pronouns[0]}\'ll just try again later when feeling stronger than a child.`;
+  }
+  this.salves -= 1;
+  this.hp += healNum;
+  return `${this.name} used a delicious healing salve and feels much better. ${healNum} HP restored and ${this.pronouns[0]} ${this.pronouns[3]} now at ${this.hp} HP. `;
+} //end heal
 
 Hero.prototype.attack = function(opponent) {
-    if (opponent.name === this.name) {
-      if (this.hp <= 0){
-        return `Hey ${this.name}, I hate to break it to you but you're dead and you can't attack anyone when you're dead. Not even yourself. Heroes don't get like a pass on the death thing.`;
-      }
-      this.hp -= 1;
-      if (this.hp <= 0) {
-        return `Congratulations, ${this.name}. You just managed to drop your ${this.equippedWeapon} on your foot, killing yourself. ` + this.destroy() + `.`;
-      }
-      return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`;
+  if (opponent.name === this.name) {
+    if (this.hp <= 0) {
+      return `Hey ${this.name}, I hate to break it to you but you're dead and you can't attack anyone when you're dead. Not even yourself. Heroes don't get like a pass on the death thing.`;
     }
-    if (this.hp <= 0){
-      return `Uhhhhhh ${this.name}? You died. You can't attack anyone. Because you're dead. This isn't a zombie game.`;
+    this.hp -= 1;
+    if (this.hp <= 0) {
+      return `Congratulations, ${this.name}. You just managed to drop your ${this.equippedWeapon} on your foot, killing yourself. ` + this.destroy() + `.`;
     }
-    if (opponent.hp <= 0) {
-      return `Look, ${opponent.name} is already out of the game. Light triumphed over darkness. Stop beating a dead horse.`;
-    }
-    let damageNum = Math.floor(Math.random() * this.level);
-    if (damageNum === 0) {
-      return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} but missed.`;
-    }
-    opponent.hp -= damageNum;
-    if (opponent.hp <= 0) {
-      return `YEAH FORCES OF LIGHT! The attack lands and lands hard enough to kill. Wait are heroes supposed to kill people? ` + opponent.destroy();
-    }
-    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} throws ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} for a possible maximum ${damageNum} HP damage. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
-  }; //end attack
+    return `Did... did you just try to attack yourself, ${this.name}? Fine. You dropped your ${this.equippedWeapon} on your foot and lost 1 HP. You are now at ${this.hp} HP.`;
+  }
+  if (this.hp <= 0) {
+    return `Uhhhhhh ${this.name}? You died. You can't attack anyone. Because you're dead. This isn't a zombie game.`;
+  }
+  if (opponent.hp <= 0) {
+    return `Look, ${opponent.name} is already out of the game. Light triumphed over darkness. Stop beating a dead horse.`;
+  }
+  let damageNum = Math.floor(Math.random() * this.level);
+  if (damageNum === 0) {
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} but missed.`;
+  }
+  opponent.hp -= damageNum;
+  if (opponent.hp <= 0) {
+    return `YEAH FORCES OF LIGHT! The attack lands and lands hard enough to kill. Wait are heroes supposed to kill people? ` + opponent.destroy();
+  }
+  return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} throws ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} for a possible maximum ${damageNum} HP damage. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+}; //end attack
 
 const snowWhite = new Hero({
   createdAt: new Date(),
@@ -327,54 +328,37 @@ const evilQueen = new Villain({
 })
 
 
-
-
-
-
 //character object names: snowWhite, evilqueen
 //method options:
 //.attack(opponent) to go after that terrible other person!
 //.heal() attempt to get back in the game with some magic salve. Or at least stall the inevitable embrace of death.
 
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(snowWhite.heal());
-console.log(snowWhite.salves);
-console.log(snowWhite.heal())
-console.log(snowWhite.salves);
-console.log(snowWhite.heal());
-console.log(snowWhite.salves);
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(snowWhite.heal());
-console.log(snowWhite.salves);
-console.log(snowWhite.heal())
-console.log(snowWhite.salves);
-console.log(snowWhite.heal());
-console.log(snowWhite.salves);
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(snowWhite));
-console.log(snowWhite.heal());
-console.log(snowWhite.salves);
-console.log(snowWhite.heal())
-console.log(snowWhite.salves);
-console.log(snowWhite.heal());
-console.log(snowWhite.salves);
+
+//example fight
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(snowWhite.heal());
+// console.log(snowWhite.attack(evilQueen));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.heal());
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.heal());
+// console.log(snowWhite.attack(evilQueen));
