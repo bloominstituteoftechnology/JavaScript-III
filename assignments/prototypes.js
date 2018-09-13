@@ -273,34 +273,15 @@ const evilQueen = new Villain({
 //.attack(opponent) to go after that terrible other person!
 //.heal() attempt to get back in the game with some magic salve. Or at least stall the inevitable embrace of death.
 
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(snowWhite.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
-console.log(evilQueen.attack(snowWhite));
-console.log(evilQueen.attack(evilQueen));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(evilQueen));
+// console.log(snowWhite.attack(evilQueen));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(snowWhite));
+// console.log(evilQueen.attack(snowWhite));
+
 
 //
 // console.log(snowWhite.heal());
