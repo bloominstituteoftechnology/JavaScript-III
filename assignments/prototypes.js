@@ -162,19 +162,21 @@ Humanoid.prototype.greet = function(){
     let damage =  Math.ceil(Math.random() * this.weaponDamage);
     target.hp -= damage;
     if(target.hp < 1){
-      return target.destroy();
+      target.destroy();
+      return `${target.name} has been bested by the villian ${this.name}.\n`;
     } else {
-      return `${this.name} attacks ${target.name} and causes ${damage} hp's of damage.\n${target.name} has ${target.hp} hp's left.`;    
+      return `${this.name} tortures ${target.name} with ${this.weapons[0]} and causes ${damage} hp's of damage.\n${target.name} has ${target.hp} hp's left.\n`;    
     }
   }  
   
   Hero.prototype.attack = function(target){
     let damage =  Math.ceil(Math.random() * this.weaponDamage);
     target.hp -= damage;
-    if(target.hp < 1){
-      return target.destroy();
+    if(target.hp < 1) {
+        target.destroy();
+        return `${target.name} has been defeated. ${this.name} lives happily ever after.\n`      
     } else {
-      return `${this.name} attacks ${target.name} and causes ${damage} hp's of damage.\n${target.name} has ${target.hp} hp's left.`;    
+      return `${this.name} attacks ${target.name}, defending his honor with his ${this.weapons[0]} and causes ${damage} hp's of damage.\n${target.name} has ${target.hp} hp's left.\n`;    
     }
   }
 
