@@ -26,16 +26,58 @@
 
 // Principle 1
 
+let sayAge = function(){
+        console.log(this.age);
+};
+
+// let me = {
+//         age: 39,
+// }
+window.age = 39;
+sayAge();
+
+
 // code example for Window Binding
 
 // Principle 2
+
+let me2 = {
+        name: "Nick",
+        age: 39,
+        sayName: function() {
+                console.log(this.name);
+        }
+};
+
+me2.sayName();
 
 // code example for Implicit Binding
 
 // Principle 3
 
+let Animal = function(color, name, type) {
+        this.color = color;
+        this.name = name;
+        this.type = type;
+
+};
+
+let squirrel = new Animal('brown', 'Chippy', 'Squirrel');
+
+
+
 // code example for New Binding
 
 // Principle 4
+
+var nick = {
+        name: 'Nick',
+        age: 39,
+        sayName: function(){
+                console.log('My name is ' + this.name);
+        }
+};
+
+nick.sayName();
 
 // code example for Explicit Binding
