@@ -14,7 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-
+function Gameobject(action){
+  this.createdAt=action.createdAt;
+  this.dimensions=action.demensions;
+  this.name=action.name;
+}
+Gameobject.prototype.destroy=function(){
+  return `${this.name} was removed from game`
+}
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +29,11 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(characterstatus){
+  Gameobject.call(this, characterstatus);
+  this.hp=characterstatus.hp;
+}
+//Look into how to return
 
 /*
   === Humanoid ===
@@ -32,16 +44,28 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(humanoidActions){
+  CharacterStats.call(this,humanoidActions)
+  this.faction=humanoidActions.faction;
+  this.weapons=humanoidActions.weapons;
+  this.language=humanoidActions.language;
+}
+Humanoid.prototype=Object.create(CharacterStatus.prototype);
+Humanoid.prototype.greet=function(){
+  return `${this.name}offers a greeting in ${this.language}.`;
+};
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +126,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
