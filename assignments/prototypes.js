@@ -258,6 +258,8 @@ Hero.prototype.story = function() {                         // child
 
     console.log(charStatus());
   
+    console.log(aVillain.villainStory());
+    
     function war (aHero, aVillain) {
       if (aVillain.hp <= 0) {return `Game Over: ${aVillain.name} is dead! ${charStatus()}`} 
       if (aHero.hp <= 0) {return `Game Over: ${aHero.name} is dead! ${charStatus()}`} 
