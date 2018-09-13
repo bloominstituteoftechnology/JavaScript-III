@@ -39,12 +39,15 @@ function CharacterStats(characterAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} doesn't duck in time`; //changed for stretch
-};
-//for stretch
-CharacterStats.prototype.takeOtherDamage = function() {
-  return `${this.name} almost but doesn't quite get out of the way`;
-};
+  let messageOptions = [
+    `doesn't duck in time`,
+    `almost but doesn't quite get out of the way`,
+    `fails to do anything about it`,
+    `doesn't even see it coming`,
+    `is too busy staring at ${this.pronouns[1]} phone to avoid it`,
+  ]
+  return `${this.name} ` + messageOptions[Math.floor(Math.random()*messageOptions.length)]
+}; //changed for stretch
 /*
   === Humanoid ===
   * faction
@@ -212,7 +215,7 @@ Villain.prototype.attack = function(opponent) {
   if (opponent.hp <= 0) {
     return `Well I guess today goes to the forces of evil. The attack lands and decimates the hero. ` + opponent.destroy();
   }
-  return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} hurls ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} for a possible ${damageNum} HP damage. ` + opponent.takeOtherDamage() + ` and is now at ${opponent.hp} HP.`;
+  return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} hurls ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} at ${opponent.name} for a possible ${damageNum} HP damage. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
 }; //attack
 
 function Hero(heroAttributes) {
