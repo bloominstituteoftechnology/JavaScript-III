@@ -128,6 +128,7 @@ const archer = new Humanoid({
   language: 'Elvish'
 });
 
+/*
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.hp); // 15
@@ -138,10 +139,11 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+*/
 
 // Stretch task:
 
-// DOM MANIPULATION
+// DOM SELECTORS
 const villain = document.getElementById('villain');
 const hero = document.getElementById('hero');
 const messages = document.querySelector('.messages');
@@ -149,6 +151,11 @@ const messages = document.querySelector('.messages');
 // HP BARS
 villainHPBar = document.querySelector('.villain-hp-bar');
 heroHPBar = document.querySelector('.hero-hp-bar');
+heroTotalHP = document.querySelector('.hero-total-hp');
+heroHP = document.querySelector('.hero-current-hp');
+
+villainTotalHP = document.querySelector('.villain-total-hp');
+villainHP = document.querySelector('.villain-current-hp');
 
 // FUNCTIONS
 function messageFlicker() {
@@ -175,7 +182,7 @@ Hero.prototype.castSpell = function(villain) {
     villainHPBar.style.width =
       ((villain.hp / villain.maxHP) * 100).toString() + '%';
     messages.textContent = `${
-      michael.name
+      this.name
     } casted Paper Cut!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
     messageFlicker();
   } else if (villain.hp === 1) {
@@ -193,7 +200,7 @@ Hero.prototype.superAttack = function(villain) {
     villainHPBar.style.width =
       ((villain.hp / villain.maxHP) * 100).toString() + '%';
     messages.textContent = `${
-      michael.name
+      this.name
     } Threw a Party!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
     messageFlicker();
   } else if (villain.hp === 0) {
@@ -216,7 +223,7 @@ Villain.prototype.baseAttack = function(hero) {
     hero.hp -= 1;
     heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
     messages.textContent = `${
-      charles.name
+      this.name
     } attacked with Endless Paperwork!!! ${hero.takeDamage()}... HP: ${
       hero.hp
     }`;
@@ -234,7 +241,7 @@ Villain.prototype.superAttack = function(hero) {
     hero.hp -= 3;
     heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
     messages.textContent = `${
-      charles.name
+      this.name
     } Threw Bureaucratic Shade!!! ${hero.takeDamage()}... HP: ${hero.hp}`;
     messageFlicker();
   } else if (hero.hp === 0) {
@@ -256,8 +263,8 @@ const michael = new Hero({
   hp: 15,
   maxHP: 15,
   name: 'Michael Scott',
-  faction: 'The Round Table',
-  weapons: ['Giant Sword', 'Shield'],
+  faction: 'Dunder Mifflin',
+  weapons: ['Improv Comedy', 'Party Planning Committee'],
   language: 'Common Toungue'
 });
 
@@ -271,12 +278,19 @@ const charles = new Villain({
   hp: 10,
   maxHP: 10,
   name: 'Charles Minor',
-  faction: 'Luther Corp',
-  weapons: ['Bow', 'Dagger'],
+  faction: 'Corporate',
+  weapons: ['Bureaucracy', 'Dagger'],
   language: 'Elvish'
 });
 
-console.log(charles.hp);
+// INIT SET UP
+
+heroTotalHP.textContent = michael.maxHP;
+heroHP.textContent = michael.maxHP;
+villainTotalHP.textContent = charles.maxHP;
+villainHP.textContent = charles.maxHP;
+
+// BUTTON EVENT LISTENERS
 
 villain.addEventListener('click', e => {
   if (e.target.classList.contains('attack-btn')) {
@@ -285,6 +299,7 @@ villain.addEventListener('click', e => {
   } else if (e.target.classList.contains('super-btn')) {
     charles.superAttack(michael);
   }
+  heroHP.textContent = michael.hp;
 });
 
 hero.addEventListener('click', e => {
@@ -293,4 +308,5 @@ hero.addEventListener('click', e => {
   } else if (e.target.classList.contains('super-btn')) {
     michael.superAttack(charles);
   }
+  villainHP.textContent = charles.hp;
 });
