@@ -1,47 +1,107 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
 
-  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
+  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.
 
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
-  
+
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
-  === GameObject ===
+
+                          ____                       ___  _     _           _
+     _____ _____ _____   / ___| __ _ _ __ ___   ___ / _ \| |__ (_) ___  ___| |_   _____ _____ _____
+    |_____|_____|_____| | |  _ / _` | '_ ` _ \ / _ \ | | | '_ \| |/ _ \/ __| __| |_____|_____|_____|
+    |_____|_____|_____| | |_| | (_| | | | | | |  __/ |_| | |_) | |  __/ (__| |_  |_____|_____|_____|
+                         \____|\__,_|_| |_| |_|\___|\___/|_.__// |\___|\___|\__|
+                                                             |__/
+
+
   * createdAt
   * dimensions
-  * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
+  * destroy() // prototype method -> returns the string 'Object was removed from the game.'
 */
 
-/*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
+
+
+function  GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game`;
+};
 
 /*
-  === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
-*/
- 
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
+
+                          ____ _                          _            ____  _        _
+     _____ _____ _____   / ___| |__   __ _ _ __ __ _  ___| |_ ___ _ __/ ___|| |_ __ _| |_ ___   _____ _____ _____
+    |_____|_____|_____| | |   | '_ \ / _` | '__/ _` |/ __| __/ _ \ '__\___ \| __/ _` | __/ __| |_____|_____|_____|
+    |_____|_____|_____| | |___| | | | (_| | | | (_| | (__| ||  __/ |   ___) | || (_| | |_\__ \ |_____|_____|_____|
+                         \____|_| |_|\__,_|_|  \__,_|\___|\__\___|_|  |____/ \__\__,_|\__|___/
+
+
+*/
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // * hp                                                                               //
+  // * name                                                                             //
+  // * takeDamage() prototype method -> returns the string '<object name> took damage.' //
+  // * should inherit destroy() from GameObject's prototype                             //
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////
+ function CharacterStats(characterstatsAttributes){
+   GameObject.call(this,characterstatsAttributes)
+   this.hp = characterstatsAttributes.hp;
+  this.name = characterstatsAttributes.name;
+}
+
+  ////////////////////////////////////
+  // === GameObject inheritance === //
+  ////////////////////////////////////
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                            //
+//   === Humanoid === //                                                                                      //
+//                                                                                                            //
+//   * faction                                                                                                //
+//   * weapons                                                                                                //
+//   * language                                                                                               //
+//   * greet() prototype method -> returns the string '<object name> offers a greeting in <object language>.' //
+//   * should inherit destroy() from GameObject through CharacterStats                                        //
+//   * should inherit takeDamage() from CharacterStats                                                        //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function Humanoid(humanoidAttr) {
+  CharacterStats.call(this, humanoidAttr);
+  this.faction = humanoidAttr.faction;
+  this.weapons = humanoidAttr.weapons;
+  this.language = humanoidAttr.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
+/*
+  * Inheritance chain: Humanoid -> CharacterStats -> GameObject
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// Test you work by uncommenting these 3 objects and the list of console logs below:
+//Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,19 +152,19 @@
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(mage.createdAt);
+  console.log(archer.dimensions); { length: 1, width: 2, height: 4 }
+  console.log(swordsman.hp);  15
+  console.log(mage.name);  Bruce
+  console.log(swordsman.faction); The Round Table
+  console.log(mage.weapons);  Staff of Shamalama
+  console.log(archer.language);  Elvish
+  console.log(archer.greet()); Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage());  Bruce took damage.
+  console.log(swordsman.destroy());  Sir Mustachio was removed from the game.
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+// Stretch task:
+// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
