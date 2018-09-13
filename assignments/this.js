@@ -67,6 +67,4 @@ function logName(lang1, lang2) {
   console.log(`Can speak: ${lang1} and ${lang2}`);
 }
 
-let logEnemyName = logName.bind(enemyInfo);
-
 logName.call(enemyInfo, 'English', 'Parseltongue');
