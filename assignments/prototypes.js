@@ -38,11 +38,11 @@ function CharacterStats(characterAttrs){
   this.name = characterAttrs.name;
 };
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function(){
   return `${this.name} took damage.`;
 };
-
-CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /*
   === Humanoid ===
@@ -61,11 +61,13 @@ function Humanoid(humanoidAttrs){
   this.language = humanoidAttrs.language;
 }
 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}.`
 }
 
-Humanoid.prototype = Object.create(GameObject.prototype);
+
 
 
  //let Humanoid = new CharacterStats();
