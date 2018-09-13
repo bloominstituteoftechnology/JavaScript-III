@@ -52,7 +52,6 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit takeDamage() from CharacterStats
 */
 function Humanoid(attributes){
-  GameObject.call(this, attributes);
   CharacterStats.call(this, attributes);
   this.faction = attributes.faction;
   this.weapons = attributes.weapons;
@@ -123,7 +122,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
     ],
     language: 'Elvish',
   });
-
+  
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
