@@ -16,6 +16,7 @@ the heiarchial tree until it reaches a window object reference and returns it.
 * 4. new bindng
 
 a new binding, binds the "this" to a newly constructed or invoked object. the "new" keyword binds the "this" within the constructor object.
+value can be stored in variable.
 
 *
 * write out a code example of each explanation above
