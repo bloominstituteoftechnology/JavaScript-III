@@ -40,11 +40,11 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-CharacterStats.prototype = Object.create(Gameobject.prototype);
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-Hero.prototype = Object.create(Humanoid.prototype);  
 
-function Gameobject(Object) {
+
+
+
+function Gameobject(Object) {         
   this.createdAt = Object.createdAt;
   this.dimensions = Object.dimensions;
   
@@ -59,12 +59,12 @@ function CharacterStats(Attributes) {
 //   Parent.call(this, childAttributes);
 //   this.toy = childAttributes.toy;
 // }
-Gameobject.call(this, Attributes);
+  Gameobject.call(this, Attributes);
 
 
 }
 
-
+CharacterStats.prototype = Object.create(Gameobject.prototype);
 
 //Child.prototype = Object.create(Parent.prototype);
 
@@ -78,6 +78,10 @@ function Humanoid(Character) {
   
 }
 
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
 function Hero (Good) {                                
                          
                                                       //*createdAt
@@ -89,13 +93,13 @@ function Hero (Good) {
                                                       //*language
                                                       //Attacks math function: use 
                                                       //Defense if math function
- this.summoning = Good.summoning                      //Summoning speech
- this.magic = Good.magic                              //Magic                      
- this.items = Good.items;
-   Humanoid.call(this, Good);                               //Items array of items
+ this.summoning = Good.summoning;                      //Summoning speech
+ this.magic = Good.magic;                              //Magic                      
+ this.items = Good.items;                             //Items array of items
+  Humanoid.call(this, Good);                               
 } 
 
-
+Hero.prototype = Object.create(Humanoid.prototype);  
 
 
 function Villian (Evil) {
