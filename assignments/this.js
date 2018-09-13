@@ -25,6 +25,8 @@ a new binding, binds the "this" to a newly constructed or invoked object. the "n
 
 // code example for Window Binding
 
+console.log(this);
+
 // Principle 2
 
 // code example for Implicit Binding
@@ -42,7 +44,19 @@ objPerson.greeting();
 // Principle 3
 
 // code example for New Binding
+let Person = function(name, age, height, weight){
+    this.name = name;
+    this.age = age;
+    this.height = height;
+    this.weight = weight;
+    this.greet = function(){
+        console.log(`Hi, I am ${this.name} and I am ${this.age} years old.`);
+    }
+}
 
+let mySelf = new Person("corey", 41, 6, 290);
+console.log(mySelf);
+mySelf.greet();
 // Principle 4
 
 // code example for Explicit Binding
