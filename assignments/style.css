@@ -1,0 +1,23 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+.fighter {
+  margin: 20px;
+  height: 500px;
+  border: 1px solid blue;
+  width: 20%;
+}
+
+.fighter h1 {
+  text-align: center;
+}
+
+.goodGuy {
+  background-color: blue;
+}
+
+.badGuy {
+  background-color: red;
+}

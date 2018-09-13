@@ -10,8 +10,8 @@
 */
 
 // Principle 1
-// code example for Window Binding
 
+// code example for Window Binding
 function windowName() {
   let name = 'justin';
   console.log(this.name);
@@ -19,6 +19,7 @@ function windowName() {
 console.log(windowName());
 
 // Principle 2
+
 // code example for Implicit Binding
 const justin = {
   name: 'justin',
@@ -30,25 +31,22 @@ const justin = {
 justin.speak();
 
 // Principle 3
+
 // code example for New Binding
 function Movie(movieAttributes) {
-  this.title = movieAttributes.title;
+  this.title = movieAttributes.name;
   this.director = movieAttributes.director;
   this.rating = movieAttributes.rating;
 }
 
 const theGreatest = new Movie({
-  'title': 'Pulp Fiction',
-  'director': 'Quentin Tarantino',
-  'rating': 10,
-});
+  title: 'Pulp Fiction',
+  director: 'Quentin Tarantino',
+  rating: 10
+})
 
 console.log(theGreatest.title);
 
 // Principle 4
+
 // code example for Explicit Binding
-//
-function sayHello(name) {
-  console.log(`Hello, ${this.name}`);
-}
-sayHello.call(justin);
