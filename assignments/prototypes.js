@@ -131,14 +131,14 @@ Humanoid.prototype.greet = function () {
 
   function Villian(viilianAttribute){
     this.attack = viilianAttribute.attack;
-    this.health = viilianAttribute.health;
+    this.enemyhealth = viilianAttribute.health;
     Humanoid.call(this, viilianAttribute);
   }
 
   Villian.prototype = Object.create(Humanoid.prototype);
 
   Villian.prototype.atk = function () {
-    this.health -= 55;
+    this.enemyhealth -= 55;
     return `${this.name} uses ${this.attack} to attack the hero`;
   }
 
@@ -149,19 +149,19 @@ Humanoid.prototype.greet = function () {
   function Hero(heroAttribute){
     this.trumpCard = heroAttribute.trumpCard;
     this.attack = heroAttribute.attack;
-    this.health = heroAttribute.health;
+    this.enemyhealth = heroAttribute.health;
     Humanoid.call(this, heroAttribute);
   }
 
   Hero.prototype = Object.create(Humanoid.prototype);
 
   Hero.prototype.attk = function () {
-    this.health -= 30;
+    this.enemyhealth -= 30;
     return `${this.name} uses ${this.attack} to attack the villian`;
   }
 
   Hero.prototype.finalAtk = function () {
-    this.health -= 70;
+    this.enemyhealth -= 70;
     return `${this.name} uses ${this.trumpCard} and ${this.attack} to defeat the villian`;
   }
   
@@ -218,11 +218,11 @@ Humanoid.prototype.greet = function () {
 
   console.log(`${villian.name} and ${hero.name} join the fight`);
   console.log(villian.atk());
-  console.log(`${hero.name} has been damaged, ${hero.name} has ${villian.health} health`);
+  console.log(`${hero.name} has been damaged, ${hero.name} has ${villian.enemyhealth} health`);
   console.log(hero.attk());
-  console.log(`${villian.name} has been damaged, ${villian.name} has ${hero.health} health`);
+  console.log(`${villian.name} has been damaged, ${villian.name} has ${hero.enemyhealth} health`);
   console.log(hero.finalAtk());
-  console.log(`${villian.name} has been damaged, ${villian.name} has ${hero.health} health`);
+  console.log(`${villian.name} has been damaged, ${villian.name} has ${hero.enemyhealth} health`);
   console.log(villian.destroy());
 
 
