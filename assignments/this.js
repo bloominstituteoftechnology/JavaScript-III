@@ -38,7 +38,7 @@ myObj.sayName('Ronni!')
 
 // code example for New Binding
 
-function CordialPerson(person){
+function excitedPerson(person){
     this.greeting='Howdy';
     this.person=person;
     this.speak=function(){
@@ -47,8 +47,8 @@ function CordialPerson(person){
     };
 }
 
-const Woody= new CordialPerson('Partner');
-const Buzz = new CordialPerson('Howdy?');
+const Woody= new excitedPerson('Partner');
+const Buzz = new excitedPerson('Howdy?');
 
 Buzz.speak();
 Buzz.speak();
