@@ -22,41 +22,46 @@ function aFunction(param) {
 
 // code example for Implicit Binding
 
-const anObject = {
+const oneObject = {
     prop1: 'a property',
     method1: function () {
         return `${this.prop1}`;
     }
 };
 //RETURNS 'a property' since `this` points back to anObject 
-
+console.log(oneObject.method1());
 
 // Principle 3
 
 // code example for New Binding
 function anObject(prop) {
-    this.prop = prop
-    this.method = function () {
-        return `${this.prop}`;
-    }
-};
+    this.prop = prop;
+}
+
+anObject.prototype.aMethod = function () {
+    return this.prop;
+}
 
 const instObj = new anObject('my prop');
+instObj.aMethod();
 
 //RETURNS 'my prop' and `this` points back to the object that was created instObj
 
 // Principle 4
 
 // code example for Explicit Binding
-function anObject(prop) {
-    this.prop = prop
-    this.method = function () {
-        return `${this.prop}`;
-    }
-};
+/*
+ * 
+ * function anObject(prop) {
+ * this.prop = prop;
+ * this.method = function () {
+ * return `${this.prop}`;
+ *   }
+ * };
+ */
+const instObj2 = new anObject('my prop');
+const anotherInstObj = new anObject('this is another prop');
 
-const instObj = new anObject('my prop');
-const anotherInstObj = new Object('this is another prop');
-
-anotherInstObj.method.call(instObj);
+anotherInstObj.aMethod.call(instObj2); //returns "my prop" instead of "this is another prop"
+anotherInstObj.aMethod(); //returns "this is another prop" as expected
 //RETURNS 'my prop' because using the call method and passing it a param of the other object instObj is allowing us to explicitly define `this` as pointing to the instObj object.  If we did not use .call or .apply then `this` would follow new binding and be bound to anotherInstObj upon its initialization...
