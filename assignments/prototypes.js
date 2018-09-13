@@ -55,12 +55,34 @@ function Humanoid(humanoidAttributes) {
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
 
+  //for stretch
+  this.pronouns = humanoidAttributes.pronouns;
+  this.female = [
+    'she',
+    'her',
+    'was',
+    'is',
+  ]
+  this.male = [
+    'he',
+    'his',
+    'was',
+    'is',
+  ]
+  this.neither = [
+    'they',
+    'their',
+    'were',
+    'are',
+  ]
+
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`
 };
+
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -165,9 +187,10 @@ function Villain(villainAttributes) {
 
 Villain.prototype = Object.create(Humanoid.prototype);
 
+
 Villain.prototype.heal = function() {
     if (this.salves === 0) {
-      return `${this.name} attempted to use a healing salve but forgot they were out. `;
+      return `${this.name} attempted to use a healing salve but forgot ${this.pronouns[1]} ${this.pronouns[3]} out. `;
     }
     let healNum = Math.floor(Math.random() * this.level);
     if (healNum === 0) {
@@ -175,7 +198,7 @@ Villain.prototype.heal = function() {
     }
     this.salves -= 1;
     this.hp += healNum;
-    return `${this.name} used a healing salve and it really got the evil blood pumping again! ${healNum} HP restored and they are now at ${this.hp} HP. `;
+    return `${this.name} used a healing salve and it really got the evil blood pumping again! ${healNum} HP restored and ${this.pronouns[0]} ${this.pronouns[2]} now at ${this.hp} HP. `;
   } //end heal
 
 Villain.prototype.attack = function(opponent) {
@@ -197,13 +220,13 @@ Villain.prototype.attack = function(opponent) {
     }
     let damageNum = Math.floor(Math.random() * this.level);
     if (damageNum === 0) {
-      return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with their ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]}  ${this.equippedWeapon} but missed.`;
+      return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]}  ${this.equippedWeapon} but missed.`;
     }
     opponent.hp -= damageNum;
     if (opponent.hp <= 0) {
       return `Well I guess today goes to the forces of evil. The attack lands and decimates the hero. ` + opponent.destroy();
     }
-    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} uses their ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} uses ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   } ;//attack
 
 function Hero(heroAttributes) {
@@ -227,14 +250,14 @@ function Hero(heroAttributes) {
     'hearty',
     'well-conditioned',
     'wholesome',
-  ]
+  ];
 };
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.heal = function() {
     if (this.salves === 0) {
-      return `${this.name} attempted to use a healing salve from that nice witch but forgot they were out. `;
+      return `${this.name} attempted to use a healing salve from that nice witch but forgot ${this.pronouns[1]} ${this.pronouns[3]}  out. `;
     }
     let healNum = Math.floor(Math.random() * this.level);
     if (healNum === 0) {
@@ -242,7 +265,7 @@ Hero.prototype.heal = function() {
     }
     this.salves -= 1;
     this.hp += healNum;
-    return `${this.name} uses a delicious healing salve and feels much better. ${healNum} HP restored and they are now at ${this.hp} HP. `;
+    return `${this.name} uses a delicious healing salve and feels much better. ${healNum} HP restored and ${this.pronouns[0]} ${this.pronouns[2]} now at ${this.hp} HP. `;
   } //end heal
 
 Hero.prototype.attack = function(opponent) {
@@ -264,13 +287,13 @@ Hero.prototype.attack = function(opponent) {
     }
     let damageNum = Math.floor(Math.random() * this.level);
     if (damageNum === 0) {
-      return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with their  ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} but missed.`;
+      return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} tried to attack with ${this.pronouns[1]} ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} but missed.`;
     }
     opponent.hp -= damageNum;
     if (opponent.hp <= 0) {
       return `YEAH FORCES OF LIGHT! The attack lands and lands hard enough to kill. Wait are heroes supposed to kill people? ` + opponent.destroy();
     }
-    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} uses their ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
+    return `${this.name} ${this.adverbs[Math.floor(Math.random()*this.adverbs.length)]} uses ${this.pronouns[1]}  ${this.adjectives[Math.floor(Math.random()*this.adjectives.length)]} ${this.equippedWeapon} for ${damageNum} HP damage to ${opponent.name}. ` + opponent.takeDamage() + ` and is now at ${opponent.hp} HP.`;
   }; //end attack
 
 const snowWhite = new Hero({
@@ -285,7 +308,13 @@ const snowWhite = new Hero({
   language: 'Common Toungue',
   level: 6,
   salves: 2,
-
+  gender: 'Neither',
+  pronouns: [
+    'they',
+    'their',
+    'were',
+    'are',
+  ],
 });
 
 const evilQueen = new Villain({
@@ -300,11 +329,22 @@ const evilQueen = new Villain({
   language: 'Common Toungue',
   level: 5,
   salves: 2,
+  gender: 'Female',
+  pronouns: [
+    'she',
+    'her',
+    'was',
+    'is',
+  ]
 
 })
 
 
-//character object names: snowWhite, evilQueen
+
+
+
+
+//character object names: snowWhite, evilqueen
 //method options:
 //.attack(opponent) to go after that terrible other person!
 //.heal() attempt to get back in the game with some magic salve. Or at least stall the inevitable embrace of death.
