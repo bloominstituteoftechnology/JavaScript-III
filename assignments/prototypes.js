@@ -125,14 +125,32 @@ Humanoid.prototype.greet = function(){
 
 Hero.prototype.attack = function(){
   let x = assassin.hp;
-  let newhp = x.map(health => health - Math.random()*12);
+  let newhp = x.map(health => health - Math.random()*13);
   console.log(`${assassin.name} took ${assassin.hp[0] - newhp[0]} points of damage from ${paladin.name}!`)
   if (newhp <= 0){
     console.log(`"UUUAAAAAAAAAAH!!!" ${assassin.name} is dead... ${this.name} is the victor.`);
   }
   return assassin.hp = newhp;
+}
 
+Villian.prototype.summon = function(){
+  let x = paladin.hp;
+  if (assassin.hp[0] <= 0){
+    return `${assassin.name} cannot summon when he's dead.`
+    
+  }
+  
+    console.log(`${assassin.name} summons ${assassin.summoning[0]} forth, a dark portal opens from the Earths core`);
+    console.log(`${assassin.summoning[0]} hurls a gravity distortion field at ${paladin.name}`);
+    let newhp = x.map(health => health - Math.random()*50);
+    console.log(`${paladin.name} took ${paladin.hp[0] - newhp[0]} points of damage from ${assassin.name}'s summon!`);
+    paladin.hp = newhp;
+  
+  if (paladin.hp[0] <= 0){
+    console.log(`"Ugh!!!" ${paladin.name} has been torn apart... ${this.name} is the victor.`);
+  }
 
+    return paladin.hp = newhp;
 }
 
 
@@ -169,7 +187,7 @@ const assassin = new Villian({
   faction: 'Horde',
   weapons:["Duel Daggers",],
   language: 'Javascript',
-  summoning: 'Diablo',
+  summoning: ['Diablo',],
   magic: 'Vanish',
   items: ['health potion', 'magic ether', 'poison herbs', 'revive potion',],
 })
@@ -181,7 +199,7 @@ const assassin = new Villian({
     width: 3,
     height: 3,
   },
-  hp: 30,
+  hp: [40,],
   name: 'Akatosh',
   faction: 'Alliance',
   weapons:["Two-Handed Mace",],
@@ -259,6 +277,8 @@ console.log(paladin);
   console.log(paladin.attack());
   console.log(paladin.attack());
   console.log(paladin.attack());
+  console.log(assassin.summon());
+ 
   
 
   // Stretch task: 
