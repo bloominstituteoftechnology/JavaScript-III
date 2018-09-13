@@ -103,37 +103,41 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 
 function Villian (Evil) {
+  this.summoning = Evil.summoning;                     
+  this.magic = Evil.magic;                                                  
+  this.items = Evil.items;
   Humanoid.call(this, Evil);
-
-
-}
-
-Humanoid.prototype.greet = function(){
-  return `${this.name} offers a greeting in ${this.language}.`
-}
-
-CharacterStats.prototype.takeDamage = function(){
-  return `${this.name} took damage!`
+  console.log(this.hp[0]);
+  
 }
 
 Gameobject.prototype.destroy = function(){
  return `${this.name} was removed from the game`;
 }
 
-Hero.prototype.attack = function(){
-  let x = this.hp;
-  
-  function counting (){
-    x-=3;
-    console.log(`${this.name} took ${3} points of damage.`)
-    return x;
-    
-  }
-
-  return counting();
-
-  
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage!`
 }
+
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`
+}
+
+Hero.prototype.attack = function(){
+  let x = assassin.hp;
+  let newhp = x.map(health => health - Math.random()*12);
+  console.log(`${assassin.name} took ${assassin.hp[0] - newhp[0]} points of damage from ${paladin.name}!`)
+  if (newhp <= 0){
+    console.log(`"UUUAAAAAAAAAAH!!!" ${assassin.name} is dead... ${this.name} is the victor.`);
+  }
+  return assassin.hp = newhp;
+
+
+}
+
+
+
+
 
 
 
@@ -153,7 +157,22 @@ Hero.prototype.attack = function(){
 
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
-
+const assassin = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 6,
+    height: 6,
+  },
+  hp: [35,],
+  name: 'Shadow',
+  faction: 'Horde',
+  weapons:["Duel Daggers",],
+  language: 'Javascript',
+  summoning: 'Diablo',
+  magic: 'Vanish',
+  items: ['health potion', 'magic ether', 'poison herbs', 'revive potion',],
+})
 
   const paladin = new Hero({
   createdAt: new Date(),
@@ -236,6 +255,11 @@ console.log(paladin);
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   console.log(paladin.attack());
+  console.log(paladin.attack());
+  console.log(paladin.attack());
+  console.log(paladin.attack());
+  console.log(paladin.attack());
+  
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
