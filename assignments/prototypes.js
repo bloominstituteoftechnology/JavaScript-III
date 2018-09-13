@@ -13,21 +13,10 @@ function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
 }
-
-
-const game1 = new GameObject({
-  createdAt: new Date(),
-  dimensions: 5
-})
-
-// console.log(game1);
-
 // prototype method -> returns the string: 'Object was removed from the game.'
 GameObject.prototype.destroy = function () {
   return (`${this.name} was removed from the game`)
 }
-
-
 // =========================================================================
 function CharacterStats(stats) {
   this.hp = stats.hp;
@@ -42,14 +31,10 @@ const stats1 = new CharacterStats({
   hp: 5,
   name: 'bob'
 })
-
-// console.log(stats1);
-
 // prototype method -> returns the string '<object name> took damage.'
 CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage`
 }
-
 // =============================================================================
 function Humanoid(stuff) {
   this.faction = stuff.faction;
@@ -60,19 +45,11 @@ function Humanoid(stuff) {
   CharacterStats.call(this, stuff);
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-//  const stuff1 = new Humanoid ({
-//    faction: ,
-//    weapons: ,
-//    language: 
-//  })
 
 // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
 Humanoid.prototype.greet = function () {
   return (`${this.name} offers a greeting in ${this.language}`)
 }
-
-
-
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -80,7 +57,6 @@ Humanoid.prototype.greet = function () {
  */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
-
 
 const mage = new Humanoid({
   createdAt: new Date(),
@@ -155,13 +131,12 @@ function Hero(good) {
 
 Hero.prototype.smash = function (target) {
   target.hp -= Math.ceil(Math.random() * 5)
-  return (`${this.name} smashed the ${target.name} lost two health points ${target.name} now has ${target.hp} left`)
+  return (`${this.name} smashed the ${target.name}!  ${target.name} now has ${target.hp} health points left`)
 }
 
 function Villian(bad) {
   Humanoid.call(this, bad);
 }
-
 
 const Superman = new Hero({
   createdAt: new Date(),
