@@ -25,8 +25,8 @@ giveAge(98);
 
     myObj={
         callOut: 'Over here!'
-        sayName: function(name){
-            console.log(${this.callOut} Hey I am ${this.name});
+        sayName: function(name) {
+            console.log($ `{this.callOut} Hey I am ${this.name}`);
             console.log(this);
 
         }
