@@ -13,11 +13,9 @@
 
 // code example for Window Binding
 
-window.name = 'Mikey';
 
-function sayName() {
-    console.log(`My name is ${this.name}`);
-}
+    console.log(`My name is ${this}`);
+
 
 sayName();
 // Principle 2
