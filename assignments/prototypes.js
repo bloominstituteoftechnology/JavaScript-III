@@ -147,8 +147,8 @@ Villain.prototype.attack = function(character) {
       return `${this.name} strikes ${character.name} down with an ${
         this.weapons[1]
       }! With that final blow, ${
-        this.faction
-      } are victorious! The world weeps in terror!`;
+        character.faction
+      } has been wiped out! The world weeps in terror!`;
     }
   } else {
     return `${
@@ -213,11 +213,8 @@ const allForOne = new Villain({
   language: "English"
 });
 
+console.log(allForOne.attack(archer));
 console.log(allMight.attack(allForOne));
-//All-Might hits All for One with a smash and does 50 points of damage! All for One taunts All-Might in anger!​​​​​
 console.log(allForOne.attack(allMight));
-//All for One hits All-Might with an Air Cannon and does 50 points of damage! Are the Heroes doomed?
 console.log(allMight.attack(allForOne));
-//All-Might uses United States of Smash! All for One has been defeated, and the Heroes are victorious!​​​​​
 console.log(allForOne.attack(allMight));
-//All for One has been defeated and can no longer attack! Remember kids, villains never win!
