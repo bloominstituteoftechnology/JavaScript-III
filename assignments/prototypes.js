@@ -1,19 +1,28 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
 
-  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
+  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.
 
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
-  
+
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +31,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(attributes) {
+  GameObject.call(this, attributes);
+  this.hp = attributes.hp;
+  this.name = attributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -32,7 +53,20 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(attributes) {
+  CharacterStats.call(this, attributes);
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -40,7 +74,6 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
-
 /*
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -103,8 +136,59 @@
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
+// Stretch task:
+// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
+// * Give the Hero and Villain different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villain and one a hero and fight it out with methods!
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+// === Villain ===
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+  this.attackCount = 0;
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.attack = function(hero, spell) {
+  this.attackCount++;
+  hero.hp--;
+
+  if (spell.toLowerCase() === 'avada kedavra') {
+    hero.hp = 0;
+  }
+
+  if (hero.hp === 0) {
+    return `${this.name} uses ${spell}!\nAttack Count: ${this.attackCount}\n${hero.name}'s HP: ${hero.hp}\n${this.name} WINS!`;
+  } else {
+    return `${this.name} uses ${spell}!\nAttack Count: ${this.attackCount}\n${hero.name}'s HP: ${hero.hp}`;
+  }
+}
+
+Villain.prototype.stats = function() {
+  return `${this.name}'s Stats:\nHP: ${this.hp}`;
+}
+
+// === Hero ===
+function Hero(attributes) {
+  Villain.call(this, attributes);
+}
+Hero.prototype = Object.create(Villain.prototype);
+
+const voldemort = new Villain({
+  name: 'Voldemort',
+  hp: 10
+});
+
+const harry = new Hero({
+  name: 'Harry',
+  hp: 10
+});
+
+// Harry vs Voldemort!
+console.log(harry.attack(voldemort, 'Sectumsempra'));
+console.log('---------------------');
+console.log(harry.stats());
+console.log('---------------------');
+console.log(voldemort.attack(harry, 'Avada Kedavra'));
+console.log('---------------------');
+console.log(voldemort.stats());
+console.log('---------------------');
