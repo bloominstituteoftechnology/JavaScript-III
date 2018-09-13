@@ -9,6 +9,8 @@
 */
 CharacterStats.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+Villain.prototype = Object.create(Humanoid.prototype);
+Hero.prototype = Object.create(Humanoid.prototype);
 /*
   === GameObject ===
   * createdAt
@@ -77,13 +79,13 @@ const mage = new Humanoid({
   dimensions: {
     length: 2,
     width: 1,
-    height: 1
+    height: 1,
   },
   hp: 5,
-  name: "Bruce",
-  faction: "Mage Guild",
-  weapons: ["Staff of Shamalama"],
-  language: "Common Toungue"
+  name: 'Bruce',
+  faction: 'Mage Guild',
+  weapons: ['Staff of Shamalama'],
+  language: 'Common Toungue',
 });
 
 const swordsman = new Humanoid({
@@ -91,13 +93,13 @@ const swordsman = new Humanoid({
   dimensions: {
     length: 2,
     width: 2,
-    height: 2
+    height: 2,
   },
   hp: 15,
-  name: "Sir Mustachio",
-  faction: "The Round Table",
-  weapons: ["Giant Sword", "Shield"],
-  language: "Common Toungue"
+  name: 'Sir Mustachio',
+  faction: 'The Round Table',
+  weapons: ['Giant Sword', 'Shield'],
+  language: 'Common Toungue',
 });
 
 const archer = new Humanoid({
@@ -105,13 +107,13 @@ const archer = new Humanoid({
   dimensions: {
     length: 1,
     width: 2,
-    height: 4
+    height: 4,
   },
   hp: 10,
-  name: "Lilith",
-  faction: "Forest Kingdom",
-  weapons: ["Bow", "Dagger"],
-  language: "Elvish"
+  name: 'Lilith',
+  faction: 'Forest Kingdom',
+  weapons: ['Bow', 'Dagger'],
+  language: 'Elvish',
 });
 
 console.log(mage.createdAt); // Today's date
@@ -129,3 +131,67 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+  this.greed = villainAttributes.greed;
+  this.lust = villainAttributes.lust;
+  this.cackle = villainAttributes.cackle;
+}
+
+Villain.prototype.slap = function(foe) {
+  if (foe.hp - 3 <= 0) {
+    return `${foe.takeDamage()} ${foe.name}'s HP is depleted. ${foe.destroy()}`;
+  } else {
+    return `${foe.takeDamage()} ${foe.name} now has ${(foe.hp -= 3)}HP.`;
+  }
+};
+
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+  this.valor = heroAttributes.valor;
+  this.charisma = heroAttributes.charisma;
+  this.bravery = heroAttributes.bravery;
+}
+Hero.prototype.punch = function(foe) {
+  if (foe.hp - 3 <= 0) {
+    return `${foe.takeDamage()} ${foe.name}'s HP is depleted. ${foe.destroy()}`;
+  } else {
+    return `${foe.takeDamage()} ${foe.name} now has ${(foe.hp -= 2)}hp.`;
+  }
+};
+
+const lich = new Villain({
+  name: 'Milk the Lich',
+  hp: 30,
+});
+
+const knight = new Hero({
+  name: 'Jerry the Knight',
+  hp: 35,
+});
+
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
+console.log(knight.punch(lich));
+console.log(lich.slap(knight));
