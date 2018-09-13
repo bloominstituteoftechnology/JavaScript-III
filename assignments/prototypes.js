@@ -25,7 +25,10 @@ function GameObject(Battlefield){
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
+function CharacterStats(Johnny){
+  this.hp = Johnny.hp
+  this.name= Johnny.name
+}
 /*
   === Humanoid ===
   * faction
@@ -35,7 +38,10 @@ function GameObject(Battlefield){
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-
+function Humanoid(Hunnaz){
+  this.faction = Hunnaz.faction
+  this.weapons= Hunnaz.weapons
+}
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
