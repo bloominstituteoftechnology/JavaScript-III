@@ -23,7 +23,6 @@ function GameObject(attributes) {
     width: attributes.dimensions.width,
     height: attributes.dimensions.height
   };
-  this.name = attributes.name;
 }
 
 // Prototypes
@@ -42,6 +41,7 @@ GameObject.prototype.destroy = function() {
 function CharacterStats(charAttributes) {
   GameObject.call(this, charAttributes);
   this.hp = charAttributes.hp;
+  this.name = charAttributes.name;
 }
 
 // Init prototype
@@ -128,7 +128,6 @@ const archer = new Humanoid({
   language: 'Elvish'
 });
 
-/*
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.hp); // 15
@@ -139,7 +138,6 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
 // Stretch task:
 
@@ -189,7 +187,7 @@ Hero.prototype.castSpell = function(villain) {
     villain.hp -= 1;
     villainHPBar.style.width =
       ((villain.hp / villain.maxHP) * 100).toString() + '%';
-    messages.textContent = `${villain.destroy()}`;
+    messages.textContent = `${villain.destroy()}... Boom, roasted.`;
     messageFlicker();
   }
 };
@@ -204,7 +202,7 @@ Hero.prototype.superAttack = function(villain) {
     } Threw a Party!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
     messageFlicker();
   } else if (villain.hp === 0) {
-    messages.textContent = `${villain.destroy()}`;
+    messages.textContent = `${villain.destroy()}... Boom, roasted.`;
     messageFlicker();
   } else {
     messages.textContent = 'Use normal attack... super is too much';
@@ -231,7 +229,7 @@ Villain.prototype.baseAttack = function(hero) {
   } else if (hero.hp === 1) {
     hero.hp -= 1;
     heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
-    messages.textContent = `${hero.destroy()}`;
+    messages.textContent = `${hero.destroy()}... Boom, roasted.`;
     messageFlicker();
   }
 };
@@ -245,7 +243,7 @@ Villain.prototype.superAttack = function(hero) {
     } Threw Bureaucratic Shade!!! ${hero.takeDamage()}... HP: ${hero.hp}`;
     messageFlicker();
   } else if (hero.hp === 0) {
-    messages.textContent = `${hero.destroy()}`;
+    messages.textContent = `${hero.destroy()}... Boom, roasted.`;
     messageFlicker();
   } else {
     messages.textContent = 'Use normal attack... super is too much';

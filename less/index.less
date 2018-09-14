@@ -1,3 +1,13 @@
+// VARIABLES
+
+// COLORS
+@color-black: #333;
+@color-grey: #eee;
+@color-main: #ff7878;
+
+// MEDIA QUERIES
+@phone: ~'(max-width: 670px)';
+
 * {
   box-sizing: border-box;
 }
@@ -9,6 +19,15 @@ html {
 body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
+  color: @color-black;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 img {
@@ -17,22 +36,41 @@ img {
 }
 
 .container {
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(@color-black, 0.2);
   // border: 1px solid black;
-  // height: 90vh;
-  padding: 1rem 2rem;
+
+  // padding: 1rem 2rem;
+
+  @media @phone {
+    width: 100%;
+    height: 100vh;
+  }
 }
 
 // HEADER
 header {
   display: flex;
   justify-content: space-between;
+  // border: 1px solid black;
+  background: @color-grey;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 0 1rem 2rem;
+  border-bottom: 5px solid darken(@color-grey, 20%);
+  overflow: hidden;
 
   .villain-header,
   .hero-header {
+    // border: 1px solid black;
     h2 {
       text-transform: uppercase;
+      @media @phone {
+        font-size: 2rem;
+      }
     }
   }
 }
@@ -40,12 +78,17 @@ header {
 .hp-bar {
   width: 300px;
   height: 30px;
-  background: #333;
+  background: @color-black;
   border-radius: 10px;
   position: relative;
   // backface-visibility: hidden;
   // border: 5px solid #333;
   // z-index: 1000;
+
+  @media @phone {
+    width: 180px;
+    height: 20px;
+  }
 
   .villain-hp-bar {
     content: '';
@@ -58,6 +101,10 @@ header {
     border-radius: 10px;
     transition: width 0.2s ease-in-out;
     // z-index: -1000;
+
+    @media @phone {
+      height: 20px;
+    }
   }
 
   .hero-hp-bar {
@@ -71,6 +118,9 @@ header {
     border-radius: 10px;
     transition: width 0.2s ease-in-out;
     // z-index: -1000;
+    @media @phone {
+      height: 20px;
+    }
   }
 }
 
@@ -80,24 +130,30 @@ header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 3rem;
   height: auto;
   align-items: baseline;
+  padding: 0 1rem 5rem;
+  background-color: lighten(@color-grey, 5%);
+  // border-right: 5px solid darken(@color-grey, 20%);
+  // border-left: 5px solid darken(@color-grey, 20%);
+  // border: 1px solid black;
 
   .villain {
+    // border: 1px solid black;
     .block {
       height: 200px;
       width: 200px;
-      background: black;
+      background: @color-black;
       margin-bottom: 2rem;
     }
   }
 
   .hero {
+    // border: 1px solid black;
     .block {
       height: 400px;
       width: 200px;
-      background: black;
+      background: @color-black;
       margin-bottom: 2rem;
     }
   }
@@ -106,20 +162,57 @@ header {
 .btn {
   border: transparent;
   border-radius: 10px;
-  background: #ff7878;
+  background: @color-main;
   color: white;
   font-size: inherit;
   padding: 1rem 2rem;
   text-transform: uppercase;
   outline: 0;
   cursor: pointer;
+  @media @phone {
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 1.5rem 2rem;
+  }
 }
 
 .messages {
-  background: #eee;
+  background: darken(@color-grey, 5%);
   // height: 200px;
   width: 100%;
-  margin-top: 5rem;
-  border-radius: 10px;
+  // border-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   padding: 2rem;
+  border-top: 5px solid darken(@color-grey, 20%);
+  // border: 1px solid black;
+}
+
+.game-over {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(@color-grey, 0.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  display: none;
+
+  .top-span {
+    font-size: 5.5rem;
+    background-color: rgba(@color-main, 0.5);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .bottom-span {
+    color: @color-black;
+    // background-color: rgba(@color-main, 0.5);
+  }
 }
