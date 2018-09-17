@@ -38,8 +38,8 @@ class Humanoid extends CharacterStats {
     gameOverScreen.classList.add('game-over-active');
   }
 
-  decrementHpBar(opponent) {
-    villainHPBar.style.width =
+  decrementHpBar(opponent, opponentHPBar) {
+    opponentHPBar.style.width =
       ((opponent.hp / opponent.maxHP) * 100).toString() + '%';
   }
 
@@ -66,7 +66,7 @@ class Hero extends Humanoid {
     // remove 1 hp
     villain.hp -= 1;
     // remove hp from hp bar
-    this.decrementHpBar(villain);
+    this.decrementHpBar(villain, villainHPBar);
     if (villain.hp > 1) {
       // Display message (opponent, attack, adj)
       this.displayMessage(villain, 'Paper Cut', 'casted');
@@ -84,7 +84,7 @@ class Hero extends Humanoid {
       // remove 3 hp
       villain.hp -= 3;
       // remove hp from hp bar
-      this.decrementHpBar(villain);
+      this.decrementHpBar(villain, villainHPBar);
       // Display message (opponent, attack, adj)
       this.displayMessage(villain, 'a Party', 'Threw');
     } else if (villain.hp === 0) {
@@ -107,7 +107,7 @@ class Villain extends Humanoid {
     // remove 1 hp
     hero.hp -= 1;
     // remove hp from hp bar
-    this.decrementHpBar(hero);
+    this.decrementHpBar(hero, heroHPBar);
     if (hero.hp > 1) {
       // Display message (opponent, attack, adj)
       this.displayMessage(hero, 'Paper Work', 'Endless');
@@ -124,7 +124,7 @@ class Villain extends Humanoid {
       // remove 3 hp
       hero.hp -= 3;
       // remove hp from hp bar
-      this.decrementHpBar(hero);
+      this.decrementHpBar(hero, heroHPBar);
       // Display message (opponent, attack, adj)
       this.displayMessage(hero, 'Beurocratic Shade', 'Threw');
     } else if (hero.hp === 0) {
