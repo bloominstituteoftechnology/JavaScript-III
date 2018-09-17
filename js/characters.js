@@ -33,6 +33,26 @@ class Humanoid extends CharacterStats {
   greet() {
     return `${this.name} offers a greeting in ${this.language}.`;
   }
+
+  activateGameOver() {
+    gameOverScreen.classList.add('game-over-active');
+  }
+
+  decrementHpBar(opponent) {
+    villainHPBar.style.width =
+      ((opponent.hp / opponent.maxHP) * 100).toString() + '%';
+  }
+
+  displayMessage(opponent, attackName, adj) {
+    messages.textContent = `${
+      this.name
+    } ${adj} ${attackName}!!! ${opponent.takeDamage()}... HP: ${opponent.hp}`;
+    messageFlicker();
+  }
+
+  destroyMessage(opponent) {
+    messages.textContent = `${opponent.destroy()}... Boom, roasted.`;
+  }
 }
 
 // HERO
@@ -43,44 +63,35 @@ class Hero extends Humanoid {
 
   // Base attack
   castSpell(villain) {
-    if (villain.hp === 0) {
-      gameOverScreen.classList.add('game-over-active');
-    }
-
+    // remove 1 hp
+    villain.hp -= 1;
+    // remove hp from hp bar
+    this.decrementHpBar(villain);
     if (villain.hp > 1) {
-      villain.hp -= 1;
-      villainHPBar.style.width =
-        ((villain.hp / villain.maxHP) * 100).toString() + '%';
-      messages.textContent = `${
-        this.name
-      } casted Paper Cut!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
-      messageFlicker();
+      // Display message (opponent, attack, adj)
+      this.displayMessage(villain, 'Paper Cut', 'casted');
     } else if (villain.hp === 1) {
-      villain.hp -= 1;
-      villainHPBar.style.width =
-        ((villain.hp / villain.maxHP) * 100).toString() + '%';
-      messages.textContent = `${villain.destroy()}... Boom, roasted.`;
-      messageFlicker();
+      // Display destroy message
+      this.destroyMessage(villain);
+      // show game over screen if opponent health is at 0
+      this.activateGameOver(villain);
     }
   }
 
   // Super attack
   superAttack(villain) {
-    if (villain.hp === 0) {
-      gameOverScreen.classList.add('game-over-active');
-    }
-
-    if (villain.hp >= 4) {
+    if (villain.hp >= 3) {
+      // remove 3 hp
       villain.hp -= 3;
-      villainHPBar.style.width =
-        ((villain.hp / villain.maxHP) * 100).toString() + '%';
-      messages.textContent = `${
-        this.name
-      } Threw a Party!!! ${villain.takeDamage()}... HP: ${villain.hp}`;
-      messageFlicker();
+      // remove hp from hp bar
+      this.decrementHpBar(villain);
+      // Display message (opponent, attack, adj)
+      this.displayMessage(villain, 'a Party', 'Threw');
     } else if (villain.hp === 0) {
-      messages.textContent = `${villain.destroy()}... Boom, roasted.`;
-      messageFlicker();
+      // Display destroy message
+      this.destroyMessage(villain);
+      // show game over screen
+      this.activateGameOver(villain);
     } else {
       messages.textContent = 'Use normal attack... super is too much';
     }
@@ -93,40 +104,34 @@ class Villain extends Humanoid {
   }
 
   baseAttack(hero) {
-    if (hero.hp === 0) {
-      gameOverScreen.classList.add('game-over-active');
-    }
+    // remove 1 hp
+    hero.hp -= 1;
+    // remove hp from hp bar
+    this.decrementHpBar(hero);
     if (hero.hp > 1) {
-      hero.hp -= 1;
-      heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
-      messages.textContent = `${
-        this.name
-      } attacked with Endless Paperwork!!! ${hero.takeDamage()}... HP: ${
-        hero.hp
-      }`;
-      messageFlicker();
+      // Display message (opponent, attack, adj)
+      this.displayMessage(hero, 'Paper Work', 'Endless');
     } else if (hero.hp === 1) {
-      hero.hp -= 1;
-      heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
-      messages.textContent = `${hero.destroy()}... Boom, roasted.`;
-      messageFlicker();
+      // Display destroy message
+      this.destroyMessage(hero);
+      // show game over screen if opponent health is at 0
+      this.activateGameOver(hero);
     }
   }
 
   superAttack(hero) {
-    if (hero.hp === 0) {
-      gameOverScreen.classList.add('game-over-active');
-    }
-    if (hero.hp >= 4) {
+    if (hero.hp >= 3) {
+      // remove 3 hp
       hero.hp -= 3;
-      heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
-      messages.textContent = `${
-        this.name
-      } Threw Bureaucratic Shade!!! ${hero.takeDamage()}... HP: ${hero.hp}`;
-      messageFlicker();
+      // remove hp from hp bar
+      this.decrementHpBar(hero);
+      // Display message (opponent, attack, adj)
+      this.displayMessage(hero, 'Beurocratic Shade', 'Threw');
     } else if (hero.hp === 0) {
-      messages.textContent = `${hero.destroy()}... Boom, roasted.`;
-      messageFlicker();
+      // Display destroy message
+      this.destroyMessage(hero);
+      // show game over screen
+      this.activateGameOver(hero);
     } else {
       messages.textContent = 'Use normal attack... super is too much';
     }
