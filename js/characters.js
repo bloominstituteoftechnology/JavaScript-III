@@ -79,7 +79,7 @@ class Hero extends Humanoid {
   }
 }
 
-class Villain {
+class Villain extends Humanoid {
   constructor(villainAttributes) {
     super(villainAttributes);
   }

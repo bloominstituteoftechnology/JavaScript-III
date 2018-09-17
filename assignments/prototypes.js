@@ -155,6 +155,9 @@ heroHP = document.querySelector('.hero-current-hp');
 villainTotalHP = document.querySelector('.villain-total-hp');
 villainHP = document.querySelector('.villain-current-hp');
 
+// GAME OVER
+gameOverScreen = document.querySelector('.game-over');
+
 // FUNCTIONS
 function messageFlicker() {
   messages.style.background = '#ff7878';
@@ -189,6 +192,8 @@ Hero.prototype.castSpell = function(villain) {
       ((villain.hp / villain.maxHP) * 100).toString() + '%';
     messages.textContent = `${villain.destroy()}... Boom, roasted.`;
     messageFlicker();
+  } else if (villain.hp === 0) {
+    gameOverScreen.classList.add('.game-over-active');
   }
 };
 
