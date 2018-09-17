@@ -11,3 +11,6 @@ heroHP = document.querySelector('.hero-current-hp');
 
 villainTotalHP = document.querySelector('.villain-total-hp');
 villainHP = document.querySelector('.villain-current-hp');
+
+// GAME OVER
+gameOverScreen = document.querySelector('.game-over');

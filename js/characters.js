@@ -43,6 +43,10 @@ class Hero extends Humanoid {
 
   // Base attack
   castSpell(villain) {
+    if (villain.hp === 0) {
+      gameOverScreen.classList.add('game-over-active');
+    }
+
     if (villain.hp > 1) {
       villain.hp -= 1;
       villainHPBar.style.width =
@@ -62,6 +66,10 @@ class Hero extends Humanoid {
 
   // Super attack
   superAttack(villain) {
+    if (villain.hp === 0) {
+      gameOverScreen.classList.add('game-over-active');
+    }
+
     if (villain.hp >= 4) {
       villain.hp -= 3;
       villainHPBar.style.width =
@@ -85,6 +93,9 @@ class Villain extends Humanoid {
   }
 
   baseAttack(hero) {
+    if (hero.hp === 0) {
+      gameOverScreen.classList.add('game-over-active');
+    }
     if (hero.hp > 1) {
       hero.hp -= 1;
       heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
@@ -103,6 +114,9 @@ class Villain extends Humanoid {
   }
 
   superAttack(hero) {
+    if (hero.hp === 0) {
+      gameOverScreen.classList.add('game-over-active');
+    }
     if (hero.hp >= 4) {
       hero.hp -= 3;
       heroHPBar.style.width = ((hero.hp / hero.maxHP) * 100).toString() + '%';
