@@ -1,0 +1,173 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  color: #333;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+img {
+  width: 100%;
+  height: auto;
+}
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(51, 51, 51, 0.2);
+}
+@media (max-width: 670px) {
+  .container {
+    width: 100%;
+    height: 100vh;
+  }
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  background: #eee;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 0 1rem 2rem;
+  border-bottom: 5px solid #bbbbbb;
+  overflow: hidden;
+}
+header .villain-header h2,
+header .hero-header h2 {
+  text-transform: uppercase;
+}
+@media (max-width: 670px) {
+  header .villain-header h2,
+  header .hero-header h2 {
+    font-size: 2rem;
+  }
+}
+.hp-bar {
+  width: 300px;
+  height: 30px;
+  background: #333;
+  border-radius: 10px;
+  position: relative;
+}
+@media (max-width: 670px) {
+  .hp-bar {
+    width: 180px;
+    height: 20px;
+  }
+}
+.hp-bar .villain-hp-bar {
+  content: '';
+  position: absolute;
+  background: #ff7878;
+  height: 30px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  transition: width 0.2s ease-in-out;
+}
+@media (max-width: 670px) {
+  .hp-bar .villain-hp-bar {
+    height: 20px;
+  }
+}
+.hp-bar .hero-hp-bar {
+  content: '';
+  position: absolute;
+  background: #ff7878;
+  height: 30px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  transition: width 0.2s ease-in-out;
+}
+@media (max-width: 670px) {
+  .hp-bar .hero-hp-bar {
+    height: 20px;
+  }
+}
+.fighters {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  align-items: baseline;
+  padding: 0 1rem 5rem;
+  background-color: #fbfbfb;
+}
+.fighters .villain .block,
+.fighters .hero .block {
+  padding: 1rem 0;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.btn {
+  border: transparent;
+  border-radius: 10px;
+  background: #ff7878;
+  color: white;
+  font-size: inherit;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  outline: 0;
+  cursor: pointer;
+}
+@media (max-width: 670px) {
+  .btn {
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 1.5rem 2rem;
+  }
+}
+.messages {
+  background: #e1e1e1;
+  width: 100%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 2rem;
+  border-top: 5px solid #bbbbbb;
+}
+.game-over {
+  position: fixed;
+  width: 100%;
+  height: 0;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  background-color: rgba(238, 238, 238, 0.5);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+}
+.game-over .top-span {
+  font-size: 5.5rem;
+  background-color: rgba(255, 120, 120, 0.5);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.game-over .bottom-span {
+  color: #333;
+}
+.game-over-active {
+  opacity: 1;
+  height: 100%;
+  transition: height 200ms;
+  transition: opacity 600ms;
+}
