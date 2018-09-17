@@ -74,24 +74,25 @@ class Hero extends Humanoid {
       // Display destroy message
       this.destroyMessage(villain);
       // show game over screen if opponent health is at 0
-      this.activateGameOver(villain);
+    } else if (villain.hp === 0) {
+      this.activateGameOver();
     }
   }
 
   // Super attack
   superAttack(villain) {
+    // remove 3 hp
+    villain.hp -= 3;
+    // remove hp from hp bar
+    this.decrementHpBar(villain, villainHPBar);
     if (villain.hp >= 3) {
-      // remove 3 hp
-      villain.hp -= 3;
-      // remove hp from hp bar
-      this.decrementHpBar(villain, villainHPBar);
       // Display message (opponent, attack, adj)
       this.displayMessage(villain, 'a Party', 'Threw');
     } else if (villain.hp === 0) {
       // Display destroy message
       this.destroyMessage(villain);
       // show game over screen
-      this.activateGameOver(villain);
+      this.activateGameOver();
     } else {
       messages.textContent = 'Use normal attack... super is too much';
     }
@@ -114,24 +115,25 @@ class Villain extends Humanoid {
     } else if (hero.hp === 1) {
       // Display destroy message
       this.destroyMessage(hero);
+    } else if (hero.hp === 0) {
       // show game over screen if opponent health is at 0
-      this.activateGameOver(hero);
+      this.activateGameOver();
     }
   }
 
   superAttack(hero) {
+    // remove 3 hp
+    hero.hp -= 3;
+    // remove hp from hp bar
+    this.decrementHpBar(hero, heroHPBar);
     if (hero.hp >= 3) {
-      // remove 3 hp
-      hero.hp -= 3;
-      // remove hp from hp bar
-      this.decrementHpBar(hero, heroHPBar);
       // Display message (opponent, attack, adj)
       this.displayMessage(hero, 'Beurocratic Shade', 'Threw');
     } else if (hero.hp === 0) {
       // Display destroy message
       this.destroyMessage(hero);
       // show game over screen
-      this.activateGameOver(hero);
+      this.activateGameOver();
     } else {
       messages.textContent = 'Use normal attack... super is too much';
     }
