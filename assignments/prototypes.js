@@ -16,7 +16,7 @@
 */
 function Gameobject(action){
   this.createdAt=action.createdAt;
-  this.dimensions=action.demensions;
+  this.dimensions=action.dimensions;
   this.name=action.name;
 }
 Gameobject.prototype.destroy=function(){
@@ -32,7 +32,12 @@ Gameobject.prototype.destroy=function(){
 function CharacterStats(characterstatus){
   Gameobject.call(this, characterstatus);
   this.hp=characterstatus.hp;
-}
+    }
+    CharacterStats.prototype=Object.create(Gameobject.prototype);
+    
+    CharacterStats.prototype.takeDamage=function(){
+      return `${this.name}'took damage'`
+  }
 //Look into how to return
 
 /*
@@ -50,7 +55,7 @@ function Humanoid(humanoidActions){
   this.weapons=humanoidActions.weapons;
   this.language=humanoidActions.language;
 }
-Humanoid.prototype=Object.create(CharacterStatus.prototype);
+Humanoid.prototype=Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet=function(){
   return `${this.name}offers a greeting in ${this.language}.`;
 };
@@ -106,6 +111,7 @@ Humanoid.prototype.greet=function(){
       width: 2,
       height: 4,
     },
+
     hp: 10,
     name: 'Lilith',
     faction: 'Forest Kingdom',
