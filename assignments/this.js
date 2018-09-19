@@ -24,7 +24,7 @@ giveAge(98);
 // code example for Implicit Binding
 
     myObj={
-        callOut: 'Over here!'
+        callOut: 'Over here!',
         sayName: function(name) {
             console.log($ `{this.callOut} Hey I am ${this.name}`);
             console.log(this);
@@ -56,3 +56,17 @@ Buzz.speak();
 // Principle 4
 
 // code example for Explicit Binding
+
+
+const Info={
+    'name': 'Eleanor Rutabaga' 
+}
+const skills= ['Baking', 'Sewing', 'The use of tactical weapons'];
+
+
+function intro(skills1, skills2, skills3){
+    console.log(`Hello, My name is ${this.name} and I am particularly good at ${skills1}, ${skills2}, ${skills3}`)
+
+}
+
+intro.call(Info, skills);
