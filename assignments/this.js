@@ -55,4 +55,4 @@ function favApps(callThis, arr){
     console.log(`${this.name}'s favorite apps are ${arr}`)
 }
 
-favApps.apply(myInfo, appsArr)
+favApps.apply(myInfo, ...appsArr)
