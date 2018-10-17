@@ -152,3 +152,68 @@ CharacterStats.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+
+  function Villian(villianAttributes){
+    Humanoid.call(this, villianAttributes);
+    this.attack = villianAttributes.attack;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  Villian.prototype.villianAttack = function() {
+    console.log(`${this.name} hits ${Math.floor(Math.random() * this.attack)} times`);
+  }
+
+  function Hero(heroAttributes){
+    Humanoid.call(this, heroAttributes);
+    this.attack = heroAttributes.attack;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.heroAttack = function() {
+    console.log(`${this.name} hits ${Math.floor(Math.random() * 20) + Math.floor(this.attack/3)} times`); //random number from 1 to 5
+  }
+
+
+  const goblin = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 35,
+    name: 'Trokt',
+    faction: 'Goblin Community of England',
+    weapons: [
+      'Bow',
+      'Pocket knife',
+    ],
+    language: 'Goblish',
+    attack: 35
+  });
+
+  const wizzard = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 40,
+    name: 'Blaze',
+    faction: 'Wizzards of the North Coast',
+    weapons: [
+      'Magic wand',
+      'Freeze spell',
+    ],
+    language: 'Wizzardish',
+    attack: 35
+  });
+
+
+  console.log(goblin.villianAttack()); //
+  console.log(wizzard.heroAttack()); //
