@@ -142,3 +142,101 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.strength = heroAttributes.strength;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.attack = function(villian) {
+    if (villian.hp > 0) {
+      villian.hp = villian.hp - this.strength;
+
+      if(villian.hp <= 0) {
+        return villian.destroy();
+      }
+
+      return villian.takeDamage();
+    } else if (villian.hp <= 0){
+      return `Error: ${villian.name} has already been removed.`
+    }
+  }
+
+
+
+  function Villian(villianAttributes) {
+    Humanoid.call(this, villianAttributes);
+    this.strength = villianAttributes.strength;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+
+  Villian.prototype.attack = function(hero) {
+    if (hero.hp > 0) {
+      hero.hp = hero.hp - this.strength;
+
+      if(hero.hp <= 0) {
+        return hero.destroy();
+      }
+
+      return hero.takeDamage();
+    } else if (hero.hp <= 0){
+      return `Error: ${hero.name} has already been removed.`
+    }
+  }
+
+
+
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 5,
+    },
+    hp: 10,
+    name: 'Hero',
+    faction: 'Whatever',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+    strength: 2
+  });
+
+  
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 5,
+    },
+    hp: 10,
+    name: 'Villain',
+    faction: 'Whatever',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+    strength: 3
+  });
+
+  // console.log(hero.attack(villian));
+  // console.log(hero.attack(villian));
+  // console.log(hero.attack(villian));
+  // console.log(hero.attack(villian));
+  // console.log(hero.attack(villian));
+  // console.log(hero.attack(villian));
+
+  // console.log(villian.attack(hero));
+  // console.log(villian.attack(hero));
+  // console.log(villian.attack(hero));
+  // console.log(villian.attack(hero));
+  // console.log(villian.attack(hero));
+  // console.log(villian.attack(hero));
