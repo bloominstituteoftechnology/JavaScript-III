@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +31,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(chAttributes) {
+  GameObject.call(this, chAttributes);
+  this.hp = chAttributes.hp;
+  this.name = chAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid ===
@@ -32,6 +53,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(hAttributes) {
+  CharacterStats.call(this, hAttributes);
+  this.faction = hAttributes.faction;
+  this.weapons = hAttributes.weapons;
+  this.language = hAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +75,6 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +135,111 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villain(vilAttributes) {
+    Humanoid.call(this, vilAttributes);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  
+  Villain.prototype.doDamage = function(objName) {
+    if (objName.hp <= 3) {
+      console.log(`${objName.name} has died! :(`);
+    }
+    return objName.hp = objName.hp - 3;
+  }
+
+  Villain.prototype.healSelf = function() {
+    return this.hp = this.hp + 1;
+  }
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype)
+
+  Hero.prototype.doDamage = function(objName) {
+    if (objName.hp <= 2) {
+      console.log(`${objName.name} has died! :(`);
+    }
+    return objName.hp = objName.hp - 2;
+  }
+
+  Hero.prototype.healSelf = function() {
+    return this.hp = this.hp + 2;
+  }
+
+  let sempai = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Sempai',
+    faction: 'One Punch Man',
+    weapons: [
+      'Flashy Smile',
+      'Helping Others',
+    ],
+    language: 'Common Toungue',
+  });
+
+  let sensei = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Sensei',
+    faction: 'Naruto Squad',
+    weapons: [
+      'Big Mouth',
+      'Archaic Cane',
+    ],
+    language: 'Common Toungue',
+  });
+
+ sempai.doDamage(sensei);
+ sensei.doDamage(sempai);
+
+ sempai.healSelf();
+ sensei.healSelf();
+
+ sempai.doDamage(sensei);
+ sensei.doDamage(sempai);
+
+ sempai.healSelf();
+ sensei.doDamage(sempai);
+
+ sempai.doDamage(sensei);
+ sensei.healSelf();
+
+ sempai.doDamage(sensei);
+ sensei.healSelf();
+
+ sempai.doDamage(sensei);
+ sensei.doDamage(sempai);
+
+ sempai.doDamage(sensei);
+ sensei.doDamage(sempai);
+
+ sempai.doDamage(sensei);
+ sensei.doDamage(sempai);
+
+ sempai.doDamage(sensei);
+ sensei.doDamage(sempai);
+
+
+ console.log(sensei);
+ console.log(sempai);
