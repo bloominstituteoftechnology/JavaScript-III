@@ -2,8 +2,11 @@
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. The first this refers to the global window.
+
 * 2. The second principle makes 'this' refer to the specific scope that it's in. It's implied by the left side of the invocation 'i.e. dog in dog.excite()'
+
 * 3. We hold the this keyword for later use. So we make the this keyword point to something specific and we store it for later when we need it.
+
 * 4. In this case we explicitly state what we want the this keyword to point to when we use the .apply() and .call() methods.
 *
 * write out a code example of each explanation above
