@@ -141,6 +141,79 @@ Humanoid.prototype.greet = function() {
 
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function. 
+  
+  //Villian
+function Villian (villianAttributes){
+  Humanoid.call(this, villianAttributes);
+
+  this.special = villianAttributes.special;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+
+
+//Hero
+function Hero (heroAttributes){
+  Humanoid.call(this, heroAttributes);
+
+  this.special = heroAttributes.special;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
+ // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+Villian.prototype.activateSpecial = function() {
+  return `${this.name} the ${this.faction} entices with the ${this.special}!!!`;
+}
+
+Hero.prototype.activateSpecial = function() {
+  return `${this.name} blocks with ${this.special}!!!`;
+}
+
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  //Villian
+  const herbert = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 8,
+      width: 10,
+      height: 400,
+    },
+    hp: 1000,
+    name: 'Herbert',
+    faction: 'Creepy Old Pervert',
+    weapons: [
+      'Land-Line',
+    ],
+    language: 'Whistle',
+    special: 'Sweet, Melty, Ice Cream',
+  });
+  
+  //Hero
+  const chris = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 400,
+      width: 2000000,
+      height: 7,
+    },
+    hp: 600,
+    name: 'Chris',
+    faction: 'Normal-ish',
+    weapons: [
+      'Rolled-up NewsPaper',
+    ],
+    language: 'New England English',
+    special: 'Pre-pubesant voice cracking and acne',
+  });
+
+  console.log(herbert.activateSpecial()); 
+  console.log(chris.activateSpecial()); 
+  
+ 
+  
