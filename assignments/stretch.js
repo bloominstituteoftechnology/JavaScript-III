@@ -73,6 +73,15 @@ Fighter.prototype.attack = function(opponent) {
   let weapon = Math.floor(Math.random() * this.weapons.length);
   let damage = Math.floor(Math.random() * this.weapons[weapon].maxDamage + 1);
 
+  this.weapons[weapon].uses--;
+
+  if (this.weapons[weapon].uses <= 0) {
+
+    this.weapons[weapon].uses = 0;
+    damage = 1;
+
+  }
+
   return opponent.takeDamage(damage);
 
 }
@@ -115,7 +124,7 @@ Hero.prototype.attack = function(opponent) {
 
   for (let i = 0; i < this.weapons.length; i++) {
 
-    console.log(`[${i}] ${this.weapons[i].name}`);
+    console.log(`[${i}] ${this.weapons[i].name} (remaining uses: ${this.weapons[i].uses})`);
 
   }
 
@@ -128,6 +137,15 @@ Hero.prototype.attack = function(opponent) {
   }
 
   let damage = Math.floor(Math.random() * this.weapons[chosenWeapon].maxDamage + 1);
+
+  this.weapons[chosenWeapon].uses--;
+
+  if (this.weapons[chosenWeapon].uses <= 0) {
+
+    this.weapons[chosenWeapon].uses = 0;
+    damage = 1;
+
+  }
 
   console.log();
 
@@ -194,8 +212,8 @@ function createCharacter() {
     name: heroName,
     faction: heroFaction,
     weapons: [
-      {name: "Dagger", maxDamage: 20},
-      {name: "Sword", maxDamage: 35}
+      {name: "Dagger", maxDamage: 20, uses: 25},
+      {name: "Sword", maxDamage: 75, uses: 5}
     ],
     language: heroLanguage,
   });
@@ -262,35 +280,44 @@ console.log("Welcome to my game. Please create a character.\n");
 
 const hero = createCharacter();
 
-console.log("You have encountered an enemy. Defeat him, and you will be rewarded.");
+console.log("Fight until you die!");
 
-let myVillian = new Villian({
-  createdAt: new Date(),
-  dimensions: {
-    length: 1,
-    width: 2,
-    height: 4,
-  },
-  hp: 75,
-  name: 'Evil Villian',
-  faction: 'Mountain Kingdom',
-  weapons: [
-    {name: "Dagger", maxDamage: 25},
-    {name: "Sword", maxDamage: 45}
-  ],
-  language: 'Pig Latin',
-});
+let numVictories = 0;
+let fighting = true;
 
-let resultOfBattle = battle(hero, myVillian);
+while (fighting) {
 
-if (resultOfBattle) { // Hero won
+  let myVillian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 75 + numVictories * 15,
+    name: 'Evil Villian',
+    faction: 'Mountain Kingdom',
+    weapons: [
+      {name: "Dagger", maxDamage: 30, uses: 25},
+      {name: "Sword", maxDamage: 50, uses: 2}
+    ],
+    language: 'Pig Latin',
+  });
 
-  console.log(`Great work, ${hero.name}! Here is one hundred million dollars for your efforts.`);
+  fighting = battle(hero, myVillian);
+
+  if (fighting) {
+
+    console.log(`Great work, ${hero.name}! Your HP has been restored by 20 points. Now onto the next villian!`);
+    hero.hp += 20;
+    hero.weapons[0].uses += 5;
+    numVictories++;
+
+    if (numVictories % 3 == 0)
+      hero.weapons[1].uses += 10;
+
+  }
 
 }
 
-else { // Hero lost
-
-  console.log("You have failed to meet my expectations. Leave this land, and do not dare return.");
-
-}
+console.log(`Great job, ${hero.name}. You have successfully slain ${numVictories} villians.`);
