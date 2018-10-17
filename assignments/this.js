@@ -18,10 +18,41 @@ console.log(this.location);
 
 // code example for Implicit Binding
 
+const guy = {
+    name: 'bill',
+    hello: function () {
+        console.log(`Hello ${this.name}`);
+    }
+}
+
+guy.hello();
+
 // Principle 3
 
 // code example for New Binding
 
+function Guy(name) {
+    this.name = name;
+    this.hello = function () {
+        console.log(`Hello ${this.name}`);
+    };
+}
+
+const fred = new Guy('Fred');
+fred.hello();
+
+
+
 // Principle 4
 
-// code example for Explicit Binding
+// code example for Explicit 
+
+const jobob = new Guy('Jobob');
+
+const skills = ['Hunting', 'Fishing', 'Drinking'];
+
+function sayHi(skills1, skills2, skills3){
+  console.log(`Gosh. My name ${this.name}. ${skills1}, ${skills2}, ${skills3}. Amiright?`)
+}
+
+sayHi.call(jobob, ...skills);
