@@ -15,6 +15,14 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+  this.destroy = function () {
+    return 'Object was removed from the game.'
+  }
+}
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +30,23 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(info) {
+  GameObject.call(this, info);
+  this.hp = info.hp;
+  this.name = info.name;
+  this.takeDamage = function () {
+    return `${info.name} too damage.`
+  }
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+// const test = new CharacterStats({
+//   name: 'John',
+// })
+
+// console.log(test);
 
 /*
   === Humanoid ===
@@ -32,16 +57,28 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(data) {
+  CharacterStats.call(this, data);
+  this.faction = data.faction;
+  this.weapons = data.weapons;
+  this.language = data.language;
+  this.greet = function () {
+    return `${this.name} offers a greeting in ${this.language}.`
+  }
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// Test you work by uncommenting these 3 objects and the list of console logs below:
+// Test your work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +139,123 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  // Stretch task 1
+
+  function Villian (myInfo) {
+    Humanoid.call(this, myInfo)
+  }
+
+Villian.prototype = Object.create(Humanoid.prototype)
+
+Villian.prototype.attack = function(opponent) {
+  let opponentHp = opponent.hp;
+  // console.log(opponentHp -= 1);
+  function reduceHp() {
+    return opponentHp -=1;
+  } 
+  return reduceHp;
+}
+
+  function Hero (myInfo) {
+    Humanoid.call(this, myInfo)
+  }
+
+// Stretch task 2
+
+// Villian.prototype.deduct = function() {
+//   for (let i = 0; i < this.hp; i++) {
+//     if (this.hp > 0) {
+//       this.hp += -1;
+//       console.log(hp);
+//     }
+//     else {
+//       return `Your health is at 0. You've been destroyed.`
+//     }
+//   }
+// };
+
+
+
+
+// let villian = Object.create(Humanoid.prototype)
+
+// villian.deduct = function() {
+//   for (let i = 0; i < this.hp; i++) {
+//     if (this.hp > 0) {
+//       console.log(hp);
+//       return hp -= 1;
+//     }
+//     else {
+//       console.log(`Your health is at 0. You've been destroyed.`)
+//     }
+//   }
+// };
+
+// let myFunc = Object.create(Villian.prototype);
+
+
+
+
+// function Hero(myInfo) {
+//   Humanoid.call(this.myInfo);
+// }
+
+// let hero = Object.create(Humanoid.prototype)
+
+// hero.increment = function() {
+//   this.hp += 1;
+//   console.log(this.hp)
+// };
+
+
+// hero.increment();
+
+
+
+// Stretch task 3
+
+const test1 = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 5,
+  },
+  hp: 20,
+  name: 'John',
+  faction: 'United Kingdom',
+  weapons: [
+    'Arrow',
+    'Blade',
+  ],
+  language: 'Spanglish',
+});
+
+const test2 = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 5,
+  },
+  hp: 20,
+  name: 'John',
+  faction: 'United Kingdom',
+  weapons: [
+    'Arrow',
+    'Blade',
+  ],
+  language: 'Spanglish',
+});
+
+
+console.log(test1.attack(test2));
+console.log(test1.attack(test2));
+console.log(test1.attack(test2));
+
