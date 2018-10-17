@@ -97,7 +97,7 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.paladinAttack = function(target, weapon) {
     let damage = dice(8, 1);
-    target.takeDamage(this.name, damage, this.weapons[weapon]);
+    return target.takeDamage(this.name, damage, this.weapons[weapon]);
 };
 
 function Villain(attributes) {
@@ -108,7 +108,7 @@ Villain.prototype = Object.create(Humanoid.prototype);
 
 Villain.prototype.shadeAttack = function(target, weapon) {
     let damage = dice(8, 2);
-    target.takeDamage(this.name, damage, this.weapons[weapon]);
+    return target.takeDamage(this.name, damage, this.weapons[weapon]);
 };
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -197,8 +197,13 @@ console.log(mage.weapons); // Staff of Shamalama
 console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-console.log(paladin.paladinAttack(shade, 0));
 
+while (paladin.hp > 0 && shade.hp > 0) {
+    console.log(paladin.paladinAttack(shade, 0));
+    if (shade.hp > 0) {
+        console.log(shade.shadeAttack(paladin, 0));
+    }
+}
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
