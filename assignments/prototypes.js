@@ -52,18 +52,47 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humannoid(humanoidAtt) {
+function Humanoid(humanoidAtt) {
     this.faction = humanoidAtt.faction;
     this.weapons = humanoidAtt.weapons;
     this.language = humanoidAtt.language;
     CharacterStats.call(this, humanoidAtt);
 }
 
-Humannoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
     return `${this.name} offers a greeting in ${this.language}.`;
 }
+
+function Hero(good) {
+    Humanoid.call(this, good);
+    this.shield = good.sheild;
+    this.health = good.health;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.healing = function() {
+    this.health -= 40;
+    return `The ${this.name} blocks the throwing knives with his ${this.shield} and is victorious`;
+}
+
+
+
+function Villian(evil) {
+    Humanoid.call(this, evil);
+    this.lasers = evil.lasers;
+    this.health = evil.health;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.throwingKnives = function() {
+    this.health -= 20;
+    return `The villian ${this.name} throws 5 of his ${this.lasers} but misses`;
+}
+
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -124,6 +153,46 @@ const archer = new Humanoid({
     language: 'Elvish',
 });
 
+const sonicboom = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 4,
+    },
+    hp: 10,
+    name: 'Sonic Boom',
+    faction: 'New Earth-Squadron IV',
+    weapons: [
+        'shield',
+        'sound waves',
+    ],
+    language: 'English'
+});
+
+const octoBot = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+        length: 2,
+        width: 2,
+        height: 4,
+    },
+    hp: 10,
+    name: 'Octobot',
+    faction: 'Audrino V',
+    weapons: [
+        'lasers',
+        'cyber link',
+    ],
+    language: 'Android'
+});
+
+
+
+
+
+
+
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.hp); // 15
@@ -134,6 +203,8 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+console.log("A new battle is about to begin")
+console.log(`The match ${sonicboom.name} vs ${octoBot.name} has begun.`);
 
 
 // Stretch task: 
