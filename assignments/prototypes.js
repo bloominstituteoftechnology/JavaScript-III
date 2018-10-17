@@ -20,7 +20,7 @@ function GameObject(attributes){
 }
 
 GameObject.prototype.destroy = function (){
-  return `${this.name} was removed from game`;
+  return `${this.name} was removed from game.`;
 }
 
 /*
@@ -52,7 +52,7 @@ CharacterStats.prototype.takeDamage = function(){
   * should inherit takeDamage() from CharacterStats
 */
 function Humanoid(humanoidAttributes){
-  GameObject.call(this, humanoidAttributes);
+  // GameObject.call(this, humanoidAttributes);
   CharacterStats.call(this, humanoidAttributes);
   this.faction = humanoidAttributes.faction;
   this.weapons = humanoidAttributes.weapons;
@@ -64,7 +64,45 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}.`;
 }
- 
+
+
+/*
+  === Hero ===
+*/
+function Hero(heroAttributes){
+  Humanoid.call(this, heroAttributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.heroAttack = function(victim){
+  victim.hp = victim.hp - 2;
+  
+  if(victim.hp > 0) {
+    return `${this.name} heroically beat up ${victim.name}. ${victim.takeDamage()} -2 hp.
+  ${victim.name}: ${victim.hp} remaining`;
+  } else return victim.destroy();
+}
+
+/*
+  === Villain ===
+*/
+function Villain(villainAttributes){
+  Humanoid.call(this, villainAttributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.villainAttack = function(victim){
+  victim.hp = victim.hp - 14;
+  
+  if(victim.hp > 0) {
+    return `${this.name} snuck up behind ${victim.name} and stabbed him in the back! ${victim.takeDamage()} -14 hp
+  ${victim.name}: ${victim.hp} remaining`;
+  } else return victim.destroy();
+}
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -123,6 +161,40 @@ Humanoid.prototype.greet = function(){
     ],
     language: 'Elvish',
   });
+  
+  const hyruleWarrior = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 15,
+    name: 'Link',
+    faction: 'Hyrule Field',
+    weapons: [
+      'Kokiri Sword',
+      'Bomb Bag',
+    ],
+    language: '........',
+  });
+
+  const ganondorf = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 10,
+      width: 10,
+      height: 20,
+    },
+    hp: 20,
+    name: 'Ganon',
+    faction: 'Golden Land',
+    weapons: [
+      'Sword',
+      'Dagger',
+    ],
+    language: '........',
+  });
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -134,7 +206,20 @@ Humanoid.prototype.greet = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  
+  console.log(ganondorf.greet());
+  console.log(hyruleWarrior.greet());
+  console.log(ganondorf.villainAttack(hyruleWarrior));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
+  console.log(hyruleWarrior.heroAttack(ganondorf));
 
 
   // Stretch task: 
