@@ -76,6 +76,13 @@ function Humanoid(obj){
   this.faction = obj.faction;
   this.weapons = obj.weapons;
   this.language = obj.language;
+  if (obj.faction === 'Knight'){
+    this.attack = obj.attack;
+    this.throw = obj.throw;
+  }
+  if (obj.faction === 'Boss'){
+    this.cast = obj.cast;
+  }
 }
 
 // ************************ Prototype(s) *************************
@@ -104,7 +111,7 @@ Humanoid.prototype.greet = function(){
   });
 
   const swordsman = new Humanoid({
-    createdAt: new Date('10/18/2018'),
+    createdAt: new Date(),
     dimensions: {
       length: 2,
       width: 2,
@@ -121,7 +128,7 @@ Humanoid.prototype.greet = function(){
   });
 
   const archer = new Humanoid({
-    createdAt: new Date('10/19/2018'),
+    createdAt: new Date(),
     dimensions: {
       length: 1,
       width: 2,
@@ -135,6 +142,60 @@ Humanoid.prototype.greet = function(){
       'Dagger',
     ],
     language: 'Elvish',
+  });
+
+  const hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 9999,
+    name: 'Champion',
+    faction: 'Knight',
+    weapons: [
+      '2H Sword',
+      'Dart'
+    ],
+    language: 'Human',
+    attack: function(monster, dmg){
+      monster.hp -= dmg;
+      if (monster.hp <= 0){
+        return monster.destroy();
+      }
+      return `${this.name} attacks ${monster.name} with a ${this.weapons[0]} and does ${dmg} dmg.`;
+    },
+    throw: function(monster, dmg){
+      monster.hp -= dmg;
+      if (monster.hp <= 0){
+        return monster.destroy();
+      }
+      return `${this.name} throws a ${this.weapons[1]} at ${monster.name} and does ${dmg} dmg.`;
+    }
+  });
+
+  const villian = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 3,
+      height: 3,
+    },
+    hp: 200000,
+    name: 'Dark Lord',
+    faction: 'Boss',
+    weapons: [
+      'Wand'
+    ],
+    language: 'All',
+    cast: function(character, spellName, dmg){
+      character.hp -= dmg;
+      if (character.hp <= 0){
+        return character.destroy();
+      }
+      return `${this.name} casts ${spellName} with the ${this.weapons[0]} on ${character.name} and does ${dmg} dmg.`;
+    }
   });
 
 /*****************************************************************
@@ -156,3 +217,45 @@ Humanoid.prototype.greet = function(){
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Flare', 100));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Ultima', 150));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Super Nova', 200));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Flare', 100));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Ultima', 150));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Super Nova', 200));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Flare', 100));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Ultima', 150));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Super Nova', 200));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Flare', 100));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Ultima', 150));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Super Nova', 200));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(villian.cast(hero, 'Flare', 100));
+  console.log(hero.attack(villian, 5000));
+  console.log(hero.throw(villian, 9999));
+  console.log(`${hero.name} HP Left: ${hero.hp}`);
