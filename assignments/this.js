@@ -20,27 +20,37 @@ console.log(this); // 'this' == the rendered window
 // Principle 2: code example for Implicit Binding
 let car = {
     type: 'Chevy Malibu',
-    speed: '55 mph',
+    speed: 55,
     drive: function() {
-        console.log(`The ${this.type} is currently traveling: ${this.speed}`);
+        console.log(`The ${this.type} is currently traveling: ${this.speed}mph`);
     }
 }
 
 let car2 = {
-    type: 'Chevy Cobalt',
-    speed: '57 mph',
+    name: 'Chevy Cobalt',
+    speed: 57,
     drive: function() {
-        console.log(`The ${this.type} is currently traveling: ${this.speed}`);
+        console.log(`The ${this.type} is currently traveling: ${this.speed}mph`);
     }
 }
 
 car.drive(); //'this' == car object
 car2.drive(); //'this' == car2 object
 
-// Principle 3
+// Principle 3: code example for Explicit Binding
+function amISpeeding(type, speed, speedLimit) {
+    if (this.speed > speedLimit) {
+        return `The ${this.type} is currently travleing at the speed of ${this.speed}. Which is ${this.speed - speedLimit} over the speed limit of ${speedLimit}. Slow Down!`;
+    } else {
+        return `The ${this.type} is currently travleing at the speed of ${this.speed}. Which is at or under the speed limit of ${speedLimit}. Safe travels!!`;
+    }
 
-// code example for Explicit Binding
+}
 
+console.log(amISpeeding.call(car, car.type, car.speed, 60));
+
+
+console.log(amISpeeding.call(car2, car2.type, car2.speed, 50));
 
 // Principle 4
 
