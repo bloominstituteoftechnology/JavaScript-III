@@ -2,14 +2,14 @@
   "name": "game",
   "version": "1.0.0",
   "description": "My game",
-  "main": "assignments/prototypes.js",
+  "main": "assignments/stretch.js",
   "dependencies": {
     "readline-sync": "^1.4.9"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node assignments/prototypes.js"
+    "start": "node assignments/stretch.js"
   },
   "repository": {
     "type": "git",
