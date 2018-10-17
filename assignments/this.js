@@ -7,7 +7,7 @@
     object before the dot will define the "this" keyword. Implicit binding is used for object 
     methods.
 * 3. New binding - In new binding, a constructor function is used to create a new object,
-    the constructor function is called using the "new" keyword. The new object will have the prototypes of the 
+    the constructor function is called using the "new" keyword. The new object will all have the "this" attributes of the 
     function it was created from.  
 * 4. Explicit binding - In explicit binding, "this" keyword is explicitly defined due to
     the use of call(), apply() or bind(). This allows overriding
