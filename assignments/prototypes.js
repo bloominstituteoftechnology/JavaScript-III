@@ -66,11 +66,14 @@ function Humanoid(attributes) {
 }
 
 // == Constructor Methods ==
-
+Humanoid.prototype.greet = function() {
+    return `${this.name} offers greeting in ${this.language}`;
+}
 
 // Testing
 const trai = new Humanoid({
     faction: 'Libra',
+    klanguage: 'English',
     weapons: [
         'dagger',
         'spells',
@@ -79,6 +82,7 @@ const trai = new Humanoid({
 });
 
 console.log(trai);
+console.log(trai.greet());
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
