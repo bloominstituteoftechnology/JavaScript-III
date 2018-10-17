@@ -1,8 +1,8 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
+* 1. Window binding is using the this keyword in global scope.
+* 2. Implicit binding is 
 * 3. 
 * 4. 
 *
