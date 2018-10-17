@@ -74,16 +74,18 @@ function Villian(attrib){
 }
 
 Villian.prototype.attack = function(){
-  hero.hp--; 
   let successChance = Math.random()
-  if (successChance > 0.5) {
+  if (successChance > 0.5 && this.hp >= 1 && hero.hp >=1) {
     hero.hp--;
     return `The hero has ${hero.hp} health left! You have ${this.hp} health remaining.`;
-  } else if (successChance < 0.49) {
-    return `You're strike missed! The hero has ${hero.hp} and you have ${this.hp} health remaining. `
-  } else if (hero.hp === 0){
-    return `You are victorious! The hero has been defeated! You have ${this.hp} health remaining.`
-  };
+  } else if (successChance < 0.49 && this.hp >= 1 && hero.hp >=1) {
+    this.hp--;
+    return `You're strike missed and you've been hit instead! The hero has ${hero.hp} and you have ${this.hp} health remaining.`;
+  } else if (this.hp < 1 && hero.hp >= 1){
+    return `Sad trombone. You've been defeated!`
+  } else if (hero.hp <1 && this.hp >= 1){
+    return `You are victorious! The hero has been defeated! You have ${this.hp} health remaining.`;
+  } 
 }
 
 
@@ -94,14 +96,17 @@ function Hero(attrib){
 
 Hero.prototype.attack = function(){
   let successChance = Math.random()
-  if (successChance > 0.5) {
+  if (successChance > 0.5 && this.hp >= 1 && villian.hp >=1) {
     villian.hp--;
     return `The villian has ${villian.hp} health left! You have ${this.hp} health remaining.`;
-  } else if (successChance < 0.49) {
-    return `You're strike missed! The villian has ${villian.hp} and you have ${this.hp} health remaining. `
-  } else if (villian.hp === 0){
-    return `You are victorious! The villian has been defeated! You have ${this.hp} health remaining.`
-  };
+  } else if (successChance < 0.49 && this.hp >= 1 && villian.hp >=1) {
+    --this.hp--;
+    return `You're strike missed and you've been hit instead! The villian has ${villian.hp} and you have ${this.hp} health remaining.`;
+  } else if (this.hp < 1 && villian.hp >= 1){
+    return `Sad trombone. You've been defeated!`
+  } else if (villian.hp <1 && this.hp >= 1){
+    return `You are victorious! The villian has been defeated! You have ${this.hp} health remaining.`;
+  } 
 }
  
 /*
@@ -170,7 +175,7 @@ Hero.prototype.attack = function(){
       width: 2,
       height: 5,
     },
-    hp: 20,
+    hp: 5,
     name: 'Captain',
     faction: 'Hero Tribe',
     weapons: [
@@ -188,7 +193,7 @@ Hero.prototype.attack = function(){
       width: 2,
       height: 3,
     },
-    hp: 18,
+    hp: 5,
     name: 'Evil',
     faction: 'Villian Tribe',
     weapons: [
