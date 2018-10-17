@@ -15,7 +15,8 @@ const GameObject = function(attributes) {
 }
 
 GameObject.prototype.destroy() {
-        return 'Object was removed from the game.';
+        console.log(`Object was removed from the game.`);
+        return `Object was removed from the game.`;
     }
     /*
       === GameObject ===
@@ -24,14 +25,17 @@ GameObject.prototype.destroy() {
       * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
     */
 
-const CharacterStats = function(attributes) {
-    this.hp = attributes.hp;
-    this.name = attributes.name;
+const CharacterStats = function(characterStatsAttributes) {
+    GameObject.call(this, characterStatsAttributes);
+    this.hp = characterStatsAttributes.hp;
+    this.name = characterStatsAttributes.name;
+
 
 
 }
 
 CharacterStats.prototype.takesDamage = function() {
+    console.log(`${this.name} took damage.`);
     return `${this.name} took damage.`;
 };
 /*
@@ -39,16 +43,19 @@ CharacterStats.prototype.takesDamage = function() {
   * hp
   * name
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
+  * should inherit destroy() from GameObject's prototype******************************
 */
-const Humanoid = function(attributes) {
-    this.faction = attributes.faction;
-    this.weapons = attributes.weapons;
-    this.language = attributes.language;
+const Humanoid = function(humanoidAttributes) {
+    CharacterStats.call(this, humanoidAttributes);
+    this.faction = humanoidAttributes.faction;
+    this.weapons = humanoidAttributes.weapons;
+    this.language = humanoidAttributes.language;
+
 }
 
 Humanoid.prototype.greet = function() {
-        `${this.name} offers a greeting in ${this.language}.`;
+        console.log(`${this.name} offers a greeting in ${this.language}.`);
+        return `${this.name} offers a greeting in ${this.language}.`;
     }
     /*
       === Humanoid ===
@@ -56,8 +63,8 @@ Humanoid.prototype.greet = function() {
       * weapons
       * language
       * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-      * should inherit destroy() from GameObject through CharacterStats
-      * should inherit takeDamage() from CharacterStats
+      * should inherit destroy() from GameObject through CharacterStats******************************
+      * should inherit takeDamage() from CharacterStats***********************************************
     */
 
 /*
