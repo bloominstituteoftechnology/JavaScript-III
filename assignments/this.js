@@ -17,7 +17,7 @@
 
 // code example for Window Binding
 function greet() {
-    'use strict'
+    'use strict';
     console.log('hi');
 }
 
@@ -55,6 +55,6 @@ const villian = {
 const abilities = ['Uplink to any tech', 'Unlimited strength', ];
 
 function takeover(abilities) {
-    'use strict'
+    'use strict';
     console.log(`${this.name} I'\m here to conquer Earth no need to try and stop me here are my powers ${this.abilities}`)
 }
