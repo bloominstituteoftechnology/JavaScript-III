@@ -63,12 +63,26 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function (){
   return `${this.name} offers a greeting in ${this.language}.`
 }
+
+function Hero(super) {
+  Humanoid.call(this, super);
+  this.cape = super.cape;  
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.taunt = function(){
+  return `${this.name} wearing shining armor begins to taunt opponent with your momma jokes, like any good tank should`
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+
+// Stretch goals
+
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
