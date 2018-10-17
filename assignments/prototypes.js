@@ -187,6 +187,8 @@ Villian.prototype.greet = function() {
 Villian.prototype.revive = function(){
   if (this.dead) {
     if (new Date() - this.dead < 2000) {
+      obj.health = 100;
+      obj.dead = null;
       console.log("I Come Back!!!");
     } else {
       console.log("I'm really DEAD!!");
