@@ -14,9 +14,8 @@
 * write out a code example of each explanation above
 */
 
-// Principle 1
-
-// code example for Window Binding
+// Principle 1: code example for Window Binding
+console.log(this); // 'this' is equal to the rendered window
 
 // Principle 2
 
