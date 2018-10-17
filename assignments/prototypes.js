@@ -145,14 +145,70 @@ Humanoid.prototype.greet = function (x, y) {
 // Villian
 function Villian(greatGrandchildAttributes) {
     Humanoid.call(this, greatGrandchildAttributes);
-};
+}
 
 Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.maulsAttack = function () {
+    aragorn.hp -= 5;
+    if (witchKing.hp <= 0) {
+        return aragorn.destroy();
+    }
+    return `Remove 5 HP from hero. The life of ${aragorn.name} is ${aragorn.hp}`;
+};
+
+const witchKing = new Villian ({
+    createdAt: new Date(),
+    dimensions: {
+        length: 2,
+        width: 2,
+        height: 8,
+    },
+    hp: 22,
+    name: 'Witch King of Angmar',
+    faction: 'Wrath',
+    weapons: [
+        'Maul',
+    ],
+});
 
 
 // Hero
 function Hero(greatGrandchildAttributes) {
     Humanoid.call(this, greatGrandchildAttributes);
-};
+}
 
 Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.danishAxeAttack = function () {
+    witchKing.hp -= 10;
+    if (witchKing.hp <= 0) {
+        return witchKing.destroy();
+    }
+    return `Remove 10 HP from villian. The life of ${witchKing.name} is ${witchKing.hp}`;
+};
+
+const aragorn = new Hero ({
+    createdAt: new Date(),
+    dimensions: {
+        length: 2,
+        width: 2,
+        height: 5,
+    },
+    hp: 15,
+    name: 'Aragorn',
+    faction: 'Ranger',
+    weapons: [
+        'Danish Axe',
+    ],
+});
+
+console.log(witchKing.createdAt);
+console.log(witchKing.dimensions);
+console.log(aragorn.createdAt);
+console.log(witchKing.maulsAttack());
+console.log(aragorn.danishAxeAttack());
+console.log(aragorn.danishAxeAttack());
+console.log(witchKing.maulsAttack());
+console.log(aragorn.danishAxeAttack());
+
