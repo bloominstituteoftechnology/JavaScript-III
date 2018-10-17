@@ -8,6 +8,7 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
 
+
 /*
   === GameObject ===
   * createdAt
@@ -15,10 +16,16 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+// == Constructor Function ==
 function GameObject(dimensions) {
     this.createdAt = new Date();
     this.dimensions = dimensions;
 }
+// == Constructor Methods ==
+GameObject.prototype.destroy = function() {
+    console.log('Object was removed from the game.');
+}
+
 
 /*
   === CharacterStats ===
