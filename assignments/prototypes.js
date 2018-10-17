@@ -8,36 +8,39 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
   
-/*
-  === GameObject ===
-  * createdAt
-  * dimensions
-  * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
-*/
-
-/*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
-
-/*
-  === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
-*/
- 
-/*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+function GameObject(GOattributes){
+  this.createdAt = GOattributes.createdAt;
+  this.dimensions = GOattributes.dimensions;
+  }
+  
+  GameObject.prototype.destroy = function (){
+    return (`${this.name} was removed from the game.`)
+  }
+  
+  function CharacterStats(CSattributes){
+  GameObject.call(this, CSattributes);
+  this.hp = CSattributes.hp;
+  this.name = CSattributes.name;
+  }
+  
+  CharacterStats.prototype = Object.create(GameObject.prototype);
+  
+  CharacterStats.prototype.takeDamage = function(){
+    return (`${this.name} took damage.`);
+  }
+  
+  function Humanoid(Hattributes){
+    CharacterStats.call(this, Hattributes);
+    this.faction = Hattributes.faction;
+    this.weapons = Hattributes.weapons;
+    this.language = Hattributes.language;
+  }
+  
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
+  
+  Humanoid.prototype.greet = function(){
+    return (`${this.name} offers a greeting in ${this.language}.`)
+  }
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
