@@ -20,18 +20,24 @@ const obj = {
   firstName: "ben",
   lastName: 'tsao',
   fullName: function() {
-    console.log(`${this.firstName} ${this.lastName}`);
+    return `${this.firstName} ${this.lastName}`;
   }
 };
 obj.fullName();
+let x = obj.fullName.call(obj);
 
 // Principle 3
 // code example for New Binding
 
-function (){
-
-;}
-
+function CordialPerson(greeter){
+    this.greeter = greeter;
+    this.greeting ='Hello';
+    this.speak = function(){
+        console.log(`${this.greeting} ${this.greeter}`);
+    }
+};
+const jerry = new CordialPerson('newman');
+console.log(jerry);
 // Principle 4
 // code example for Explicit Binding
 
