@@ -19,17 +19,28 @@ console.log(this); // 'this' == the rendered window
 
 // Principle 2: code example for Implicit Binding
 let car = {
+    type: 'Chevy Malibu',
     speed: '55 mph',
     drive: function() {
-        console.log(`Currently traveling: ${this.speed}`);
+        console.log(`The ${this.type} is currently traveling: ${this.speed}`);
+    }
+}
+
+let car2 = {
+    type: 'Chevy Cobalt',
+    speed: '57 mph',
+    drive: function() {
+        console.log(`The ${this.type} is currently traveling: ${this.speed}`);
     }
 }
 
 car.drive(); //'this' == car object
+car2.drive(); //'this' == car2 object
 
 // Principle 3
 
 // code example for Explicit Binding
+
 
 // Principle 4
 
