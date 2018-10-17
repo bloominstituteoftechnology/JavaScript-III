@@ -142,3 +142,88 @@
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function Villain(villainAttributes){
+    Humanoid.call(this, villainAttributes);
+    this.attackValue = villainAttributes.attackValue;
+  }
+
+  function Hero(heroAttributes){
+    Humanoid.call(this, heroAttributes);
+    this.attackValue = heroAttributes.attackValue;
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.attack = function(hero){
+    if(hero.hp > this.attackValue){
+      return hero.hp -= this.attackValue;
+    }else if(hero.hp <= this.attackValue){
+      return hero.destroy();
+    }
+  }
+  Hero.prototype.attack = function(villain){
+    if(villain.hp > this.attackValue){
+      return villain.hp -= this.attackValue;
+    }else if(villain.hp <= this.attackValue){
+      return villain.destroy();
+    }
+  }
+
+  const mageVillain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Bruce',
+    faction: 'Mage Guild',
+    weapons: [
+      'Staff of Shamalama',
+    ],
+    language: 'Common Toungue',
+    attackValue: 1
+  });
+
+  const mageHero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Bruce',
+    faction: 'Mage Guild',
+    weapons: [
+      'Staff of Shamalama',
+    ],
+    language: 'Common Toungue',
+    attackValue: 1
+  });
+
+  console.log(mageHero);
+
+
+  // console.log(mageHero.attackValue);
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+  console.log(mageVillain.attack(mageHero));
+
+
+
+
+
+
+
