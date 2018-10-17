@@ -8,6 +8,7 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
 //----------------------------------------------------------------------------------------
+let charList = [];
 /*
   === GameObject ===
   * createdAt
@@ -45,6 +46,7 @@ function CharacterStats(attributes){
   GameObject.call(this, attributes);//so child knows what 'this' is
   this.hp = attributes.hp;
   this.name = attributes.name;
+  charList.push(this); //any way to reference the objects specific name? like 'mage'
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);//inherit parents prototypes
 CharacterStats.prototype.takeDamage = function(damageTaken){
@@ -246,3 +248,11 @@ Humanoid.prototype.greet = function(){
     critChance: 0.3,
     armor: 1, 
   });
+
+  console.log(charList);
+
+  console.log(`WELCOME!`);
+  console.log(`Characters can be referenced by the following names: sheRa, evilLyn,
+   mage, and swordsman.`);
+  console.log(`She-Ra and Evil-Lyn have access to the 'attack' method!
+   ex) sheRa.attack(mage).  Try it out!`);
