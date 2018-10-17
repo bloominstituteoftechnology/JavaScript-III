@@ -147,7 +147,7 @@ function createCharacter() {
   let heroFaction = "undefined";
   let heroLanguage = "undefined";
 
-  console.log(`There are ${characterClasses.length} classes available to you as an adventurer.`);
+  console.log(`\nThere are ${characterClasses.length} classes available to you as an adventurer.`);
   console.log("You may choose one of the following:\n");
 
   for (let i = 0; i < characterClasses.length; i++) {
@@ -158,7 +158,7 @@ function createCharacter() {
 
   while (characterClass == -1 || isNaN(characterClass) || characterClass > characterClasses.length - 1) {
 
-    characterClass = readline.question("Which class do you choose? ");
+    characterClass = readline.question("\nWhich class do you choose? ");
 
   }
 
@@ -225,7 +225,7 @@ function battle(hero, villian) {
       if (victory) {
 
         console.log(villian.destroy());
-        console.log(`${hero.name} has won!`);
+        console.log(`${hero.name} has won!\n`);
         battling = false;
         return true;
 
@@ -242,7 +242,7 @@ function battle(hero, villian) {
       if (victory) {
 
         console.log(hero.destroy());
-        console.log(`${villian.name} has won!`);
+        console.log(`${villian.name} has won!\n`);
         battling = false;
         return false;
 
@@ -258,7 +258,7 @@ function battle(hero, villian) {
 
 /* ====================== THE GAME ============================ */
 
-console.log("Welcome to my game. Please create a character.");
+console.log("Welcome to my game. Please create a character.\n");
 
 const hero = createCharacter();
 
