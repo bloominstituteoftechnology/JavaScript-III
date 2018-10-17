@@ -14,6 +14,25 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+// function GameObject(l,w,h){
+//   this.createdAt = new Date();
+//   this.dimensions = {
+//     length:  l,
+//     width: w,
+//     height:  h
+//   };
+// }
+
+function GameObject(dimensions){
+  this.createdAt = new Date();  
+  this.dimensions = dimensions.dimensions;
+}
+
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`;
+}
+
+
 
 /*
   === CharacterStats ===
@@ -22,6 +41,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(characterAttributes) {
+  GameObject.call(this, characterAttributes);
+  this.hp = characterAttributes.hp;
+  this.name = characterAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+    return `${this.name} took damage.`;
+  } 
 
 /*
   === Humanoid ===
@@ -32,7 +62,35 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(humanTraits){
+  CharacterStats.call(this, humanTraits);
+  this.faction = humanTraits.faction;
+  // this.weapons = humanTraits.weapons.toString();
+  this.weapons = humanTraits.weapons;
+  this.language = humanTraits.language; 
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype)
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`
+}
+
+function Villian(villianTraits) {
+  Humanoid.call(this, villianTraits);
+  this.blackMagic = function(){
+    return `${this.name} has cursed you with black magic...You have taken 5hp of damage`
+  }
+}
+
+function Hero(heroTraits) {
+  Humanoid.call(this, heroTraits);
+  this.holyLight = function(){
+    return `${this.name} has called down a beam of holy light...You have taken 5hp of damage`
+  }
+}
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -40,8 +98,38 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+const villian = new Villian({
+  createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 3,
+    },
+    hp: 95,
+    name: 'Sauron',
+    faction: 'Hades',
+    weapons: [
+      'Staff of Doom',
+    ],
+    language: 'Common Toungue',
+})
 
-/*
+const hero = new Hero({
+  createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 2,
+    },
+    hp: 95,
+    name: 'Achiles',
+    faction: 'Greece',
+    weapons: [
+      'Sword of Life',
+    ],
+    language: 'Common Toungue',
+})
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -97,14 +185,14 @@
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
   console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
+  console.log(mage.weapons.toString()); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops
   // * Create two new objects, one a villian and one a hero and fight it out with methods!

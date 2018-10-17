@@ -47,8 +47,8 @@ function Fighter(style, weightClass, begin){
 const Jack = new Fighter("Muy Thai", "Heavy Weight", "nod");
 const Hugh = new Fighter("Karate", "Feather Weight", "bow");
 
-console.log(Jack.startFight());
-console.log(Hugh.startFight());
+Jack.startFight();
+Hugh.startFight();
 
 
 // Principle 4
