@@ -53,3 +53,6 @@ jane.greet;
 
 // code example for Explicit Binding
 
+jane.greet.call(jane);
+mike.greet.call(mike); 
+
