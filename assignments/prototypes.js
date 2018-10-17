@@ -15,7 +15,7 @@ const GameObject = function(attributes) {
 }
 
 GameObject.prototype.destroy = function() {
-        console.log(`Object was removed from the game.`);
+        //console.log(`Object was removed from the game.`);
         return `Object was removed from the game.`;
     }
     /*
@@ -29,14 +29,11 @@ const CharacterStats = function(characterStatsAttributes) {
     GameObject.call(this, characterStatsAttributes);
     this.hp = characterStatsAttributes.hp;
     this.name = characterStatsAttributes.name;
-
-
-
 }
-CharacterStats.prototype = Object.create(GameObject.prototype)
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-    console.log(`${this.name} took damage.`);
+    //console.log(`${this.name} took damage.`);
     return `${this.name} took damage.`;
 };
 /*
@@ -51,12 +48,11 @@ const Humanoid = function(humanoidAttributes) {
     this.faction = humanoidAttributes.faction;
     this.weapons = humanoidAttributes.weapons;
     this.language = humanoidAttributes.language;
-
 }
-Humanoid.prototype = Object.create(CharacterStats.prototype)
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-        console.log(`${this.name} offers a greeting in ${this.language}.`);
+        //console.log(`${this.name} offers a greeting in ${this.language}.`);
         return `${this.name} offers a greeting in ${this.language}.`;
     }
     /*
@@ -144,3 +140,75 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+const Villian = function(VillianAttributes) {
+    Humanoid.this(this, VillianAttributes);
+    this.faction = villianAttributes.faction;
+    this.weapons = villianAttributes.weapons;
+    this.language = villianAttributes.language;
+
+
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.greet = function() {
+    //console.log(`${this.name} offers a greeting in ${this.language}.`);
+    return `${this.name} offers a greeting in ${this.language}.`;
+}
+Villian.prototype.stab = function() {
+    return `${this.name} offers a not so friendly stab in the gut, and a slick quip to boot.`;
+}
+
+// Villian.prototype.blocks = function() {
+//     return `${this.name} protective defence with his sheald.`;
+// };
+
+
+
+const Hero = function(heroAttributes) {
+    Humanoid.this(this, heroAttributes);
+    this.faction = heroAttributes.faction;
+    this.weapons = heroAttributes.weapons;
+    this.language = heroAttributes.language;
+
+
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.greet = function() {
+    //console.log(`${this.name} offers a greeting in ${this.language}.`);
+    return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+const McEvil = new villian({
+    createdAt: new Date(),
+    dimensions: {
+        length: 3,
+        width: 3,
+        height: 3,
+    },
+    hp: 18,
+    name: 'Sir McEvil Chops',
+    faction: 'Death',
+    weapons: ['Giant Sword', 'Shield'],
+    'Dagger',
+    language: 'Common Toungue',
+});
+
+
+const SaveTheDayer = new hero({
+    createdAt: new Date(),
+    dimensions: {
+        length: 3,
+        width: 3,
+        height: 3,
+    },
+    hp: 18,
+    name: 'Sir SaveTheDayer',
+    faction: 'Free People',
+    weapons: ['Giant Sword', 'Shield'],
+    'Dagger',
+    language: 'Common Toungue',
+});
