@@ -35,6 +35,14 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 
+// == Constructor Function ==
+function CharacterStats(hp, name) {
+    this.hp = hp;
+    this.name = name;
+}
+// == Constructor Methods ==
+
+
 /*
   === Humanoid ===
   * faction
