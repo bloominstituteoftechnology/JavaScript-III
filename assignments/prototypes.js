@@ -7,14 +7,30 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+//----------------------------------------------------------------------------------------
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+GameObject.prototype.destroy = function(){
+  console.log(this.name + ' was removed from the game.');
+}
+// const newObject = new GameObject({
+//   createdAt: new Date(),
+//   dimensions: {
+//     length: 2,
+//     width: 1,
+//     height: 1,
+//   }
+// });
+// console.log(newObject);
+//----------------------------------------------------------------------------------------
 /*
   === CharacterStats ===
   * hp
@@ -22,7 +38,27 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
+function CharacterStats(attributes){
+  GameObject.call(this, attributes);//so child knows what 'this' is
+  this.hp = attributes.hp;
+  this.name = attributes.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);//inherit parents prototypes
+CharacterStats.prototype.takeDamage = function(){
+  console.log(this.name + ' took damage')
+};
+// const someStats = new CharacterStats({
+//   createdAt: new Date(),
+//   dimensions: {
+//     length: 2,
+//     width: 1,
+//     height: 1,
+//   },
+//   hp: 5,
+//   name: 'Bruce'
+// })
+// console.log(someStats);
+//----------------------------------------------------------------------------------------
 /*
   === Humanoid ===
   * faction
@@ -32,7 +68,17 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(attributes){
+  CharacterStats.call(this, attributes);
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  console.log(`${this.name} offers a greeting in ${this.language}`);
+};
+//----------------------------------------------------------------------------------------
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +87,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -99,11 +145,12 @@
   console.log(swordsman.faction); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
-
+  //console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  //console.log(mage.takeDamage()); // Bruce took damage.
+  //console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  archer.greet();
+  mage.takeDamage();
+  swordsman.destroy();
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
