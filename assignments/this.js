@@ -7,8 +7,9 @@ to the global object, which in web browsers is the window object.
 * 2. The second principle is the idea behind Implicit binding, where the "this" is set to the object the method is called on.
 Meaning, simply, that "this" will point to the object whenever that object is invoked in the code. On top of this, 
 only the most immediate ref to an object matters.
-* 3. 
-* 4. 
+* 3. The third principle is using the "new" keyword to make an object, which then assigns "this" to that
+new object! So, when you use a function as a constructor, its "this" is bound to the new obj that was made!
+* 4. The forth princible is explict binding, where you use the call, apply and bind methods to assign the "this" keyword with arguments!
 *
 * write out a code example of each explanation above
 */
@@ -40,9 +41,31 @@ const codeMan = {
 
 codeMan.activity();
 // Principle 3
+//running out of time, going to do this fast
 
-// code example for New Binding
+function p() {   //make a fast function, this.a will be 43
+    this.a = 43;
+}
 
+let obj = new p(); // new obj, let the p function construct it
+console.log(obj.a);
 // Principle 4
 
-// code example for Explicit Binding
+const pm = {
+    name: 'Trevor'
+}
+
+const skills = ['ternary operations', 'goofing', 'asking ash for help', 'all programming langs']
+
+function introduce (skills1, skills2, skills3){
+    "use strict"
+    console.log(`Hello! My name is ${this.name}, and these are my skills: ${skills1}, ${skills2}, ${skills3}`)
+
+}
+// try the call funciton, asign the "this" keyword with indiv. arg
+introduce.call(pm, skills);
+// oh, it kind of breaks it...
+
+//maybe apply works better!
+introduce.apply(pm, skills);
+// ahh, it does, cuz it uses an array of arguments...
