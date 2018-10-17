@@ -209,3 +209,18 @@ Villian.prototype.strike = function(obj) {
     console.log(`I'll beat you ${obj.name}!!!`);
   }
 }
+
+const hero = new Hero({createdAt: new Date(), dimensions: 12, hp: 35, name: 'Gandalf The Gray', faction: 'faction', weapons: ['arrow'], language: 'babaraba'});
+
+const villian = new Villian({createdAt: new Date(), dimensions: 12, hp: 10, name: 'Saruman The White', faction: 'faction', weapons: ['arrow'], language: 'babaraba'});
+
+
+console.log('\n\n Starting the Game');
+hero.greet();
+villian.greet();
+hero.blast(villian);
+console.log(`Villian's health${villian.health}`);
+villian.strike(hero);
+villian.strike(hero);
+hero.blast(villian);
+hero.blast(villian);
