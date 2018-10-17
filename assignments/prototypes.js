@@ -190,7 +190,7 @@ Humanoid.prototype.greet = function() {
       'Flashy Smile',
       'Helping Others',
     ],
-    language: 'Common Toungue',
+    language: 'Anime',
   });
 
   let sensei = new Villain({
@@ -205,9 +205,9 @@ Humanoid.prototype.greet = function() {
     faction: 'Naruto Squad',
     weapons: [
       'Big Mouth',
-      'Archaic Cane',
+      'Fat Textbooks',
     ],
-    language: 'Common Toungue',
+    language: 'Anime',
   });
 
  sempai.doDamage(sensei);
