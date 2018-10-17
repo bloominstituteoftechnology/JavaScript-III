@@ -141,3 +141,18 @@ Humanoid.prototype.greet = function (x, y) {
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+// Villian
+function Villian(greatGrandchildAttributes) {
+    Humanoid.call(this, greatGrandchildAttributes);
+};
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+
+// Hero
+function Hero(greatGrandchildAttributes) {
+    Humanoid.call(this, greatGrandchildAttributes);
+};
+
+Hero.prototype = Object.create(Humanoid.prototype);
