@@ -65,6 +65,44 @@ function Humanoid(attrib){
 Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}`;
 }
+
+// Stretch goal constructors
+
+Villian.prototype = Object.create(Humanoid.prototype);
+function Villian(attrib){
+  Humanoid.call(this, attrib);
+}
+
+Villian.prototype.attack = function(){
+  hero.hp--; 
+  let successChance = Math.random()
+  if (successChance > 0.5) {
+    hero.hp--;
+    return `The hero has ${hero.hp} health left! You have ${this.hp} health remaining.`;
+  } else if (successChance < 0.49) {
+    return `You're strike missed! The hero has ${hero.hp} and you have ${this.hp} health remaining. `
+  } else if (hero.hp === 0){
+    return `You are victorious! The hero has been defeated! You have ${this.hp} health remaining.`
+  };
+}
+
+
+Hero.prototype = Object.create(Humanoid.prototype);
+function Hero(attrib){
+  Humanoid.call(this, attrib);
+}
+
+Hero.prototype.attack = function(){
+  let successChance = Math.random()
+  if (successChance > 0.5) {
+    villian.hp--;
+    return `The villian has ${villian.hp} health left! You have ${this.hp} health remaining.`;
+  } else if (successChance < 0.49) {
+    return `You're strike missed! The villian has ${villian.hp} and you have ${this.hp} health remaining. `
+  } else if (villian.hp === 0){
+    return `You are victorious! The villian has been defeated! You have ${this.hp} health remaining.`
+  };
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -88,7 +126,7 @@ Humanoid.prototype.greet = function(){
     weapons: [
       'Staff of Shamalama',
     ],
-    language: 'Common Toungue',
+    language: 'Common Tongue',
   });
 
   const swordsman = new Humanoid({
@@ -105,7 +143,7 @@ Humanoid.prototype.greet = function(){
       'Giant Sword',
       'Shield',
     ],
-    language: 'Common Toungue',
+    language: 'Common Tongue',
   });
 
   const archer = new Humanoid({
@@ -124,6 +162,43 @@ Humanoid.prototype.greet = function(){
     ],
     language: 'Elvish',
   });
+
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 5,
+    },
+    hp: 20,
+    name: 'Captain',
+    faction: 'Hero Tribe',
+    weapons: [
+      'Greatsword',
+      'Bow',
+      'Mace',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 18,
+    name: 'Evil',
+    faction: 'Villian Tribe',
+    weapons: [
+      'Throwing Knives',
+      'Crossbow',
+      'Poison Darts',
+    ],
+    language: 'Elvish',
+  });
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
