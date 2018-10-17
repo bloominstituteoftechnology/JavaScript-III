@@ -17,7 +17,7 @@ const sayHi = function(){
     console.log(`Hello ${this.name}`);
 }
 
-const me = {
+const iAm = {
     name: 'Tommy'
 }
 
@@ -57,9 +57,9 @@ const greet = function(){
     console.log(`Hello! My name is ${this.name} and I am from ${this.location}!`);
 };
 
-const me = {
+const myInfo = {
     name: "Tommy",
     location: "Bay Area",
 }
 
-greet.call(me);
+greet.call(myInfo);
