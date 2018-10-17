@@ -67,7 +67,7 @@ Humanoid.prototype.greet = function() {
 
 function Hero(good) {
     Humanoid.call(this, good);
-    this.soundwave = good.soundwave;
+    // this.soundwave = good.soundwave;
     this.health = good.health;
 }
 
@@ -88,7 +88,7 @@ Hero.prototype.sonicshock = function() {
 
 function Villian(evil) {
     Humanoid.call(this, evil);
-    this.lasers = evil.lasers;
+    // this.lasers = evil.lasers;
     this.health = evil.health;
 }
 
@@ -101,7 +101,7 @@ Villian.prototype.lasers = function() {
 
 Villian.prototype.cyberlink = function() {
     this.health -= 40;
-    return `${this.name} tries to use ${this.weapons[1]} to no prevail.`;
+    return `${this.name} tries to use ${this.weapons[1]} and hits.`;
 }
 
 
@@ -178,7 +178,8 @@ const sonicboom = new Hero({
         'sonic shock',
         'sound wave',
     ],
-    language: 'English'
+    language: 'English',
+    health: 100
 });
 
 const octoBot = new Villian({
@@ -195,7 +196,8 @@ const octoBot = new Villian({
         'lasers',
         'cyberlink',
     ],
-    language: 'Android'
+    language: 'Android',
+    health: 100
 });
 
 
@@ -212,9 +214,12 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 console.log("A new battle is about to begin")
 console.log(`The match ${sonicboom.name} vs ${octoBot.name} has begun.`);
 console.log(sonicboom.soundwaves());
-console.log(octoBot.lasers());
+console.log(`${octoBot.name} has been reduced, ${octoBot.name} now has ${sonicboom.health}`);
+// console.log(octoBot.lasers());
 console.log(octoBot.cyberlink());
+console.log(`${sonicboom.name} has been reduced, ${sonicboom.name} now has ${octoBot.health}`);
 console.log(sonicboom.sonicshock());
+console.log(`${octoBot.name} has been reduced, ${octoBot.name} now has ${sonicboom.health}`);
 
 
 // Stretch task: 
