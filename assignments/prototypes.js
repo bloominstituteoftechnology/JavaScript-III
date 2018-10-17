@@ -58,6 +58,28 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 
+// == Constructor Function ==
+function Humanoid(attributes) {
+    this.faction = attributes.faction;
+    this.weapons = attributes.weapons;
+    this.language = attributes.language;
+}
+
+// == Constructor Methods ==
+
+
+// Testing
+const trai = new Humanoid({
+    faction: 'Libra',
+    weapons: [
+        'dagger',
+        'spells',
+        'twin pistols'
+    ]
+});
+
+console.log(trai);
+
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
