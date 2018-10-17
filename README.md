@@ -1,12 +1,12 @@
 # JavaScript - III
 This challenge focuses on using the `this` keyword as well as getting comfortable with prototypes by building out a fantasy themed video game.   
 
-## Assignment Description
+<!-- ## Assignment Description
 
 * Fork/Clone this repository.
 * Complete all the exercises as described inside each assignment file.
 * To test your `console.log()` statements, open up the index.html file found in the assignments folder and use the developer tools to view the console.  
-* Once you finish the exercises in each file, commit your code, and push it to your fork. 
+* Once you finish the exercises in each file, commit your code, and push it to your fork.  -->
 
 ## The `this` keyword
 
