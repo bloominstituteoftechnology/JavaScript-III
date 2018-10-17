@@ -192,8 +192,9 @@ const McEvil = new villian({
     hp: 18,
     name: 'Sir McEvil Chops',
     faction: 'Death',
-    weapons: ['Giant Sword', 'Shield'],
-    'Dagger',
+    weapons: ['Giant Sword', 'Shield',
+        'Dagger'
+    ],
     language: 'Common Toungue',
 });
 
@@ -208,7 +209,8 @@ const SaveTheDayer = new hero({
     hp: 18,
     name: 'Sir SaveTheDayer',
     faction: 'Free People',
-    weapons: ['Giant Sword', 'Shield'],
-    'Dagger',
+    weapons: ['Giant Sword', 'Shield',
+        'Dagger'
+    ],
     language: 'Common Toungue',
 });
