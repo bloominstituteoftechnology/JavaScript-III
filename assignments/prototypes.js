@@ -72,8 +72,6 @@ Humanoid.prototype.greet = function() {
     return `${this.name} offers greeting in ${this.language}`;
 }
 
-// Testing
-
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.

@@ -22,20 +22,20 @@ let car = {
     type: 'Chevy Malibu',
     speed: 55,
     drive: function() {
-        console.log(`The ${this.type} is currently traveling: ${this.speed}mph`);
+        return `The ${this.type} is currently traveling: ${this.speed}mph`;
     }
 }
 
 let car2 = {
-    name: 'Chevy Cobalt',
+    type: 'Chevy Cobalt',
     speed: 57,
     drive: function() {
-        console.log(`The ${this.type} is currently traveling: ${this.speed}mph`);
+        return `The ${this.type} is currently traveling: ${this.speed}mph`;
     }
 }
 
-car.drive(); //'this' == car object
-car2.drive(); //'this' == car2 object
+console.log(car.drive()); //'this' == console for log &'this' == car object for drive
+console.log(car2.drive()); //'this' == console for log & 'this' == car2 object for drive
 
 // Principle 3: code example for Explicit Binding
 function amISpeeding(type, speed, speedLimit) {
@@ -59,7 +59,7 @@ function Book(title, pages, genre) {
     this.pages = pages;
     this.genre = genre;
     this.about = function() {
-        console.log(`The ${this.title} is from the ${this.genre} section and has ${this.pages} pages.`);
+        return `The ${this.title} is from the ${this.genre} section and has ${this.pages} pages.`;
     }
 }
 
@@ -69,5 +69,5 @@ const dictionary = new Book('Dictionary', 'too many', 'reference');
 
 console.log(bible);
 console.log(dictionary);
-bible.about();
-dictionary.about();
+console.log(bible.about());
+console.log(dictionary.about());
