@@ -126,16 +126,16 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
-  // console.log(mage.createdAt); // Today's date
-  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  // console.log(swordsman.hp); // 15
-  // console.log(mage.name); // Bruce
-  // console.log(swordsman.faction); // The Round Table
-  // console.log(mage.weapons); // Staff of Shamalama
-  // console.log(archer.language); // Elvish
-  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // console.log(mage.takeDamage()); // Bruce took damage.
-  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(mage.createdAt); // Today's date
+  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  console.log(swordsman.hp); // 15
+  console.log(mage.name); // Bruce
+  console.log(swordsman.faction); // The Round Table
+  console.log(mage.weapons); // Staff of Shamalama
+  console.log(archer.language); // Elvish
+  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
@@ -154,7 +154,7 @@ Villian.prototype.weep = function(superhero) {
   
   if (superhero.hp > 0 && this.hp > 0) {
     superhero.hp -= this.damage;
-    console.log (`${this.name} slices ${superhero.name} for ${this.damage} damage!!`);
+    console.log (`${this.name} weeps on ${superhero.name} for ${this.damage} damage!!`);
 
     if (superhero.hp <= 0) {
       console.log(superhero.destroy());
@@ -185,6 +185,8 @@ Hero.prototype.slice = function(enemy) {
   }
   else if (enemy.hp <= 0) {}
 }
+
+
 
 // ==================== Hero Above
 
@@ -229,11 +231,11 @@ gargamel.weep(jack);
 jack.slice(gargamel);
 jack.slice(gargamel);
 gargamel.weep(jack);
-// jack.slice(gargamel);
-// jack.slice(gargamel);
-gargamel.weep(jack);
-gargamel.weep(jack);
-gargamel.weep(jack);
+jack.slice(gargamel);
+jack.slice(gargamel);
+// gargamel.weep(jack);
+// gargamel.weep(jack);
+// gargamel.weep(jack);
 
 console.log(gargamel.hp);
 console.log(jack.hp);
