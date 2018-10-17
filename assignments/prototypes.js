@@ -151,15 +151,19 @@ function Villian (vilAttrib) {
 Villian.prototype = Object.create(Humanoid.prototype);
 
 Villian.prototype.weep = function(superhero) {
-  superhero.hp -= this.damage;
+  
+  if (superhero.hp > 0 && this.hp > 0) {
+    superhero.hp -= this.damage;
+    console.log (`${this.name} slices ${superhero.name} for ${this.damage} damage!!`);
 
-  if (superhero.hp <= 0) {
-    console.log(superhero.destroy());
+    if (superhero.hp <= 0) {
+      console.log(superhero.destroy());
+    }
   }
-
-  if (superhero.hp > 0)
-  console.log (`${this.name} weeps on ${superhero.name} for ${this.damage} damage!!`);
+  else if (superhero.hp <= 0) {
+  }
 }
+
 
 // ================= Villian Above
 
@@ -170,14 +174,16 @@ function Hero (heroAttrib) {
 Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.slice = function(enemy) {
-  enemy.hp -= this.damage;
+  
+  if (enemy.hp > 0 && this.hp > 0) {   
+    enemy.hp -= this.damage; 
+    console.log (`${this.name} slices ${enemy.name} for ${this.damage} damage!!`);
 
-  if (enemy.hp <= 0) {
-    console.log(enemy.destroy());
+    if (enemy.hp <= 0) {
+      console.log(enemy.destroy());
+    }
   }
-
-  if (enemy.hp > 0)
-  console.log (`${this.name} slices ${enemy.name} for ${this.damage} damage!!`);
+  else if (enemy.hp <= 0) {}
 }
 
 // ==================== Hero Above
@@ -196,7 +202,7 @@ const gargamel = new Villian({
     "Cat",
   ],
   language: "Smurf",
-  damage: 4,
+  damage: 9,
 });
 
 
@@ -223,9 +229,11 @@ gargamel.weep(jack);
 jack.slice(gargamel);
 jack.slice(gargamel);
 gargamel.weep(jack);
+// jack.slice(gargamel);
+// jack.slice(gargamel);
 gargamel.weep(jack);
-jack.slice(gargamel);
-jack.slice(gargamel);
+gargamel.weep(jack);
+gargamel.weep(jack);
 
 console.log(gargamel.hp);
 console.log(jack.hp);
