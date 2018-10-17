@@ -158,7 +158,7 @@ Villian.prototype.weep = function(superhero) {
   }
 
   if (superhero.hp > 0)
-  console.log (`${this.name} slices ${superhero.name} for ${this.damage}!!`);
+  console.log (`${this.name} weeps on ${superhero.name} for ${this.damage}!!`);
 }
 
 // ================= Villian Above
