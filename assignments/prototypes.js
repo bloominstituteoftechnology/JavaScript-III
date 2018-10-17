@@ -20,7 +20,7 @@ function GameObject(attr){
 }
 
 GameObject.prototype.destroy = function(){
-  return 'Object was removed from the game.'
+  return `${this.name} was removed from the game.`
 }
 
 /*
@@ -68,9 +68,30 @@ function Hero(FighterAttr){
 
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.attack = function(opponent){
-  let OppoName = opponent.name;
+  if(this.hp <= 0){
+    return "You are dead. You cannot attack";
+  } else {
+    let OppoName = opponent.name;
   let OppoHP = opponent.hp;
-  return `${this.name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
+  name = this.name;
+  attackDamage = this.attackDamage;
+  function Damage(){
+    if(opponent.hp - this.attackDamage <= 0){
+      opponent.hp -= this.attackDamage;
+      return `${OppoName} has been defeated`;
+    } else {
+      return opponent.hp -= this.attackDamage;
+    }
+  }
+
+  if(OppoHP <= 0 ){
+    return `${OppoName} has been removed from the game`;
+  } else {
+    Damage();
+    return `${name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
+  }
+  }
+  
 }
 //////
 function Villian(FighterAttr){
@@ -80,9 +101,30 @@ function Villian(FighterAttr){
 
 Villian.prototype = Object.create(Humanoid.prototype);
 Villian.prototype.attack = function(opponent){
-  let OppoName = opponent.name;
+  if(this.hp <= 0){
+    return "You are dead. You cannot attack";
+  } else {
+    let OppoName = opponent.name;
   let OppoHP = opponent.hp;
-  return `${this.name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
+  name = this.name;
+  attackDamage = this.attackDamage;
+  function Damage(){
+    if(opponent.hp - this.attackDamage <= 0){
+      opponent.hp -= this.attackDamage;
+      return `${OppoName} has been defeated`;
+    } else {
+      return opponent.hp -= this.attackDamage;
+    }
+  }
+
+  if(OppoHP <= 0 ){
+    return `${OppoName} has been removed from the game`;
+  } else {
+    Damage();
+    return `${name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
+  }
+  }
+  
 }
 
 /*
@@ -177,7 +219,7 @@ Villian.prototype.attack = function(opponent){
       'Cloak',
     ],
     language: 'English',
-    attackDamage:10
+    attackDamage:20
   });
 
   console.log(mage.createdAt); // Today's date
@@ -193,8 +235,18 @@ Villian.prototype.attack = function(opponent){
   ///////////////////
   console.log(wizard.name); // Wizard's name
   console.log(witch.attackDamage); // Witch's attackDamage
-  //console.log(wizard.attack()); // Wizard attacks
   console.log(wizard.attack(witch)); // Wizard attacks
+  console.log(wizard.attack(witch)); // Wizard attacks
+  console.log(wizard.attack(witch)); // Wizard attacks
+  console.log(witch.attack(wizard)); // Witch attacks
+  console.log(witch.attack(wizard)); // Witch attacks
+  console.log(witch.attack(wizard)); // Witch attacks
+  console.log(witch.attack(wizard)); // Witch attacks
+  console.log(witch.attack(wizard)); // Witch attacks
+  console.log(witch.attack(wizard)); // Witch attacks
+  console.log(wizard.attack(witch)); // Wizard attacks
+  console.log(witch.hp); // Witch HP
+  console.log(wizard.hp); // Wizard HP
 
 
   // Stretch task: 
