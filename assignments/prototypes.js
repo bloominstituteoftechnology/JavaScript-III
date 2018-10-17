@@ -140,13 +140,78 @@ Humanoid.prototype.greet = function(){
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-  // function Villan(stats){
-  //   Humanoid.call(this, stats);
-  // }
-  // Villan.prototype = Object.create(Humanoid.prototype);
+  function Villan(stats){
+    Humanoid.call(this, stats);
+    this.heroHp = 10;
+  }
+  Villan.prototype = Object.create(Humanoid.prototype);
+  Villan.prototype.curse = function(character){
+    character.hp -= 15;
+    if(character.hp <= 0){
+      console.log(`${this.name} killed the ${character.name} with Moon Shot!`);
+      return character.destroy();
+    }
+    if(character.hp)
+    return `${this.name} used Moon Shot! ${character.name} HP: ${character.hp}`
+  }
 
 
-  // function Hero(stats){
-  //   Humanoid.call(this.stats);
-  // }
-  // Hero.prototype = Object.create(Humanoid.prototype);
+  function Hero(stats){
+    Humanoid.call(this, stats);
+    this.villanHp = stats.enemyHp;
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.swing = function(character){
+    character.hp -= 15;
+    if(character.hp <= 0){
+      console.log(`The ${this.name} killed the ${character.name} with their ${this.weapons[0]}!`);
+      return character.destroy();
+    }
+    return `The ${this.name} attacked ${character.name} with his ${this.weapons[0]}! ${character.name} HP: ${character.hp}.`
+  }
+
+  const firstHero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 50,
+    name: 'Vault Hunter',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Gun',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });  
+
+  const firstVillan = new Villan({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 50,
+    name: 'Handsome Jack',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  console.log(firstHero);
+  console.log(firstHero.hp);
+  console.log(firstHero.swing(firstVillan));
+  console.log(firstHero.swing(firstVillan));
+  console.log(firstHero.swing(firstVillan));
+  console.log(firstVillan.curse(firstHero));
+  console.log(firstVillan.curse(firstHero));
+  console.log(firstVillan.curse(firstHero));
+  console.log(firstVillan.curse(firstHero));
+ 
+  
