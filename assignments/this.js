@@ -52,6 +52,22 @@ console.log(amISpeeding.call(car, car.type, car.speed, 60));
 
 console.log(amISpeeding.call(car2, car2.type, car2.speed, 50));
 
-// Principle 4
+// Principle 4: code example for New Binding
 
-// code example for New Binding
+function Book(title, pages, genre) {
+    this.title = title;
+    this.pages = pages;
+    this.genre = genre;
+    this.about = function() {
+        console.log(`The ${this.title} is from the ${this.genre} section and has ${this.pages} pages.`);
+    }
+}
+
+const bible = new Book('Holy Bible', 'a lot', 'gospel');
+
+const dictionary = new Book('Dictionary', 'too many', 'reference');
+
+console.log(bible);
+console.log(dictionary);
+bible.about();
+dictionary.about();
