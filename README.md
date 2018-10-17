@@ -7,10 +7,10 @@ This challenge focuses on using the `this` keyword as well as getting comfortabl
 * Complete all the exercises as described inside each assignment file.
 * To test your `console.log()` statements, open up the index.html file found in the assignments folder and use the developer tools to view the console.  
 * Once you finish the exercises in each file, commit your code, and push it to your fork.  -->
-
+<!-- 
 ## The `this` keyword
 
-Having a solid understanding of how `this` works will give you a huge advantage when you start building with more advanced frameworks. Use the [this.js](assignments/this.js) file to traverse through a few `this` problems.
+Having a solid understanding of how `this` works will give you a huge advantage when you start building with more advanced frameworks. Use the [this.js](assignments/this.js) file to traverse through a few `this` problems. -->
 
 ## Prototype
 
