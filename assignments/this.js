@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Window/global
-* 2. Implicit binding
-* 3. Explicit binding
-* 4. New binding
+* 1. Window/global - points to the window because it is global and isn't refrencing anything
+* 2. Implicit binding - point to the object. Anything before the dot is the object
+* 3. Explicit binding - points to the function.
+* 4. New binding - creates new objects to be used in a function
 *
 * write out a code example of each explanation above
 */
@@ -44,4 +44,4 @@ function AnotherIntro(somePerson){
 }
 
 const chris  = new AnotherIntro('Chris')
-AnotherIntro.saySomething();
+AnotherIntro.Intro();
