@@ -235,6 +235,9 @@ function battle(hero, villian) {
   while (battling) {
 
     console.log();
+    console.log(`Your HP: ${hero.hp}`);
+    console.log(`Enemy HP: ${villian.hp}`);
+    console.log();
 
     if (turn === 1) { // Hero's turn
 
@@ -294,12 +297,12 @@ while (fighting) {
       width: 2,
       height: 4,
     },
-    hp: 75 + numVictories * 15,
+    hp: 75 + numVictories * 5,
     name: 'Evil Villian',
     faction: 'Mountain Kingdom',
     weapons: [
-      {name: "Dagger", maxDamage: 30, uses: 25},
-      {name: "Sword", maxDamage: 50, uses: 2}
+      {name: "Dagger", maxDamage: 20, uses: 25},
+      {name: "Sword", maxDamage: 30, uses: 2}
     ],
     language: 'Pig Latin',
   });
@@ -308,10 +311,10 @@ while (fighting) {
 
   if (fighting) {
 
-    console.log(`Great work, ${hero.name}! Your HP has been restored by 20 points. Now onto the next villian!`);
-    hero.hp += 20;
-    hero.weapons[0].uses += 5;
     numVictories++;
+    console.log(`Great work, ${hero.name}! Your HP has been restored by ${20 + Math.floor(numVictories / 3) * 30} points. Now onto the next villian!`);
+    hero.hp += 20 + Math.floor(numVictories / 3) * 4;
+    hero.weapons[0].uses += 5;
 
     if (numVictories % 3 == 0)
       hero.weapons[1].uses += 10;
