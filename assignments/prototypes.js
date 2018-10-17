@@ -42,9 +42,60 @@ function GameObject(GOattributes){
     return (`${this.name} offers a greeting in ${this.language}.`)
   }
 
+  // STRETCH
+
+  function Villian(Vattributes){
+    Humanoid.call(this, Vattributes);
+    this.mission = Vattributes.mission;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  function Hero(HeroAttributes){
+    Humanoid.call(this, HeroAttributes);
+    this.mission = HeroAttributes.mission;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+
+
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+  const badGuy = new Villian({
+    mission: 'seek destruction',
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Dragon',
+    faction: 'Whatever',
+    weapons: [
+      'Gandolf Staff',
+    ],
+    language: 'Elvish',
+  });
+
+    const goodGuy = new Hero({
+    mission: 'keep peace',
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Knight',
+    faction: 'Kingdom',
+    weapons: [
+      'Excalibur',
+    ],
+    language: 'British',
+  });
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -105,9 +156,13 @@ function GameObject(GOattributes){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(badGuy.mission);
+  console.log(goodGuy.mission);
+  console.log(goodGuy.language, goodGuy.faction);
 */
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects 
+  // which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
