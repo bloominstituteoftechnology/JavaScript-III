@@ -73,6 +73,9 @@ function Humanoid(attributes){
   this.faction = attributes.faction;
   this.weapons = attributes.weapons;
   this.language = attributes.language;
+  this.archtype = attributes.archtype;
+  this.damage = attributes.damage;
+  this.armor = attributes.armor;
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function(){
@@ -95,13 +98,16 @@ Humanoid.prototype.greet = function(){
       width: 1,
       height: 1,
     },
-    hp: 5,
+    hp: 10,
     name: 'Bruce',
     faction: 'Mage Guild',
     weapons: [
       'Staff of Shamalama',
     ],
     language: 'Common Toungue',
+    archtype: 'Mage',
+    damage: 4,
+    armor: 1,
   });
 
   const swordsman = new Humanoid({
@@ -111,7 +117,7 @@ Humanoid.prototype.greet = function(){
       width: 2,
       height: 2,
     },
-    hp: 15,
+    hp: 20,
     name: 'Sir Mustachio',
     faction: 'The Round Table',
     weapons: [
@@ -119,6 +125,9 @@ Humanoid.prototype.greet = function(){
       'Shield',
     ],
     language: 'Common Toungue',
+    archtype: 'Swordsman',
+    damage: 3,
+    armor: 3
   });
 
   const archer = new Humanoid({
@@ -128,7 +137,7 @@ Humanoid.prototype.greet = function(){
       width: 2,
       height: 4,
     },
-    hp: 10,
+    hp: 15,
     name: 'Lilith',
     faction: 'Forest Kingdom',
     weapons: [
@@ -136,6 +145,9 @@ Humanoid.prototype.greet = function(){
       'Dagger',
     ],
     language: 'Elvish',
+    archtype: 'Archer',
+    damage: 2,
+    armor: 2,
   });
 
   console.log(mage.createdAt); // Today's date
@@ -155,3 +167,79 @@ Humanoid.prototype.greet = function(){
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+  function Hero(attributes){
+    Humanoid.call(this, attributes);
+    this.specialAbility = attributes.specialAbility;
+    this.critChance = attributes.critChance;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.attack = function(target){
+    console.log(`${this.name} attacks ${target.name} the ${target.archtype} with ${this.weapons[0]}.`);
+
+    let damageTaken = 0;
+
+    if(Math.random() < this.critChance){
+      damageTaken = this.damage*1.5 - target.armor;
+      console.log(`Critical Strike!`);
+    }
+    else{
+      damageTaken = this.damage - target.armor;
+    }
+
+    target.hp -= damageTaken;
+
+    if(target.hp <= 0){
+      console.log(`${target.name} takes ${damageTaken} points of damage and has been slain.`)
+      target.destroy();
+    }
+    else{
+      console.log(`${target.name} takes ${damageTaken} points of damage and has ${target.hp} hp remaining.`);
+    }
+  }
+
+  const sheRa = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 4,
+    },
+    hp: 30,
+    name: 'She-Ra',
+    faction: 'Masters of the Universe',
+    weapons: [
+      'Sword of Protection',
+      'Shield',
+      'Boomarang'
+    ],
+    language: 'Eternian',
+    specialAbility: 'Transmute Sword',
+    archtype: 'Princess of Power',
+    damage: 8,
+    critChance: 0.5,
+    armor: 2,
+  });
+  
+  const evilLyn = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 4,
+    },
+    hp: 30,
+    name: 'Evil-Lyn',
+    faction: 'Agents of Doom',
+    weapons: [
+      'Crystal Orb Greatstaff',
+      'Dark Magic'
+    ],
+    language: 'Eternian',
+    specialAbility: 'Stormcall',
+    archtype: 'Dark Wizard',
+    damage: 7,
+    critChance: 0.3,
+    armor: 1, 
+  });
