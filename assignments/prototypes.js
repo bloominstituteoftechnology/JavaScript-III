@@ -180,7 +180,7 @@ function Villian(attr) {
 // chain Vilian's prototype to Humanoid's prototype
 Villian.prototype = Object.create(Humanoid.prototype);
 Villian.prototype.greet = function() {
-  `${this.name.toUpperCase} wants to destroy it all`;
+  console.log(`${this.name.toUpperCase()} wants to destroy it all`);
 }
 
 // let Villian to revive from dead if it hasn't been dead for more than 2 seconds
