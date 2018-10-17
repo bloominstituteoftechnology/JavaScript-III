@@ -24,7 +24,7 @@ function GameObject(attributes) {
 }
 
 GameObject.prototype.destroy = function () {
-  return `${this.name} was removed from the game.`;
+    return `${this.name} was removed from the game.`; 
 }
 
 /*
@@ -38,6 +38,7 @@ function CharacterStats(stats) {
   GameObject.call(this, stats);
   this.name = stats.name;
   this.hp = stats.hp;
+  this.alive = stats.alive;
 }
 
 
@@ -45,8 +46,10 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`;
+  return `${this.name} took damage`;
 };
+
+
 /*
   === Humanoid ===
   * faction
@@ -83,28 +86,31 @@ Humanoid.prototype.greet = function () {
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-function Villian() {
-   
+function Villian(info) {
+  GameObject.call(this, info);
+  CharacterStats.call(this, info);
+  Humanoid.call(this, info);
 }
 
 Villian.prototype = Object.create(Humanoid.prototype);
 
 Villian.prototype.fireball = function (character) {
-  return (character.hp--), `${this.name} casts fireball; ${character.name} lost one hp!`
+    character.hp--;
+    return [`${this.name} casts fireball`, ` ${character.takeDamage()}`, `${character.name} now has ${character.hp} hp.`].toString();
 }
   
-function Hero() {
-  
+function Hero(info) {
+  GameObject.call(this, info);
+  CharacterStats.call(this, info);
+  Humanoid.call(this, info);
 }
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
-Hero.prototype.smite = function(character) {
-  return (
-    character.hp--,
-    `${this.name} casts smite; ${character.name} lost one hp!`
-  );
-};
+Hero.prototype.smite = function (character) {
+    character.hp--;
+    return [`${this.name} casts smite`, ` ${character.takeDamage()}`, ` ${character.name} now has ${character.hp} hp.`].toString();
+}
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 
@@ -113,15 +119,14 @@ Hero.prototype.smite = function(character) {
     dimensions: {
       length: 2,
       width: 1,
-      height: 1,
+      height: 1
     },
     hp: 5,
     name: 'Bruce',
     faction: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
+    weapons: ['Staff of Shamalama'],
     language: 'Common Toungue',
+    alive: true
   });
 
   const swordsman = new Humanoid({
@@ -129,16 +134,14 @@ Hero.prototype.smite = function(character) {
     dimensions: {
       length: 2,
       width: 2,
-      height: 2,
+      height: 2
     },
     hp: 15,
     name: 'Sir Mustachio',
     faction: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
+    weapons: ['Giant Sword', 'Shield'],
     language: 'Common Toungue',
+    alive: true
   });
 
   const archer = new Humanoid({
@@ -146,18 +149,50 @@ Hero.prototype.smite = function(character) {
     dimensions: {
       length: 1,
       width: 2,
-      height: 4,
+      height: 4
     },
     hp: 10,
     name: 'Lilith',
     faction: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
+    weapons: ['Bow', 'Dagger'],
     language: 'Elvish',
+    alive: true
   });
 
+const warlock = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+  },
+  hp: 5,
+  name: 'Chantris',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff',
+    'Demon Pet'
+  ],
+  language: 'Common Tongue',
+  alive: true
+});
+
+const paladin = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 3
+  },
+  hp: 10,
+  name: 'Fortis',
+  faction: 'Warrior Guild',
+  weapons: ['Mace', 'Shield'],
+  language: 'Common Tongue',
+  alive: true
+});
+
+// Console.logs
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -168,5 +203,17 @@ Hero.prototype.smite = function(character) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(warlock.fireball(paladin));
+  console.log(paladin.smite(warlock));
+  console.log(warlock.fireball(paladin));
+  console.log(paladin.smite(warlock));
+  console.log(warlock.fireball(paladin));
+  console.log(paladin.smite(warlock));
+  console.log(warlock.fireball(paladin));
+  console.log(paladin.smite(warlock));
+  console.log(warlock.fireball(paladin));
+  console.log(paladin.smite(warlock));
+  
+  
 
 
