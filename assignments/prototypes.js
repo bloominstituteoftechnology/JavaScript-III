@@ -165,6 +165,23 @@ Villain.prototype.cyborz = function (){
     language: 'PHP',
   });
 
+const niceGuy = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 4,
+    height: 2,
+  },
+  hp: 50,
+  name: 'Asa',
+  faction: 'Tanks R us',
+  weapons: [
+    'Confident Smile',
+    'Great Hair',
+  ],
+  language: 'JavaScript',
+});
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -175,6 +192,9 @@ Villain.prototype.cyborz = function (){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(coder.weapons);
+  console.log(coder.cyborz());
+  console.log(niceGuy.taunt());
 
 
   // Stretch task: 
