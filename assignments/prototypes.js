@@ -14,6 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(attr){
+ this.createdAt = attr.createdAt;
+ this.dimensions = attr.dimensions;
+}
+
+GameObject.prototype.destroy = function(){
+  return 'Object was removed from the game.'
+}
 
 /*
   === CharacterStats ===
@@ -22,7 +30,16 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(CharAttr){
+  GameObject.call(this,CharAttr);
+  this.hp = CharAttr.hp;
+  this.name = CharAttr.name;
+}
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+}
 /*
   === Humanoid ===
   * faction
@@ -32,16 +49,51 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+function Humanoid(HumanoidAttr){
+  CharacterStats.call(this,HumanoidAttr);
+  this.faction = HumanoidAttr.faction;
+  this.weapons = HumanoidAttr.weapons;
+  this.language = HumanoidAttr.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+///////////////////////////////////
+function Hero(FighterAttr){
+  Humanoid.call(this,FighterAttr);
+  this.attackDamage = FighterAttr.attackDamage;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.attack = function(opponent){
+  let OppoName = opponent.name;
+  let OppoHP = opponent.hp;
+  return `${this.name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
+}
+//////
+function Villian(FighterAttr){
+  Humanoid.call(this,FighterAttr);
+  this.attackDamage = FighterAttr.attackDamage;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+Villian.prototype.attack = function(opponent){
+  let OppoName = opponent.name;
+  let OppoHP = opponent.hp;
+  return `${this.name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// Test you work by uncommenting these 3 objects and the list of console logs below:
+// Test your work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -91,6 +143,42 @@
     ],
     language: 'Elvish',
   });
+//////////////////////////////
+  const wizard = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 100,
+    name: 'Harry',
+    faction: 'Wizards',
+    weapons: [
+      'Wand',
+      'Cloak',
+    ],
+    language: 'English',
+    attackDamage:10
+  });
+
+  const witch = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 100,
+    name: 'Lilith',
+    faction: 'Witches',
+    weapons: [
+      'Wand',
+      'Cloak',
+    ],
+    language: 'English',
+    attackDamage:10
+  });
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -102,7 +190,12 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  ///////////////////
+  console.log(wizard.name); // Wizard's name
+  console.log(witch.attackDamage); // Witch's attackDamage
+  //console.log(wizard.attack()); // Wizard attacks
+  console.log(wizard.attack(witch)); // Wizard attacks
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
