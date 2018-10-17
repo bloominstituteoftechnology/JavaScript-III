@@ -7,13 +7,22 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(object) {
+    this.createdAt = object.createdAt;
+    this.dimensions = object.dimensions;
+    this.destroy = object.destroy;
+}
+
+GameObject.prototype.destroy = function() {
+    console.log(`${} was removed from the game.`);
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +31,14 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(stats) {
+    this.hp = stats.hp;
+    this.name = stats.name;
+}
+
+CharacterStats.prototype.takeDamage = function() {
+    console.log(`took damage`);
+}
 
 /*
   === Humanoid ===
@@ -32,12 +49,12 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+ * Inheritance chain: GameObject -> CharacterStats -> Humanoid
+ * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+ * Instances of CharacterStats should have all of the same properties as GameObject.
+ */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
@@ -104,7 +121,7 @@
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 */
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+// Stretch task: 
+// * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villian and one a hero and fight it out with methods!
