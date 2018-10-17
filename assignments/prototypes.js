@@ -40,8 +40,53 @@
 */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+/*****************************************************************
+ ************************** Constructor **************************
+ *****************************************************************/
+function GameObject(obj){
+  this.createdAt = obj.createdAt;
+  this.dimensions = obj.dimensions;
+}
 
-/*
+// ************************ Prototype(s) *************************
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;
+}
+
+/*****************************************************************
+ ************************** Constructor **************************
+ *****************************************************************/
+function CharacterStats(obj){
+  GameObject.call(this, obj);
+  this.hp = obj.hp;
+  this.name = obj.name;
+}
+
+// ************************ Prototype(s) *************************
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage`;
+}
+
+/*****************************************************************
+ ************************** Constructor **************************
+ *****************************************************************/
+function Humanoid(obj){
+  CharacterStats.call(this, obj);
+  this.faction = obj.faction;
+  this.weapons = obj.weapons;
+  this.language = obj.language;
+}
+
+// ************************ Prototype(s) *************************
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`;
+}
+
+/*****************************************************************
+ **************************** Objects ****************************
+ *****************************************************************/
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -59,7 +104,7 @@
   });
 
   const swordsman = new Humanoid({
-    createdAt: new Date(),
+    createdAt: new Date('10/18/2018'),
     dimensions: {
       length: 2,
       width: 2,
@@ -76,7 +121,7 @@
   });
 
   const archer = new Humanoid({
-    createdAt: new Date(),
+    createdAt: new Date('10/19/2018'),
     dimensions: {
       length: 1,
       width: 2,
@@ -92,17 +137,20 @@
     language: 'Elvish',
   });
 
+/*****************************************************************
+ ****************************** Main *****************************
+ *****************************************************************/  
   console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  console.log(JSON.stringify(archer.dimensions)); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
   console.log(mage.name); // Bruce
   console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
+  console.log(mage.weapons.toString()); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
