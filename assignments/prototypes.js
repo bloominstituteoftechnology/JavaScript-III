@@ -141,3 +141,99 @@ CharacterStats.prototype.takeDamage = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero(data) {
+    Humanoid.call(this, data);
+    this.morals = data.morals;
+    this.disposition = data.disposition;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.tisButAScratch = function() {
+      this.hp -= 5;
+      if (this.hp <= 0 ) {return `${this.name} has been killed.`};
+      return `${this.name} has ${this.hp} health remaining.`;
+  }
+
+  Hero.prototype.prettyFlowers = function(foe) {
+    foe.hp -= 6;
+    if (foe.hp <= 0) {return `${this.name} has killed ${foe.name}!`;}
+    return `${foe.name} has ${foe.hp} health remaining.`;
+  }
+
+  const jeff = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 1,
+      height: 8,
+    },
+    hp: 15,
+    name: 'Jeff',
+    faction: 'DandyBoys',
+    weapons: [
+      'Hugs',
+      'Kisses',
+    ],
+    language: 'Flowery Language',
+    morals: 'exquisite',
+    disposition: 'gentleman',
+  })
+  console.log(jeff.name);
+  // console.log(jeff.tisButAScratch());
+  // console.log(jeff.tisButAScratch());
+  // console.log(jeff.tisButAScratch());
+  console.log(jeff.prettyFlowers(archer));
+
+  function sadBoy(data) {
+    Humanoid.call(this, data);
+    this.level = data.level;
+    this.disposition = data.disposition;
+
+  }
+
+  sadBoy.prototype = Object.create(Humanoid.prototype);
+
+  sadBoy.prototype.existentialAngst = function(foe) {
+    foe.hp -= 3;
+    if (foe.hp <= 2) {
+      foe.disposition = 'sad';
+      return `${foe.name} is now too ${foe.disposition} to go on living.`;
+    }
+    return `${this.name}'s sadness has crushed ${foe.name}'s will to live. ${foe.hp} health remaining.`;
+  }
+
+  sadBoy.prototype.youDontKnowMyPain = function() {
+    this.disposition = 'miserable';
+    this.hp -= 1;
+    return `${this.name}'s self-pity has struck again, ${this.name}'s health is now down to ${this.hp}.`;
+  }
+
+  const carl = new sadBoy({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 7,
+      height: 3,
+    },
+    hp: 7,
+    name: 'Carl',
+    faction: 'Sad Boys',
+    weapons: [
+      'crippling depression',
+      'soul-crushing regret',
+    ],
+    language: 'sadBoy twitter memes',
+    morals: 'dead like his soul',
+    disposition: 'apathetic',
+  })
+
+  console.log(carl);
+  console.log(carl.youDontKnowMyPain());
+  console.log(carl.existentialAngst(jeff));
+  console.log(carl.existentialAngst(jeff));
+  console.log(carl.existentialAngst(jeff));
+  console.log(carl.existentialAngst(jeff));
+  console.log(carl.existentialAngst(jeff));
+  console.log(carl.existentialAngst(jeff));
