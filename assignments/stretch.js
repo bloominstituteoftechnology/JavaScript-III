@@ -1,3 +1,6 @@
+// Allows reading from console in node.js
+const readline = require('readline-sync');
+
 // Object constructors
 
 // GameObject
@@ -134,10 +137,53 @@ Hero.prototype.attack = function(opponent) {
 
 /* ====================== GAME FUNCTIONS ============================ */
 
-function playGame() {
+function createCharacter() {
 
-  // Hero (player) object
-  let myHero = new Hero({
+  const characterClasses = ["Elf", "Human", "Orc"];
+
+  let heroName = readline.question("What will your hero's name be? ");
+
+  let characterClass = -1;
+  let heroFaction = "undefined";
+  let heroLanguage = "undefined";
+
+  console.log(`There are ${characterClasses.length} classes available to you as an adventurer.`);
+  console.log("You may choose one of the following:\n");
+
+  for (let i = 0; i < characterClasses.length; i++) {
+
+    console.log(`[${i}]: ${characterClasses[i]}`);
+
+  }
+
+  while (characterClass == -1 || isNaN(characterClass) || characterClass > characterClasses.length - 1) {
+
+    characterClass = readline.question("Which class do you choose? ");
+
+  }
+
+  characterClass = Number.parseInt(characterClass);
+
+  switch (characterClass) {
+
+    case 0: // Elf
+      heroFaction = "Elven Clan";
+      heroLanguage = "Elvish";
+      break;
+    case 1:
+      heroFaction = "Human Clan";
+      heroLanguage = "English";
+      break;
+    case 2:
+      heroFaction = "Orc Clan";
+      heroLanguage = "Oricsh";
+      break;
+
+  }
+
+  console.log(`Welcome to the ${heroFaction}, ${heroName}.\n`);
+
+  return new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -145,56 +191,43 @@ function playGame() {
       height: 4,
     },
     hp: 100,
-    name: 'Hero',
-    faction: 'Forest Kingdom',
+    name: heroName,
+    faction: heroFaction,
     weapons: [
       {name: "Dagger", maxDamage: 20},
       {name: "Sword", maxDamage: 35}
     ],
-    language: 'JavaScript',
+    language: heroLanguage,
   });
 
-  // Villian (AI) object
-  let myVillian = new Villian({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    hp: 75,
-    name: 'Villian',
-    faction: 'Mountain Kingdom',
-    weapons: [
-      {name: "Dagger", maxDamage: 25},
-      {name: "Sword", maxDamage: 45}
-    ],
-    language: 'Pig Latin',
-  });
+}
+
+function battle(hero, villian) {
 
   // Introductions
   console.log();
-  console.log(myHero.greet());
-  console.log(myVillian.greet());
+  console.log(hero.greet());
+  console.log(villian.greet());
 
   // Variables
-  let playing = true;
+  let battling = true;
   let turn = 1;
 
   // Game loop
-  while (playing) {
+  while (battling) {
 
     console.log();
 
     if (turn === 1) { // Hero's turn
 
-      let victory = myHero.attack(myVillian);
+      let victory = hero.attack(villian);
 
       if (victory) {
 
-        console.log(myVillian.destroy());
-        console.log(`${myHero.name} has won!`);
-        playing = false;
+        console.log(villian.destroy());
+        console.log(`${hero.name} has won!`);
+        battling = false;
+        return true;
 
       }
 
@@ -204,13 +237,14 @@ function playGame() {
 
     else { // Villian's turn
 
-      let victory = myVillian.attack(myHero);
+      let victory = villian.attack(hero);
 
       if (victory) {
 
-        console.log(myHero.destroy());
-        console.log(`${myVillian.name} has won!`);
-        playing = false;
+        console.log(hero.destroy());
+        console.log(`${villian.name} has won!`);
+        battling = false;
+        return false;
 
       }
 
@@ -224,5 +258,39 @@ function playGame() {
 
 /* ====================== THE GAME ============================ */
 
-// Allows reading from console in node.js
-const readline = require('readline-sync');
+console.log("Welcome to my game. Please create a character.");
+
+const hero = createCharacter();
+
+console.log("You have encountered an enemy. Defeat him, and you will be rewarded.");
+
+let myVillian = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 75,
+  name: 'Evil Villian',
+  faction: 'Mountain Kingdom',
+  weapons: [
+    {name: "Dagger", maxDamage: 25},
+    {name: "Sword", maxDamage: 45}
+  ],
+  language: 'Pig Latin',
+});
+
+let resultOfBattle = battle(hero, myVillian);
+
+if (resultOfBattle) { // Hero won
+
+  console.log(`Great work, ${hero.name}! Here is one hundred million dollars for your efforts.`);
+
+}
+
+else { // Hero lost
+
+  console.log("You have failed to meet my expectations. Leave this land, and do not dare return.");
+
+}
