@@ -69,26 +69,25 @@ function Hero(FighterAttr){
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.attack = function(opponent){
   if(this.hp <= 0){
-    return "You are dead. You cannot attack";
+    return "You are dead. You cannot attack.";
   } else {
-    let OppoName = opponent.name;
+  let OppoName = opponent.name;
   let OppoHP = opponent.hp;
-  name = this.name;
   attackDamage = this.attackDamage;
   function Damage(){
     if(opponent.hp - this.attackDamage <= 0){
       opponent.hp -= this.attackDamage;
-      return `${OppoName} has been defeated`;
+      return `${OppoName} has been defeated.`;
     } else {
       return opponent.hp -= this.attackDamage;
     }
   }
 
   if(OppoHP <= 0 ){
-    return `${OppoName} has been removed from the game`;
+    return `${OppoName} has been removed from the game.`;
   } else {
     Damage();
-    return `${name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
+    return `${this.name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
   }
   }
   
@@ -102,26 +101,25 @@ function Villian(FighterAttr){
 Villian.prototype = Object.create(Humanoid.prototype);
 Villian.prototype.attack = function(opponent){
   if(this.hp <= 0){
-    return "You are dead. You cannot attack";
+    return "You are dead. You cannot attack.";
   } else {
-    let OppoName = opponent.name;
+  let OppoName = opponent.name;
   let OppoHP = opponent.hp;
-  name = this.name;
   attackDamage = this.attackDamage;
   function Damage(){
     if(opponent.hp - this.attackDamage <= 0){
       opponent.hp -= this.attackDamage;
-      return `${OppoName} has been defeated`;
+      return `${OppoName} has been defeated.`;
     } else {
       return opponent.hp -= this.attackDamage;
     }
   }
 
   if(OppoHP <= 0 ){
-    return `${OppoName} has been removed from the game`;
+    return `${OppoName} has been removed from the game.`;
   } else {
     Damage();
-    return `${name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
+    return `${this.name} attacks ${OppoName} with ${this.attackDamage} damage. \n${OppoName}'s health is now ${OppoHP - this.attackDamage}`;
   }
   }
   
