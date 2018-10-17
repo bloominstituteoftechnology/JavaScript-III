@@ -67,15 +67,21 @@ Humanoid.prototype.greet = function() {
 
 function Hero(good) {
     Humanoid.call(this, good);
-    this.shield = good.sheild;
+    this.soundwave = good.soundwave;
     this.health = good.health;
 }
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
-Hero.prototype.healing = function() {
+
+Hero.prototype.soundwaves = function() {
     this.health -= 40;
-    return `The ${this.name} blocks the throwing knives with his ${this.shield} and is victorious`;
+    return `${this.name} delivers a explosive ${this.weapons[1]} to the villian.`;
+}
+
+Hero.prototype.sonicshock = function() {
+    this.health -= 60;
+    return `${this.name} uses ${this.weapons[0]} to become victorious.`;
 }
 
 
@@ -88,9 +94,14 @@ function Villian(evil) {
 
 Villian.prototype = Object.create(Humanoid.prototype);
 
-Villian.prototype.throwingKnives = function() {
+Villian.prototype.lasers = function() {
     this.health -= 20;
-    return `The villian ${this.name} throws 5 of his ${this.lasers} but misses`;
+    return `The villian ${this.name} shoots ${this.weapons[0]} but misses.`;
+}
+
+Villian.prototype.cyberlink = function() {
+    this.health -= 40;
+    return `${this.name} tries to use ${this.weapons[1]} to no prevail.`;
 }
 
 
@@ -164,8 +175,8 @@ const sonicboom = new Hero({
     name: 'Sonic Boom',
     faction: 'New Earth-Squadron IV',
     weapons: [
-        'shield',
-        'sound waves',
+        'sonic shock',
+        'sound wave',
     ],
     language: 'English'
 });
@@ -182,15 +193,10 @@ const octoBot = new Villian({
     faction: 'Audrino V',
     weapons: [
         'lasers',
-        'cyber link',
+        'cyberlink',
     ],
     language: 'Android'
 });
-
-
-
-
-
 
 
 console.log(mage.createdAt); // Today's date
@@ -205,6 +211,10 @@ console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 console.log("A new battle is about to begin")
 console.log(`The match ${sonicboom.name} vs ${octoBot.name} has begun.`);
+console.log(sonicboom.soundwaves());
+console.log(octoBot.lasers());
+console.log(octoBot.cyberlink());
+console.log(sonicboom.sonicshock());
 
 
 // Stretch task: 
