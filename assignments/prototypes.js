@@ -153,3 +153,19 @@ Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.greet = function() {
   `${this.name.toUpperCase()} is here to safe the day!`;
 }
+
+// let Hero attack its opponent
+Hero.prototype.blast = function(obj) {
+  obj.health -= this.hp; // decrease the health value
+  
+  if (obj.hp > 2) {   // decrease the hp value with a minimum
+    obj.hp--;
+  }
+
+  if (obj.health <= 0) {    // if opponent is defeated
+    console.log(`You're DEAD, ${obj.name}`);
+    obj.dead = new Date();
+  } else {
+    console.log(`Take that you filthy thing!!!`);
+  }
+}
