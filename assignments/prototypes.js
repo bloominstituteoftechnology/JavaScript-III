@@ -23,7 +23,7 @@ function GameObject(dimensions) {
 }
 // == Constructor Methods ==
 GameObject.prototype.destroy = function() {
-    console.log('Object was removed from the game.');
+    return 'Object was removed from the game.';
 }
 
 
@@ -41,7 +41,14 @@ function CharacterStats(hp, name) {
     this.name = name;
 }
 // == Constructor Methods ==
+CharacterStats.prototype.takeDamage = function() {
+    return `${this.name} took damage.`;
+}
 
+const trai = new CharacterStats(4, 'Trai');
+
+console.log(trai);
+console.log(trai.takeDamage());
 
 /*
   === Humanoid ===
