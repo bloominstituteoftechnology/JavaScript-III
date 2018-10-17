@@ -157,7 +157,7 @@ Hero.prototype.greet = function() {
 // let Hero attack its opponent
 Hero.prototype.blast = function(obj) {
   obj.health -= this.hp; // decrease the health value
-  
+
   if (obj.hp > 2) {   // decrease the hp value with a minimum
     obj.hp--;
   }
@@ -167,5 +167,43 @@ Hero.prototype.blast = function(obj) {
     obj.dead = new Date();
   } else {
     console.log(`Take that you filthy thing!!!`);
+  }
+}
+
+// Villian
+function Villian(attr) {
+  Humanoid.call(this, attr);
+  this.health = 100;
+  this.dead = null;
+}
+
+// chain Vilian's prototype to Humanoid's prototype
+Villian.prototype = Object.create(Humanoid.prototype);
+Villian.prototype.greet = function() {
+  `${this.name.toUpperCase} wants to destroy it all`;
+}
+
+// let Villian to revive from dead if it hasn't been dead for more than 2 seconds
+Villian.prototype.revive = function(){
+  if (this.dead) {
+    if (new Date() - this.dead < 2000) {
+      console.log("I Come Back!!!");
+    } else {
+      console.log("I'm really DEAD!!");
+    }
+  } else {
+    console.log("I can't die.. HA HA HA!!!" );
+  }
+}
+
+// let Villian strikes its opponent
+Villian.prototype.strike = function(obj) {
+  obj.health -= this.hp; // decrease the health value
+  
+  if (obj.health <= 0) {
+    console.log("I AM THE KING OF THE GAME!!!!");
+    obj.dead = new Date();
+  } else {
+    console.log(`I'll beat you ${obj.name}!!!`);
   }
 }
