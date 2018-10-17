@@ -49,6 +49,8 @@ function p() {   //make a fast function, this.a will be 43
 
 let obj = new p(); // new obj, let the p function construct it
 console.log(obj.a);
+//GOOD, it works!
+
 // Principle 4
 
 const pm = {
