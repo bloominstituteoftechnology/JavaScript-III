@@ -64,9 +64,9 @@ Humanoid.prototype.greet = function (){
   return `${this.name} offers a greeting in ${this.language}.`
 }
 
-function Hero(super) {
-  Humanoid.call(this, super);
-  this.cape = super.cape;  
+function Hero(tank) {
+  Humanoid.call(this, tank);
+  this.shield = tank.shield;  
 }
 
 Hero.prototype = Object.create(Humanoid.prototype);
@@ -75,6 +75,17 @@ Hero.prototype.taunt = function(){
   return `${this.name} wearing shining armor begins to taunt opponent with your momma jokes, like any good tank should`
 }
  
+function Villain(sleazyRollPlayer) {
+Humanoid.call(this, sleazyRollPlayer);
+  this.invocation = sleazyRollPlayer.invocation;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.cyborz = function (){
+  return `${this.name} dons wizard hat and robe!`
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -135,6 +146,23 @@ Hero.prototype.taunt = function(){
       'Dagger',
     ],
     language: 'Elvish',
+  });
+
+  const coder = new Villain ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 4,
+      height: 2,
+    },
+    hp: 1,
+    name: 'Ian',
+    faction: 'Wanda B Hakorz',
+    weapons: [
+      'Hot Pocket',
+      'DR Pepper',
+    ],
+    language: 'PHP',
   });
 
   console.log(mage.createdAt); // Today's date
