@@ -40,6 +40,8 @@ function CharacterStats(info) {
   }
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 // const test = new CharacterStats({
 //   name: 'John',
 // })
@@ -65,6 +67,8 @@ function Humanoid(data) {
     return `${this.name} offers a greeting in ${this.language}.`
   }
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -140,3 +144,118 @@ function Humanoid(data) {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  // Stretch task 1
+
+  function Villian (myInfo) {
+    Humanoid.call(this, myInfo)
+  }
+
+Villian.prototype = Object.create(Humanoid.prototype)
+
+Villian.prototype.attack = function(opponent) {
+  let opponentHp = opponent.hp;
+  // console.log(opponentHp -= 1);
+  function reduceHp() {
+    return opponentHp -=1;
+  } 
+  return reduceHp;
+}
+
+  function Hero (myInfo) {
+    Humanoid.call(this, myInfo)
+  }
+
+// Stretch task 2
+
+// Villian.prototype.deduct = function() {
+//   for (let i = 0; i < this.hp; i++) {
+//     if (this.hp > 0) {
+//       this.hp += -1;
+//       console.log(hp);
+//     }
+//     else {
+//       return `Your health is at 0. You've been destroyed.`
+//     }
+//   }
+// };
+
+
+
+
+// let villian = Object.create(Humanoid.prototype)
+
+// villian.deduct = function() {
+//   for (let i = 0; i < this.hp; i++) {
+//     if (this.hp > 0) {
+//       console.log(hp);
+//       return hp -= 1;
+//     }
+//     else {
+//       console.log(`Your health is at 0. You've been destroyed.`)
+//     }
+//   }
+// };
+
+// let myFunc = Object.create(Villian.prototype);
+
+
+
+
+// function Hero(myInfo) {
+//   Humanoid.call(this.myInfo);
+// }
+
+// let hero = Object.create(Humanoid.prototype)
+
+// hero.increment = function() {
+//   this.hp += 1;
+//   console.log(this.hp)
+// };
+
+
+// hero.increment();
+
+
+
+// Stretch task 3
+
+const test1 = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 5,
+  },
+  hp: 20,
+  name: 'John',
+  faction: 'United Kingdom',
+  weapons: [
+    'Arrow',
+    'Blade',
+  ],
+  language: 'Spanglish',
+});
+
+const test2 = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 5,
+  },
+  hp: 20,
+  name: 'John',
+  faction: 'United Kingdom',
+  weapons: [
+    'Arrow',
+    'Blade',
+  ],
+  language: 'Spanglish',
+});
+
+
+console.log(test1.attack(test2));
+console.log(test1.attack(test2));
+console.log(test1.attack(test2));
+
