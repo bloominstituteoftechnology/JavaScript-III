@@ -5,7 +5,7 @@
 
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
   
-  Each constructor function has unique properites and methods that are defined in their block comments below:
+  Each constructor function has unique properties and methods that are defined in their block comments below:
 */
   
 /*
@@ -14,6 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(properties){
+  this.createdAt = properties.createdAt;
+  this.dimensions = properties.dimensions;  
+  }
+
+GameObject.prototype.destroy = function(){
+  return `Object was removed from the game.`;
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +30,14 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(stats) {
+  GameObject.call(this, stats);
+  this.hp = stats.hp;
+  this.name = stats.name;
+}
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`
+}
 
 /*
   === Humanoid ===
