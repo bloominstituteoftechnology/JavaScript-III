@@ -215,7 +215,7 @@ console.log("A new battle is about to begin")
 console.log(`The match ${sonicboom.name} vs ${octoBot.name} has begun.`);
 console.log(sonicboom.soundwaves());
 console.log(`${octoBot.name} has been reduced, ${octoBot.name} now has ${sonicboom.health}`);
-// console.log(octoBot.lasers());
+console.log(octoBot.lasers());
 console.log(octoBot.cyberlink());
 console.log(`${sonicboom.name} has been reduced, ${sonicboom.name} now has ${octoBot.health}`);
 console.log(sonicboom.sonicshock());
