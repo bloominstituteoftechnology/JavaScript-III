@@ -151,7 +151,7 @@ function Hero(attr) {
 // chain Hero's prototype to Humanoid's prototype
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.greet = function() {
-  `${this.name.toUpperCase()} is here to safe the day!`;
+  console.log(`${this.name.toUpperCase()} is here to safe the day!`);
 }
 
 // let Hero attack its opponent
