@@ -154,6 +154,7 @@ Villian.prototype.weep = function(superhero) {
   
   if (superhero.hp > 0 && this.hp > 0) {
     superhero.hp -= this.damage;
+    // console.log(superhero.takeDamage());
     console.log (`${this.name} weeps on ${superhero.name} for ${this.damage} damage!!`);
 
     if (superhero.hp <= 0) {
@@ -177,6 +178,7 @@ Hero.prototype.slice = function(enemy) {
   
   if (enemy.hp > 0 && this.hp > 0) {   
     enemy.hp -= this.damage; 
+    // console.log(enemy.takeDamage());
     console.log (`${this.name} slices ${enemy.name} for ${this.damage} damage!!`);
 
     if (enemy.hp <= 0) {
