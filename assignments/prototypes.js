@@ -17,6 +17,9 @@
 function GameObject(attributes){
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
+  // this.destroy = function(){
+  //   console.log(this.name + ' was removed from the game.')
+  // }  // if i did it here it wouldnt be a prototype, and it would define the function every time i created something... redundant
 }
 GameObject.prototype.destroy = function(){
   console.log(this.name + ' was removed from the game.');
@@ -44,8 +47,15 @@ function CharacterStats(attributes){
   this.name = attributes.name;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);//inherit parents prototypes
-CharacterStats.prototype.takeDamage = function(){
-  console.log(this.name + ' took damage')
+CharacterStats.prototype.takeDamage = function(damageTaken){
+  this.hp -= damageTaken;
+  if(this.hp <= 0){
+    console.log(`${this.name} takes ${damageTaken} points of damage and has been slain.`)
+    this.destroy();
+  }
+  else{
+    console.log(`${this.name} takes ${damageTaken} points of damage and has ${this.hp} hp remaining.`);
+  }
 };
 // const someStats = new CharacterStats({
 //   createdAt: new Date(),
@@ -150,19 +160,20 @@ Humanoid.prototype.greet = function(){
     armor: 2,
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // archer.greet();
+  // mage.takeDamage();
+  // swordsman.destroy();
   //console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   //console.log(mage.takeDamage()); // Bruce took damage.
   //console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  archer.greet();
-  mage.takeDamage();
-  swordsman.destroy();
+
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
@@ -188,15 +199,7 @@ Humanoid.prototype.greet = function(){
       damageTaken = this.damage - target.armor;
     }
 
-    target.hp -= damageTaken;
-
-    if(target.hp <= 0){
-      console.log(`${target.name} takes ${damageTaken} points of damage and has been slain.`)
-      target.destroy();
-    }
-    else{
-      console.log(`${target.name} takes ${damageTaken} points of damage and has ${target.hp} hp remaining.`);
-    }
+    target.takeDamage(damageTaken);
   }
 
   const sheRa = new Hero({
