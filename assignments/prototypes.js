@@ -58,12 +58,34 @@ function Humanoid(human) {
   this.faction = human.faction;
   this.weapons = human.weapons;
   this.language = human.language;
+  this.attack = human.attack;
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`
+}
+
+
+function Hero(hero) {
+  Humanoid.call(this, hero);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.phrase = function() {
+  return `I ${this.name} from the ${this.faction} hate villains!`;
+}
+
+function Villain(villain) {
+  Humanoid.call(this, villain);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.phrase = function() {
+  return `I ${this.name} from the ${this.faction} hate heroes!`;
 }
 
 
@@ -128,6 +150,42 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const paladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 3,
+      height: 4,
+    },
+    hp: 45,
+    attack: 5,
+    name: 'McHammer',
+    faction: 'Heroes Guild',
+    weapons: [
+      'Mace',
+      'Miracles',
+    ],
+    language: 'High Elf',
+  })
+
+  const darkKnight = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 3,
+    },
+    hp: 45,
+    attack: 5,
+    name: 'Chaos',
+    faction: 'Villains Guild',
+    weapons: [
+      'Katana',
+      'Dark Magic',
+    ],
+    language: 'Blood Elf',
+  })
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -139,8 +197,11 @@ Humanoid.prototype.greet = function() {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+  console.log(paladin.phrase());
+  console.log(darkKnight.phrase());
+
 
   // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
