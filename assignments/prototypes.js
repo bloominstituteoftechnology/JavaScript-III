@@ -17,9 +17,10 @@
 function GameObject(data) {
   this.createdAt = new Date();
   this.dimensions = data.dimensions;
-  this.destroy = function() {
-    return `${this.name} was removed from the game.`;
-  }
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
 }
 
 const bob = new GameObject({dimensions: {length:1, width: 2, height: 4}});
@@ -37,9 +38,12 @@ function CharacterStats(data) {
   GameObject.call(this, data);
   this.hp = data.hp;
   this.name = data.name;
-  this.takeDamage = function() {
-    return `${this.name} took damage.`
-  }
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
 }
 /*
   === Humanoid ===
@@ -55,9 +59,12 @@ function CharacterStats(data) {
   this.faction = data.faction;
   this.weapons = data.weapons;
   this.language = data.language;
-  this.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}.`
-  }
+ }
+
+ Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+ Humanoid.prototype.greet = function() {
+   return `${this.name} offers a greeting in ${this.language}`;
  }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
