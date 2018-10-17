@@ -15,11 +15,17 @@
 */
 
 // Principle 1: code example for Window Binding
-console.log(this); // 'this' is equal to the rendered window
+console.log(this); // 'this' == the rendered window
 
-// Principle 2
+// Principle 2: code example for Implicit Binding
+let car = {
+    speed: '55 mph',
+    drive: function() {
+        console.log(`Currently traveling: ${this.speed}`);
+    }
+}
 
-// code example for Implicit Binding
+car.drive(); //'this' == car object
 
 // Principle 3
 
