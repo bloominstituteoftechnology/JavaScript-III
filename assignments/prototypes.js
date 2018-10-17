@@ -17,9 +17,9 @@
 */
 
 // == Constructor Function ==
-function GameObject(dimensions) {
+function GameObject(attributes) {
     this.createdAt = new Date();
-    this.dimensions = dimensions;
+    this.dimensions = attributes.dimensions;
 }
 // == Constructor Methods ==
 GameObject.prototype.destroy = function() {
@@ -36,19 +36,17 @@ GameObject.prototype.destroy = function() {
 */
 
 // == Constructor Function ==
-function CharacterStats(hp, name) {
-    this.hp = hp;
-    this.name = name;
+function CharacterStats(attributes) {
+    GameObject.call(this, attributes);
+    this.hp = attributes.hp;
+    this.name = attributes.name;
 }
 // == Constructor Methods ==
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
     return `${this.name} took damage.`;
 }
-
-const trai = new CharacterStats(4, 'Trai');
-
-console.log(trai);
-console.log(trai.takeDamage());
 
 /*
   === Humanoid ===
