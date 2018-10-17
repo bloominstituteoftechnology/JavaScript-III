@@ -21,7 +21,7 @@ function GameObject(object) {
 }
 
 GameObject.prototype.destroy = function() {
-    console.log(`${this.name} was removed from the game.`);
+    return `${this.name} was removed from the game.`;
 }
 
 /*
