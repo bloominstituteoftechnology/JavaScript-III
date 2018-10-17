@@ -61,6 +61,10 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() {
   return (`${this.name} took damage`);
 }
+CharacterStats.prototype.heal = function(hpHeal) {
+  this.hp += hpHeal;
+  return (`${this.name} has eaten and gained ${hpHeal} health.`);
+}
 // ==================== CharacterStats Constructor Above
 
 function Humanoid(humAttrib) {
@@ -233,11 +237,13 @@ gargamel.weep(jack);
 jack.slice(gargamel);
 jack.slice(gargamel);
 gargamel.weep(jack);
+console.log(gargamel.heal(10));
 jack.slice(gargamel);
 jack.slice(gargamel);
-// gargamel.weep(jack);
-// gargamel.weep(jack);
-// gargamel.weep(jack);
+console.log(jack.heal(15));
+gargamel.weep(jack);
+gargamel.weep(jack);
+gargamel.weep(jack);
 
 console.log(gargamel.hp);
 console.log(jack.hp);
