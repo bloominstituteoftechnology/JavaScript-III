@@ -62,7 +62,36 @@ function Humanoid(characteristics) {
     return `${this.name} offers a greeting in ${this.language}.`;
   };
 };
- 
+
+  // Stretch task: 
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villian (stats) {
+    Humanoid.call(this, stats);
+    this.fireball = function () {
+      hero.hp -= 1;
+      return `${this.name} casts a fireball at the hero!`;
+    };
+    this.death = function () {
+      if (villian.hp <= 0) {
+        console.log(`${this.name} has died...`);
+      };
+    };
+  };
+
+  function Hero (stats) {
+    Humanoid.call(this, stats);
+    this.summon = function () {
+      villian.hp -= 100;
+      return `${this.name} has summoned Bahumat!`;
+    }
+  };
+
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -122,6 +151,41 @@ function Humanoid(characteristics) {
     language: 'Elvish',
   });
 
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      lendth: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 100,
+    name: 'Veigar',
+    faction: 'Yordle',
+    weapon: [
+      'magic',
+      'staff',
+    ],
+    language: 'Common Toungue',
+  });
+
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      lendth: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 100,
+    name: 'Yuna',
+    faction: 'Yevon',
+    weapon: [
+      'Holy',
+      'Staff',
+      'Summons',
+    ],
+    languages: 'Common Toungue',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -132,9 +196,9 @@ function Humanoid(characteristics) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(villian.fireball(), hero.hp);
+  villian.death();
+  console.log(hero.summon());
+  villian.death();
 
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villian and one a hero and fight it out with methods!
