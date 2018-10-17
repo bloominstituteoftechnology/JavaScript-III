@@ -100,7 +100,7 @@ Hero.prototype.attack = function(){
     villian.hp--;
     return `The villian has ${villian.hp} health left! You have ${this.hp} health remaining.`;
   } else if (successChance < 0.49 && this.hp >= 1 && villian.hp >=1) {
-    --this.hp--;
+    this.hp--;
     return `You're strike missed and you've been hit instead! The villian has ${villian.hp} and you have ${this.hp} health remaining.`;
   } else if (this.hp < 1 && villian.hp >= 1){
     return `Sad trombone. You've been defeated!`
