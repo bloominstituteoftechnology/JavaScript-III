@@ -63,6 +63,15 @@ Humanoid.prototype = Object.create(characterStats.prototype);
  Humanoid.prototype.greet = function() {
    return `${this.name} offers a cool greeting in ${this.language}`;
  }
+
+ // Hero - Ash
+ function Hero(heroObj) {
+   Humanoid.call(this, heroObj) 
+   this.juice = heroObj.juice;
+   this.josh = heroObj.josh;
+   this.good = heroObj.good;
+   this.evil = heroObj.evil
+ }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -122,6 +131,24 @@ Humanoid.prototype = Object.create(characterStats.prototype);
     language: 'Elvish',
   });
 
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 200,
+    juice: 400,
+    name: 'Ash',
+    faction: 'Really good programmers',
+    weapons: [
+      'Shame',
+      'Josh',
+    ],
+    language: 'All Known Languages',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.hp); // 15
@@ -133,6 +160,10 @@ Humanoid.prototype = Object.create(characterStats.prototype);
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+  //check hero stuff
+  console.log(hero.createdAt); //when did he git created?
+  console.log(hero.name); //did ash pop out?
+  console.log(hero.juice); // how much juice, gamerfuel does ash have?
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
