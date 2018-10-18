@@ -7,11 +7,54 @@
 
   <title>JS III</title>
 
+  <link rel="stylesheet" href="css/style.css">
   <script src="this.js"></script>
-  <script src="prototypes.js"></script>
 </head>
 
 <body>
-<h1>JS III - Check your work in the console!</h1>
+  <div class="container">
+    <header class="header">
+      <h1>JS III - The Battle Of The Two Towers</h1>
+    </header>
+    <div id="ctn" class="main-container">
+      <div class="hero">
+        <div id="hero-talk">
+          Talk Something
+        </div>
+        <ul id="hero-stat">
+          <li id="hero-power">Power: 5</li>
+          <li id="hero-health">Health: 10</li>
+        </ul>
+        <div class="hero-img">
+          <img id="hero-img" src="img/gandalf-gray.jpg" alt="">
+        </div>
+        <div class="hero-buttons">
+          <div class="button" id="hero-speak">Speak</div>
+          <div class="button" id="hero-attack">Attack</div>
+        </div>
+      </div>
+      <div class="villian">
+        <div id="villian-talk">
+          Say Something here
+        </div>
+        <ul id="villian-stat">
+          <li id="villian-power">Power: 2</li>
+          <li id="villian-live">Live: 3</li>
+          <li id="villian-health">Health: 10</li>
+        </ul>
+        <div class="villian-img">
+          <img id="villian-img" src="img/saruman.jpg" alt="">
+        </div>
+        <div class="villian-buttons">
+          <div class="button" id="villian-speak">Speak</div>
+          <div class="button" id="villian-attack">Attack</div>
+          <div class="button" id="villian-revive">Revive</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="prototypes.js"></script>
 </body>
 </html>
