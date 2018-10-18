@@ -18,6 +18,7 @@
 function GameObject(features) {
   this.createdAt = features.createdAt;
   this.dimensions = features.dimensions;
+  this.name = features.name;
 }
 
 GameObject.prototype.destroy = function() {
@@ -36,7 +37,6 @@ GameObject.prototype.destroy = function() {
 function CharacterStats(attributes) {
   GameObject.call(this, attributes);
   this.hp = attributes.hp;
-  this.name = attributes.name;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
@@ -60,13 +60,13 @@ CharacterStats.prototype.takeDamage = function() {
 */
 
 function Humanoid(attributes) {
-  GameObject.call(this, attributes);
+  // GameObject.call(this, attributes); Doesn't need this - it's redudant
   CharacterStats.call(this, attributes);
   this.faction = attributes.faction;
   this.weapons = attributes.weapons;
   this.language = attributes.language;
 }
-Humanoid.prototype = Object.create(GameObject.prototype);
+// Humanoid.prototype = Object.create(GameObject.prototype); // Doesn't need this. - it's redudant
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
@@ -221,6 +221,11 @@ const VillianRamsey = new Villian({
 
 console.log(HeroJon.hp)
 console.log(VillianRamsey.hp);
+console.log(HeroJon.isAlive)
+console.log(VillianRamsey.isAlive);
+console.log(HeroJon.weapons)
+console.log(VillianRamsey.isAlive);
+console.log(HeroJon.weapons)
 console.log(VillianRamsey.attacked());
 console.log(VillianRamsey.attacked());
 console.log(HeroJon.attacked());
