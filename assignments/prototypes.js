@@ -186,7 +186,7 @@ Villian.prototype.greet = function() {
 // let Villian to revive from dead if it hasn't been dead for more than 2 seconds
 Villian.prototype.revive = function(){
   if (this.dead !== null) {
-    if (new Date() - this.dead < 4000) {
+    if (new Date() - this.dead < 5000) {
       this.health = 100;
       this.dead = null;
       console.log("I Come Back!!!");
@@ -219,9 +219,17 @@ console.log('\n\n Starting the Game');
 hero.greet();
 villian.greet();
 hero.blast(villian);
-console.log(`Villian's health${villian.health}`);
+console.log(`Villian's health: ${villian.health}`);
 villian.strike(hero);
 villian.strike(hero);
 hero.blast(villian);
-hero.blast(villian);
-setTimeout(villian.revive, 9000)
+hero.blast(villian); /// defeated villian
+setTimeout(e => {
+  villian.revive();
+  hero.blast(villian);
+  hero.blast(villian);
+  hero.blast(villian);
+  setTimeout(e => {
+    villian.revive();
+  }, 7000);
+}, 4000);
