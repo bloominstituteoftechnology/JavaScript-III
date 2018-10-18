@@ -144,6 +144,15 @@
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 
+
+// function villattr(charType){
+
+//   function Villain(villainAttributes){
+//     charType.call(this, villainAttributes);
+//     this.attackValue = villainAttributes.attackValue;
+//   }
+// }
+
   function Villain(villainAttributes){
     Humanoid.call(this, villainAttributes);
     this.attackValue = villainAttributes.attackValue;
@@ -215,11 +224,11 @@
   console.log(mageVillain.attack(mageHero));
   console.log(mageVillain.attack(mageHero));
   console.log(mageVillain.attack(mageHero));
-  console.log(mageVillain.attack(mageHero));
-  console.log(mageVillain.attack(mageHero));
-  console.log(mageVillain.attack(mageHero));
-  console.log(mageVillain.attack(mageHero));
-  console.log(mageVillain.attack(mageHero));
+  console.log(mageHero.attack(mageVillain));
+  console.log(mageHero.attack(mageVillain));
+  console.log(mageHero.attack(mageVillain));
+  console.log(mageHero.attack(mageVillain));
+  console.log(mageHero.attack(mageVillain));
 
 
 
