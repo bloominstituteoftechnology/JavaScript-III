@@ -8,40 +8,109 @@
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
   
-/*
-  === GameObject ===
-  * createdAt
-  * dimensions
-  * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
-*/
+function GameObject(GOattributes){
+  this.createdAt = GOattributes.createdAt;
+  this.dimensions = GOattributes.dimensions;
+  }
+  
+  GameObject.prototype.destroy = function (){
+    return (`${this.name} was removed from the game.`)
+  }
 
-/*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
 
-/*
-  === Humanoid ===
-  * faction
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
-  * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
-*/
- 
-/*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+  GameObject.prototype.attack = function(attackee){
+    attackee.hp -= 4;
+    if (attackee.hp > 0) {
+      return `${this.name} attacked ${attackee.name}. ${attackee.name} has ${attackee.hp} HP left.`;
+    } else if (attackee.hp <= 0){
+        return attackee.destroy();
+    }
+
+  }
+  
+  function CharacterStats(CSattributes){
+  GameObject.call(this, CSattributes);
+  this.hp = CSattributes.hp;
+  this.name = CSattributes.name;
+  }
+  
+  CharacterStats.prototype = Object.create(GameObject.prototype);
+  
+  CharacterStats.prototype.takeDamage = function(){
+    return (`${this.name} took damage.`);
+  }
+  
+  function Humanoid(Hattributes){
+    CharacterStats.call(this, Hattributes);
+    this.faction = Hattributes.faction;
+    this.weapons = Hattributes.weapons;
+    this.language = Hattributes.language;
+  }
+  
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
+  
+  Humanoid.prototype.greet = function(){
+    return (`${this.name} offers a greeting in ${this.language}.`)
+  }
+
+  // STRETCH
+
+  function Villian(Vattributes){
+    Humanoid.call(this, Vattributes);
+    this.mission = Vattributes.mission;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+  
+
+
+  function Hero(HeroAttributes){
+    Humanoid.call(this, HeroAttributes);
+    this.mission = HeroAttributes.mission;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+
+
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+  const badGuy = new Villian({
+    mission: 'seek destruction',
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Dragon',
+    faction: 'Whatever',
+    weapons: [
+      'Gandolf Staff',
+    ],
+    language: 'Elvish',
+    
+  });
+
+    const goodGuy = new Hero({
+    mission: 'keep peace',
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 5,
+    name: 'Knight',
+    faction: 'Kingdom',
+    weapons: [
+      'Excalibur',
+    ],
+    language: 'British',
+  });
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +171,17 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(badGuy.mission);
+  console.log(goodGuy.mission);
+  console.log(goodGuy.language, goodGuy.faction);
+
+  console.log(badGuy.attack(goodGuy));
+  console.log(goodGuy.attack(badGuy));
+  console.log(goodGuy.attack(badGuy));
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects 
+  // which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
