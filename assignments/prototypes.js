@@ -229,6 +229,7 @@ console.log(octoBot.cyberlink());
 console.log(`${sonicboom.name} has been reduced, ${sonicboom.name} now has ${octoBot.health}`);
 console.log(sonicboom.sonicshock());
 console.log(`${octoBot.name} has been reduced, ${octoBot.name} now has ${sonicboom.health}`);
+console.log(`${sonicboom.name} is VICTORIOUS!!!`);
 
 
 // Stretch task: 
