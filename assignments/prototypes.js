@@ -56,6 +56,7 @@ function Humanoid(humanoidAttributes){
   this.faction = humanoidAttributes.faction;
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
+  this.damage = humanoidAttributes.damage;
 }
 Humanoid.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype = Object.create(CharacterStats.prototype);
@@ -64,6 +65,53 @@ Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}.`;
 }
 
+//Stretch Villians
+function Villian(vAts){
+  Humanoid.call(this, vAts );
+  this.villian_move = vAts.villian_move;
+}
+Villian.prototype = Object.create(GameObject.prototype);
+Villian.prototype = Object.create(CharacterStats.prototype);
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.vBattle = function(){
+  for(human.hp; human.hp>0;human.hp-=demon.damage){
+    console.log(`${human.name} has been attacked by ${demon.name} of the ${demon.faction} and is currently at ${human.hp} hp`);
+    if(human.hp <= 10){
+      return `${human.name} has been slain`;
+    }
+  }
+}
+
+function Hero(hAts){
+  Humanoid.call(this, hAts);
+  this.hero_move = hAts.hero_move;
+}
+Hero.prototype = Object.create(GameObject.prototype);
+Hero.prototype = Object.create(CharacterStats.prototype);
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.hBattle = function(){
+  for(demon.hp; demon.hp>0;demon.hp-=human.damage){
+    console.log(`${demon.name} has been attacked and is currently at ${demon.hp} hp`);
+    if(demon.hp = 0){
+      return `${demon.name} has been vanquished`
+    }
+}
+}
+
+
+// function Hero(heroAbilities){
+//   Humanoid.call(this, heroAbilities);
+//
+// }
+// Hero.prototype = Object.create(GameObject.prototype);
+// Hero.prototype = Object.create(CharacterStats.prototype);
+// Hero.prototype = Object.create(Humanoid.prototype);
+//
+// Hero.prototype.meleeAttack = function(){
+//
+// }
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -81,12 +129,13 @@ Humanoid.prototype.greet = function(){
       width: 1,
       height: 1,
     },
-    hp: 5,
+    hp: 50,
     name: 'Bruce',
     faction: 'Mage Guild',
     weapons: [
       'Staff of Shamalama',
     ],
+    damage: 45,
     language: 'Common Toungue',
   });
 
@@ -97,13 +146,14 @@ Humanoid.prototype.greet = function(){
       width: 2,
       height: 2,
     },
-    hp: 15,
+    hp: 150,
     name: 'Sir Mustachio',
     faction: 'The Round Table',
     weapons: [
       'Giant Sword',
       'Shield',
     ],
+    damage: 40,
     language: 'Common Toungue',
   });
   //
@@ -114,14 +164,51 @@ Humanoid.prototype.greet = function(){
       width: 2,
       height: 4,
     },
-    hp: 10,
+    hp: 100,
     name: 'Lilith',
     faction: 'Forest Kingdom',
     weapons: [
       'Bow',
       'Dagger',
     ],
+    damage: 25,
     language: 'Elvish',
+  });
+
+  const demon = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 100,
+    name: 'Balthazar',
+    faction: 'Demon Clan',
+    weapons: [
+      'Pitchfork',
+      'sword',
+    ],
+    damage: 15,
+    language: 'demonic',
+  });
+
+  const human = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 3,
+      height: 6,
+    },
+    hp: 160,
+    name: 'King David',
+    faction: 'Situ Clan',
+    weapons: [
+      'left-fist',
+      'right-fist',
+    ],
+    damage: 20,
+    language: 'english',
   });
   //
   console.log(mage.createdAt); // Today's date
@@ -134,8 +221,9 @@ Humanoid.prototype.greet = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log(archer.weapons);
-
+  console.log(archer.damage);
+  console.log(demon.vBattle());
+  console.log(human.hBattle());
   // Stretch task:
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
