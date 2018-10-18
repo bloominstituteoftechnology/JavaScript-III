@@ -15,6 +15,17 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(features) {
+  this.createdAt = features.createdAt;
+  this.dimensions = features.dimensions;
+  this.name = features.name;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+};
+
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +33,21 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(attributes) {
+  GameObject.call(this, attributes);
+  this.hp = attributes.hp;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`
+};
+
+
+
+
+
 
 /*
   === Humanoid ===
@@ -32,6 +58,22 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(attributes) {
+  // GameObject.call(this, attributes); Doesn't need this - it's redudant
+  CharacterStats.call(this, attributes);
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+}
+// Humanoid.prototype = Object.create(GameObject.prototype); // Doesn't need this. - it's redudant
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`
+};
+
+  
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +83,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +144,101 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
-  // Stretch task: 
+
+// Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Villian(attributes) {
+  Humanoid.call(this, attributes);
+  this.isAlive = attributes.isAlive;
+}
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+  this.isAlive = attributes.isAlive;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.attacked = function() {
+  this.hp -= 10;
+  if (this.hp <= 0) {
+    this.isAlive = false;
+    return `Sorry ${this.name}, your health is ${this.hp}! You are dead!`;
+  }
+  return `${this.name} you have been attacked! Health: ${this.hp}`;
+};
+
+Hero.prototype.attacked = function() {
+  this.hp -= 10;
+  if (this.hp <= 0) {
+    this.isAlive = false;
+      return `Sorry ${this.name}, your health is ${this.hp}! You are dead!`;
+  }
+  return `${this.name} you have been attacked! Health: ${this.hp}`;
+};
+
+const HeroJon = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 100,
+  name: 'Jon',
+  faction: 'Winterfell',
+  weapons: [
+    'Valyrian Steel Sword',
+    'Wolf',
+  ],
+  language: 'English',
+  isAlive: true,
+});
+
+const VillianRamsey = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 100,
+  name: 'Ramsey',
+  faction: 'The Dreadfort',
+  weapons: [
+    'Bow',
+    'Sword',
+  ],
+  language: 'English',
+  isAlive: true,
+});
+
+console.log(HeroJon.hp)
+console.log(VillianRamsey.hp);
+console.log(HeroJon.isAlive)
+console.log(VillianRamsey.isAlive);
+console.log(HeroJon.weapons)
+console.log(VillianRamsey.isAlive);
+console.log(HeroJon.weapons)
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
+console.log(HeroJon.attacked());
+console.log(HeroJon.attacked());
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
+console.log(HeroJon.attacked());
+console.log(VillianRamsey.attacked());
+console.log(HeroJon.attacked());
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
+console.log(HeroJon.attacked());
+console.log(HeroJon.attacked());
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
