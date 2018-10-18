@@ -14,6 +14,7 @@ h1 {
 
 .container {
   max-width: 80rem;
+  min-width: 75rem;
   width: 96%;
   /* height: 40rem; */
   margin: 0 auto;
@@ -34,13 +35,61 @@ h1 {
   display: flex;
   justify-content: space-between;
   background-color: aqua;
+  position: relative;
 }
 
-.main-container ul {
+.hero,
+.villian {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#hero-talk,
+#villian-talk {
+  text-align: center;
+  padding: 10px;
+  background-color: white;
+  width: 100%;
+  height: 10rem;
+  border-radius: 20px;
+  font-size: 1.8rem;
+}
+
+#hero-stat,
+#villian-stat {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  justify-content: space-between;
   list-style-type: none;
+  font-size: 2rem;
+}
+
+
+.hero-img,
+.villian-img {
+  width: 100%;
+  height: 170px;
+  overflow: hidden;
+  border-radius: 2rem;
+}
+#hero-img,
+#villian-img {
+  width: 100%;
+}
+
+#hero-buttons,
+#villian-buttons {
+  width: 100px;
+  display: flex;
+  border: 10px solid gray;
+  background-color: red;
 }
 
 .button {
+  width: 100%;
   border: 1px solid blue;
   border-radius: 100px;
   margin: 10px; 
