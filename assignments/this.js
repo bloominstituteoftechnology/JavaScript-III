@@ -8,7 +8,8 @@
 * 3.  Explicit binding of occurs when you are explicity passing in a `this` context to 
       call(), or apply().
       
-* 4. Default binding refers to how `this` is the global context whenever a function is      invoked without any other rules.
+* 4. New Binding is used when a constructor function used, so if we need to to use an objects in
+     the function we have to use the new keyword to create an instance of the object.
 *
 * write out a code example of each explanation above
 */
