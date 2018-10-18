@@ -19,7 +19,7 @@ h1 {
   /* height: 40rem; */
   margin: 0 auto;
   padding: 20px;
-  background-color: burlywood;
+  background-color: darkgoldenrod;
   font-size: 1.6rem;
 }
 
@@ -34,7 +34,7 @@ h1 {
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  background-color: aqua;
+  background-color:lightgray;
   position: relative;
 }
 
@@ -80,19 +80,29 @@ h1 {
   width: 100%;
 }
 
-#hero-buttons,
-#villian-buttons {
-  width: 100px;
-  display: flex;
-  border: 10px solid gray;
-  background-color: red;
+.hero-buttons,
+.villian-buttons {
+  width: 100%;
 }
+
+
 
 .button {
   width: 100%;
-  border: 1px solid blue;
+  color:white;
+  background-color: darkgoldenrod;
   border-radius: 100px;
   margin: 10px; 
   padding: 10px;
   text-align: center;
+}
+
+.button:hover {
+  color: darkgoldenrod;
+  background-color: white;
+}
+
+.button:active {
+  color: white;
+  background-color: white;
 }
