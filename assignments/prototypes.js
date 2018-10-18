@@ -14,15 +14,17 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-function GameObject(object) {
-    this.createdAt = object.createdAt;
-    this.dimensions = object.dimensions;
-
+class GameObject {
+    constructor(object) {
+        this.createdAt = object.createdAt;
+        this.dimensions = object.dimensions;
+    }
+    destroy() {
+        return `${this.name} was removed from the game.`;
+    }
 }
 
-GameObject.prototype.destroy = function() {
-    return `${this.name} was removed from the game.`;
-}
+
 
 /*
   === CharacterStats ===
@@ -31,17 +33,21 @@ GameObject.prototype.destroy = function() {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(stats) {
-    this.hp = stats.hp;
-    this.name = stats.name;
-    GameObject.call(this, stats);
+class CharacterStats extends GameObject {
+    constructor(stats) {
+        super(stats);
+        this.hp = stats.hp;
+        this.name = stats.name;
+        // GameObject.call(this, stats);
+    }
+    takeDamage() {
+        return `${this.name} took damage`;
+    }
 }
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
+// CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function() {
-    return `${this.name} took damage`;
-}
+
 
 /*
   === Humanoid ===
@@ -52,59 +58,61 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid(humanoidAtt) {
-    this.faction = humanoidAtt.faction;
-    this.weapons = humanoidAtt.weapons;
-    this.language = humanoidAtt.language;
-    CharacterStats.call(this, humanoidAtt);
+class Humanoid extends CharacterStats {
+    constructor(humanoidAtt) {
+        super(humanoidAtt);
+        this.faction = humanoidAtt.faction;
+        this.weapons = humanoidAtt.weapons;
+        this.language = humanoidAtt.language;
+        // CharacterStats.call(this, humanoidAtt);
+    }
+    greet() {
+        return `${this.name} offers a greeting in ${this.language}.`;
+    }
 }
 
-Humanoid.prototype = Object.create(GameObject.prototype);
-Humanoid.prototype = Object.create(CharacterStats.prototype);
+// Humanoid.prototype = Object.create(GameObject.prototype);
+// Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-Humanoid.prototype.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}.`;
+
+
+class Hero extends Humanoid {
+    constructor(good) {
+        super(good);
+        // Humanoid.call(this, good);
+        // this.soundwave = good.soundwave;
+        this.health = good.health;
+    }
+    soundwaves() {
+        this.health -= 40;
+        return `${this.name} delivers a explosive ${this.weapons[1]} to the villian.`;
+    }
+    sonicshock() {
+        this.health -= 60;
+        return `${this.name} uses ${this.weapons[0]} to become victorious.`;
+    }
 }
 
-function Hero(good) {
-    Humanoid.call(this, good);
-    // this.soundwave = good.soundwave;
-    this.health = good.health;
+// Hero.prototype = Object.create(Humanoid.prototype);
+
+class Villian extends Humanoid {
+    constructor(evil) {
+        super(evil);
+        // Humanoid.call(this, evil);
+        // this.lasers = evil.lasers;
+        this.health = evil.health;
+    }
+    lasers() {
+        this.health -= 20;
+        return `The villian ${this.name} shoots ${this.weapons[0]} but misses.`;
+    }
+    cyberlink() {
+        this.health -= 40;
+        return `${this.name} tries to use ${this.weapons[1]} and hits.`;
+    }
 }
 
-Hero.prototype = Object.create(Humanoid.prototype);
-
-
-Hero.prototype.soundwaves = function() {
-    this.health -= 40;
-    return `${this.name} delivers a explosive ${this.weapons[1]} to the villian.`;
-}
-
-Hero.prototype.sonicshock = function() {
-    this.health -= 60;
-    return `${this.name} uses ${this.weapons[0]} to become victorious.`;
-}
-
-
-
-function Villian(evil) {
-    Humanoid.call(this, evil);
-    // this.lasers = evil.lasers;
-    this.health = evil.health;
-}
-
-Villian.prototype = Object.create(Humanoid.prototype);
-
-Villian.prototype.lasers = function() {
-    this.health -= 20;
-    return `The villian ${this.name} shoots ${this.weapons[0]} but misses.`;
-}
-
-Villian.prototype.cyberlink = function() {
-    this.health -= 40;
-    return `${this.name} tries to use ${this.weapons[1]} and hits.`;
-}
-
+// Villian.prototype = Object.create(Humanoid.prototype);
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
