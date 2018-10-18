@@ -312,7 +312,7 @@ while (fighting) {
   if (fighting) {
 
     numVictories++;
-    console.log(`Great work, ${hero.name}! Your HP has been restored by ${20 + Math.floor(numVictories / 3) * 30} points. Now onto the next villian!`);
+    console.log(`Great work, ${hero.name}! Your HP has been restored by ${20 + Math.floor(numVictories / 2) * 30} points. Now onto the next villian!`);
     hero.hp += 20 + Math.floor(numVictories / 3) * 4;
     hero.weapons[0].uses += 5;
 
