@@ -16,6 +16,17 @@ function GameObject(GOattributes){
   GameObject.prototype.destroy = function (){
     return (`${this.name} was removed from the game.`)
   }
+
+
+  GameObject.prototype.attack = function(attackee){
+    attackee.hp -= 4;
+    if (attackee.hp > 0) {
+      return `${this.name} attacked ${attackee.name}. ${attackee.name} has ${attackee.hp} HP left.`;
+    } else if (attackee.hp <= 0){
+        return attackee.destroy();
+    }
+
+  }
   
   function CharacterStats(CSattributes){
   GameObject.call(this, CSattributes);
@@ -50,13 +61,16 @@ function GameObject(GOattributes){
   }
 
   Villian.prototype = Object.create(Humanoid.prototype);
+  
+
 
   function Hero(HeroAttributes){
     Humanoid.call(this, HeroAttributes);
     this.mission = HeroAttributes.mission;
   }
 
-  Villian.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype = Object.create(Humanoid.prototype);
+
 
 
 
@@ -77,6 +91,7 @@ function GameObject(GOattributes){
       'Gandolf Staff',
     ],
     language: 'Elvish',
+    
   });
 
     const goodGuy = new Hero({
@@ -159,7 +174,11 @@ function GameObject(GOattributes){
   console.log(badGuy.mission);
   console.log(goodGuy.mission);
   console.log(goodGuy.language, goodGuy.faction);
-*/
+
+  console.log(badGuy.attack(goodGuy));
+  console.log(goodGuy.attack(badGuy));
+  console.log(goodGuy.attack(badGuy));
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
