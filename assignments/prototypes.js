@@ -77,7 +77,7 @@ Villian.prototype = Object.create(Humanoid.prototype);
 Villian.prototype.vBattle = function(){
   for(human.hp; human.hp>0;human.hp-=demon.damage){
     console.log(`${human.name} has been attacked by ${demon.name} of the ${demon.faction} and is currently at ${human.hp} hp`);
-    if(human.hp <= 10){
+    if(`${human.hp}` <= 10){
       return `${human.name} has been slain`;
     }
   }
@@ -94,24 +94,11 @@ Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.hBattle = function(){
   for(demon.hp; demon.hp>0;demon.hp-=human.damage){
     console.log(`${demon.name} has been attacked and is currently at ${demon.hp} hp`);
-    if(demon.hp = 0){
-      return `${demon.name} has been vanquished`
+    if(`${demon.hp}` <= 20){
+      return `${demon.name} has been vanquished`;
     }
+  }
 }
-}
-
-
-// function Hero(heroAbilities){
-//   Humanoid.call(this, heroAbilities);
-//
-// }
-// Hero.prototype = Object.create(GameObject.prototype);
-// Hero.prototype = Object.create(CharacterStats.prototype);
-// Hero.prototype = Object.create(Humanoid.prototype);
-//
-// Hero.prototype.meleeAttack = function(){
-//
-// }
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -189,6 +176,7 @@ Hero.prototype.hBattle = function(){
       'Pitchfork',
       'sword',
     ],
+    villian_move:`demon-edged swork`,
     damage: 15,
     language: 'demonic',
   });
@@ -207,7 +195,8 @@ Hero.prototype.hBattle = function(){
       'left-fist',
       'right-fist',
     ],
-    damage: 20,
+    hero_move: `Star of David`,
+    damage: 15,
     language: 'english',
   });
   //
@@ -222,7 +211,9 @@ Hero.prototype.hBattle = function(){
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   console.log(archer.damage);
+  console.log(demon.villian_move);
   console.log(demon.vBattle());
+  console.log(human.hero_move);
   console.log(human.hBattle());
   // Stretch task:
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
