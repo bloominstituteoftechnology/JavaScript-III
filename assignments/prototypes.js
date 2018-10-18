@@ -154,28 +154,28 @@ Villian.prototype.say = function() {
 };
 
 Villian.prototype.dragonPalm = function(enemy) {
-  enemy.hp -= this.power;
+  return (enemy.hp -= this.power);
 };
 
 // Hero
 function Hero(stats) {
   Humanoid.call(this, stats);
   this.searching = stats.searching;
-  this.power = this.power;
+  this.power = stats.power;
 }
 
-Hero.prototype = Object.create(Humanoid.prototype);
+//Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.say = function() {
   return `Do you know where I can find sailors at?`;
 };
 
-Hero.prototype.hazukiKick = function(enemy) {
-  enemy.hp -= this.power;
-};
-
-Hero.prototype = Object.create(Humanoid.prototype);
+//Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.revenge = function() {
   return `you killed my father ${this.revenge} I seek revenge against you`;
+};
+
+Hero.prototype.hazukiKick = function(enemy) {
+  return (enemy.hp -= this.power);
 };
 
 const lanDi = new Villian({
@@ -211,20 +211,25 @@ const ryoHazuki = new Hero({
 });
 
 document.querySelector(".hero h2").textContent = ryoHazuki.name;
-document.querySelector(".hero .hp .alive").style.width = `${lanDi.hp}%`;
+document.querySelector(".hero .hp .alive").style.width = `${ryoHazuki.hp}%`;
 
 document.querySelector(".villian h2").textContent = lanDi.name;
 document.querySelector(".villian .hp .alive").style.width = `${lanDi.hp}%`;
 
 document.querySelector(".hero button").addEventListener("click", function() {
   document.querySelector(".villian").style.backgroundColor = "red";
+
   setTimeout(function() {
     document.querySelector(".villian").style.backgroundColor = "black";
-    document.querySelector(".villian .hp .alive").style.width = `${lanDi.hp}`;
+
+    ryoHazuki.hazukiKick(lanDi);
+    document.querySelector(".villian .hp .alive").style.width = `${lanDi.hp}%`;
+
     if (ryoHazuki.hp === 0) {
       document.querySelector(".villian").style.backgroundColor = "white";
       document.querySelector(".hero").style.backgroundColor = "black";
       document.querySelector(".hero h3").style.display = "block";
+
       document.querySelector("button").style.display = "none";
       document.querySelector(".villian button").style.display = "none";
     }
@@ -233,11 +238,13 @@ document.querySelector(".hero button").addEventListener("click", function() {
 
 document.querySelector(".villian button").addEventListener("click", function() {
   document.querySelector(".hero").style.backgroundColor = "red";
+
   setTimeout(function() {
     document.querySelector(".hero").style.backgroundColor = "grey";
-    document.querySelector(".villian .hp .alive").style.width = `${
-      ryoHazuki.hp
-    }`;
+
+    lanDi.dragonPalm(ryoHazuki);
+    document.querySelector(".hero .hp .alive").style.width = `${ryoHazuki.hp}%`;
+
     if (lanDi.hp === 0) {
       document.querySelector(".hero").style.backgroundColor = "white";
       document.querySelector(".villian").style.backgroundColor = "black";
