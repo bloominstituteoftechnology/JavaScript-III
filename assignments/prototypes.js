@@ -21,7 +21,7 @@ function GameObject(features) {
 }
 
 GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game.';
+  return `${this.name} was removed from the game.`;
 };
 
 
@@ -73,11 +73,7 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`
 };
 
-
-
-
-
-
+  
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -150,23 +146,94 @@ Humanoid.prototype.greet = function() {
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
-  // Stretch task: 
+// Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-
 function Villian(attributes) {
   Humanoid.call(this, attributes);
+  this.isAlive = attributes.isAlive;
 }
-
-Villian.prototype = Object.create(Humanoid.prototype)
-
-Villian.prototype = 
-
 
 function Hero(attributes) {
   Humanoid.call(this, attributes);
+  this.isAlive = attributes.isAlive;
 }
 
-Hero.prototype = Object.create(Humanoid.prototype)
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.attacked = function() {
+  this.hp -= 10;
+  if (this.hp <= 0) {
+    this.isAlive = false;
+    return `Sorry ${this.name}, your health is ${this.hp}! You are dead!`;
+  }
+  return `${this.name} you have been attacked! Health: ${this.hp}`;
+};
+
+Hero.prototype.attacked = function() {
+  this.hp -= 10;
+  if (this.hp <= 0) {
+    this.isAlive = false;
+      return `Sorry ${this.name}, your health is ${this.hp}! You are dead!`;
+  }
+  return `${this.name} you have been attacked! Health: ${this.hp}`;
+};
+
+const HeroJon = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 100,
+  name: 'Jon',
+  faction: 'Winterfell',
+  weapons: [
+    'Valyrian Steel Sword',
+    'Wolf',
+  ],
+  language: 'English',
+  isAlive: true,
+});
+
+const VillianRamsey = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 100,
+  name: 'Ramsey',
+  faction: 'The Dreadfort',
+  weapons: [
+    'Bow',
+    'Sword',
+  ],
+  language: 'English',
+  isAlive: true,
+});
+
+console.log(HeroJon.hp)
+console.log(VillianRamsey.hp);
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
+console.log(HeroJon.attacked());
+console.log(HeroJon.attacked());
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
+console.log(HeroJon.attacked());
+console.log(VillianRamsey.attacked());
+console.log(HeroJon.attacked());
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
+console.log(HeroJon.attacked());
+console.log(HeroJon.attacked());
+console.log(VillianRamsey.attacked());
+console.log(VillianRamsey.attacked());
