@@ -21,7 +21,7 @@ function GameObject(objectAttributes) {
 }
 
 GameObject.prototype.destroy = function() {
-  return `${this.name} was removed from the game.`;
+  return `${this.name} took damage and was defeated! ${this.name} was removed from the game.`;
 }
 
 /*
@@ -41,12 +41,17 @@ function CharacterStats(charAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`;
+  return `${this.name} took damage. ${this.name}'s HP is now ${this.hp}.`;
 }
 
 CharacterStats.prototype.restoredHP = function() {
-  return `${this.name} has recovered ${this.restoration} HP`;
+  return `${this.name} has recovered ${this.restoration} HP.`;
 }
+
+CharacterStats.prototype.drainedHP = function(enemy) {
+  return `${this.name} has drained ${enemy.name}'s HP! ${this.name} recovered ${this.restoration} HP.`;
+}
+
 
 /*
   === Humanoid ===
@@ -68,8 +73,9 @@ function Humanoid(humanAttributes) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}`;
+  return `${this.name} offers a greeting in ${this.language}.`;
 }
+
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -155,6 +161,7 @@ Humanoid.prototype.greet = function() {
   }
 
   Hero.prototype = Object.create(Humanoid.prototype);
+  
 
   Hero.prototype.attack = function(villian) {
     if (villian.hp > 0 && this.hp > 0) {
@@ -189,6 +196,7 @@ Humanoid.prototype.greet = function() {
   function Villian(villianAttributes) {
     Humanoid.call(this, villianAttributes);
     this.strength = villianAttributes.strength;
+    this.restoration = villianAttributes.restoration;
   }
 
   Villian.prototype = Object.create(Humanoid.prototype);
@@ -215,7 +223,7 @@ Humanoid.prototype.greet = function() {
       hero.hp = hero.hp - this.restoration;
       this.hp = this.hp + this.restoration;
 
-      return this.restoredHP();
+      return this.drainedHP(hero);
     } else if (hero.hp <= 0 && this.hp > 0){
       return `Cannot Be Drained: ${hero.name} has already been removed.`
     } else {
@@ -233,13 +241,13 @@ Humanoid.prototype.greet = function() {
       height: 5,
     },
     hp: 10,
-    name: 'Hero',
+    name: 'Good Sir Turnip',
     faction: 'Whatever',
     weapons: [
       'Bow',
       'Dagger',
     ],
-    language: 'Elvish',
+    language: 'Vegatable',
     strength: 2,
     restoration: 3
   });
@@ -253,13 +261,13 @@ Humanoid.prototype.greet = function() {
       height: 5,
     },
     hp: 10,
-    name: 'Villain',
+    name: 'Misunderstood Radish',
     faction: 'Whatever',
     weapons: [
       'Bow',
       'Dagger',
     ],
-    language: 'Elvish',
+    language: 'Vegetable',
     strength: 3,
     restoration: 2
   });
@@ -279,12 +287,23 @@ Humanoid.prototype.greet = function() {
   // console.log(villian.attack(hero));
 
   console.log(hero.attack(villian));
+  console.log(villian.drainHP(hero));
+  console.log(hero.attack(villian));
   console.log(villian.attack(hero));
   console.log(hero.attack(villian));
   console.log(villian.attack(hero));
   console.log(hero.attack(villian));
   console.log(villian.attack(hero));
   console.log(hero.restoreHP(hero));
-  console.log(villian.drainHP(hero));
-  console.log(hero.attack(villian));
   console.log(villian.attack(hero));
+
+  // console.log(villian.attack(hero));
+  // console.log(hero.attack(villian));
+  // console.log(villian.attack(hero));
+  // console.log(hero.attack(villian));
+  // console.log(villian.attack(hero));
+  // console.log(hero.restoreHP(hero));
+  // console.log(villian.attack(hero));
+  // console.log(villian.attack(hero));
+  // console.log(hero.attack(villian));
+  // console.log(villian.attack(hero));
