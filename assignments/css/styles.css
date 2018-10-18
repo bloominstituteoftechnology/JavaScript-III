@@ -1,0 +1,82 @@
+.container {
+  width: 70vw;
+  height: 80vh;
+  background-color: aqua;
+  margin: 0 auto;
+  display: flex;
+}
+
+h2 {
+  color: yellow;
+  text-align: center;
+  font-size: 40px;
+}
+
+.villian,
+.hero {
+  width: 50%;
+  height: 100%;
+  padding-top: 100px;
+}
+
+.villian {
+  background-color: black;
+}
+
+.hero {
+  background-color: grey;
+}
+
+.hero .hp {
+  background-color: red;
+  width: 80%;
+  height: 30px;
+  margin: 10px auto;
+  border: 1px solid white;
+}
+
+.villian .hp {
+  background-color: red;
+  width: 80%;
+  height: 30px;
+  margin: 10px auto;
+  border: 1px solid white;
+}
+
+img {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.icon {
+  margin: 0 100px;
+}
+
+.villian img {
+  width: 250px;
+  z-index: -1;
+}
+
+button {
+  font-size: 30px;
+  display: block;
+  margin: 20px auto;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.hp .alive {
+  width: 90%;
+  height: 100%;
+  background-color: green;
+}
+
+h3 {
+  color: white;
+  display: none;
+  text-align: center;
+  font-size: 50px;
+}

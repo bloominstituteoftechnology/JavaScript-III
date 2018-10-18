@@ -138,3 +138,110 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+console.log(
+  "////////////////////////////////// stretch goals ///////////////////// \n"
+);
+
+function Villian(stats) {
+  Humanoid.call(this, stats);
+  this.searching = stats.searching;
+  this.power = stats.power;
+}
+
+Villian.prototype.say = function() {
+  return `Where is the ${this.searching}`;
+};
+
+Villian.prototype.dragonPalm = function(enemy) {
+  enemy.hp -= this.power;
+};
+
+// Hero
+function Hero(stats) {
+  Humanoid.call(this, stats);
+  this.searching = stats.searching;
+  this.power = this.power;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.say = function() {
+  return `Do you know where I can find sailors at?`;
+};
+
+Hero.prototype.hazukiKick = function(enemy) {
+  enemy.hp -= this.power;
+};
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.revenge = function() {
+  return `you killed my father ${this.revenge} I seek revenge against you`;
+};
+
+const lanDi = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  hp: 100,
+  name: "Lan Di",
+  faction: "Chi Yu Men",
+  weapons: ["tiger style Kung Fu"],
+  language: "Chinese and Common Toungue",
+  searching: "Dragon Mirror",
+  power: 20
+});
+
+const ryoHazuki = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  hp: 100,
+  name: "Ryo Hazuki",
+  faction: "Hazuki Clan",
+  weapons: ["Hazuki style Jujuitsu"],
+  language: "Japanese and Common toungue",
+  revenge: "Lan Di",
+  power: 20
+});
+
+document.querySelector(".hero h2").textContent = ryoHazuki.name;
+document.querySelector(".hero .hp .alive").style.width = `${lanDi.hp}%`;
+
+document.querySelector(".villian h2").textContent = lanDi.name;
+document.querySelector(".villian .hp .alive").style.width = `${lanDi.hp}%`;
+
+document.querySelector(".hero button").addEventListener("click", function() {
+  document.querySelector(".villian").style.backgroundColor = "red";
+  setTimeout(function() {
+    document.querySelector(".villian").style.backgroundColor = "black";
+    document.querySelector(".villian .hp .alive").style.width = `${lanDi.hp}`;
+    if (ryoHazuki.hp === 0) {
+      document.querySelector(".villian").style.backgroundColor = "white";
+      document.querySelector(".hero").style.backgroundColor = "black";
+      document.querySelector(".hero h3").style.display = "block";
+      document.querySelector("button").style.display = "none";
+      document.querySelector(".villian button").style.display = "none";
+    }
+  }, 500);
+});
+
+document.querySelector(".villian button").addEventListener("click", function() {
+  document.querySelector(".hero").style.backgroundColor = "red";
+  setTimeout(function() {
+    document.querySelector(".hero").style.backgroundColor = "grey";
+    document.querySelector(".villian .hp .alive").style.width = `${
+      ryoHazuki.hp
+    }`;
+    if (lanDi.hp === 0) {
+      document.querySelector(".hero").style.backgroundColor = "white";
+      document.querySelector(".villian").style.backgroundColor = "black";
+      document.querySelector(".villian h3").style.display = "block";
+    }
+  }, 500);
+});
