@@ -220,19 +220,17 @@ document.querySelector(".hero button").addEventListener("click", function() {
   document.querySelector(".villian").style.backgroundColor = "red";
 
   setTimeout(function() {
-    document.querySelector(".villian").style.backgroundColor = "black";
-
     ryoHazuki.hazukiKick(lanDi);
     document.querySelector(".villian .hp .alive").style.width = `${lanDi.hp}%`;
 
-    if (ryoHazuki.hp === 0) {
+    if (lanDi.hp <= 0) {
       document.querySelector(".villian").style.backgroundColor = "white";
       document.querySelector(".hero").style.backgroundColor = "black";
       document.querySelector(".hero h3").style.display = "block";
 
       document.querySelector("button").style.display = "none";
       document.querySelector(".villian button").style.display = "none";
-    }
+    } else document.querySelector(".villian").style.backgroundColor = "black";
   }, 500);
 });
 
@@ -240,15 +238,16 @@ document.querySelector(".villian button").addEventListener("click", function() {
   document.querySelector(".hero").style.backgroundColor = "red";
 
   setTimeout(function() {
-    document.querySelector(".hero").style.backgroundColor = "grey";
-
     lanDi.dragonPalm(ryoHazuki);
     document.querySelector(".hero .hp .alive").style.width = `${ryoHazuki.hp}%`;
 
-    if (lanDi.hp === 0) {
+    if (ryoHazuki.hp <= 0) {
       document.querySelector(".hero").style.backgroundColor = "white";
       document.querySelector(".villian").style.backgroundColor = "black";
       document.querySelector(".villian h3").style.display = "block";
-    }
+
+      document.querySelector("button").style.display = "none";
+      document.querySelector(".villian button").style.display = "none";
+    } else document.querySelector(".hero").style.backgroundColor = "grey";
   }, 500);
 });
