@@ -40,28 +40,34 @@
  */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
+// GameObject constructor
 const GameObject = function(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
 }
 
-
-
+// CharacterStats constructor
 const CharacterStats = function(attributes) {
-  GameObject.call(this);
+  GameObject.call(this, attributes);
   this.hp = attributes.hp;
   this.name = attributes.name;
 }
+
+// Creates inheritance for CharacterStats from GameObject
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
+// Humanoid constructor
 const Humanoid = function(attributes) {
-  CharacterStats.call(this);
+  CharacterStats.call(this, attributes);
   this.faction = attributes.faction;
   this.weapons = attributes.weapons;
   this.language = attributes.language;
 }
 
+//Creates inheritance for Humanoid from CharacterStats
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
 const mage = new Humanoid({
   createdAt: new Date(),
   dimensions: {
