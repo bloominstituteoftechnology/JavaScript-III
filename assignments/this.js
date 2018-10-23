@@ -31,7 +31,7 @@ const lexicalContext = {
        console.log(`Hello, I am ${this.name}, and these are my contents ${this}, I may seem like cousin ${globalVar}, but my use of 'this' refers to myself because of being contained within the confines of a lexical context within an object, in short 'this' references the parent of the lexical environment from which 'this' is within`);
         let that = this
         return function() {
-            console.log(`${this} is not the parent object anymore. Here 'this' is rather global/window. This behavior is due to being called without context in regards to the parent object. The context is no longer within the object, but within the function that called this function. Due to this, the implicit context no longer applies, and we revert back to the original behavior of this. One way to alleviate this behavior is using a closure such as ${that}, where 'that' is a pointer to 'this' as defined in the outer scope`)
+            console.log(`${this} is not the parent object anymore. Here 'this' is rather global/window. This behavior is due to being called without context in regards to the parent object. The context is no longer within the object, but within the function that called this function. Due to this, the implicit context no longer applies, and we revert back to the original behavior of 'this'. One way to alleviate 'this' misbehavior is using a closure such as ${that}, where 'that' is a pointer to 'this' as defined in the outer scope`)
         };
     }
 }
