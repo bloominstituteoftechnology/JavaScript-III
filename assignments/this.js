@@ -13,14 +13,52 @@
 
 // code example for Window Binding
 
+function windowBind() {
+  return this;
+}
+
 // Principle 2
 
 // code example for Implicit Binding
+
+const pokemon = {
+  name: 'Pikachu',
+  move: 'Thundershock',
+
+  attack: function() {
+    console.log(`${this.name} used ${this.move}!`)
+  }
+}
+
+pokemon.attack();
 
 // Principle 3
 
 // code example for New Binding
 
+const Character = function (name, gender, combatStyle, weapon) {
+  this.name = name
+  this.gender = gender
+  this. combatStyle = combatStyle
+  this.weapon = weapon
+}
+
+const ninja = new Character('Brian', 'Male', 'Stealth', 'Dagger');
+
+console.log(`The ninja character is named ${ninja.name}, and ${ninja.name} uses ${ninja.combatStyle} and a ${ninja.weapon}`);
+
 // Principle 4
 
 // code example for Explicit Binding
+
+const hero = {
+  name: 'Link'
+}
+
+const inventory = ['Master Sword', 'Hylian Shield', 'Boomerang', 'Bombchu', 'Potion x5'];
+
+function checkItems(arguments) {
+  console.log(`${this.name}\'s inventory holds ${arguments[0]}, ${arguments[1]}, ${arguments[2]}, ${arguments[3]}, and ${arguments[4]}`);
+}
+
+checkItems.call(hero, inventory);
