@@ -41,13 +41,13 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 // GameObject constructor
-const GameObject = function(attributes) {
+const GameObject = function (attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
 }
 
 // CharacterStats constructor
-const CharacterStats = function(attributes) {
+const CharacterStats = function (attributes) {
   GameObject.call(this, attributes);
   this.hp = attributes.hp;
   this.name = attributes.name;
@@ -57,7 +57,7 @@ const CharacterStats = function(attributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 // Humanoid constructor
-const Humanoid = function(attributes) {
+const Humanoid = function (attributes) {
   CharacterStats.call(this, attributes);
   this.faction = attributes.faction;
   this.weapons = attributes.weapons;
@@ -68,6 +68,21 @@ const Humanoid = function(attributes) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 
+
+//Prototype methods
+
+GameObject.prototype.destroy = function() {
+  if (!this.name) return `Game object was removed from the game.`;
+  else return `${this.name} was removed from the game.`;
+}
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`;
+}
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
 const mage = new Humanoid({
   createdAt: new Date(),
   dimensions: {
@@ -118,6 +133,7 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
+
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.hp); // 15
@@ -128,7 +144,6 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
 
 // Stretch task: 
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
