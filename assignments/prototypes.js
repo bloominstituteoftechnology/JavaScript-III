@@ -142,3 +142,71 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero(heroAttr){
+    Humanoid.call(this, heroAttr);
+    this.team = heroAttr.team;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.swordAttack = function(enemy) {
+    enemy.hp -= 5;
+    console.log(`${this.name} attacked ${enemy.name} with ${this.weapons}`);
+    console.log(enemy.takeDamage());
+    if(enemy.hp <= 0){
+      console.log(`${enemy.name} has been defeated!`);
+      console.log(enemy.destroy());
+    }
+  }
+
+  function Villian(villianAttr) {
+    Humanoid.call(this, villianAttr);
+    this.team = villianAttr.team;
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype);
+
+  Villian.prototype.magicAttack = function(enemy) {
+    enemy.hp -= 6;
+    console.log(`${this.name} attacked ${enemy.name} with ${this.weapons}`);
+    console.log(enemy.takeDamage());
+    if(enemy.hp <= 0){
+      console.log(`${enemy.name} has been defeated!`);
+      console.log(enemy.destroy());
+    }
+  }
+
+  const heroDude = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 10,
+    name: 'The Dude',
+    faction: 'USA',
+    weapons: ['Adamantium Sword'],
+    language: 'Elvish',
+    team: 'Heroes'
+  });
+
+  const villianPerson = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 5,
+    },
+    hp: 10,
+    name: 'Sir Bad-Villain',
+    faction: 'League for the Advancment of Evil People',
+    weapons: ['Magic Staff'],
+    language: 'Elvish',
+    team: 'Villains'
+  });
+
+heroDude.swordAttack(villianPerson);
+villianPerson.magicAttack(heroDude);
+heroDude.swordAttack(villianPerson);
