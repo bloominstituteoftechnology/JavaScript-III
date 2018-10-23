@@ -33,14 +33,14 @@ console.log(`*************** begin this.js challenge ***************`)
 
 // Principle 3
 // code example for New Binding
-const Client = function (name, product) {
-  this.name = name
-  this.product = product
-}
+// const Client = function (name, product) {
+//   this.name = name
+//   this.product = product
+// }
 
-const myClient = new Client('Molly', 'SEO')
+// const myClient = new Client('Molly', 'SEO')
 
-console.log(myClient)
+// console.log(myClient)
 
 
 // Principle 4
