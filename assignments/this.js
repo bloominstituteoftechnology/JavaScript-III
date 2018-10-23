@@ -37,8 +37,8 @@ me.introduction();
 
 // code example for New Binding
 function GalaxyClassification(name, type) {
-  this.name = name,
-  this.type = type,
+  this.name = name;
+  this.type = type;
   this.summary = function(){
     console.log(`The ${this.name} is classified as a/an ${this.type} galaxy.`);
   }
