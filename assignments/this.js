@@ -33,10 +33,10 @@ windowExample();
 const minor = {
   age: 12,
   timeTilDL: function() {
-    return 16 - this.age;
+    return `Years until eligible for driver's license: ${16 - this.age}`;
   },
   timeTilAdult: function() {
-    return 18 - this.age;
+    return `Years until legal adulthood: ${18 - this.age}`;
   }
 }
 
@@ -46,6 +46,23 @@ console.log(minor.timeTilAdult());
 // Principle 3
 
 // code example for New Binding
+
+const Aura = function(attributes) {
+  this.name = attributes.name;
+  this.mood = attributes.mood;
+  this.color = attributes.color;
+  this.tell = function() {
+    return `My name is ${this.name}, I'm ${this.mood}, and my aura is ${this.color}.`
+  }
+}
+
+const willow = new Aura({
+  name: "Willow",
+  mood: "cranky",
+  color: "army green"
+})
+
+console.log(willow.tell());
 
 // Principle 4
 
