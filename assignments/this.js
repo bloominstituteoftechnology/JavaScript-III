@@ -20,10 +20,28 @@ Used within constructors to bind this to each individual instance of an Object r
 // Principle 1
 
 // code example for Window Binding
-
+name = "crafty canary";
+function windowExample() {
+  let name = "silly kitty";
+  console.log(this.name); //logs global name variable
+  console.log(name); //logs local name variable
+}
+windowExample();
 // Principle 2
 
 // code example for Implicit Binding
+const minor = {
+  age: 12,
+  timeTilDL: function() {
+    return 16 - this.age;
+  },
+  timeTilAdult: function() {
+    return 18 - this.age;
+  }
+}
+
+console.log(minor.timeTilDL());
+console.log(minor.timeTilAdult());
 
 // Principle 3
 
