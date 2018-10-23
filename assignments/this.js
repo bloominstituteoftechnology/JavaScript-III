@@ -12,12 +12,12 @@
 // Principle 1
 
 // code example for Window Binding
-name = 'window'
+name = 'global/window'
 globalVar = {
     'name': 'Some Object' 
 };
 function windowScope() {
-    console.log(`Hello, I am ${this.globalVar.name}, these are my contents ${this.globalVar}, and I belong to the ${this.name}! I am also accessible through global.globalVar in node, or window.globalVar in your browser. 'this' in the context used here does not refer to me, but to my parent, because this is used in the lexical context of window/global, since the function that called this information is in the global environment`)
+    console.log(`Hello, I am ${this.globalVar.name}, these are my contents ${this.globalVar}, and I belong to the ${this.name}! I am also accessible through global.globalVar in node, or window.globalVar in your browser. 'this' in the context used here does not refer to the function, but to the function parent, because 'this' is used in the lexical context of window/global, since the function that called this information is in the global/window environment`)
 };
 windowScope();
 
