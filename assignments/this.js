@@ -50,7 +50,7 @@
 
 // Principle 3///////////////////////////////////////////////////
 
- code example for New Binding
+ //code example for New Binding
 
  const Animal = function (color, name, type) {
    //this = {}
@@ -81,30 +81,5 @@
 
  introduce.call(person, favoriteBooks[0], favoriteBooks[1], favoriteBooks[2], favoriteBooks[3])
 
- const person = {
-   name: 'Emma'
- }
-
- var favoriteBooks = ['Dewey', 'The Shining', 'The man who was Thursday', 'Odyssey']
-
- function introduce (book1, book2, book3, book4) {
-   console.log(`Hello, my name is ${this.name} and these are my favorite books ${book1}, ${book2}, ${book3}, and ${book4}`)
- }
-
- introduce.apply(person, favoriteBooks)
-
- const person = {
-   name: 'Emma'
- }
-
- var favoriteBooks = ['Dewey', 'The Shining', 'The man who was Thursday', 'Odyssey']
-
- function introduce (favoriteBooks) {
-  console.log(`Hello, my name is ${this.name} and these are my favorite books ${book1}, ${book2}, ${book3}, and ${book4}`)
-}
-
-const newIntroduce = introduce.bind(person, favoriteBooks)
 
 introduce()
-
-newIntroduce()
