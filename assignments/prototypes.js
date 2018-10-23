@@ -142,6 +142,24 @@ Humanoid.prototype.greet = function() {
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
+let fight = function (opponent, damage) {
+  if (this.hp > 0 && opponent.hp > 0) {
+    console.log(`${this.name} attack ${opponent.name} with ${this.weapons}. Damage: ${damage} health points`);
+    console.log(opponent.takeDamage());
+    opponent.hp -= damage;
+    if (opponent.hp <= 0) {
+      if (opponent.canRecharge) {
+        console.log(opponent.recharge(damage));
+      } else {
+        console.log(opponent.destroy());
+        return `GAME OVER: ${this.name} killed opponent ${opponent.name}.`;
+      }
+    }
+    return `${opponent.name} is still alive! Still has ${opponent.hp} health points`;
+  } else {
+    return 'Game ended';
+  }
+}
   function Villain(villainProperties) {
     Humanoid.call(this, villainProperties);
     this.canRecharge = false;
@@ -149,25 +167,7 @@ Humanoid.prototype.greet = function() {
 
   Villain.prototype = Object.create(Humanoid.prototype);
 
-  //Villain attack function: Villain removes damage points from opponent health points
-  Villain.prototype.attack = function (opponent, damage) {
-    if(this.hp > 0 && opponent.hp > 0) {
-      console.log(`${this.name} attack ${opponent.name} with ${this.weapons}. Damage: ${damage} health points`);
-      console.log(opponent.takeDamage());
-      opponent.hp -= damage;
-      if(opponent.hp <= 0) {
-        if (opponent.canRecharge) {
-          opponent.recharge(damage);
-        } else {
-          console.log(opponent.destroy());
-          return `GAME OVER: Villain ${this.name} killed opponent ${opponent.name}.`;
-        }
-      }
-      return `Hero ${opponent.name} is still alive! Still has ${opponent.hp} health points`;
-    } else {
-      return 'Game ended';
-    }
-  }
+  Villain.prototype.attack = fight;
 
 function Hero(heroProperties) {
   Humanoid.call(this, heroProperties);
@@ -182,21 +182,8 @@ Hero.prototype.recharge = function(points) {
   return `${this.name} recharged health points by ${points}. ${this.name} has now ${this.hp} health points.`
 }
 
-//Hero shoot function: Hero removes damage points from opponent health points
-Hero.prototype.shoot = function (opponent, damage) {
-  if (this.hp > 0 && opponent.hp > 0) {
-    console.log(`${this.name} shoots ${opponent.name} with ${this.weapons}. Damage: ${damage} health points`);
-    opponent.hp -= damage;
-    console.log(opponent.takeDamage());
-    if (opponent.hp <= 0) {
-      console.log(opponent.destroy());
-      return `GAME OVER: Hero ${this.name} killed opponent ${opponent.name}.`;
-    }
-    return `Opponent ${opponent.name} is still alive! Still has ${opponent.hp} health points`;
-  } else {
-    return 'Game ended';
-  }
-}
+Hero.prototype.shoot = fight;
+
 
 const captainAmerica = new Hero({
   createdAt: new Date(),
@@ -213,7 +200,7 @@ const captainAmerica = new Hero({
     'shield',
   ],
   language: 'English',
-  canRecharge: false
+  canRecharge: true
 });
 
 const redSkull = new Villain ({
@@ -237,7 +224,7 @@ console.log("******************* FIGHT START ****************");
 console.log(`Health points for ${captainAmerica.name}: ${captainAmerica.hp}`);
 console.log(`Health points for ${redSkull.name}: ${redSkull.hp}`);
 console.log(captainAmerica.greet());
-console.log(redSkull.attack(captainAmerica, 10));
+console.log(redSkull.attack(captainAmerica, 20));
 console.log(captainAmerica.shoot(redSkull, 2));
 console.log(captainAmerica.shoot(redSkull, 10));
 console.log("******************* FIGHT END ****************");
