@@ -33,7 +33,7 @@ windowExample();
 const minor = {
   age: 12,
   timeTilDL: function() {
-    return `Years until eligible for driver's license: ${16 - this.age}`;
+    return `Years until eligible for driver's license: ${16 - this.age}`; //this is bound to minor object
   },
   timeTilAdult: function() {
     return `Years until legal adulthood: ${18 - this.age}`;
@@ -52,8 +52,8 @@ const Aura = function(attributes) {
   this.mood = attributes.mood;
   this.color = attributes.color;
   this.tell = function() {
-    return `My name is ${this.name}, I'm ${this.mood}, and my aura is ${this.color}.`
-  }
+    return `My name is ${this.name}, I'm ${this.mood}, and my aura is ${this.color}.`  
+  }  
 }
 
 const willow = new Aura({
@@ -77,5 +77,5 @@ function introduce(book1, book2, book3, book4) {
   return `Hi, my name is ${this.name}.  I am ${this.age} and I still read comics.  My favorite ones include ${book1}, ${book2}, ${book3}, and ${book4}.`;
 }
 
-console.log(introduce(...comics)); //unbound this
+console.log(introduce(...comics)); //unbound this (pulls in global name variable as defined above)
 console.log(introduce.apply(jonathan, comics)); //this bound to object jonathan
