@@ -127,3 +127,68 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.attack = function(e) {
+  e.hp -= 3;
+  if (e.hp <= 0) {
+    console.log(e.destroy());
+    return `${this.name} attacked ${e.name}, ${e.name} has been destroyed`;
+  } else {
+    return `${this.name} attacked ${e.name}, ${e.name} now has ${e.hp} hp`;
+  }
+};
+
+const protag = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 6,
+    width: 2,
+    height: 5
+  },
+  hp: 13,
+  name: "Shrimp",
+  faction: "Forest Kingdom",
+  weapons: ["Bow", "Dagger"],
+  language: "English"
+});
+
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.attack = function(e) {
+  e.hp--;
+  if (e.hp <= 0) {
+    console.log(e.destroy());
+    return `${this.name} attacked ${e.name}, ${e.name} has been destroyed`;
+  } else {
+    return `${this.name} attacked ${e.name}, ${e.name} now has ${e.hp} hp`;
+  }
+};
+
+const antag = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 6,
+    width: 5,
+    height: 10
+  },
+  hp: 22,
+  name: "Ganon",
+  faction: "Enther Kingdom",
+  weapons: ["Mace", "Flames"],
+  language: "Gorgon"
+});
+
+while (antag.hp > 0 && protag.hp > 0) {
+  if (protag.hp > 0) {
+    console.log(protag.attack(antag));
+  }
+  if (antag.hp > 0) {
+    console.log(antag.attack(protag));
+  }
+}
