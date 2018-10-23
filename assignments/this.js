@@ -67,3 +67,15 @@ console.log(willow.tell());
 // Principle 4
 
 // code example for Explicit Binding
+const comics = ["X-Men", "Bone", "Madman", "Silver Surfer"];
+const jonathan = {
+  name: "Jonathan",
+  age: 34
+}
+
+function introduce(book1, book2, book3, book4) {
+  return `Hi, my name is ${this.name}.  I am ${this.age} and I still read comics.  My favorite ones include ${book1}, ${book2}, ${book3}, and ${book4}.`;
+}
+
+console.log(introduce(...comics)); //unbound this
+console.log(introduce.apply(jonathan, comics)); //this bound to object jonathan
