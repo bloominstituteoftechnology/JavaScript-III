@@ -15,6 +15,13 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(objectParams){
+  this.createdAt = new Date();
+  this.dimensions = objectParams.dimensions;
+}
+
+
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +29,12 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(characterParams){
+  GameObject.call(this, characterParams);
+  this.hp = characterParams.hp;
+  this.name = characterParams.name;
+}
+
 
 /*
   === Humanoid ===
@@ -33,11 +46,29 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(humanoidParams){
+  CharacterStats.call(this, humanoidParams);
+  this.faction = humanoidParams.faction;
+  this.weapons = humanoidParams.weapons;
+  this.language = humanoidParams.language;
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+
+//pototype methods
+
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;
+}
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage`;
+}
+
+
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
