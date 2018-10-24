@@ -152,7 +152,7 @@ console.log(mage.destroy());
 
 //Hero constructor functions:
  function Hero(positive){
-   Humanoid.call(this);
+   Humanoid.call(this,positive);
    this.traits=positive.traits;
    this.gender= positive.gender;
    this.healthPoints=positive.healthPoints;
@@ -168,7 +168,7 @@ console.log(mage.destroy());
 }
  Hero.prototype=Object.create(Humanoid.prototype);
 Hero.prototype.constructor=Hero;
-Hero.prototype.wrongDeeds=function(){
+Hero.prototype.mistake=function(){
   return(`${this.name} health Points has gone down from ${this.healthPoints} to zero!You are destroyed! `);
 
  }
@@ -192,4 +192,57 @@ Hero.prototype.wrongDeeds=function(){
 });
 
  console.log(superMan.language);
-console.log(superMan.name);
+ console.log(superMan.name);
+console.log(superMan.traits);
+console.log(superMan.mistake());
+
+ //////////////
+//Villan:
+function Villan(negative){
+
+    Humanoid.call(this,negative);
+    this.power=negative.power;
+    this.looks= negative.looks;
+    this.healthPoints=negative.healthPoints;
+    this.faction =negative.faction;
+    this.weapons = negative.weapons;
+    this.language = negative.language;
+    this.hp = negative.hp;
+    this.name = negative.name;
+    this.createdAt = negative.createdAt;
+    this.dimensions = negative.dimensions;
+
+
+}
+
+Villan.prototype=Object.create(Humanoid.prototype);
+Villan.prototype.constructor=Villan;
+Villan.prototype.evilDeeds=function(){
+    return(`${this.name} You are an evil doer and your health points ${this.healthPoints} has gone down to negative,because of your cruelty!You are destroyed! `);
+
+}
+const skeleton = new Villan({
+    createdAt: new Date(),
+    dimensions: {
+        length: 10,
+        width: 6,
+        height: 8,
+    },
+    hp: 9, name: 'Brutal',
+    faction: 'Deadland',
+    weapons: [
+        'Black Dagger',
+    ],
+    language: 'French',
+    power:  'Rings',
+    looks:'ugly',
+
+    healthPoints:7,
+});
+
+console.log(skeleton.looks);
+console.log(skeleton.name);
+console.log(skeleton.hp)
+console.log(skeleton.evilDeeds());
+
+
