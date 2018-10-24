@@ -22,18 +22,8 @@
  }
 
  yearsOfExp()
+// returns undefined
 
- let sayAge = function(){
-    console.log(this.age);
-  };
-  
-  let meNow = {
-    age: 26
-  }
-  
-  // sayAge.call(me);
-  //what happens if we don't do the above?
-  sayAge()
 
 // Principle 2
 
@@ -62,6 +52,39 @@ const likedIt = (human) => {
 
 // code example for New Binding
 
+const Pokemon = function(name, type, attack) {
+    this.name = name;
+    this.type = type;
+    this.attack = attack;
+}
+
+let pikachu = new Pokemon ('pikachu', 'electric', 'thunderbolt')
+let espeon = new Pokemon ('Espeon', 'psychic', 'Psybeam')
+let garchomp = new Pokemon ('Garchomp', 'dragon/ground', 'earthquake')
+
+console.log(pikachu)
+console.log(espeon)
+console.log(garchomp)
+
 // Principle 4
 
 // code example for Explicit Binding
+
+const favoriteHike = {
+    place: 'Minnewaska State Park',
+    state: 'New York',
+    intensity: 'all levels'
+}
+
+const thingsToDoWhileHiking = [ 'hike', 'rockClimb', 'bungee jump', 'take pictures']
+
+function whereShouldWeHike(reason1, reason2, reason3){
+    return `${this.place} located in the great state of ${this.state} is one great hike you should take!
+    Kindly note that it is ${this.intensity} of intensity. You can do activities like ${reason1}, ${reason2}, and ${reason3}!`
+}
+
+// used different elements of the array in both 
+console.log(whereShouldWeHike.call(favoriteHike, thingsToDoWhileHiking[0], thingsToDoWhileHiking[1], thingsToDoWhileHiking[3]))
+
+console.log(whereShouldWeHike.apply(favoriteHike, thingsToDoWhileHiking));
+
