@@ -34,7 +34,7 @@ function CharacterStats(characterParams){
   this.hp = characterParams.hp;
   this.name = characterParams.name;
 }
-console.log(CharacterStats);
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /*
   === Humanoid ===
@@ -52,7 +52,7 @@ function Humanoid(humanoidParams){
   this.weapons = humanoidParams.weapons;
   this.language = humanoidParams.language;
 }
-console.log(Humanoid)
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -124,7 +124,7 @@ Humanoid.prototype.greet = function(){
     ],
     language: 'Elvish',
   });
-  console.log(mage);
+  
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
