@@ -40,6 +40,7 @@ function CharacterStats(attributeStats) {
   GameObject.call(this, attributeStats)
   this.hp = attributeStats.hp
   this.name = attributeStats.name
+  this.speed = attributeStats.speed
 };
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -176,11 +177,11 @@ Humanoid.prototype.victory = function() {
   }
 
   Hero.prototype.quickSlash = function(target) {
-    let attackPoints = Math.floor((Math.random() * 10) + 1);
+    let attackPoints = Math.floor((Math.random() * 8) + 1);
     let critChance = Math.floor((Math.random() * 20) + 1);
     let crit = false;
 
-    if(critChance > 9) {
+    if(critChance >= 8) {
       attackPoints *= 2;
       crit = true;
     }
@@ -206,7 +207,7 @@ Humanoid.prototype.victory = function() {
   }
 
   Villian.prototype.powerStrike = function(target) {
-    let attackPoints = Math.floor((Math.random() * 10) + 1);
+    let attackPoints = Math.floor((Math.random() * 15) + 1);
     let critChance = Math.floor((Math.random() * 20) + 1);
     let crit = false;
 
@@ -220,7 +221,7 @@ Humanoid.prototype.victory = function() {
     if(crit) {
       console.log('CRITICAL HIT')
     }
-    
+
     console.log(`${this.name} attacked ${target.name}, ${attackPoints} damage`);
   }
 
@@ -232,6 +233,7 @@ Humanoid.prototype.victory = function() {
       height: 2,
     },
     hp: 25,
+    speed: 22,
     name: 'King Niceguy',
     faction: 'The Round Table',
     weapons: [
@@ -251,6 +253,7 @@ Humanoid.prototype.victory = function() {
       height: 2,
     },
     hp: 25,
+    speed: 18,
     name: 'Lord Baddude',
     faction: 'Dark Knights',
     weapons: [
@@ -267,21 +270,44 @@ console.log(nemesis.evilLaugh());
 console.log(nemesis.minions)
 
 while(king.hp > 0 && nemesis.hp > 0) {
-  king.quickSlash(nemesis);
-  console.log(`${nemesis.hp} hp remaining`);
+  kingSpeed = Math.floor((Math.random() * king.speed) + 1);
+  nemesisSpeed = Math.floor((Math.random() * nemesis.speed) + 1);
 
-  if(nemesis.hp <= 0) {
-    nemesis.defeat();
-    king.victory();
-    break;
-  }
+  if(kingSpeed > nemesisSpeed) {
+    king.quickSlash(nemesis);
+    console.log(`${nemesis.hp} hp remaining`);
 
-  nemesis.powerStrike(king);
-  console.log(`${king.hp} hp remaining`);
+    if(nemesis.hp <= 0) {
+      nemesis.defeat();
+      king.victory();
+      break;
+    }
 
-  if(king.hp <= 0) {
-    king.defeat();
-    nemesis.victory();
-    break;
+    nemesis.powerStrike(king);
+    console.log(`${king.hp} hp remaining`);
+
+    if(king.hp <= 0) {
+      king.defeat();
+      nemesis.victory();
+      break;
+    } else {
+      nemesis.powerStrike(king);
+      console.log(`${king.hp} hp remaining`);
+
+      if(king.hp <= 0) {
+        king.defeat();
+        nemesis.victory();
+        break;
+      }
+
+      king.quickSlash(nemesis);
+      console.log(`${nemesis.hp} hp remaining`);
+
+      if(nemesis.hp <= 0) {
+        nemesis.defeat();
+        king.victory();
+        break;
+      }
+    }
   }
 }
