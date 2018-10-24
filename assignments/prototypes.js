@@ -60,7 +60,7 @@
     this.name = characterAttr.name;
   }
   CharacterStats.prototype.takeDamage = function(){
-    return `${this.name} took damage.${this.hp} health left`
+    return `${this.name} took damage. ${this.hp} health left`
   }
 
   function Humanoid(humanoidAttr){
@@ -86,9 +86,24 @@
   function Villian(villianAttr){
     Humanoid.call(this, villianAttr)
   }
+
+  Villian.prototype.ninjitsu = function(object){
+    if(object.hp <= 0){
+      return object.destroy();
+    }
+    object.hp--;
+    return object.takeDamage();
+    console.log("hp removal")
+  }
   Humanoid.prototype.greet = function(){
     return `${this.name} offers a greeting in ${this.language}.`
   }
+  const scorpion = new Villian({
+    hp:20,
+    name: 'Scorpion',
+    weapons: ['kunai'],
+    language: 'common tongue'
+  })
 
   const kenshi = new Hero({
     hp:20,
@@ -147,6 +162,9 @@
     ],
     language: 'Elvish',
   });
+
+  console.log(scorpion.ninjitsu(kenshi));
+  console.log(scorpion.ninjitsu(kenshi));
   console.log(kenshi.blindFury(mage));
   console.log(kenshi.blindFury(mage));
   console.log(kenshi.blindFury(mage));
