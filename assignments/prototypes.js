@@ -45,10 +45,20 @@ function CharacterStats(characterAttrs){
 // used this to connect CharacterStats object to GameObject object. 
 CharacterStats.prototype = Object.create(GameObject.prototype)
 
+CharacterStats.prototype.constructor = CharacterStats;
+
+console.log("this is character stats", CharacterStats)
+
 CharacterStats.prototype.takeDamage = function(){
-  console.log(`${this.name} took damage`)
+  // console.log(`${this.name} took damage`)
       return `${this.name} took damage`
 }
+
+CharacterStats.prototype.constructor = CharacterStats;
+
+// CharacterStats.prototype.destroy = function (){
+// return `${this.destroy}`;
+// }
 
 /*
   === Humanoid ===
@@ -67,9 +77,21 @@ function Humanoid (humanoidAttrs){
  this.language = humanoidAttrs.language;
 }
 
+Humanoid.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.constructor = Humanoid;
+
 Humanoid.prototype.greet = function (){
   return `${this.name} offers a greeting in ${this.language}`
 }
+
+// Humanoid.prototype.takeDamage = function (){
+//   return `${this.takeDamage}`;
+// }
+// Humanoid.prototype.destroy = function (){
+//   return `${this.destroy}`;
+// }
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
