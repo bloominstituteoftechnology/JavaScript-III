@@ -167,6 +167,11 @@ Humanoid.prototype.greet = function() {
     return `The hero, ${this.name} with their ${this.morals} rescued an innocent citizen`
   }
 
+  Hero.prototype.quickSlash = function(target) {
+    target.hp -= 5;
+    console.log(`${this.name} attacked ${target.name}`);
+  }
+
   function Villian(villianTraits) {
     Humanoid.call(this, villianTraits)
     this.minions = villianTraits.minions
@@ -176,6 +181,11 @@ Humanoid.prototype.greet = function() {
 
   Villian.prototype.evilLaugh = function() {
     return `${this.name} and his ${this.minions} minions laugh maniacally`
+  }
+
+  Villian.prototype.powerStrike = function(target) {
+    target.hp -= 4;
+    console.log(`${this.name} attacked ${target.name}`);
   }
 
   const king = new Hero({
@@ -214,8 +224,14 @@ Humanoid.prototype.greet = function() {
     minions: 10
   });
 
-  console.log(king.rescue());
-  console.log(king.selflessness);
+console.log(king.rescue());
+console.log(king.selflessness);
 
-  console.log(nemesis.evilLaugh());
-  console.log(nemesis.minions)
+console.log(nemesis.evilLaugh());
+console.log(nemesis.minions)
+
+king.quickSlash(nemesis);
+console.log(nemesis.hp);
+
+nemesis.powerStrike(king);
+console.log(king.hp)
