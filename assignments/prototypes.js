@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+};
+
 /*
   === CharacterStats ===
   * hp
@@ -22,6 +31,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(charAttributes){
+  GameObject.call(this, charAttributes);
+  this.hp = charAttributes.hp;
+  this.name = charAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+};
 
 /*
   === Humanoid ===
@@ -32,6 +53,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(humanAttributes){
+  CharacterStats.call(this, humanAttributes);
+  this.faction = humanAttributes.faction;
+  this.weapons = humanAttributes.weapons;
+  this.language = humanAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +75,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +136,143 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+    this.nemesis = villainAttributes.nemesis;
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.chooseNemesis = function(nemesisObject){
+    this.nemesis = nemesisObject.name;
+  }
+
+  Villain.prototype.normalAttack = function(fightArray, opponentName){
+    const opponent = fightArray.find(person => person.name === opponentName);
+    if(opponent){
+      --opponent.hp;
+      if(opponent.hp <= 0){
+        document.getElementById('hero').src="img/heroDead.png";
+        document.getElementById('villainAttack').disabled = true;
+        document.getElementById('heroAttack').disabled = true;
+        document.getElementById('victory').innerHTML = `${orcVillain.name} the villain is victorious...`;
+      }
+    } else {
+      console.log(`${opponentName} is not in this battle!`)
+    }
+  }
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.nemesis = heroAttributes.nemesis;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.chooseNemesis = function(nemesisObject){
+    this.nemesis = nemesisObject.name;
+  }
+
+  Hero.prototype.normalAttack = function(fightArray, opponentName){
+    const opponent = fightArray.find(person => person.name === opponentName);
+    if(opponent){
+      if(Math.round(Math.random()) === 0){
+        --opponent.hp;
+        if(opponent.hp > 0){
+          return opponent.hp;
+        } else {
+          document.getElementById('villain').src="img/villainDead.png";
+          document.getElementById('villainAttack').disabled = true;
+          document.getElementById('heroAttack').disabled = true;
+          document.getElementById('victory').innerHTML = `${orcHero.name} the hero is victorious!`;
+        }
+      } else {
+        --opponent.hp;
+        --opponent.hp;
+        if(opponent.hp > 0){
+          return opponent.hp;
+        } else {
+          document.getElementById('villain').src="img/villainDead.png";
+          document.getElementById('villainAttack').disabled = true;
+          document.getElementById('heroAttack').disabled = true;
+          document.getElementById('victory').innerHTML = `${orcHero.name} the hero is victorious!`;
+        }
+      }
+    } else {
+      console.log(`${opponentName} is not in this battle!`)
+    }
+  }
+
+  const orcVillain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    hp: 15,
+    name: 'Ghorza',
+    faction: 'The Banished',
+    weapons: [
+      'Great maul'
+    ],
+    language: 'Orcish'
+  });
+
+  const orcHero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 3,
+    },
+    hp: 10,
+    name: 'Rodagog',
+    faction: 'The Blood Orcs',
+    weapons: [
+      'Umog the Reckoning'
+    ],
+    language: 'Orcish',
+    nemesis: orcVillain.name
+  });
+
+  orcVillain.chooseNemesis(orcHero);
+
+  const theFinalBattle = [orcHero, orcVillain];
+
+  //orcVillain.normalAttack(theFinalBattle, orcVillain.nemesis);
+  //orcHero.normalAttack(theFinalBattle, orcHero.nemesis);
+
+  // ---------------------------------------------
+
+  document.getElementById('heroHP').innerHTML = orcHero.hp;
+  document.getElementById('villainHP').innerHTML = orcVillain.hp;
+
+  document.getElementById('heroAttack').addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById('hero').src="img/heroAttack.png";
+    setTimeout(function() {
+      document.getElementById('hero').src="img/heroFront.png";
+    }, 300);
+    orcHero.normalAttack(theFinalBattle, orcHero.nemesis);
+    document.getElementById('villainHP').innerHTML = orcVillain.hp;
+  });
+
+  document.getElementById('villainAttack').addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById('villain').src="img/villainAttack.png";
+    setTimeout(function() {
+      document.getElementById('villain').src="img/villainFront.png";
+    }, 300);
+    orcVillain.normalAttack(theFinalBattle, orcVillain.nemesis);
+    document.getElementById('heroHP').innerHTML = orcHero.hp;
+  });
+
+  
