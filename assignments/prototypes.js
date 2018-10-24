@@ -34,7 +34,7 @@ function CharacterStats(characterParams){
   this.hp = characterParams.hp;
   this.name = characterParams.name;
 }
-
+console.log(CharacterStats);
 
 /*
   === Humanoid ===
@@ -52,7 +52,7 @@ function Humanoid(humanoidParams){
   this.weapons = humanoidParams.weapons;
   this.language = humanoidParams.language;
 }
-
+console.log(Humanoid)
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -67,12 +67,14 @@ GameObject.prototype.destroy = function(){
 CharacterStats.prototype.takeDamage = function(){
   return `${this.name} took damage`;
 }
-
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`;
+}
 
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -122,6 +124,7 @@ CharacterStats.prototype.takeDamage = function(){
     ],
     language: 'Elvish',
   });
+  console.log(mage);
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -133,7 +136,7 @@ CharacterStats.prototype.takeDamage = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
