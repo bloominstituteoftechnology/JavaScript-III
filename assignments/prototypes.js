@@ -214,9 +214,10 @@ const tezzeret = new Villain({
 
 function turnSimulator(hero, villain) {
   console.log(`Game Start.`)
+  let winner = null;
   for (let i = 99; i > 0; i--) {
     if (hero.hp <= 0 || villain.hp <= 0) {
-      console.log(`Game is over.`);
+      break;
     } else {
       if ((Math.floor(Math.random() * 100) + 1) % 2 === 0) {
         console.log(`It's ${hero.name}'s turn.`)
@@ -234,6 +235,7 @@ function turnSimulator(hero, villain) {
       }
     }
   }
+  return `Game Over`
 }
 
 console.log(turnSimulator(jace, tezzeret));
