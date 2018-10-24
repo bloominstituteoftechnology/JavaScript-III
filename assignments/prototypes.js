@@ -59,12 +59,20 @@ function Humanoid(human) {
   this.faction = human.faction;
   this.weapons = human.weapons;
   this.language = human.language;
+  this.attack = human.attack;
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+
+Humanoid.prototype.fight = function(enemy) {
+  let attacked = Math.floor(Math.random() * (this.attack - 0) + 1);
+  let result = this.hp - attacked;
+  return `${this.name} hits ${enemy.name} for ${attacked} hp. ${enemy.name} has ${result} hp remaining.`
 }
 
 function Hero(hero) {
@@ -74,7 +82,7 @@ function Hero(hero) {
 Hero.prototype = Object.create(Humanoid.prototype);
 
 function Villain(villain) {
-  Humanoid.call(this, hero);
+  Humanoid.call(this, villain);
 }
 
 Villain.prototype = Object.create(Humanoid.prototype);
@@ -140,6 +148,42 @@ Villain.prototype = Object.create(Humanoid.prototype);
     language: 'Elvish',
   });
 
+  const paladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 3,
+      height: 4,
+    },
+    hp: 15,
+    attack: 5,
+    name: 'McHammer',
+    faction: 'Heroes Guild',
+    weapons: [
+      'Mace',
+      'Miracles',
+    ],
+    language: 'High Elf',
+  });
+
+  const darkKnight = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 3,
+    },
+    hp: 15,
+    attack: 5,
+    name: 'Chaos',
+    faction: 'Villains Guild',
+    weapons: [
+      'Katana',
+      'Dark Magic',
+    ],
+    language: 'Blood Elf',
+  });
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -151,6 +195,9 @@ Villain.prototype = Object.create(Humanoid.prototype);
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+  console.log(paladin.fight(darkKnight));
+  console.log(darkKnight.fight(paladin));
 
 
   // Stretch task: 
