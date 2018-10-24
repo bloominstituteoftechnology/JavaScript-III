@@ -219,13 +219,14 @@ function turnSimulator(hero, villain) {
       console.log(`Game is over.`);
     } else {
       if ((Math.floor(Math.random() * 100) + 1) % 2 === 0) {
-
+        console.log(`It's Jace's turn.`)
         hero.checkHP();
         hero.magicMissile(villain);
         villain.checkHP();
         console.log(`----end of turn----`)
 
       } else {
+        console.log(`It's Jace's turn.`)
         villain.checkHP();
         villain.acidArrow(hero);
         hero.checkHP();
