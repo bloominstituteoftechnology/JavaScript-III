@@ -14,30 +14,47 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-function GameObject (attributes){
-  // CharacterStats.call(this, attributes);
-  this.createdAt = attributes.createdAt;
-  this.dimensions = attributes.dimensions;
+// ----- GameObject constructor ------ 
+
+function GameObject(gameObejectAttributes){
+
+  this.createdAt = gameObejectAttributes.createdAt;
+  this.dimensions = gameObejectAttributes.dimensions;
+
 }
+
+//GameObject Methods
 GameObject.prototype.destroy = function () {
-  return "Object was removed from the game"
+
+  return `${this.name} was removed from the game`; 
+
 }
-// GameObject.prototype = Object.create(CharacterStats.prototype);
-/*
-  === CharacterStats ===
-  * hp
-  * name
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
-function CharacterStats (attributes){
-  GameObject.call(this, attributes);
-  this.hp = attributes.hp;
-  this.name = attributes.name;
+//   === CharacterStats ===
+//   * hp
+//   * name
+//   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
+//   * should inherit destroy() from GameObject's prototype
+// */
+// ----- CharacterStats constructor ------ 
+
+function CharacterStats(characterStatsAttribute){
+
+  this.hp = characterStatsAttribute.hp;
+  this.name = characterStatsAttribute.name; 
+  GameObject.call(this, characterStatsAttribute); 
+
 }
+
+// CharacterStats Inherit from GameObject
+
+CharacterStats.prototype = Object.create(GameObject.prototype); 
+
+// CharacterStats methods
+
 CharacterStats.prototype.takeDamage = function () {
-  return `${this.name} took damage`}
-  CharacterStats.prototype = Object.create(GameObject.prototype);
+
+  return `${this.name} took damage`; 
+} 
 /*
   === Humanoid ===
   * faction
@@ -47,17 +64,28 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid (attributes){
-  GameObject.call(this, attributes);
-  CharacterStats.call(this, attributes);
-   this.faction = attributes.faction;
-   this.weapons = attributes.weapons;
-   this.language = attributes.language;
+// ----- Humanoid constructor ------ 
+
+function Humanoid(humanoidAttributes){  
+
+  this.faction = humanoidAttributes.faction; 
+  this.weapons = humanoidAttributes.weapons; 
+  this.language = humanoidAttributes.language; 
+  CharacterStats.call(this,humanoidAttributes);
+
+}
+// Humanoid creating path for inheritance from CharacterStats
+
+Humanoid.prototype = Object.create(CharacterStats.prototype); 
+
+//Humanoid methods
+
+Humanoid.prototype.greet = function() {
+
+  return `${this.name} offers a greeting in ${this.language}`;
+   
 }
 
-Humanoid.prototype.greet = function () {
-  return `${this.name} offers a greeting in ${this.language}`
-}
 // Humanoid.prototype = Object.create(CharacterStats.prototype);
 /* 
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
