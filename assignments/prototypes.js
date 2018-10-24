@@ -14,9 +14,11 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-let GameObject = function(createdAt, dimensions) {
-  this.createdAt = createdAt
-  this.dimensions = dimensions
+
+
+function GameObject (profession) {
+  this.createdAt = profession.createdAt
+  this.dimensions = profession.dimensions
 }
 GameObject.prototype.destroy = function() {
   return 'Object was removed from the game'
@@ -29,16 +31,16 @@ GameObject.prototype.destroy = function() {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-let CharacterStats = function(hp, name) {
-  GameObject.call(this)
-  this.hp = hp
-  this.name = name
+function CharacterStats (character) {
+  GameObject.call(this, character)
+  this.hp = character.hp
+  this.name = character.name
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${name} took damage!`
+  return `${this.name} took damage!`
 }
 
 /*
@@ -50,9 +52,8 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- let Humanoid = function (param){
-   GameObject.call(this)
-   CharacterStats.call(this)
+ function Humanoid (param){
+   CharacterStats.call(this, param)
    this.faction = param.faction
    this.weapons = param.weapons
    this.language = param.language
@@ -60,7 +61,7 @@ CharacterStats.prototype.takeDamage = function() {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-   return `${name} offers a greeting!`
+   return `${this.name} offers a greeting!`
  }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -120,16 +121,16 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'Elvish',
   });
-  console.log(mage)
-  console.log(mage.createdAt); // Today's date
+  // console.log(mage)
+  // console.log(mage.createdAt); // Today's date
   // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
   // console.log(swordsman.faction); // The Round Table
   // console.log(mage.weapons); // Staff of Shamalama
   // console.log(archer.language); // Elvish
   // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(mage.takeDamage()); // Bruce took damage.
   // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
@@ -137,3 +138,39 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  function Hero (heroStats) {
+    Humanoid.call(this, heroStats)
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.damage = function(target) {
+    target.hp --
+    console.log(target.hp)
+  }
+
+  
+  function Villain (villainStats) {
+    Humanoid.call(this, villainStats)
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.damage = function(target) {
+    target.hp --
+    console.log(target.hp)
+  }
+
+  const winner = new Hero({hp: 10})
+  const loser = new Villain({hp: 12})
+
+  console.log(winner.damage(loser));
+  console.log(winner.damage(loser));
+  console.log(winner.damage(loser));
+  console.log(winner.damage(loser));
+  console.log(winner.damage(loser));
+  console.log(winner.damage(loser));
+  console.log(winner.damage(loser));
+  console.log(winner.damage(loser));
+  
