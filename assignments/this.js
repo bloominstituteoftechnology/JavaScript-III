@@ -48,7 +48,7 @@ const Mikasa = new waifu("Mikasa", "Attack on Titan", 4);
 
 // code example for Explicit Binding
 const waifuFunctions = {
-    printName: function waifuName() {
+    printName: function() {
         console.log(this.name);
     }
 };

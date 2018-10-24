@@ -160,14 +160,15 @@ Hero.prototype.harmon = function (hero, villian) {
         }
         else {
             villian.takeDamage();
-            console.log(`${villian.name} has ${villian.hp}hp left`)
+            consoleLogFunctions.hpLeft.call(villian);
         }
     }
     
     else {
-        console.log(`${hero.name} is dead. Attack cannot be used`)
+        consoleLogFunctions.noHpLeft.call(villian);
     }
 };
+
 
 Hero.prototype.plotArmour = function(hero) {
     if(hero.hp >=0 && hero.hp<=20) {
@@ -212,12 +213,12 @@ Villian.prototype.bloodLust = function (villian, hero) {
         }
         else {
             hero.takeDamage();
-            console.log(`${hero.name} has ${hero.hp}hp left`)
+            consoleLogFunctions.hpLeft.call(hero);
         }
     }
 
     else {
-        console.log(`${villian.name} is dead. Attack cannot be used`)
+        consoleLogFunctions.noHpLeft.call(villian);
     }
 };
 
@@ -225,12 +226,12 @@ Villian.prototype.heal = function (villian) {
     if (villian.hp >= 0) {
         if (villian.hp >= 0) {
             villian.hp += Math.floor(Math.random() * 5);
-            console.log(`${villian.name} has ${villian.hp}hp left`);
+            consoleLogFunctions.hpLeft.call(villian);
         }
     }
 
     else {
-        console.log(`${villian.name} is dead. Attack cannot be used`)
+        consoleLogFunctions.noHpLeft.call(villian);
     }
 };
 
@@ -247,6 +248,17 @@ const Dio = new Villian({
     weapons: ['Regeneration'],
     language: 'English'
 });
+
+
+
+const consoleLogFunctions = {
+    noHpLeft: function () {
+        console.log(`${this.name} is out of hp. Cannot attack anymore`);
+    },
+    hpLeft: function() {
+        console.log(`${this.name} has ${this.hp}hp left`)
+    }
+};
 
 
 // * Give the Hero and Villians different methods that could be used to 
@@ -278,4 +290,12 @@ Dio.bloodLust(Dio, JosephJoestar);
 JosephJoestar.harmon(JosephJoestar,Dio);
 Dio.heal(Dio);
 Dio.bloodLust(Dio, JosephJoestar);
-
+JosephJoestar.harmon(JosephJoestar,Dio);
+Dio.heal(Dio);
+Dio.bloodLust(Dio, JosephJoestar);
+JosephJoestar.harmon(JosephJoestar,Dio);
+Dio.heal(Dio);
+Dio.bloodLust(Dio, JosephJoestar);
+JosephJoestar.harmon(JosephJoestar,Dio);
+Dio.heal(Dio);
+Dio.bloodLust(Dio, JosephJoestar);
