@@ -153,3 +153,38 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function Hero(heroTraits) {
+    Humanoid.call(this, heroTraits)
+    this.morals = heroTraits.morals
+    this.selflessness = heroTraits.selflessness
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.rescue = function() {
+    return `The hero, ${this.name} with their ${this.morals} rescued an innocent citizen`
+  }
+
+  const king = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 25,
+    name: 'King Niceguy',
+    faction: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+    morals: 'High Moral Code',
+    selflessness: true
+  });
+
+  console.log(king.rescue());
+  console.log(king.selflessness);
