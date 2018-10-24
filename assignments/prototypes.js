@@ -215,7 +215,6 @@ const heros = new Hero({
   mp: 0,
   str: 10
 })
-console.log(heros);
 
 const villos = new Villain({
   createdAt: new Date(),
@@ -232,26 +231,11 @@ const villos = new Villain({
   mp: 17,
   str: 2
 })
-console.log(villos);
 // Battle
 
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
-console.log(heros.strike(villos));
-console.log(villos.fireball(heros));
+for (let i = 0; i < 100; i++) {
+  console.log(heros.strike(villos));
+  console.log(villos.fireball(heros));
+  if ((!heros.alive) || (!villos.alive)) break;
+}
+
