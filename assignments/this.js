@@ -37,7 +37,7 @@ function ArrestedDevelopmentConstructor (character) {
     this.dance = 'Chicken Dance'
 }
 
-const magician = new ArrestedDevelopmentConstructor(Gob)
+const coolDad = new ArrestedDevelopmentConstructor(Michael)
 
 // Principle 4
 
@@ -48,5 +48,6 @@ function ArrestedDevelopmentConstructor (character) {
     this.dance = 'Chicken Dance'
 }
 const drinker = new ArrestedDevelopmentConstructor(Lucille)
-const magician = new ArrestedDevelopmentConstructor(Gob)
+const magicianWannabe = new ArrestedDevelopmentConstructor(Gob)
+
 magician.speak.call(Lucille); drinker.speak.apply(Gob);
