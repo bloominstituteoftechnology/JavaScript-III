@@ -139,7 +139,7 @@ function Villian(villianAttributes){
 Villian.prototype = Object.create(Humanoid.prototype); 
 
 //methods 
-Villian.prototype.killerEvilStare = function () {
+Villian.prototype.KillerEvilStare = function () {
   this.opponentHealth -= 10;
   return `The villian ${this.name} lets out an evil laugh you will fail because I am ${this.name}`;
 }
