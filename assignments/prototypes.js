@@ -1,19 +1,32 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
 
-  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
+  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.
 
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
-  
+
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt
+  this.dimensions = attributes.dimensions
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game`;
+}
+
+/*const gameObj = new GameObject('home', [5, 5, 5]);
+
+console.log(gameObj.destroy());*/
 
 /*
   === CharacterStats ===
@@ -22,6 +35,24 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(attributeStats) {
+  GameObject.call(this, attributeStats)
+  this.hp = attributeStats.hp
+  this.name = attributeStats.name
+  this.speed = attributeStats.speed
+};
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`
+};
+
+
+/*const newGuy = new CharacterStats(10, 'Bob');
+
+console.log(newGuy.takeDamage());*/
 
 /*
   === Humanoid ===
@@ -32,7 +63,30 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(attributeHumanoids) {
+  CharacterStats.call(this, attributeHumanoids)
+  this.faction = attributeHumanoids.faction
+  this.weapons = attributeHumanoids.weapons
+  this.language = attributeHumanoids.language
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`
+}
+
+Humanoid.prototype.defeat = function() {
+  console.log(`${this.name} was defeated in battle`);
+}
+
+Humanoid.prototype.victory = function() {
+  console.log(`${this.name} was triumphed over the enemy!`);
+}
+
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +95,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +156,175 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
-  // Stretch task: 
-  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+
+  // Stretch task:
+  // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function Hero(heroTraits) {
+    Humanoid.call(this, heroTraits)
+    this.morals = heroTraits.morals
+    this.selflessness = heroTraits.selflessness
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.rescue = function() {
+    return `The hero, ${this.name} with their ${this.morals} rescued an innocent citizen`
+  }
+
+  Hero.prototype.quickSlash = function(target) {
+    let attackPoints = Math.floor((Math.random() * 8) + 1);
+    let critChance = Math.floor((Math.random() * 20) + 1);
+    let crit = false;
+
+    if(critChance >= 8) {
+      attackPoints *= 2;
+      crit = true;
+    }
+
+    console.log(`${this.name} attacked ${target.name}, ${attackPoints} damage`);
+
+    if(crit) {
+      console.log('CRITICAL HIT')
+    }
+
+    target.hp -= attackPoints;
+  }
+
+  function Villian(villianTraits) {
+    Humanoid.call(this, villianTraits)
+    this.minions = villianTraits.minions
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype)
+
+  Villian.prototype.evilLaugh = function() {
+    return `${this.name} and his ${this.minions} minions laugh maniacally`
+  }
+
+  Villian.prototype.powerStrike = function(target) {
+    let attackPoints = Math.floor((Math.random() * 15) + 1);
+    let critChance = Math.floor((Math.random() * 20) + 1);
+    let crit = false;
+
+    if(critChance > 12) {
+      attackPoints *= 1.5;
+      let crit = true;
+    }
+
+    target.hp -= attackPoints;
+
+    if(crit) {
+      console.log('CRITICAL HIT')
+    }
+
+    console.log(`${this.name} attacked ${target.name}, ${attackPoints} damage`);
+  }
+
+  const king = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 25,
+    speed: 22,
+    name: 'King Niceguy',
+    faction: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Toungue',
+    morals: 'High Moral Code',
+    selflessness: true
+  });
+
+  const nemesis = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 25,
+    speed: 18,
+    name: 'Lord Baddude',
+    faction: 'Dark Knights',
+    weapons: [
+      'Long Blade'
+    ],
+    language: 'Common Toungue',
+    minions: 10
+  });
+
+console.log(king.rescue());
+console.log(king.selflessness);
+
+console.log(nemesis.evilLaugh());
+console.log(nemesis.minions)
+
+while(king.hp > 0 && nemesis.hp > 0) {
+  kingSpeed = Math.floor((Math.random() * king.speed) + 1);
+  nemesisSpeed = Math.floor((Math.random() * nemesis.speed) + 1);
+
+
+  if(kingSpeed > nemesisSpeed) {
+    let miss = Math.floor((Math.random() * 50) + 1)
+
+    if(miss <= 15) {
+      console.log(`${king.name} missed!`)
+      continue;
+    }
+
+
+    king.quickSlash(nemesis);
+    console.log(`${nemesis.hp} hp remaining`);
+
+    if(nemesis.hp <= 0) {
+      nemesis.defeat();
+      king.victory();
+      break;
+    }
+
+    nemesis.powerStrike(king);
+    console.log(`${king.hp} hp remaining`);
+
+    if(king.hp <= 0) {
+      king.defeat();
+      nemesis.victory();
+      break;
+    }
+    else {
+      let miss = Math.floor((Math.random() * 50) + 1)
+
+      if(miss <= 15) {
+        console.log(`${nemesis.name} missed!`)
+        continue;
+      }
+
+      nemesis.powerStrike(king);
+      console.log(`${king.hp} hp remaining`);
+
+      if(king.hp <= 0) {
+        king.defeat();
+        nemesis.victory();
+        break;
+      }
+
+      king.quickSlash(nemesis);
+      console.log(`${nemesis.hp} hp remaining`);
+
+      if(nemesis.hp <= 0) {
+        nemesis.defeat();
+        king.victory();
+        break;
+      }
+    }
+  }
+}
