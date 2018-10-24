@@ -138,5 +138,58 @@ function Humanoid (attributes) {
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
+
+  function Hero (attributes){
+    Humanoid.call(this, attributes)
+    this.level = attributes.level,
+    this.damage = attributes.damage
+  }
+
+  function Villian (attributes){
+    Humanoid.call(this, attributes)
+    this.level = attributes.level*1.3,
+    this.damage = attributes.damage
+  }
+
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+  
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+  const hero = new Humanoid ({
+    createdAt: new Date(),
+    level: 1,
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 1,
+    },
+    hp: 25,
+    name: 'Tiny Tim',
+    faction: 'The Round Table',
+    weapons: [
+      'Mace',
+      'Sharpened Shield',
+    ],
+    damage: this.level * 15,
+    language: 'Mid-Western Country',
+  });
+
+  const villian = new Humanoid ({
+    createdAt: new Date(),
+    level: 1,
+    dimensions: {
+      length: 5,
+      width: 5,
+      height: 5,
+    },
+    hp: 25,
+    name: 'Fat Bob',
+    faction: 'Forest Kingdom',
+    weapons: [
+      'Club',
+      'Hook',
+    ],
+    damage: this.level * 15,
+    language: 'Pig Latin',
+  });
