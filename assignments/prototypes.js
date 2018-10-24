@@ -17,9 +17,9 @@
 const GameObject = function(attributes){
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
-  }
-  GameObject.prototype.destroy = function(){
+    GameObject.prototype.destroy = function(){
     return(`Object was removed from the game!`)
+  }
 }
 
 /*
@@ -30,6 +30,8 @@ const GameObject = function(attributes){
   * should inherit destroy() from GameObject's prototype
 */
 const CharacterStats = function(){
+  this.hp = attributes.hp;
+  this.name = attributes.name;
 
 }
 
