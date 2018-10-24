@@ -177,8 +177,21 @@ Humanoid.prototype.victory = function() {
 
   Hero.prototype.quickSlash = function(target) {
     let attackPoints = Math.floor((Math.random() * 10) + 1);
-    target.hp -= attackPoints;
+    let critChance = Math.floor((Math.random() * 20) + 1);
+    let crit = false;
+
+    if(critChance > 9) {
+      attackPoints *= 2;
+      crit = true;
+    }
+
     console.log(`${this.name} attacked ${target.name}, ${attackPoints} damage`);
+
+    if(crit) {
+      console.log('CRITICAL HIT')
+    }
+
+    target.hp -= attackPoints;
   }
 
   function Villian(villianTraits) {
@@ -194,7 +207,20 @@ Humanoid.prototype.victory = function() {
 
   Villian.prototype.powerStrike = function(target) {
     let attackPoints = Math.floor((Math.random() * 10) + 1);
+    let critChance = Math.floor((Math.random() * 20) + 1);
+    let crit = false;
+
+    if(critChance > 12) {
+      attackPoints *= 1.5;
+      let crit = true;
+    }
+
     target.hp -= attackPoints;
+
+    if(crit) {
+      console.log('CRITICAL HIT')
+    }
+    
     console.log(`${this.name} attacked ${target.name}, ${attackPoints} damage`);
   }
 
