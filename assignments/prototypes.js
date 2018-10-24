@@ -7,7 +7,7 @@
   
   Each constructor function has unique properites and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
@@ -32,7 +32,7 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,68 +41,137 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
-  const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    hp: 5,
-    name: 'Bruce',
-    faction: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Toungue',
-  });
+// GAME OBJECT
+function GameObject(gameAtt) {
+  this.createdAt = gameAtt.createdAt;
+  this.dimensions = gameAtt.dimensions;
+}
 
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    hp: 15,
-    name: 'Sir Mustachio',
-    faction: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Toungue',
-  });
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`;
+}
 
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    hp: 10,
-    name: 'Lilith',
-    faction: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
+// CHARACTER OBJECT
+function CharacterStats(charAtt) {
+  GameObject.call(this, charAtt);
+  this.hp = charAtt.hp;
+  this.name = charAtt.name;
+}
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took some damage.`;
+};
+
+// HUMANOID OBJECT
+function Humanoid(humAtt) {
+  CharacterStats.call(this, humAtt);
+  this.faction = humAtt.faction;
+  this.weapons = humAtt.weapons;
+  this.language = humAtt.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function () {
+  return `${this.name} said a greeting in ${this.language}`;
+};
+
+// HERO
+function Hero(heroAtt) {
+  Humanoid.call(this, heroAtt);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.attackVillian = function () {
+  let fightResult = theVillian.hp - this.attack;
+  if (fightResult <= 0) {
+    return `${this.theVillian} has been slain!`;
+  } else {
+    return `${this.theVillian} has ${fightResult} hp left`;
+  }
+};
+
+// Villian
+function Villian(villAtt) {
+  Humanoid.call(this, villAtt);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+// Characters
+const theHero = new Humanoid({
+  hp: 14,
+  weapons: 'sword',
+  attack: 8
+});
+
+const theVillian = new Humanoid({
+  hp: 10,
+  weapons: 'staff',
+  attack: 9
+});
+
+const mage = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  hp: 5,
+  name: 'Bruce',
+  faction: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Toungue',
+});
+
+const swordsman = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2,
+  },
+  hp: 15,
+  name: 'Sir Mustachio',
+  faction: 'The Round Table',
+  weapons: [
+    'Giant Sword',
+    'Shield',
+  ],
+  language: 'Common Toungue',
+});
+
+const archer = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  hp: 10,
+  name: 'Lilith',
+  faction: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+});
+
+console.log(theHero.attackVillian);
+console.log(mage.createdAt); // Today's date
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+console.log(swordsman.hp); // 15
+console.log(mage.name); // Bruce
+console.log(swordsman.faction); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+console.log(archer.language); // Elvish
+console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage()); // Bruce took damage.
+console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
