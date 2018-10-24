@@ -22,6 +22,8 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+//Child.prototype = Object.create(Parent.prototype); must be before Child.prototype.function
+
 function GameObject(characterClass){
   this.createdAt = characterClass.createdAt;
   this.dimensions = characterClass.dimensions;
@@ -45,6 +47,8 @@ function CharacterStats(character) {
   this.name = character.name;
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function(){
   return `${this.name} took damage.`;
 }
@@ -66,7 +70,7 @@ function Humanoid(user) {
   this.weapons = user.weapons;
   this.language = user.language;
 }
-
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}.`;
 }
@@ -137,7 +141,7 @@ Humanoid.prototype.greet = function(){
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  // console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 

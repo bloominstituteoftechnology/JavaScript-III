@@ -4,7 +4,7 @@ This challenge focuses on using the `this` keyword as well as getting comfortabl
 ## Assignment Description
 
 * ~~Fork/Clone this repository.~~
-* Complete all the exercises as described inside each assignment file.
+* ~~Complete all the exercises as described inside each assignment file.~~
 * ~~To test your `console.log()` statements, open up the index.html file found in the assignments folder and use the developer tools to view the console.~~  
 * Once you finish the exercises in each file, commit your code, and push it to your fork. 
 
