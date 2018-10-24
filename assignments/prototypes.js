@@ -71,8 +71,8 @@ Humanoid.prototype.greet = function() {
 
 Humanoid.prototype.fight = function(enemy) {
   let attacked = Math.floor(Math.random() * (this.attack - 0) + 1);
-  let result = this.hp - attacked;
-  return `${this.name} hits ${enemy.name} for ${attacked} hp. ${enemy.name} has ${result} hp remaining.`
+  enemy.hp = enemy.hp - attacked;
+  return `${this.name} hits ${enemy.name} for ${attacked} hp. ${enemy.name} has ${enemy.hp} hp remaining.`
 }
 
 function Hero(hero) {
