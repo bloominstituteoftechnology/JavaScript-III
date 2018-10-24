@@ -167,6 +167,17 @@ Humanoid.prototype.greet = function() {
     return `The hero, ${this.name} with their ${this.morals} rescued an innocent citizen`
   }
 
+  function Villian(villianTraits) {
+    Humanoid.call(this, villianTraits)
+    this.minions = villianTraits.minions
+  }
+
+  Villian.prototype = Object.create(Humanoid.prototype)
+
+  Villian.prototype.evilLaugh = function() {
+    return `${this.name} and his ${this.minions} minions laugh maniacally`
+  }
+
   const king = new Hero({
     createdAt: new Date(),
     dimensions: {
@@ -186,5 +197,25 @@ Humanoid.prototype.greet = function() {
     selflessness: true
   });
 
+  const nemesis = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    hp: 25,
+    name: 'Lord Baddude',
+    faction: 'Dark Knights',
+    weapons: [
+      'Long Blade'
+    ],
+    language: 'Common Toungue',
+    minions: 10
+  });
+
   console.log(king.rescue());
   console.log(king.selflessness);
+
+  console.log(nemesis.evilLaugh());
+  console.log(nemesis.minions)
