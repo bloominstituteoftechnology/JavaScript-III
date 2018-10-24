@@ -14,6 +14,14 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject (options) {
+  this.createdAt = options.createdAt;
+  this.dimensions = options.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +30,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats (options) {
+  GameObject.call(this, options);
+  this.hp = options.hp;
+  this.name = options.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype)
+CharacterStats.prototype.constructor = CharacterStats;  
+CharacterStats.prototype.takeDamage = function(){
+    return `${this.name} took damage.`
+  
+}
 
 /*
   === Humanoid ===
@@ -33,6 +53,21 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(options){
+  //"this" refers to new Humanoid -- new empty object
+  CharacterStats.call(this, options);
+
+  this.faction = options.faction;
+  this.weapons = options.weapons;
+  this.language = options.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.langauge}.`
+}
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +76,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -91,20 +126,101 @@
     ],
     language: 'Elvish',
   });
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.hp); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.faction); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.hp); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.faction); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function Villain(options) {
+    Humanoid.call(this, options);
+    // this.characterState = options.characterState;
+  }
+  
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.constructor = Villain;
+
+  Villain.prototype.villainAttack = function(enemy){
+    enemy.hp -= Math.floor((Math.random() * 10) + 1);
+    console.log(`${this.name} attacked ${enemy.name}.`)
+    if (enemy.hp <= 0){
+      console.log(`${enemy.name} has been defeated!!!`)
+    } 
+  }
+  
+  function Hero(options){
+    Humanoid.call(this, options);
+    // this.characterState = options.characterState;
+  }
+  
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.constructor = Hero;
+
+  Hero.prototype.heroAttack = function(enemy){
+    enemy.hp -= Math.floor((Math.random() * 10) + 1);
+    console.log(`${this.name} attacked ${enemy.name} with ${this.weapons}.`)
+    if (enemy.hp <= 0){
+      console.log(`${enemy.name} has been defeated!!!`)
+    } 
+  }
+
+  const twilight = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 25,
+    name: 'Twilight Sparkle',
+    faction: 'The Land of Equestria',
+    weapons: [
+      'her brain',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const tempest = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    hp: 30,
+    name: 'Tempest',
+    faction: 'Storm King Nation',
+    weapons: [
+      'her magical powers',
+    ],
+    language: 'Common Tongue',
+  });
+
+
+function fight(hero, villain) {
+  for (i = 0; i < 50; i++) {
+    if (villain.hp > 0 || hero.hp > 0) {
+      villain.villainAttack(hero);
+      hero.heroAttack(villain)
+    } 
+    if (villain.hp <= 0 || hero.hp <= 0) {
+      break
+    }
+  }
+}
+
+fight(twilight, tempest);
