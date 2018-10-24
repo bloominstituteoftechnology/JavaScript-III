@@ -49,3 +49,4 @@ function thing(){
 }
 
 const testing = thing.bind(firstThing); // this refers to 'firstThing'.
+testing();
