@@ -75,6 +75,14 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`
 }
 
+Humanoid.prototype.defeat = function() {
+  console.log(`${this.name} was defeated in battle`);
+}
+
+Humanoid.prototype.victory = function() {
+  console.log(`${this.name} was triumphed over the enemy!`);
+}
+
 
 
 
@@ -168,7 +176,7 @@ Humanoid.prototype.greet = function() {
   }
 
   Hero.prototype.quickSlash = function(target) {
-    target.hp -= 5;
+    target.hp -= 10;
     console.log(`${this.name} attacked ${target.name}`);
   }
 
@@ -184,7 +192,7 @@ Humanoid.prototype.greet = function() {
   }
 
   Villian.prototype.powerStrike = function(target) {
-    target.hp -= 4;
+    target.hp -= 8;
     console.log(`${this.name} attacked ${target.name}`);
   }
 
@@ -230,8 +238,22 @@ console.log(king.selflessness);
 console.log(nemesis.evilLaugh());
 console.log(nemesis.minions)
 
-king.quickSlash(nemesis);
-console.log(nemesis.hp);
+while(king.hp > 0 && nemesis.hp > 0) {
+  king.quickSlash(nemesis);
+  console.log(`${nemesis.hp} hp remaining`);
 
-nemesis.powerStrike(king);
-console.log(king.hp)
+  if(nemesis.hp <= 0) {
+    nemesis.defeat();
+    king.victory();
+    break;
+  }
+
+  nemesis.powerStrike(king);
+  console.log(`${king.hp} hp remaining`);
+
+  if(king.hp <= 0) {
+    king.defeat();
+    nemesis.victory();
+    break;
+  }
+}
