@@ -51,6 +51,7 @@ const CharacterStats = function (attributes) {
   GameObject.call(this, attributes);
   this.hp = attributes.hp;
   this.name = attributes.name;
+  this.alive = true;
 }
 
 // Creates inheritance for CharacterStats from GameObject
@@ -71,15 +72,17 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 //Prototype methods
 
-GameObject.prototype.destroy = function() {
+GameObject.prototype.destroy = function () {
+  if (this.alive) this.alive = false;
   if (!this.name) return `Game object was removed from the game.`;
   else return `${this.name} was removed from the game.`;
 }
 
-CharacterStats.prototype.takeDamage = function() {
+CharacterStats.prototype.takeDamage = function () {
+  if (!this.alive) return "He's dead, Jim.";
   let damage = (Math.floor(Math.random() * 10));
   this.hp -= damage;
-  if(this.hp <= 0) return this.destroy();
+  if (this.hp <= 0) return this.destroy();
   else return `${this.name} took ${damage} damage.  ${this.hp} remaining`;
 }
 
@@ -154,7 +157,7 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
 // Hero 
-const Hero = function(attributes) {
+const Hero = function (attributes) {
   Humanoid.call(this, attributes);
   this.mp = attributes.mp;
   this.str = attributes.str;
@@ -162,19 +165,38 @@ const Hero = function(attributes) {
 
 Hero.prototype = Object.create(Humanoid.prototype);
 
-Hero.prototype.strike = function(target) {
-  if((Math.random()* 10) < 5) return target.takeDamage();
-  else return "Attack missed";
+Hero.prototype.strike = function (target) {
+  if (!this.alive) return `You can't do that, you're dead!`;
+  else if (!target.alive) return `You just going to hack at that corpse all day?`;
+  else {
+    if ((Math.random() * 10) < 5) return target.takeDamage();
+    else return "Attack missed";
+  }
 }
 
 // Villain
-const Villain = function(attributes) {
+const Villain = function (attributes) {
   Humanoid.call(this, attributes);
   this.mp = attributes.mp;
   this.str = attributes.str;
 }
 
 Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.fireball = function (target) {
+  if (!this.alive) return `Dead wizards cast no spells`;
+  else if (!target.alive) return `Hard to get him more burnt than that.`;
+  else {
+    if (this.mp < 3) {
+      this.mp += 1;
+      return `You do not have enough MP`;
+    } else {
+      this.mp -= 3;
+      if ((Math.random() * 10) < 5) return target.takeDamage();
+      else return "Attack missed";
+    }
+  }
+}
 
 // Playing God
 
@@ -193,6 +215,7 @@ const heros = new Hero({
   mp: 0,
   str: 10
 })
+console.log(heros);
 
 const villos = new Villain({
   createdAt: new Date(),
@@ -201,7 +224,7 @@ const villos = new Villain({
     width: 2,
     height: 2
   },
-  hp:13,
+  hp: 13,
   name: "Villos",
   faction: "Order of No Quarter",
   weapons: ["Staff of Flambert"],
@@ -209,12 +232,26 @@ const villos = new Villain({
   mp: 17,
   str: 2
 })
-
+console.log(villos);
 // Battle
 
 console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
 console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
 console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
 console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
 console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
 console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
+console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
+console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
+console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
+console.log(heros.strike(villos));
+console.log(villos.fireball(heros));
