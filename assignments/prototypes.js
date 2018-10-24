@@ -176,8 +176,9 @@ Humanoid.prototype.victory = function() {
   }
 
   Hero.prototype.quickSlash = function(target) {
-    target.hp -= 10;
-    console.log(`${this.name} attacked ${target.name}`);
+    let attackPoints = Math.floor((Math.random() * 10) + 1);
+    target.hp -= attackPoints;
+    console.log(`${this.name} attacked ${target.name}, ${attackPoints} damage`);
   }
 
   function Villian(villianTraits) {
@@ -192,8 +193,9 @@ Humanoid.prototype.victory = function() {
   }
 
   Villian.prototype.powerStrike = function(target) {
-    target.hp -= 8;
-    console.log(`${this.name} attacked ${target.name}`);
+    let attackPoints = Math.floor((Math.random() * 10) + 1);
+    target.hp -= attackPoints;
+    console.log(`${this.name} attacked ${target.name}, ${attackPoints} damage`);
   }
 
   const king = new Hero({
