@@ -229,7 +229,7 @@ console.log(swordsman.destroy());
 
 
 console.log("A new battle is about to begin")
-console.log(`The match ${Matthew.name} vs ${EvilOne.name} has begun.`);
+console.log(`The battle of ${Matthew.name} vs ${EvilOne.name} has begun.`);
 console.log(`The villian has the following weapons ${EvilOne.weapons}`);
 console.log(`The hero has the following weapons ${Matthew.weapons}`); 
 console.log(`The villian speaks the following language ${EvilOne.language}`);
