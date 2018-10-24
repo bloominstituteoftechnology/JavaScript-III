@@ -273,7 +273,16 @@ while(king.hp > 0 && nemesis.hp > 0) {
   kingSpeed = Math.floor((Math.random() * king.speed) + 1);
   nemesisSpeed = Math.floor((Math.random() * nemesis.speed) + 1);
 
+
   if(kingSpeed > nemesisSpeed) {
+    let miss = Math.floor((Math.random() * 50) + 1)
+
+    if(miss <= 15) {
+      console.log(`${king.name} missed!`)
+      continue;
+    }
+
+
     king.quickSlash(nemesis);
     console.log(`${nemesis.hp} hp remaining`);
 
@@ -290,7 +299,15 @@ while(king.hp > 0 && nemesis.hp > 0) {
       king.defeat();
       nemesis.victory();
       break;
-    } else {
+    }
+    else {
+      let miss = Math.floor((Math.random() * 50) + 1)
+
+      if(miss <= 15) {
+        console.log(`${nemesis.name} missed!`)
+        continue;
+      }
+
       nemesis.powerStrike(king);
       console.log(`${king.hp} hp remaining`);
 
