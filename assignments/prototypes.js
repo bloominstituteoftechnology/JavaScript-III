@@ -77,7 +77,10 @@ GameObject.prototype.destroy = function() {
 }
 
 CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage`;
+  let damage = (Math.floor(Math.random() * 10));
+  this.hp -= damage;
+  if(this.hp <= 0) return this.destroy();
+  else return `${this.name} took ${damage} damage.  ${this.hp} remaining`;
 }
 
 Humanoid.prototype.greet = function () {
@@ -173,7 +176,7 @@ const Villain = function(attributes) {
 
 Villain.prototype = Object.create(Humanoid.prototype);
 
-// Battle!
+// Playing God
 
 const heros = new Hero({
   createdAt: new Date(),
@@ -207,3 +210,11 @@ const villos = new Villain({
   str: 2
 })
 
+// Battle
+
+console.log(heros.strike(villos));
+console.log(heros.strike(villos));
+console.log(heros.strike(villos));
+console.log(heros.strike(villos));
+console.log(heros.strike(villos));
+console.log(heros.strike(villos));
