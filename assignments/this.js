@@ -7,7 +7,7 @@
 
 * 3. New Binding- Constructor function (capitalize the variable), a new way of making objects that we haven't done before.
 
-* 4. Explicit Binding- The opposite of Implicit, meaning it is stated clearly and in detail, leaving no room for confusion or doubt. In this case we have to state it clearly. CALL: `.call()` method calls a function with a given `this` value and arguments provided individually. / APPLY: `.apply()` method calls a function with a given `this` value, and `arguments` provided as an array (or an array-like object) / BIND: `.bind()` method creates a new function that, when called, has it's `this` keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
+* 4. Explicit Binding- The opposite of Implicit, meaning it is stated clearly and in detail, leaving no room for confusion or doubt. In this case we have to state it clearly. // CALL: `.call()` method calls a function with a given `this` value and arguments provided individually. // APPLY: `.apply()` method calls a function with a given `this` value, and `arguments` provided as an array (or an array-like object) // BIND: `.bind()` method creates a new function that, when called, has it's `this` keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called. Bind hold onto something inside of a variable and allows us to store it for later and allows us to call it when we need to call it.
 *
 * write out a code example of each explanation above
 */
