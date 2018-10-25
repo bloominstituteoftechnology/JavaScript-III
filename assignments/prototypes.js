@@ -57,8 +57,10 @@ function Humanoid(huma) {
   this.hp = huma.hp;
   this.dimensions = huma.dimensions;
   this.createdAt = huma.createdAt;
-  
+
 }
+console.log(Humanoid.prototype.constructor);
+// Humanoid.prototype.constructor = Humanoid;
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return`${this.name} offers a greeting ${this.language}`
@@ -137,3 +139,36 @@ Humanoid.prototype.greet = function() {
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+
+  function Villian(vill) {
+    Humanoid.call(this,vill);
+  }
+  Villian.prototype = Object.create(Humanoid.prototype);
+  Villian.prototype.defend = function() {
+    return`${this.name}: 'try me MF!'`
+  }
+
+  function Hero(hero) {
+    Humanoid.call(this,hero);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.damage = function() {
+    return`${this.name} 'I will destroy you!'`
+  }
+
+  const john = new Villian({
+    name: 'john',
+    faction: 'Forest Kingdom',
+    language: 'Elvish',
+  });
+
+  const merry = new Hero({
+    name: 'merry',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+  });
+  console.log(john.defend());
+  console.log(merry.damage());
