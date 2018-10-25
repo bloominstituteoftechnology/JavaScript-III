@@ -70,9 +70,11 @@ Humanoid.prototype.greet = function() {
 
 
 Humanoid.prototype.fight = function(enemy) {
-  let attacked = Math.floor(Math.random() * (this.attack - 0) + 1);
-  enemy.hp = enemy.hp - attacked;
-  return `${this.name} hits ${enemy.name} for ${attacked} hp. ${enemy.name} has ${enemy.hp} hp remaining.`
+  enemy.hp = enemy.hp - this.attack;
+  if (enemy.hp <= 0) {
+    return enemy.destroy();
+  } else
+  return `${this.name} hits ${enemy.name} for ${this.attack} hp. ${enemy.name} has ${enemy.hp} hp remaining.`
 }
 
 function Hero(hero) {
@@ -197,6 +199,8 @@ Villain.prototype = Object.create(Humanoid.prototype);
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   console.log(paladin.fight(darkKnight));
+  console.log(darkKnight.fight(paladin));
+  console.log(darkKnight.fight(paladin));
   console.log(darkKnight.fight(paladin));
 
 
