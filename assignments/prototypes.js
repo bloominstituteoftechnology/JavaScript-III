@@ -32,7 +32,9 @@ const GameObject = function(attributes){
 const CharacterStats = function(){
   this.hp = attributes.hp;
   this.name = attributes.name;
-
+    CharacterStats.prototype.takeDamage(){
+      return(`${object.name} took damage`)
+    }
 }
 
 /*
