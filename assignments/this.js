@@ -43,8 +43,8 @@ function CordialPerson(greeter) {
     }
 }
 
-const leeroy = new CordialPerson('Leeroy');
-const tann = new CordialPerson('Tann')
+const leeroy = new CordialPerson('Sarah');
+const rebecca = new CordialPerson('Dr. Tann')
 
 leeroy.speak();
 
@@ -52,4 +52,4 @@ leeroy.speak();
 
 // code example for Explicit Binding
 
-leeroy.speak.call(tann)
+leeroy.speak.call(rebecca)
