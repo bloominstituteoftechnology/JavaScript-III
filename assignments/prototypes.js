@@ -15,15 +15,14 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-var GameObject = function(createdAt, dimensions) {
-  this.createdAt = createdAt,
-  this.dimensions = dimensions,
-  this.destroy = function() {
-    return 'Object was removed from the game'
-  }
+function GameObject(obj) {
+  this.createdAt = obj.createdAt;
+  this.dimensions = obj.dimensions;
 }
 
-
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game`
+}
 
 
 
@@ -35,14 +34,17 @@ var GameObject = function(createdAt, dimensions) {
   * should inherit destroy() from GameObject's prototype
 */
 
-var CharacterStats = function(hp, name, takeDamage) {
-  this.hp = hp,
-  this.name = name,
-  this.takeDamage = function() {
-
-  }
+function CharacterStats(obj) {
+  GameObject.call(this, obj); 
+  this.hp = obj.hp;
+  this.name = obj.name;
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`
+}
 
 
 
@@ -58,13 +60,17 @@ var CharacterStats = function(hp, name, takeDamage) {
   * should inherit takeDamage() from CharacterStats
 */
 
-var Humanoid = function() {
-  this.faction = faction,
-  this.weapons = weapons,
-  this.language = language,
-  this.greet = function() {
-    
-  }
+function Humanoid(obj) {
+  CharacterStats.call(this, obj)
+  this.faction = obj.faction;
+  this.weapons = obj.weapons;
+  this.language = obj.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeeting in ${this.language}`
 }
 
 
@@ -89,7 +95,7 @@ var Humanoid = function() {
 
 
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -106,7 +112,7 @@ var Humanoid = function() {
     language: 'Common Toungue',
   });
 
-
+  console.log(mage)
 
 
 
@@ -126,7 +132,7 @@ var Humanoid = function() {
     ],
     language: 'Common Toungue',
   });
-
+console.log(swordsman)
 
 
 
@@ -148,7 +154,7 @@ var Humanoid = function() {
     language: 'Elvish',
   });
 
-
+console.log(archer)
 
 
 //-------------------------------------------------------------------------------------------CONSOLE LOGS//
@@ -162,10 +168,11 @@ var Humanoid = function() {
   console.log(swordsman.faction); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
+  console.log(mage.greet());
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(mage.takeDamage());// Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  
 
 
 
