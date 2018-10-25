@@ -25,16 +25,16 @@ function GameObject(attrs){
 }
 
 GameObject.prototype.destroy = function (){
-  if (this.name){
-    return `${this.name} was removed from the game`;
-  } else {
-    return `Object was removed from the game`;
-  }
+  // if (this.name){
+  //   return `${this.name} was removed from the game`;
+  // } else {
+  //   return `Object was removed from the game`;
+  // }
+  return `${this.name} was removed from the game`;
 }
 /*
   === CharacterStats ===
-  * hp
-  * name
+  * hp  * name
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
@@ -49,6 +49,7 @@ function CharacterStats(characterAttrs){
 // used this to connect CharacterStats object to GameObject object. 
 CharacterStats.prototype = Object.create(GameObject.prototype)
 
+// co
 CharacterStats.prototype.constructor = CharacterStats;
 
 console.log("this is character stats", CharacterStats)
@@ -60,15 +61,9 @@ CharacterStats.prototype.takeDamage = function(){
 
 CharacterStats.prototype.constructor = CharacterStats;
 
-// CharacterStats.prototype.destroy = function (){
-// return `${this.destroy}`;
-// }
-
 /*
   === Humanoid ===
-  * faction
-  * weapons
-  * language
+  * faction * weapons * language
   * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
@@ -90,12 +85,6 @@ Humanoid.prototype.greet = function (){
   return `${this.name} offers a greeting in ${this.language}`
 }
 
-// Humanoid.prototype.takeDamage = function (){
-//   return `${this.takeDamage}`;
-// }
-// Humanoid.prototype.destroy = function (){
-//   return `${this.destroy}`;
-// }
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -170,5 +159,83 @@ Humanoid.prototype.greet = function (){
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects 
+  //which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+// Villian constructor
+function Villain(villAttrs){
+    Humanoid.call(this, villAttrs);
+    this.attackPower = villAttrs.attackPower;
+    this.recover = villAttrs.recover;
+    // this.enemy  = villAttrs.enemy;
+  }
+
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.constructor = Villain;
+  console.log(Villain)
+
+// Hero Constructor  
+function Hero(heroAttrs){
+    Humanoid.call(this, heroAttrs);
+    this.attack = heroAttrs.attack;
+    this.recover = heroAttrs.recover;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.constructor = Object.create(Humanoid.prototype);
+    console.log(Hero)
+
+// Methods for causing damage to Hero and Villain
+
+Villain.prototype.attack = function (gotAttacked){
+  this.gotAttacked = gotAttacked;
+   if (this.attackPower) {
+     return `${this.name} attacked ${this.enemy}. ${this.enemy} has ${this.hp} left!`;
+   }
+  }
+
+Villain.prototype.recover = function (){
+    if (this.hp >= 0 || this.hp <= 6){
+        return `${this.name} has recovered!`
+    }
+  }
+
+
+
+Hero.prototype.recover = function (){
+  if (this.hp >= 0 || this.hp <= 10){
+      return `${this.name} has recovered!`
+  }
+}
+
+
+const killMonger = new Villain ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 11,
+    width: 33,
+    height: 14
+  },
+  name: 'Killmonger',
+  hp: 50,
+  weapons: 'blade',
+  attackPower: 15,
+  recover: 5
+})
+
+const blackPanther = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 10,
+    width: 32,
+    height: 13
+  },
+  name: 'Black Panther',
+  weapons: 'combative suit',
+  hp: 55,
+  attackPower: 14,
+  recover: 15
+})
+
+console.log(killMonger.attack())
