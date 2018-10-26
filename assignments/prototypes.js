@@ -42,28 +42,30 @@
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
 function GameObject(attr){
-  this.createdAt = attr.Date,
+  this.createdAt = attr.createdAt
   this.dimensions = attr.dimensions
 };
 GameObject.prototype.destroy = function () {
-  console.log(`Object was removed from the game.`)
+  console.log(`${this.name} was removed from the game.`)
 };
+
 CharacterStats.prototype = Object.create(GameObject.prototype)
 
-function CharacterStats(attr){
-GameObject.call(this, "today", "1 x 2 x 3")
-this.hp = attr.hp
-this.name = attr.name
+function CharacterStats(characterAttr){
+GameObject.call(this, characterAttr)
+this.hp = characterAttr.hp
+this.name = characterAttr.name 
 };
+
 CharacterStats.prototype.takeDamage = function(){
-console.log(`${name} took damage.`)
+console.log(`${this.name} took damage.`)
 };
 Humanoid.prototype = Object.create(CharacterStats.prototype)
-function Humanoid(CharacterStats, attr){
-CharacterStats;
-this.factions = attr.factions
-this.weapons = attr.weapons
-this.language = attr.language
+function Humanoid( humanoidAttr){
+CharacterStats.call(this, humanoidAttr)
+this.faction = humanoidAttr.faction
+this.weapons = humanoidAttr.weapons
+this.language = humanoidAttr.language
 };
 Humanoid.prototype.greet = function(){
 console.log(`${this.name} offers a greeting in ${this.language}.`) 
