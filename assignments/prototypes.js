@@ -25,11 +25,6 @@ function GameObject(attrs){
 }
 
 GameObject.prototype.destroy = function (){
-  // if (this.name){
-  //   return `${this.name} was removed from the game`;
-  // } else {
-  //   return `Object was removed from the game`;
-  // }
   return `${this.name} was removed from the game`;
 }
 /*
@@ -166,12 +161,13 @@ Humanoid.prototype.greet = function (){
 // Villian constructor
 function Villain(villAttrs){
     Humanoid.call(this, villAttrs);
-    this.attackPower = villAttrs.attackPower;
+    this.attack = villAttrs.attack;
     this.recover = villAttrs.recover;
     // this.enemy  = villAttrs.enemy;
   }
 
 Villain.prototype = Object.create(Humanoid.prototype);
+
 Villain.prototype.constructor = Villain;
   console.log(Villain)
 
@@ -183,28 +179,46 @@ function Hero(heroAttrs){
   }
 
   Hero.prototype = Object.create(Humanoid.prototype);
+
   Hero.prototype.constructor = Object.create(Humanoid.prototype);
     console.log(Hero)
 
 // Methods for causing damage to Hero and Villain
+Villain.prototype.method = Villain;
 
-Villain.prototype.attack = function (gotAttacked){
-  this.gotAttacked = gotAttacked;
-   if (this.attackPower) {
-     return `${this.name} attacked ${this.enemy}. ${this.enemy} has ${this.hp} left!`;
-   }
+Villain.prototype.attackEnemy = function (enemy){
+  enemy.hp = ;
+     if (enemy.hp < 1){
+      return `${enemy.destroy()}`;
+      console.log(`${enemy.destroy()}`)
+    }
+    return `${this.name} attacked ${enemy.name}. ${enemy.name} has ${enemy.hp} left!`;
   }
 
+Hero.prototype.attackEnemy = function (enemy){
+  enemy.hp -= 4;
+    if (enemy.hp < 1){
+      return `${enemy.destroy()}`;
+      console.log(`${enemy.destroy()}`)
+    }
+    return `${this.name} attacked ${enemy.name}. ${enemy.name} has ${enemy.hp} left!`;
+ }
+
+//  Villain.prototype.attacked = function (attacked){
+//     // attacked.hp -= 4;
+//   return `${this.name} lost `;
+// }
+
 Villain.prototype.recover = function (){
-    if (this.hp >= 0 || this.hp <= 6){
+    if (this.hp > 0 || this.hp <= 6){
+      this.hp += 5; 
         return `${this.name} has recovered!`
     }
   }
 
-
-
 Hero.prototype.recover = function (){
-  if (this.hp >= 0 || this.hp <= 10){
+  if (this.hp > 0 || this.hp <= 10){
+    this.hp++;
       return `${this.name} has recovered!`
   }
 }
@@ -238,4 +252,30 @@ const blackPanther = new Hero ({
   recover: 15
 })
 
-console.log(killMonger.attack())
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
