@@ -12,6 +12,9 @@
 // Principle 1
 
 // code example for Window Binding
+let windowBound = function(){
+    console.log(this);
+}
 
 // Principle 2
 
@@ -28,6 +31,12 @@ myObject.displayInfo();
 // Principle 3
 
 // code example for New Binding
+const pet = function(name, animalType){
+    this.name = name;
+    this.animalType = animalType;
+}
+let cat = new pet(`Trixie`, `cat`);
+console.log(pet.name);
 
 // Principle 4
 
