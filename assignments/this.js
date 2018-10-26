@@ -35,7 +35,7 @@ implicitBinding.sayName();
 
 // Principle 3
 
-// code example for New Binding
+// code example for Explicit Binding
 const sayName = (name1, name2, name3) => {
   console.log(
     `I have three kids, and their names are ${name1}, ${name2}, and ${name3}.`
@@ -53,7 +53,7 @@ sayName.apply(derek, kids);
 
 // Principle 4
 
-// code example for Explicit Binding
+// code example for New Binding
 const Team = function (name, city, sport) {
   this.name = name;
   this.city = city;
