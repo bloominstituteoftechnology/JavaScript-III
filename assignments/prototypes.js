@@ -121,15 +121,15 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
-console.log(swordsman.hp); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.faction); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+// console.log(swordsman.hp); // 15
+// console.log(mage.name); // Bruce
+// console.log(swordsman.faction); // The Round Table
+// console.log(mage.weapons); // Staff of Shamalama
+// console.log(archer.language); // Elvish
+// console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+// console.log(mage.takeDamage()); // Bruce took damage.
+// console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+//
 // Stretch task:
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
 
@@ -195,6 +195,17 @@ function Villian(villianAttributes) {
 
 Villian.prototype = Object.create(Humanoid.prototype);
 
+function fight(hero, villian) {
+  while (hero.hp >= 0 && villian.hp >= 0) {
+    hero.heroDefend(villian, hero.weapons[getRandomInt(0, 2)]);
+    villian.villianAttack(hero, villian.weapons[getRandomInt(0, 2)]);
+  }
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const lancelot = new Hero({
   createdAt: new Date(),
   dimensions: {
@@ -223,6 +234,7 @@ const blackKnight = new Villian({
   language: 'Unknown',
 });
 
+fight(lancelot, blackKnight);
 // lancelot.heroDefend(blackKnight, 'Sword');
 // lancelot.heroDefend(blackKnight, 'Spear');
 // lancelot.heroDefend(blackKnight, 'Shield');
@@ -233,40 +245,3 @@ const blackKnight = new Villian({
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 //
-//
-// blackKnight.villianAttack(lancelot, 'Sword');
-// blackKnight.villianAttack(lancelot, 'Mace');
-// lancelot.heroDefend(blackKnight, 'Shield');
-// lancelot.heroDefend(blackKnight, 'Shield');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// blackKnight.villianAttack(lancelot, 'Mace');
-// blackKnight.villianAttack(lancelot, 'Axe');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// blackKnight.villianAttack(lancelot, 'Axe');
-// blackKnight.villianAttack(lancelot, 'Sword');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// blackKnight.villianAttack(lancelot, 'Axe');
-// blackKnight.villianAttack(lancelot, 'Mace');
-// lancelot.heroDefend(blackKnight, 'Shield');
-// blackKnight.villianAttack(lancelot, 'Sword');
-// blackKnight.villianAttack(lancelot, 'Axe');
-// lancelot.heroDefend(blackKnight, 'Spear');
-// lancelot.heroDefend(blackKnight, 'Spear');
-// lancelot.heroDefend(blackKnight, 'Spear');
-// blackKnight.villianAttack(lancelot, 'Mace');
-// blackKnight.villianAttack(lancelot, 'Sword');
-// lancelot.heroDefend(blackKnight, 'Spear');
-// lancelot.heroDefend(blackKnight, 'Spear');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// blackKnight.villianAttack(lancelot, 'Mace');
-// blackKnight.villianAttack(lancelot, 'Axe');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// blackKnight.villianAttack(lancelot, 'Axe');
-// blackKnight.villianAttack(lancelot, 'Sword');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// lancelot.heroDefend(blackKnight, 'Sword');
-// blackKnight.villianAttack(lancelot, 'Axe');
-// blackKnight.villianAttack(lancelot, 'Mace');
