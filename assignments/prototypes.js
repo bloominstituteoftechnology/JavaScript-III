@@ -67,7 +67,6 @@ Humanoid.prototype = Object.create(GameObject.prototype); // inheriting
 
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`;
-  console.log(this.name);
 };
  
 /*
