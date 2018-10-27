@@ -1,11 +1,16 @@
 /*
-  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance heirarchy.
+  Object oriented design is commonly used in video games. 
+   For this part of the assignment you will be implementing several constructor functions with 
+   their correct inheritance heirarchy.
 
-  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
+  In this file you will be creating three constructor functions: 
+  GameObject, CharacterStats, Humanoid.  
 
-  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
+  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  
+  Use the objects at the bottom of the page to test your constructor functions.
   
-  Each constructor function has unique properites and methods that are defined in their block comments below:
+  Each constructor function has unique properites and methods that are defined in their block 
+  comments below:
 */
   
 /*
@@ -14,24 +19,67 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(attrs){
+  this.createdAt = attrs.createdAt;
+  this.dimensions = attrs.dimensions;
+}
 
+GameObject.prototype.destroy = function (){
+  return `${this.name} was removed from the game`;
+}
 /*
   === CharacterStats ===
-  * hp
-  * name
+  * hp  * name
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
 
+// created this function to create Characterstats and bind it to parent. 
+function CharacterStats(characterAttrs){
+  GameObject.call(this, characterAttrs);
+  this.hp = characterAttrs.hp;
+  this.name = characterAttrs.name;
+}
+
+// used this to connect CharacterStats object to GameObject object. 
+CharacterStats.prototype = Object.create(GameObject.prototype)
+
+// co
+CharacterStats.prototype.constructor = CharacterStats;
+
+console.log("this is character stats", CharacterStats)
+
+CharacterStats.prototype.takeDamage = function(){
+  // console.log(`${this.name} took damage`)
+      return `${this.name} took damage`
+}
+
+CharacterStats.prototype.constructor = CharacterStats;
+
 /*
   === Humanoid ===
-  * faction
-  * weapons
-  * language
+  * faction * weapons * language
   * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid (humanoidAttrs){
+ CharacterStats.call(this, humanoidAttrs);
+ this.faction = humanoidAttrs.faction;
+ this.weapons = humanoidAttrs.weapons;
+ this.language = humanoidAttrs.language;
+}
+
+Humanoid.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.constructor = Humanoid;
+
+Humanoid.prototype.greet = function (){
+  return `${this.name} offers a greeting in ${this.language}`
+}
+
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +89,7 @@
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
-/*
+// /*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +150,118 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+// */
 
   // Stretch task: 
   // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villians different methods that could be used to remove health points from objects 
+  //which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+// Villian constructor
+function Villain(obj){
+    Humanoid.call(this, obj);
+    this.attackPower = obj.attackPower;
+    this.recover = obj.recover;
+  }
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.constructor = Villain;
+  console.log(Villain)
+
+  Villain.prototype.attackEnemy = function (enemy){
+    // enemy.hp -= 4;
+  enemy.hp -= this.attackPower;
+      if (enemy.hp < 1){
+        // console.log(`${enemy.destroy()}`)
+        return `${enemy.destroy()}`;
+      }
+      return `${this.name} attacked ${enemy.name} and caused ${this.attackPower} damage with ${this.weapons}. ${enemy.name} has ${enemy.hp} hp left!`;
+   }
+
+
+Villain.prototype.recoverHp = function (){
+  if (this.hp >0 || this.hp <= 10){
+    this.hp += this.recover;
+    return `${this.name} has recovered ${this.recover} hp and now has ${this.hp} left!`
+  }
+}
+
+// Hero Constructor  
+function Hero(obj){
+    Humanoid.call(this, obj);
+    this.attackPower = obj.attackPower;
+    this.recover = obj.recover;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+
+  Hero.prototype.constructor = Hero;
+
+// Methods for causing damage to Hero and Villain
+
+Hero.prototype.attackEnemy = function (enemy){
+enemy.hp -= this.attackPower;
+    if (enemy.hp < 1){
+      return `${enemy.destroy()}`;
+    }
+    return `${this.name} attacked ${enemy.name} and caused ${this.attackPower} damage with ${this.weapons[1]}. ${enemy.name} has ${enemy.hp} hp left!`;
+ }
+
+Hero.prototype.recoverHp = function (){
+  if (this.hp >0 || this.hp <= 10){
+    this.hp += this.recover;
+    // return `${this.name} has recovered ${this.hp} hp!`
+  }
+  return `${this.name} has recovered ${this.recover} hp and now has ${this.hp} left!`
+}
+
+// constructor functions
+
+const killMonger = new Villain ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 11,
+    width: 33,
+    height: 14
+  },
+  name: 'Killmonger',
+  hp: 50,
+  weapons: 'blade',
+  attackPower: 15,
+  recover: 5
+})
+
+const blackPanther = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 10,
+    width: 32,
+    height: 13
+  },
+  name: 'Black Panther',
+  weapons: ['combative suit', 'bladeRidge'],
+  hp: 55,
+  attackPower: 14,
+  recover: 15
+})
+
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+// console.log(blackPanther.recoverHp(blackPanther))
+console.log(blackPanther.recoverHp())
+console.log(blackPanther.recoverHp())
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(killMonger.attackEnemy(blackPanther))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(killMonger.recoverHp())
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(killMonger.recoverHp())
+console.log(blackPanther.attackEnemy(killMonger))
+console.log(blackPanther.attackEnemy(killMonger))
+
+
