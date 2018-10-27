@@ -31,10 +31,16 @@ console.log(test.func()); // this refers to test
 // code example for New Binding
 
 function Person(attributes){
-    this.name = attributes.name; // this refers to object being created.
+    this.name = attributes.name;
     this.age = attributes.age;
     this.gender = attributes.gender;
 }
+
+const ed = new Person({ // 'this' refers to 'ed', as it is being created.
+    name: 'Edward',
+    age: 27,
+    gender: 'male'
+})
 
 // Principle 4
 
