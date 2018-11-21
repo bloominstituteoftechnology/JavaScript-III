@@ -114,18 +114,109 @@ const archer = new Humanoid({
   language: "Elvish"
 });
 
-console.log(mage.createdAt); // Today's date
-console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-console.log(swordsman.hp); // 15
-console.log(mage.name); // Bruce
-console.log(swordsman.faction); // The Round Table
-console.log(mage.weapons); // Staff of Shamalama
-console.log(archer.language); // Elvish
-console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-console.log(mage.takeDamage()); // Bruce took damage.
-console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+// console.log(mage.createdAt); // Today's date
+// console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+// console.log(swordsman.hp); // 15
+// console.log(mage.name); // Bruce
+// console.log(swordsman.faction); // The Round Table
+// console.log(mage.weapons); // Staff of Shamalama
+// console.log(archer.language); // Elvish
+// console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+// console.log(mage.takeDamage()); // Bruce took damage.
+// console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-// Stretch task:
+//=============================== Stretch task: Game ====================================================
+/* Playable characters:
+        mage, swordsman, 
+        archer, warrior, goblin
+*/
+/* Possible attacks: 
+        attacker.heavyAttack(attacker, enemy),
+        attacker.mediumAttack(attacker, enemy),
+        attacker.lightAttack(attacker, enemy)
+*/
+
 // * Create Villian and Hero constructor functions that inherit from the Humanoid constructor function.
-// * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+function Villian(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+Hero.prototype = Object.create(Humanoid.prototype);
+
+// * Give the Hero and Villians different methods that could be used to remove health points from objects
+// which could result in destruction if health gets to 0 or drops below 0;
+
+Humanoid.prototype.heavyAttack = (attacker, enemy) => {
+  this.attacker = attacker;
+  this.enemy = enemy;
+  console.log(`${attacker.name} dropped a heavy attack on ${enemy.name}`);
+  if (enemy.hp === 0) {
+    console.log(enemy.destroy());
+  } else {
+    console.log(`${enemy.takeDamage()} by 5 points`);
+    enemy.hp -= 5;
+    console.log(`${enemy.name} remaining Hp: ${enemy.hp}`);
+  }
+};
+
+Humanoid.prototype.mediumAttack = (attacker, enemy) => {
+  this.attacker = attacker;
+  this.enemy = enemy;
+  console.log(`${attacker.name} dropped a medium attack on ${enemy.name}`);
+  if (enemy.hp === 0) {
+    console.log(enemy.destroy());
+  } else {
+    console.log(`${enemy.takeDamage()} by 2 points`);
+    enemy.hp -= 2;
+    console.log(`${enemy.name} remaining Hp: ${enemy.hp}`);
+  }
+};
+
+Humanoid.prototype.lightAttack = (attacker, enemy) => {
+  this.attacker = attacker;
+  this.enemy = enemy;
+  console.log(`${attacker.name} dropped a light attack on ${enemy.name}`);
+  if (enemy.hp === 0) {
+    console.log(enemy.destroy());
+  } else {
+    console.log(`${enemy.takeDamage()} by 1 point`);
+    enemy.hp -= 1;
+    console.log(`${enemy.name} remaining Hp: ${enemy.hp}`);
+  }
+};
+
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
+
+const warrior = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  hp: 15,
+  name: "Boromir",
+  faction: "Gandor",
+  weapons: ["Sword", "Shield", "Dagger"],
+  language: "Sindar"
+});
+
+const goblin = new Villian({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  hp: 5,
+  name: "Gollum",
+  faction: "N/A",
+  weapons: ["Scary face"],
+  language: "English"
+});
