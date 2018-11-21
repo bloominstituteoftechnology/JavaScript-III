@@ -25,12 +25,12 @@ const becky = {
   age: 56,
   gender: "Female",
 
-  speak: function() {
+  talk: function() {
     console.log(`My name is, ${this.name}`);
   }
 };
 
-speak();
+// talks();
 
 // Principle 2
 
@@ -40,12 +40,12 @@ const spencer = {
   age: 28,
   gender: "Male",
 
-  speak: function() {
+  blab: function() {
     console.log(`My name is, ${this.name}`);
   }
 };
 
-spencer.speak();
+spencer.blab();
 // Principle 3
 
 // code example for New Binding
@@ -83,9 +83,13 @@ const brad = {
   age: 45
 };
 
-function speak() {
+function intro() {
   console.log(`My name is, ${this.name} and i am ${this.age} `);
 }
 
-speak.call(larry);
-speak.apply(brad);
+intro.call(larry);
+
+intro.apply(brad);
+
+const talks = intro.bind(larry);
+talks();
