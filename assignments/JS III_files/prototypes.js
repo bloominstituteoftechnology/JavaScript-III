@@ -14,7 +14,6 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-
 function GameObject(attributes){
     this.createdAt = attributes.createdAt;
     this.dimensions = attributes.dimensions;
@@ -186,8 +185,12 @@ Humanoid.prototype.greet = function(){
   Villain.prototype.spell = function(){
     if(this.healthPoints > 1){
       console.log(`I'm attacking ${this.name}`);
-      return this.healthPoints -= 2;
-    }
+      this.healthPoints -= 2;
+      console.log(`Their health is ${this.healthPoints}`);
+      if(this.healthPoints == 0){
+        console.log(this.destroy(`${this.name}`))
+      }
+      }
     else{
       console.log(this.destroy(`${this.name}`))
     }
@@ -220,7 +223,8 @@ Humanoid.prototype.greet = function(){
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
   
-  document.getElementById("herohealth").innerHTML = `Health: ${matt.healthPoints}`;
-  document.getElementById("vilhealth").innerHTML = `Health: ${witch.healthPoints}`;
-  
- 
+
+function newFunction() {
+  document.getElementById("myP").innerHTML = "Hello Dolly.";
+}
+newFunction();
