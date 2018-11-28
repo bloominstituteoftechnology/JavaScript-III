@@ -10,6 +10,8 @@ to the left of the dot.
 *
 * 4. Explicit Binding - uses call, apply or bind to tell function what the context
  of "this" will be. 
+
+ 
 * write out a code example of each explanation above
 */
 
