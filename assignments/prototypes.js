@@ -74,6 +74,44 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`;
 }
+Humanoid.prototype.attack = function (objectToAttack) {
+  if(objectToAttack.healthPoints <= 0){
+    objectToAttack.destroy();
+  }else{
+    objectToAttack.healthPoints -= 1;
+    console.log(`${objectToAttack.name} is now at ${objectToAttack.healthPoints} Health Points`);
+  }
+}
+
+// Villian
+function Villian(villianAttributes){
+  Humanoid.call(this, villianAttributes);
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.attack = function (objectToAttack) {
+  if(objectToAttack.healthPoints <= 0){
+    console.log(objectToAttack.destroy());
+  }else{
+    objectToAttack.healthPoints -= 1;
+    console.log(`${objectToAttack.name} is now at ${objectToAttack.healthPoints} Health Points`);
+  }
+}
+
+// Hero
+function Hero(heroAttributes){
+  Humanoid.call(this, heroAttributes);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.attack = function (objectToAttack) {
+  if(objectToAttack.healthPoints <= 0){
+    objectToAttack.destroy();
+  }else{
+    objectToAttack.healthPoints -= 1;
+    console.log(`${objectToAttack.name} is now at ${objectToAttack.healthPoints} Health Points`);
+  }
+}
 
 
   const mage = new Humanoid({
@@ -91,7 +129,7 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Common Tongue',
   });
-console.log(mage);
+
   const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -116,7 +154,7 @@ console.log(mage);
       width: 2,
       height: 4,
     },
-    healthPoints: 10,
+    healthPoints: 0,
     name: 'Lilith',
     team: 'Forest Kingdom',
     weapons: [
@@ -126,16 +164,50 @@ console.log(mage);
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.healthPoints); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 25,
+    name: 'Hannibal',
+    team: 'Serial Killers',
+    weapons: [
+      'Knife'
+    ],
+    language: 'Common Tongue',
+  });
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Brandon',
+    team: 'Tampa',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Common Tongue',
+  });
+
+villian.attack(archer);
+hero.attack(villian);
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.healthPoints); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.team); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
