@@ -72,6 +72,10 @@ Humanoid.prototype.greet = function () {
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
+function randFromArray(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function Villain(villainStats) {
   Humanoid.call(this, villainStats);
   this.evilAttack = villainStats.evilAttack;
@@ -79,7 +83,7 @@ function Villain(villainStats) {
 }
 Villain.prototype = Object.create(Humanoid.prototype);
 Villain.prototype.doEvilAttack = function (victim) {
-  const randWeapon = this.weapons[Math.floor(Math.random() * this.weapons.length)];
+  const randWeapon = randFromArray(this.weapons);
   tmp = victim.healthPoints;
   victim.healthPoints -= this.evilAtkPts;
   return `${this.name} used a ${randWeapon} to do ${this.evilAttack} on ${victim.name}! ${victim.name}'s HP went from ${tmp} to ${victim.healthPoints}`;
@@ -92,7 +96,7 @@ function Hero(heroStats) {
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.doVirtuousAttack = function (victim) {
-  const randWeapon = this.weapons[Math.floor(Math.random() * this.weapons.length)];
+  const randWeapon = randFromArray(this.weapons);
   tmp = victim.healthPoints;
   victim.healthPoints -= this.virtuousAtkPts;
   return `${this.name} used a ${randWeapon} to do ${this.virtuousAttack} to ${victim.name}! ${victim.name}'s HP went from ${tmp} to ${victim.healthPoints}`;
@@ -189,9 +193,6 @@ Hero.prototype.doVirtuousAttack = function (victim) {
     virtuousAtkPts: '4'
   });
 
-  console.log(evilPerson.doEvilAttack(archer));
-  console.log(virtuousIndividual.doVirtuousAttack(evilPerson));
-
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -208,3 +209,16 @@ Hero.prototype.doVirtuousAttack = function (victim) {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  console.log(evilPerson.doEvilAttack(archer));
+  console.log(virtuousIndividual.doVirtuousAttack(evilPerson));
+
+  while (evilPerson.healthPoints > 0 && virtuousIndividual.healthPoints > 0) {
+    console.log(evilPerson.doEvilAttack(virtuousIndividual));
+    console.log(virtuousIndividual.doVirtuousAttack(evilPerson));
+    if(evilPerson.healthPoints <= 0){
+      console.log(`evilPerson is defeated`);
+    } else if(virtuousIndividual.healthPoints <= 0) {
+      console.log(`virtuousIndividual is defeated`);
+    }
+  }
