@@ -177,5 +177,4 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   }
   
     
-  
-  
+  // not finished yet... more update is coming.........
