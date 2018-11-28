@@ -28,7 +28,7 @@ function GameObject(attributes){
 }  
 
 GameObject.prototype.destroy = function() {
-  console.log('This object was removed from the game');
+  console.log(` ${this.name} was removed from the game`);
 }
 
 /*
@@ -43,7 +43,7 @@ GameObject.prototype.destroy = function() {
 function CharacterStats(charStats){
   GameObject.call(this, charStats);
   this.healthPoints = charStats.healthPoints;
-  this.name = charStats.dimensions;
+  this.name = charStats.name;
 } 
 
 //inheriting destroy() from GameObject
@@ -86,11 +86,6 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   console.log(`${this.name} offers a greeting in ${this.language}`);
 }
-
-
-
-
-
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
