@@ -200,23 +200,29 @@ Humanoid.prototype.greet = function() {
 
     console.log(heropts);
 
-  do {
+    console.log('BATTLE TIME!');
+
     var turn = getRandomInt(2);
+    var weap = getRandomInt(2);
+
+  do {
     if (turn === 0) {
       console.log("Hero's turn!");
       var ttldmg = 0;
       ttldmg = getRandomInt(11);
-      console.log(`${Hero.name} hit the enemy with ${Hero.weapons} for ` + ttldmg + `dmg`);
+      weap = getRandomInt(2);
+      console.log(`${Hero.name} hit the enemy with ${Hero.weapons[weap]} for ` + ttldmg + `dmg`);
       villpts -= ttldmg;
-      turn = getRandomInt(2);
+      turn += 1;
       continue;
     } else {
       console.log("Villan's turn!");
       var ttldmg = 0;
       ttldmg = getRandomInt(11);
-      console.log(`${Villan.name} hit the enemy with ${Villan.weapons} for ` + ttldmg + `dmg`);
+      weap = getRandomInt(2);
+      console.log(`${Villan.name} hit the enemy with ${Villan.weapons[weap]} for ` + ttldmg + `dmg`);
       heropts -= ttldmg;
-      turn = getRandomInt(2);
+      turn -= 1;
       continue;
     }
    } while (heropts > 0 && villpts > 0 );
