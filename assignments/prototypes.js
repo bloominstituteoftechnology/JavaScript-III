@@ -15,16 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-// function GameObject(dimensions) {
-// this.healthPoints = dimensions.healthPoints;
-// this.name = dimensions.name;
-// }
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
 
-// GameObject.prototype.destroy = function() {
-//   console.log('Object was removed from the game.');
-// }// GameObject
+GameObject.prototype.destroy = function() {
+  return 'Object was removed from the game.';
+}// GameObject
 
-// GameObject.destroy();
 
 /*
   === CharacterStats ===
@@ -33,6 +32,19 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(charAttributes) {
+  GameObject.call(this, charAttributes);
+  this.healthPoints = charAttributes.healthPoints;
+  this.name = charAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+return `${this.name} took damage.`;
+}// CharacterStats
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -43,6 +55,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(humanAttributes) {
+  CharacterStats.call(this, humanAttributes);
+  this.team = humanAttributes.team;
+  this.weapons = humanAttributes.weapons;
+  this.language = humanAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -50,9 +75,30 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// const character = new Humanoid({
+//   createdAt: 'beginning of time',
+//   dimensions: {
+//     length: 2,
+//     width: 1,
+//     height: 1,
+//   },
+//   healthPoints: 10,
+//   name: 'Gandalf',
+//   team: 'wizards',
+//   weapons: [
+//     'staff'
+//   ],
+//   language: 'Common'
+// });
+
+// console.log(character);
+// console.log(character.destroy());
+// console.log(character.takeDamage());
+// console.log(character.greet());
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -113,7 +159,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
