@@ -30,11 +30,28 @@ html{
 }
 
 .healthbar-cont{
+  position: relative;
   margin: 20px 0;
   width: 90%;
   border: 2px solid gray;
   height: 20px;
   border-radius: 4px;
+}
+
+.healthnum1{
+  font-size: 14px;
+  font-weight: bold;
+  position: absolute;
+  left: 45.3%;
+  bottom: -14px;
+}
+
+.healthnum2{
+  font-size: 14px;
+  font-weight: bold;
+  position: absolute;
+  left: 45.3%;
+  bottom: -14px;
 }
 
 .health1{

@@ -218,6 +218,8 @@ Humanoid.prototype.greet = function(){
   const fighter1Health = document.querySelector('.health1');
   const fighter2Health = document.querySelector('.health2');
   const chat = document.querySelector('.chat');
+  const fighter1hn = document.querySelector('.healthnum1');
+  const fighter2hn = document.querySelector('.healthnum2');
 
   theBtn.addEventListener('click', function(){
     if(dogman.healthPoints > 0 && catman.healthPoints > 0){
@@ -238,7 +240,9 @@ Humanoid.prototype.greet = function(){
       //chatIt(`Dog Man HP: ${dogman.healthPoints}  Cat Man HP: ${catman.healthPoints}`);
     }
     fighter1Health.style.width = `${(dogman.healthPoints/10)*100}%`;
+    fighter1hn.innerHTML = `${dogman.healthPoints}/10`;
     fighter2Health.style.width = `${(catman.healthPoints/10)*100}%`;
+    fighter2hn.innerHTML = `${catman.healthPoints}/10`;
   });
 
   function chatIt(theChat){
