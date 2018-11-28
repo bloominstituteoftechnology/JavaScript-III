@@ -149,3 +149,33 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villian(points,winPoints){
+    this.points=points;
+    this.winPoints;
+  }
+  
+  Villian.prototype = Object.create(Humanoid.prototype);
+  
+  Villian.prototype.check = function(points,winPoints){
+    if(points < winPoints){
+      console.log("The evil monster loses");
+    }
+    else if(points > winPoints){
+      console.log("the evil monster wins");
+    }else if(points == winPoints){
+      console.log("it is a tie");
+    }
+  }
+  
+  
+  for(let i = 0 ; i < 10 ; i++){
+        let randomNum = Math.floor(Math.random()*300);
+        let randomNumTwo = Math.floor(Math.random()*300)
+        const villian = new Villian(randomNum,randomNumTwo);
+        villian.check(randomNum,randomNumTwo);
+  }
+  
+    
+  
+  
