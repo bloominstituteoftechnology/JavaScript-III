@@ -18,7 +18,7 @@ function sayAge(age) {
     console.log(this);
     return age;
   }
-  sayAge(23); // <- Uh oh! Refers to the window or console object.
+  sayAge(23); // <- Refers to the window or console object.
 
 // Principle 2
 // code example for Implicit Binding

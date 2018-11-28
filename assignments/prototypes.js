@@ -98,6 +98,19 @@ Humanoid.prototype.greet = function() {
   VillainChar.prototype.monologue = function() {
     return `The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right. Greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms, greed for life, for money, for love, knowledge, has marked the upward surge of mankind. And greed... you mark my words... will not only save The Realm of Norja, but that other malfunctioning territory called Skarsgaard.`;
   }   
+
+  let spellEffect = [
+    {text: "frozen in carbonite"},
+    {text: "held upside down by reversed forces of gravity"}, 
+    {text: "stuck in a paralyzed state"}, 
+    {text: "converted to the opposing side"}
+]
+
+  VillainChar.prototype.castSpell = function(spellArray, attacker, target) {
+    let spell = spellEffect[Math.floor(Math.random() * spellEffect.length)];
+    return `${this.name} cast a spell on ${character.name} and caused them to be ${spell}!`
+  }
+
   // HERO
 
   function HeroChar(heroAttributes){
@@ -231,6 +244,7 @@ Humanoid.prototype.greet = function() {
   console.log(swordsman.attack(villain, 3));
   console.log(villain.threat());
   console.log(hero.saysCatchPhrase());
+  console.log(villain.castSpell(archer));
 
   // Stretch task:
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
