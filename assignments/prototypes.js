@@ -44,6 +44,12 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// import statement for math.js
+// ES6 import statement (uncomment if using ES6)
+// import * as math from 'mathjs'
+// Node.js import statement
+const math = require('mathjs');
+
 // Constructors and prototypes
 
 function GameObject(goAttributes) {
@@ -146,3 +152,100 @@ Humanoid.prototype.greet = function () {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Attacker(attributes) {
+    Humanoid.call(this, attributes);
+    this.attackDamage = attributes.attackDamage;
+    this.accuracy = attributes.accuracy;
+    this.dodge = attributes.dodge;
+  }
+
+  Attacker.prototype = Object.create(Humanoid.prototype);
+  
+  // Gets a hit chance (100% is 1.0)
+  function CalculateHitChance(accuracy, dodge) {
+    return 0.5 + math.asinh(accuracy - dodge) / (math.square(math.pi));
+  }
+
+  // Returns a boolean if the hit was successful
+  function CheckHit(hitChance) {
+    return math.random(0, 1) < hitChance;
+  }
+
+  Attacker.prototype = Object.create(Humanoid.prototype);
+
+  Attacker.prototype.attack = function(target) {
+    if (this.healthPoints <= 0)
+      return;
+
+    let dodge = isFinite(target["dodge"]) ? target["dodge"] : 0;
+    let accuracy = isFinite(this.accuracy) ? this.accuracy : 0;
+    let hitChance = CalculateHitChance(accuracy, dodge);
+
+    if (CheckHit(hitChance)) {
+      target.healthPoints = target.healthPoints - this.attackDamage;
+      console.log(`${this.name} hits ${target.name} for ${this.attackDamage} damage! (${hitChance * 100}%)`);
+      if (target.healthPoints <= 0) {
+        console.log(`${target.name} has been defeated!`);
+        console.log(target.destroy());
+      }
+    } else {
+      console.log(`${this.name} misses an attack against ${target.name}! {${hitChance * 100}%)`);
+    }
+  }
+
+  function Hero() {
+    Attacker.call(this, {
+      'attackDamage': 10,
+      'accuracy': 20,
+      'dodge': 40,
+      'team': 'Lambda School',
+      'weapons': [
+        'Peer Code Review',
+        'I do, We do, You do',
+        'なに？'
+      ],
+      'language': 'JavaScript',
+      'healthPoints': 100,
+      'name': 'Josh Knell',
+      'dimensions': 'Way beyond ours'
+    })
+  }
+
+  Hero.prototype = Object.create(Attacker.prototype);
+
+  function Villain() {
+    Attacker.call(this, {
+      'attackDamage': 20,
+      'accuracy': 10,
+      'dodge': 5,
+      'team': 'Evil LLC',
+      'weapons': [
+        'In this house we use arrow syntax',
+        'Programming is not stressful at all'
+      ],
+      'language': 'not specific enough',
+      'healthPoints': 300,
+      'name': 'Big Boss',
+      'dimensions': 'Huge'
+    })
+  }
+
+  Villain.prototype = Object.create(Attacker.prototype);
+
+  const ourHeroComesToSaveTheDay = new Hero();
+  const uhOhHereComesTheVillain = new Villain();
+
+  console.log(ourHeroComesToSaveTheDay.greet());
+  console.log(uhOhHereComesTheVillain.greet());
+
+  while (ourHeroComesToSaveTheDay.healthPoints > 0 && uhOhHereComesTheVillain.healthPoints > 0) {
+    ourHeroComesToSaveTheDay.attack(uhOhHereComesTheVillain);
+    uhOhHereComesTheVillain.attack(ourHeroComesToSaveTheDay);
+  }
+
+  if (ourHeroComesToSaveTheDay.healthPoints <= 0) {
+    console.log(`The villain ${uhOhHereComesTheVillain.name} has triumphed!`);
+  } else {
+    console.log(`Our hero ${ourHeroComesToSaveTheDay.name} has saved the day!`);
+  }
