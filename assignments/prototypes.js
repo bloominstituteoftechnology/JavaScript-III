@@ -20,7 +20,7 @@ function GameObject(attributes){
 }
 
 GameObject.prototype.destroy = function() {
-  return `Object was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -66,6 +66,8 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 }
+
+
 
  
 /*
@@ -143,3 +145,90 @@ Humanoid.prototype.greet = function() {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Hero(attributes){
+    Humanoid.call(this, attributes);
+    this.attackDamage = attributes.attackDamage;
+  }
+  
+  Hero.prototype = Object.create(Humanoid.prototype)
+  
+  Hero.prototype.attack = function(target){
+    target.healthPoints -= this.attackDamage
+    if (target.healthPoints > 0) {
+      return `${this.name} bravely attacks ${target.name} with ${this.weapons[0]}! ${target.name} is at ${target.healthPoints} health!`
+    } else {
+      return `${this.name} defeats ${target.name} with ${this.weapons[0]}!`
+    }
+  }
+  
+  function Villain(attributes){
+    Humanoid.call(this, attributes);
+    this.attackDamage = attributes.attackDamage;
+    this.henchmenStrength = attributes.henchmenStrength;
+  }
+  
+  Villain.prototype = Object.create(Humanoid.prototype)
+  
+  Villain.prototype.attack = function(target){
+    target.healthPoints -= this.attackDamage
+    if (target.healthPoints > 0) {
+      return `${this.name} cruelly strikes ${target.name} with ${this.weapons[0]}! ${target.name} is at ${target.healthPoints} health!`
+    } else {
+      return `${this.name} cruelly cuts down ${target.name} with ${this.weapons[0]}!`
+    }
+  }
+
+  Villain.prototype.henchmenAttack = function(target){
+    target.healthPoints -= this.attackDamage
+    if (target.healthPoints > 0) {
+      return `${this.name}'s followers charge at ${target.name}! ${target.name} is at ${target.healthPoints} health!`
+    } else {
+      return `${this.name}'s followers defeat ${target.name}!`
+    }
+  }
+
+  const paloroth = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 100,
+    name: 'Paloroth',
+    team: 'Veiled Falls',
+    weapons: [
+      'Fellblade',
+      'Spiked Mace',
+    ],
+    language: 'Elvish',
+    attackDamage: 10,
+    henchmenStrength: 8,
+  });
+
+  const dunderman = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 90,
+    name: 'Dunder Man',
+    team: 'Tower of Lords',
+    weapons: [
+      'Hero\'s Sword',
+      'Hero\'s Shield',
+    ],
+    language: 'Common Tongue',
+    attackDamage: 40,
+  });
+
+  console.log(dunderman.attack(paloroth))
+  console.log(paloroth.henchmenAttack(dunderman))
+  console.log(paloroth.attack(dunderman))
+  console.log(dunderman.attack(paloroth))
+  console.log(paloroth.henchmenAttack(dunderman))
+  console.log(paloroth.attack(dunderman))
+  console.log(dunderman.attack(paloroth))
