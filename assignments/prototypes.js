@@ -128,6 +128,42 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Give the Hero and Villians different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villian and one a hero and fight it out with methods!
 
-function Hero(attrs) {
+// Hero And Villian
+function Heros(attrs) {
   Humanoid.call(this, attrs);
 }
+
+Heros.prototype = Object.create(Humanoid.prototype);
+
+Heros.prototype.defend = function(hp, power) {
+  console.log(power);
+  console.log(hp);
+  let currentHp = hp;
+  while (currentHp > 0) {
+    currentHp -= power;
+    console.log(`YOUR CURRENT HEALTH IS ${currentHp}`);
+  }
+  console.log("YOU LOSE!!");
+};
+
+function Villians(attrs) {
+  Humanoid.call(this, attrs);
+}
+
+Villians.prototype = Object.create(Humanoid.prototype);
+
+Villians.prototype.attack = function(power) {
+  console.log(power);
+};
+const Hero = new Heros({
+  name: "Hamza",
+  hp: 20
+});
+
+const Villian = new Villians({
+  power: 5,
+  name: "BAD"
+});
+
+console.log(Villian.power);
+Hero.defend(Hero.hp, 5);
