@@ -123,19 +123,113 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.healthPoints); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.healthPoints); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.team); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes)
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.attack = function() {
+    console.log(HeroPlayer.takeDamage());
+    if (HeroPlayer.healthPoints > 1) {
+      HeroPlayer.healthPoints--;
+    } else {
+      HeroPlayer.healthPoints = 0;
+      console.log(HeroPlayer.destroy());
+    }
+
+  }
+
+  Hero.prototype.attack = function() {
+    console.log(VillainPlayer.takeDamage());
+    if (VillainPlayer.healthPoints > 2) {
+      VillainPlayer.healthPoints -= 2;
+    } else {
+      VillainPlayer.healthPoints = 0;
+      console.log(VillainPlayer.destroy());
+    }
+  }
+
+  const VillainPlayer = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Ogre',
+    team: 'Bad Guys',
+    weapons: [
+      'Stomp',
+      'Swamp Breath',
+    ],
+    language: 'Ogreish',
+  });
+
+  const HeroPlayer = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Charles',
+    team: 'Good Guys',
+    weapons: [
+      'Sword Slash',
+      'Bow and Arrow',
+    ],
+    language: 'English',
+  });
+
+  
+function fight(hero, villain) {
+  let round = 1;
+  while(hero.healthPoints > 0 && villain.healthPoints > 0) {
+    console.log('ROUND ' + round);
+    round++;
+    if (hero.healthPoints > 0) {
+      console.log(`${hero.name} attacked!  It was super effective!`);
+      hero.attack();
+      console.log(`${villain.name} health remaining = ${villain.healthPoints}`);
+    }
+    if (villain.healthPoints > 0) {
+      console.log(`${villain.name} attacked! It wasn't very effective!`);
+      villain.attack();
+      console.log(`${hero.name} health remaining = ${hero.healthPoints}`);
+    }
+    console.log('\n');
+  }
+}
+
+fight(HeroPlayer, VillainPlayer);
+
+
+
+
+ 

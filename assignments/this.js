@@ -19,7 +19,7 @@ function sayHello() {
     console.log(this);
 }
 
-sayHello();
+// sayHello();
 
 // Principle 2
 
@@ -32,7 +32,7 @@ const person = {
     }
 }
 
-person.speak();
+// person.speak();
 
 // Principle 3
 
@@ -46,7 +46,7 @@ function write() {
     console.log(`Hello my name is ${this.name} and I'm writing my ${this.writing}`);
 }
 
-write.call(human);
+// write.call(human);
 
 // Principle 4
 
@@ -60,4 +60,4 @@ function Coder(person) {
 }
 
 const dave = new Coder('Dave');
-dave.speak();
+// dave.speak();
