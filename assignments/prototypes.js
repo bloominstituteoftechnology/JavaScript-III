@@ -59,11 +59,14 @@ function Humanoid(humanoidAttrs) {
   CharacterStats.call(this, humanoidAttrs);
   this.team = humanoidAttrs.team;
   this.weapons = humanoidAttrs.weapons;
-  this.language = humanoidAttrs.weapons;
+  this.language = humanoidAttrs.language;
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -90,7 +93,8 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
     language: 'Common Tongue',
   });
 
-  console.log(mage.destroy());
+  console.log(mage.takeDamage());
+  console.log(mage.greet());
 
   const swordsman = new Humanoid({
     createdAt: new Date(),
@@ -108,6 +112,8 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
     ],
     language: 'Common Tongue',
   });
+
+  console.log(swordsman.takeDamage());
 
   const archer = new Humanoid({
     createdAt: new Date(),
