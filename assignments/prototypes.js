@@ -142,3 +142,33 @@ Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villian(villianAttributes) {
+    Humanoid.call(this, villianAttributes);
+  }
+
+  Villian.prototype.smite = function () {
+    console.log(`${this.name} smited and took 20 health points!`)
+  }
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+    this.victoryPhrase = `${this.name} wins, and shouted: \'Good shall always prevail!\'`;
+  }
+
+  Hero.prototype.slash = function () {
+    console.log(`${this.name} slashed and took 35 health points!`)
+  }
+
+  const villian1 = new Villian({
+    name: 'Voldemort'
+  })
+
+  const hero1 = new Hero ({
+    name: 'Harry Potter'
+  })
+
+  villian1.smite();
+  hero1.slash();
+  hero1.slash();
+  console.log(hero1.victoryPhrase);
