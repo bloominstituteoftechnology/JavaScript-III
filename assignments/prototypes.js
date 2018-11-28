@@ -144,6 +144,8 @@ Humanoid.prototype.greet = function() {
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
   function Villain(vilAttributes) {
     Humanoid.call(this, vilAttributes);
@@ -151,7 +153,9 @@ Humanoid.prototype.greet = function() {
 
   Villain.prototype.attack = function(char, points) {
     let updateHealth = char.healthPoints -= points;
-    return `${this.name} attacked ${char.name}! ${char.name}'s health is now ${updateHealth}.`;
+    if (char.healthPoints <= 0) {
+      return `${char.name} is out of health!`;
+    } else return `${this.name} attacked ${char.name}! ${char.name}'s health is now ${updateHealth}.`;
   }
 
 
@@ -186,23 +190,65 @@ Humanoid.prototype.greet = function() {
       height: 3,
     },
     healthPoints: 18,
-    name: 'Knight in Shining Armor',
+    name: 'Knight E. Night',
     team: 'The Round Table',
     weapons: [
       'Slingshot',
       'Grenade Launcher',
     ],
-    language: 'Roarish',
+    language: 'Dutch',
   });
 
-  
-console.log(dragon.attack(archer, 2));
-console.log(knight.attack(dragon, 5));
-console.log(knight.attack(dragon, 5));
-console.log(knight.attack(dragon, 5));
-console.log(knight.attack(dragon, 5));
-console.log(dragon.attack(archer, 3));
-console.log(archer);
+  function Reviver(reviverAttributes) {
+    Humanoid.call(this, reviverAttributes);
+  }
 
-  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+  Reviver.prototype.revive = function(char, points) {
+    
+    if (char.healthPoints > 0) {
+      return `${char.name}'s health is ${char.healthPoints} and does not need to be revived.`;
+    } else {
+      let reviveHealth = char.healthPoints += points;
+      return `${this.name} revived ${char.name}! ${char.name}'s health is now ${reviveHealth}.`;
+    }
+  }
+
+  Reviver.prototype.medicine = function(char, points) {
+    if (char.healthPoints > 0) {
+      let updateHealth = char.healthPoints += points;
+      return `${char.name} received medicine from ${this.name} and now has a health of ${updateHealth}.`;
+    } else {
+      return `${char.name} needs to be revived before ${this.name} can give them medicine.`;
+    }
+  }
+
+const medicineMan = new Reviver({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 1,
+  },
+  healthPoints: 100,
+  name: 'Wingapo',
+  team: 'Airbenders',
+  weapons: [
+    'Glowing Staff'
+  ],
+  language: 'Chinese',
+});
+
+
+console.log(dragon.attack(knight, 2));
+console.log(knight.attack(dragon, 5));
+console.log(knight.attack(dragon, 5));
+console.log(dragon.attack(knight, 4));
+console.log(knight.attack(dragon, 5));
+console.log(knight.attack(dragon, 5));
+console.log(dragon.healthPoints);
+console.log(medicineMan.revive(dragon, 3));
+console.log(dragon.healthPoints);
+console.log(medicineMan.revive(dragon, 3));
+console.log(medicineMan.medicine(knight, 2));
+console.log(knight.attack(dragon, 3));
+console.log(medicineMan.medicine(dragon, 2));
