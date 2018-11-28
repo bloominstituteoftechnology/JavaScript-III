@@ -1,26 +1,74 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1. Global/Window Binding: 
+     In global scope the value of 'this' will be the window/console Object.
+
+* 2. Implicit Binding:
+     When a function is called by a preceeding dot, 
+     the value of 'this' will be the object prior to the dot.
+
+* 3. New Binding:
+     When a constructor fuction is used the value of 'this' will be 
+     the specific object that was created by the constructor.
+
+* 4. Explicit Binding:
+     When the 'call' or 'apply' method is used the value of 'this' will be
+     explicitly defined by what the method is calling/applying upon. 
+     [ex. const1.function1.call(const2) => this refers to const2]
+
 *
 * write out a code example of each explanation above
 */
 
 // Principle 1
-
 // code example for Window Binding
+const alphabet = function () {
+    console.log(this); // this === Window {method: function, etc.}
+    return ('ABC');
+};
+console.log(alphabet());
 
 // Principle 2
-
 // code example for Implicit Binding
 
-// Principle 3
+const learn = {
+    alphabet: 'ABC',
+    teachMe: function (){
+        console.log(this); // this === learn {alphabet: 'ABC', teachMe: function}
+        return (`${learn.alphabet}'s are fun!`);
+    }
+};
+console.log(learn.teachMe()); // here is where the 'this' is invoked by the .function and the learn object is prior to the dot
 
+// Principle 3
 // code example for New Binding
 
-// Principle 4
+function Learn(me) {
+    this.alphabet = 'ABC';
+    this.me = me;
+    this.teachMe = function () {
+        console.log(this); // this === Learn {alphabet: 'ABC', me: 'Chelsea', teachMe: function}
+        return (`${this.me} says ${this.alphabet}'s are fun!`);
+    };
+};
+const first = new Learn('Chelsea'); // here is when 'first' eastablishes a new object 'Learn' with 'Chelsea' as a value of 'me'
+console.log(first.teachMe()); // here is where the 'this' is invoked by the .function 
 
+// Principle 4
 // code example for Explicit Binding
+
+function LearnNums(you) {
+    this.nums = '123';
+    this.you = you;
+    this.teachMeNums = function () {
+        console.log(this); // this === LearnNums {nums: '123', you: 'Bob', teachMeNums: function}
+        return (`${this.you} says ${this.nums}'s are fun!`);
+    };
+};
+const teacher = new LearnNums('Josh'); // LearnNums {nums: '123', you: 'Josh', teachMeNums: function}
+const student = new LearnNums('Bob'); // LearnNums {nums: '123', you: 'Bob', teachMeNums: function}
+
+//console.log(teacher.teachMeNums()); // Without the call method 'teacher' = 'you' = 'josh' would be within the value of this 
+console.log(teacher.teachMeNums.call(student)); // here is where call explicilty defines is value of 'student' = 'you' = 'Bob'
+
