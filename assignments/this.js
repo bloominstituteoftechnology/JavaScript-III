@@ -51,7 +51,7 @@ const school = {
     name: 'Lambda School'
 };
 
-const classes = ['FSW, Data-Science','IOS','Android'];
+const classes = ['FSW','Data-Science','IOS','Android'];
 
 function introduce(class1, class2, class3, class4) {
     console.log(`At ${this.name}, we offer claases on ${class1}, ${class2}, ${class3}, and ${class4}.`)
