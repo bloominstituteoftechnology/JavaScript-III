@@ -23,15 +23,31 @@
 // Principle 1
 
 // code example for Window Binding
+console.log(this) // Assume this line to be in the outermost context (not inside an object definition or block context)
 
 // Principle 2
 
 // code example for Implicit Binding
+const SomeObject = function (someVar) {
+    this.someVar = someVar; // This line in particular shows implicit binding - there is a distinction between this.someVar (the value native to the object) and someVar (the parameter taken by the object).
+}
 
 // Principle 3
 
 // code example for New Binding
+function LightSwitch(toggleValue) {
+    this.toggle = toggleValue;
+    this.check = function() {
+        return this.toggle ? "ON" : "OFF";
+    }
+}
+
+// This is `new` binding - here we create new light switches for 2 rooms
+const bathroomSwitch = new LightSwitch(false);
+const bedroomSwitch = new LightSwitch(true);
 
 // Principle 4
 
 // code example for Explicit Binding
+const anotherBathroomSwitch = new LightSwitch(true);
+anotherBathroomSwitch.check.call(bathroomSwitch) // On this line, we explicitly bind the context of `this` in anotherBathroomSwitch to the `this` context used in the original BathroomSwitch object
