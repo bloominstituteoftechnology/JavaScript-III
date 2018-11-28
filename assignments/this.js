@@ -33,7 +33,7 @@ const person1 = {
     name: "Danny",
     age: 9,
     greeting: function() {
-        console.log(`Hello ${this.name}!`);
+        console.log(`Hello there ${this.name}!`);
     }
 }
 person1.greeting()
@@ -44,6 +44,23 @@ person1.greeting()
 
 // code example for New Binding
 
+function People(name, age) {
+    this.name = name,
+    this.age = age
+}
+
+const kid = new People('Ryan', 15);
+
 // Principle 4
 
 // code example for Explicit Binding
+function sayHi(){
+    
+    console.log (`Hi There ${this.name}`)
+}
+
+const kid4 = {
+    name: "Danny",
+    age: 9
+}
+ sayHi.call(kid4);
