@@ -29,14 +29,26 @@ const wizard = {
     cast: function() {
         console.log(`${this.name} casts ${this.spell}!`);
     }
-}
+};
 wizard.cast();
 
 // Principle 3
 
 // code example for New Binding
 
+function LevitationPartner(partner){
+    this.partner = partner;
+    this.incantation = 'Wingardium Leviosa';
+    this.showOff = function() {
+        console.log(`${this.partner}, look! ${this.incantation}!`)
+    }
+};
 
+const hermione = new LevitationPartner('Ron');
+const ron = new LevitationPartner('Hermione')
+
+ron.showOff();
+hermione.showOff();
 
 // Principle 4
 
