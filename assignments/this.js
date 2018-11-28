@@ -36,6 +36,7 @@ function Person(name) {
 }
 const tom = new Person('Tom');
 console.log(tom);
+
 // Principle 4
 
 // code example for Explicit Binding
