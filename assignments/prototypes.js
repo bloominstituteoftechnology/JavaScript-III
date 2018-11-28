@@ -44,6 +44,12 @@ CharacterStats.prototype.takeDamage = function(){
   return `${this.name} took damage.`;
 };
 
+CharacterStats.prototype.checkHP = function() {
+  if (this.healthPoints <= 0){
+    this.destroy();
+  }
+}
+
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -66,7 +72,62 @@ function Humanoid(humAttributes){
 Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}.`;
 };
- 
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Hero(heroAttributes){
+  Humanoid.call(this, heroAttributes);
+  this.powers = heroAttributes.powers;
+  this.nemesis = heroAttributes.nemesis;
+}
+
+Hero.prototype.determination = function(){
+  if (this.powers == 'Willpower'){
+    this.healthPoints += 5;
+  }
+  else {
+    console.log(`${this.name} lacks the will`);
+  }
+  
+}
+
+
+
+Hero.prototype.dispenseJustice = function(){
+  // if (this.weapons.hasOwnProperty('Guillotine Sword') === true && this.powers == 'Willpower') {
+    if (this.nemesis.powers == 'Schemes') {
+      let hitOrMiss = Math.random();
+      if (hitOrMiss > .9) {
+        this.nemesis.destroy();
+      }
+      else if(.3 > hitOrMiss < .9) {
+        this.nemesis.healthPoints -= 5;
+        this.nemesis.takeDamage();
+        this.nemesis.checkHP();
+      }
+      else {
+        console.log(`${this.name} missed`)
+      }
+    }
+    else {
+      this.nemesis.destroy();
+    }
+  // }
+// else {
+//     console.log(`Not today, ${this.name}`);
+//   }  
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+function Villain(villainAttributes){
+  Humanoid.call(this, villainAttributes);
+  this.powers = villainAttributes;
+  this.nemesis = villainAttributes;
+}
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -126,6 +187,42 @@ Humanoid.prototype.greet = function(){
     language: 'Elvish',
   });
 
+  const soldier = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 12,
+    name: 'Zargon',
+    team: 'Red Army',
+    weapons: [
+      'Guillotine Sword'
+    ],
+    language: 'Dialectic',
+    powers: 'Willpower',
+    nemesis: 'baron'
+  });
+
+  const baron = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 24,
+    name: 'Gooblgar',
+    team: 'Blue Empire',
+    weapons: [
+      'Staff of Domination'
+    ],
+    language: 'Evilese',
+    powers: 'Schemes',
+    nemesis: 'soldier'
+  })
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -136,7 +233,9 @@ Humanoid.prototype.greet = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(soldier.weapons);
 
+  soldier.dispenseJustice();
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
