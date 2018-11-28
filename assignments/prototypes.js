@@ -20,7 +20,7 @@ function GameObject(gameAttributes) {
   this.dimensions = gameAttributes.dimensions;
 };
 
-GameObject.prototype.destroy = () => {return 'Object was removed from the game.'};
+GameObject.prototype.destroy = () => {return `${this.name} was removed from the game.`};
 
 /*
   === CharacterStats ===
@@ -31,10 +31,12 @@ GameObject.prototype.destroy = () => {return 'Object was removed from the game.'
 */
 
 function CharacterStats(statsAttributes) {
+  GameObject.call(this, statsAttributes);
   this.healthpoints = statsAttributes.healthpoints;
-  this.name = attributes.name;
+  this.name = statsAttributes.name;
 };
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = () => {return `${this.name} took damage`};
 
 /*
@@ -48,11 +50,13 @@ CharacterStats.prototype.takeDamage = () => {return `${this.name} took damage`};
 */
  
 function Humanoid(humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes);
   this.team = humanoidAttributes.team;
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
 };
 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = () => {return `${this.name} offers a greeting in ${this.language}`};
 
 
@@ -64,7 +68,7 @@ Humanoid.prototype.greet = () => {return `${this.name} offers a greeting in ${th
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -125,7 +129,7 @@ Humanoid.prototype.greet = () => {return `${this.name} offers a greeting in ${th
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
