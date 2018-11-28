@@ -67,6 +67,37 @@ Humanoid.prototype.greet = function () {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// Stretch task: 
+  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+function Villain(villainStats) {
+  Humanoid.call(this, villainStats);
+  this.evilAttack = villainStats.evilAttack;
+  this.evilAtkPts = villainStats.evilAtkPts;
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.doEvilAttack = function (victim) {
+  const randWeapon = this.weapons[Math.floor(Math.random() * this.weapons.length)];
+  tmp = victim.healthPoints;
+  victim.healthPoints -= this.evilAtkPts;
+  return `${this.name} used a ${randWeapon} to do ${this.evilAttack} on ${victim.name}! ${victim.name}'s HP went from ${tmp} to ${victim.healthPoints}`;
+}
+
+function Hero(heroStats) {
+  Humanoid.call(this, heroStats);
+  this.virtuousAttack = heroStats.virtuousAttack;
+  this.virtuousAtkPts = heroStats.virtuousAtkPts;
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.doVirtuousAttack = function (victim) {
+  const randWeapon = this.weapons[Math.floor(Math.random() * this.weapons.length)];
+  tmp = victim.healthPoints;
+  victim.healthPoints -= this.virtuousAtkPts;
+  return `${this.name} used a ${randWeapon} to do ${this.virtuousAttack} to ${victim.name}! ${victim.name}'s HP went from ${tmp} to ${victim.healthPoints}`;
+}
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
 
@@ -119,6 +150,47 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Elvish',
   });
+
+  const evilPerson = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 15,
+      width: 25,
+      height: 45,
+    },
+    healthPoints: 101,
+    name: 'Evil Villain',
+    team: 'Bad',
+    weapons: [
+      'Evilstick',
+      'Badknife',
+    ],
+    language: 'Foul',
+    evilAttack: 'Bad Stuff',
+    evilAtkPts: '5'
+  });
+
+  const virtuousIndividual = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 7,
+    },
+    healthPoints: 103,
+    name: 'Virtuous Hero',
+    team: 'Good',
+    weapons: [
+      'Goodstick',
+      'Niceknife',
+    ],
+    language: 'Clean',
+    virtuousAttack: 'Good Stuff',
+    virtuousAtkPts: '4'
+  });
+
+  console.log(evilPerson.doEvilAttack(archer));
+  console.log(virtuousIndividual.doVirtuousAttack(evilPerson));
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
