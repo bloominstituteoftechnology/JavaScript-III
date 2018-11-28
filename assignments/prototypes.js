@@ -72,8 +72,17 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
   return (`${this.name} offers a greeting in ${this.language}.`);
-  debugger;
 };
+
+//Stretch
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+
+}
+
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+}
 
 
   const mage = new Humanoid({
