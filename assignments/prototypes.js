@@ -14,6 +14,14 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject (attributes) {
+  this.createdAt = attributes.createdAt;   //new Date();
+  this.dimensions = attributes.dimensions;
+}
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`
+}
+
 
 /*
   === CharacterStats ===
@@ -22,6 +30,18 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats (characterAttributes) {
+  this.healthPoints = characterAttributes.healthPoints;
+  this.name = characterAttributes.name;
+  GameObject.call(this, characterAttributes);
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+}
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,6 +52,18 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid (humanoidAttributes) {
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
+  CharacterStats.call(this, humanoidAttributes);
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +73,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +134,87 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+
+  function Villain (villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+  }
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.stab = function (victim) {
+    victim.healthPoints -= 30;
+    if (victim.healthPoints <= 0) {
+      return `You have killed ${victim.name}!`
+    } else
+    return `You have stabbed ${victim.name}! ${victim.name} now has ${victim.healthPoints} health points remaining!`
+  }
+
+
+  function Hero(heroAttributes) {
+    Villain.call(this, heroAttributes);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.heal = function() {
+    this.healthPoints += 15;
+    return `${this.name} has healed 15 health points. ${this.name} now has ${this.healthPoints} health points!`
+  }
+
+  Hero.prototype.lasers = function (victim) {
+    victim.healthPoints -= 40;
+    if (victim.healthPoints <= 0) {
+      return `You have ended ${victim.name}'s life.`
+    } else {
+      return `You lasered ${victim.name}! ${victim.name} now has ${victim.healthPoints} health points remaining!`
+    }
+  }
+
+    const villain = new Villain({
+      createdAt: new Date(),
+      dimensions: {
+        length: 3,
+        width: 2,
+        height: 4,
+      },
+      healthPoints: 90,
+      name: 'Rob',
+      team: 'BadGuys',
+      weapons: [
+        'Dagger'
+      ],
+      language: 'English',
+    });
+
+
+    const hero = new Hero({
+      createdAt: new Date(),
+      dimensions: {
+        length: 3,
+        width: 2,
+        height: 4,
+      },
+      healthPoints: 100,
+      name: 'Superman',
+      team: 'JL',
+      weapons: [
+        'Dagger'
+      ],
+      language: 'English',
+    });
+
+console.log(villain.stab(hero));
+console.log(villain.stab(hero));
+console.log(hero.heal());
+console.log(villain.stab(hero));
+console.log(hero.heal());
+console.log(hero.lasers(villain));
+console.log(hero.lasers(villain));
+console.log(villain.stab(hero));
+console.log(hero.lasers(villain));
