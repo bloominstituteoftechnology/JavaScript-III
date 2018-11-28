@@ -15,6 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`
+}
+
+
 /*
   === CharacterStats ===
   * healthPoints
@@ -22,6 +31,17 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(attr) {
+  GameObject.call(this, attr)
+  this.name = attr.name;
+  this.healthPoints = attr.healthPoints;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`
+}
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,6 +52,18 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(attributes) {
+  CharacterStats.call(this, attributes)
+  this.team = attributes.team;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+} 
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +73,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +124,7 @@
     language: 'Elvish',
   });
 
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -102,9 +135,84 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+// ================= HERO
+  function Hero(attributes) {
+    Humanoid.call(this, attributes);
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.tookDamage = function(num) {
+    this.healthPoints = this.healthPoints - num;
+    if (this.healthPoints < 0) {
+      console.log(this.destroy());
+      return this.team;
+    } else {
+      return null;
+    }
+  }
+
+// ================= VILLAINS
+  function Villain(attributes) {
+    Humanoid.call(this, attributes)
+  }
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.tookDamage = function(num) {
+    this.healthPoints = this.healthPoints - num;
+    if (this.healthPoints < 0) {
+      console.log(this.destroy());
+      return this.team;
+    } else {
+      return null;
+    }
+  }
+
+  const hero = new Hero({
+    healthPoints: 21,
+    name: 'Ironman',
+    team: 'Heros',
+    weapons: [
+      'Nanobots',
+    ],
+  });
+
+  const villain = new Villain({
+    healthPoints: 20,
+    name: 'Thanos',
+    team: 'Villains',
+    weapons: [
+      'Stasis Rifle',
+      'Infinity Gauntlet',
+    ],
+  });
+
+
+const villainAttacksHero = (damage) => {
+  return hero.tookDamage(damage);
+}
+const heroAttacksVillain = (damage) => {
+  return villain.tookDamage(damage);
+}
+
+const getRandomNumber = () => {
+  return (Math.floor(Math.random() * 1.1));
+}
+
+
+const fight = (end = null) => {
+  if (end != null) {
+    let winner;
+    end === "Villains" ? winner = "Heros" : winner = "Villains";
+    console.log(`${winner} Won!`);
+  } else {
+    end = villainAttacksHero(getRandomNumber());
+    end === null ? end = heroAttacksVillain(getRandomNumber()) : null;
+    fight(end);
+  }
+}
+
+fight();
