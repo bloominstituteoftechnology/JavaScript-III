@@ -150,7 +150,8 @@ Humanoid.prototype.greet = function() {
   };
 
   Villain.prototype.attack = function(char, points) {
-    return `${this.name} attacked ${char.name}! ${char.name}'s health is now ${char.healthPoints - points}.`;
+    let updateHealth = char.healthPoints -= points;
+    return `${this.name} attacked ${char.name}! ${char.name}'s health is now ${updateHealth}.`;
   }
 
 
@@ -193,9 +194,15 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'Roarish',
   });
+
+  
 console.log(dragon.attack(archer, 2));
 console.log(knight.attack(dragon, 5));
 console.log(knight.attack(dragon, 5));
+console.log(knight.attack(dragon, 5));
+console.log(knight.attack(dragon, 5));
+console.log(dragon.attack(archer, 3));
+console.log(archer);
 
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
