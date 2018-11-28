@@ -16,7 +16,7 @@
 */
 function GameObject(attributes){
     this.createdAt = attributes.createdAt;
-    this.dimensions = this.dimensions;
+    this.dimensions = attributes.dimensions;
 }
 GameObject.prototype.destroy = function(){
     return `Object was removed from the game.`
@@ -41,7 +41,7 @@ CharacterStats.prototype.takeDamage = function(){
 function Humanoid(humAttributes){
   CharacterStats.call(this, humAttributes);
   this.team = humAttributes.team;
-  this.weapon = humAttributes.weapon;
+  this.weapons = humAttributes.weapons;
   this.language = humAttributes.language;
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
