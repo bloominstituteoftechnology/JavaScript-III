@@ -34,7 +34,7 @@ GameObject.prototype.destroy = function () {
 
 function CharacterStats(CharacterStatsAttributes) {
   GameObject.call(this, CharacterStatsAttributes);
-  this.healthpoints = CharacterStatsAttributes.healthpoints;
+  this.healthPoints = CharacterStatsAttributes.healthPoints;
   this.name = CharacterStatsAttributes.name;
 }
 
@@ -68,6 +68,45 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}.`;
 }
+
+  // Stretch task: 
+  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villain (VillainAttributes) {
+    Humanoid.call(this, VillainAttributes);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.removeHealth = function () {
+    this.healthPoints--;
+    return `You now have ${this.healthPoints} remaining.`;
+  }
+
+  Villain.prototype.dead = function () {
+    if (this.healthPoints === 0) {
+      return this.destroy();
+    }
+  }
+
+  function Hero (HeroAttributes) {
+    Humanoid.call(this, HeroAttributes);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.removeHealth = function () {
+    this.healthPoints--;
+    return `You now have ${this.healthPoints} remaining.`;
+  }
+
+  Hero.prototype.dead = function () {
+    if (this.healthPoints <= 0) {
+      return this.destroy();
+    }
+  }
 
 
  
@@ -130,6 +169,40 @@ Humanoid.prototype.greet = function () {
     language: 'Elvish',
   });
 
+  const badguy = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 1,
+    name: 'Lilith',
+    team: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  const guy = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 1,
+    name: 'HeroGuy',
+    team: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -140,7 +213,10 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(badguy.removeHealth());
+  console.log(badguy.dead());
+  console.log(guy.removeHealth());
+  console.log(guy.dead());
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
