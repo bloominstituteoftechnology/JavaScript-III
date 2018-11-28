@@ -37,6 +37,36 @@ myGreeting.sayHi('Kelli');
 
 // code example for New Binding
 
+function CordialPerson(greeter) {
+    this.greeting = 'Hello';
+    this.greeter = greeter;
+    this.speak = function() {
+        console.log(this.greeting + this.greeter);
+        console.log(this);
+    };
+}
+
+const Kelli = new CordialPerson('Marissa');
+const Marissa = new CordialPerson('Kelli');
+
+Kelli.speak();
+Marissa.speak();
+
 // Principle 4
 
 // code example for Explicit Binding
+
+function CordialPerson(greeter) {
+    this.greeting = 'Hello';
+    this.greeter = greeter;
+    this.speak = function() {
+        console.log(this.greeting + this.greeter);
+        console.log(this);
+    };
+}
+
+const Kelli = new CordialPerson('Marissa');
+const Marissa = new CordialPerson('Kelli');
+
+Kelli.speak.call();
+Marissa.speak.apply();
