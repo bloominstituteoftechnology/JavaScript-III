@@ -56,17 +56,18 @@ rachel.server('kevin');
 // code example for Explicit Binding
 
 const cat = {
-    name: 'Tyson'
+    name: 'Tyson',
+    favorite: 'eating'
+}
+const dog = {
+    name: 'Porter',
+    favorite: 'sleeping'
 }
 
-const activities = {
-    favorite: 'eating',
-}
-
-function petThings(cat, activities) {
-    "use strict";
+function petThings() {
     console.log(`My cat's name is ${this.name}, and his favorite activity is, ${this.favorite}.`);
 }
 
-petThings.call(cat, activities);
+petThings.call(cat);
+petThings.call(dog);
 
