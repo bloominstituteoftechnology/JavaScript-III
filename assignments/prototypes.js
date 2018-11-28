@@ -152,26 +152,25 @@ Humanoid.prototype.greet = function() {
 
   Hero.prototype = Object.create(Humanoid.prototype);
 
-  Villain.prototype.attack = function() {
-    console.log(HeroPlayer.takeDamage());
-    if (HeroPlayer.healthPoints > 1) {
-      HeroPlayer.healthPoints--;
-    } else {
-      HeroPlayer.healthPoints = 0;
-      console.log(HeroPlayer.destroy());
-    }
-
-  }
-
-  Hero.prototype.attack = function() {
-    console.log(VillainPlayer.takeDamage());
-    if (VillainPlayer.healthPoints > 2) {
-      VillainPlayer.healthPoints -= 2;
-    } else {
-      VillainPlayer.healthPoints = 0;
-      console.log(VillainPlayer.destroy());
+  Villain.prototype.attack = function(target) {
+    console.log(target.takeDamage());
+    if (target.healthPoints > 0) {
+      target.healthPoints -= Math.floor((Math.random()*2+1));
+      if (target.healthPoints <= 0) {
+        console.log(target.destroy())
+      }
     }
   }
+
+  Hero.prototype.attack = function(target) {
+    console.log(target.takeDamage());
+    if (target.healthPoints > 0) {
+      target.healthPoints -= Math.floor((Math.random()*2+1));
+      if (target.healthPoints <= 0) {
+        console.log(target.destroy());
+      }
+  }
+}
 
   const VillainPlayer = new Villain({
     createdAt: new Date(),
@@ -211,16 +210,17 @@ Humanoid.prototype.greet = function() {
 function fight(hero, villain) {
   let round = 1;
   while(hero.healthPoints > 0 && villain.healthPoints > 0) {
+    // console.log(hero.healthPoints, villain.healthPoints);
     console.log('ROUND ' + round);
     round++;
     if (hero.healthPoints > 0) {
-      console.log(`${hero.name} attacked!  It was super effective!`);
-      hero.attack();
+      console.log(`${hero.name} attacked!`);
+      hero.attack(villain);
       console.log(`${villain.name} health remaining = ${villain.healthPoints}`);
     }
     if (villain.healthPoints > 0) {
-      console.log(`${villain.name} attacked! It wasn't very effective!`);
-      villain.attack();
+      console.log(`${villain.name} attacked!`);
+      villain.attack(hero);
       console.log(`${hero.name} health remaining = ${hero.healthPoints}`);
     }
     console.log('\n');
