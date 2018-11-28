@@ -135,6 +135,40 @@ function Villain(attributes) {
     language: 'Elvish',
   });
 
+  const hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    healthPoints: 13,
+    name: 'Batman',
+    team: 'Justice League',
+    weapons: [
+      'Utility belt',
+      'Batarang',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const villain = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 2,
+    },
+    healthPoints: 17,
+    name: 'Joker',
+    team: 'Injustice League',
+    weapons: [
+      'Acid Flower',
+      'Chattering Teeth',
+    ],
+    language: 'Common Tongue',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
