@@ -16,12 +16,13 @@
 */
 
 function GameObject(gameCharacter) {
-	(this.createdAt = gameCharacter.createdAt),
-		(this.dimensions = gameCharacter.dimensions),
-		(this.destory = function() {
-			return `Object was removed from the game.`;
-		});
+	this.createdAt = gameCharacter.createdAt;
+	this.dimensions = gameCharacter.dimensions;
 }
+
+GameObject.prototype.destroy = function() {
+	return `Character was removed from the game`;
+};
 
 /*
   === CharacterStats ===
@@ -32,12 +33,14 @@ function GameObject(gameCharacter) {
 */
 
 function CharacterStats(character) {
-	(this.healthPoints = character.healthPoints),
-		(this.name = character.name),
-		(this.takeDamage = function() {
-			return `${this.name} took damage`;
-		});
+	this.healthPoints = character.healthPoints;
+	this.name = character.name;
 }
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+	return `${this.name} took damage.`;
+};
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -48,6 +51,8 @@ function CharacterStats(character) {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(human) {}
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
