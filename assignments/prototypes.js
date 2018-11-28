@@ -143,3 +143,50 @@ Humanoid.prototype.greet = function() {
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
+
+  function Anathemanoid(anatha) {
+    CharacterStats.call(this, anatha);
+    this.team = anatha.team;
+    this.weapons = anatha.weapons;
+    this.language = anatha.language; 
+    this.darknessbuff = 10;
+  }
+
+  Anathemanoid.prototype = Object.create(CharacterStats.prototype);
+
+  const Villan = new Anathemanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 2,
+      height: 6,
+    },
+    healthPoints: 60,
+    name: 'Xap',
+    team: 'pride',
+    weapons: [
+      'Giant Sword',
+      'Force Field',
+    ],
+    language: 'Uncommon Tongue',
+  });
+
+  const Hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 3,
+      height: 4,
+    },
+    healthPoints: 70,
+    name: 'Pax',
+    team: 'Good People',
+    weapons: [
+      'Broadsword',
+      'Concentrated Energy',
+    ],
+    language: 'Humanisheseic',
+  });
+
+  //FIGHT!
+
