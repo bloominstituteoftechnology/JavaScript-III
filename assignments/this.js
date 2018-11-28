@@ -1,8 +1,8 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
+* 1. Window Binding - "this" would be console or windown object
+* 2. Implicit Binding
 * 3. 
 * 4. 
 *
@@ -12,6 +12,11 @@
 // Principle 1
 
 // code example for Window Binding
+function sayName(name) {
+    console.log(this);
+    return name;
+  }
+  sayName("Megan");
 
 // Principle 2
 
