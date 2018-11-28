@@ -34,9 +34,21 @@ person.speak();
 
 
 // Principle 3
-
 // code example for New Binding
 
-// Principle 4
+function NewAnimal(kind) {
+    this.name = kind;
+    this.speak = function() {
+        console.log(`I am a ${this.name}.`)
+    }
+}
 
+const zebra = new NewAnimal("zebra");
+zebra.speak()
+// will return "I am a zebra"
+
+// Principle 4
 // code example for Explicit Binding
+
+const cat = new NewAnimal("cat");
+zebra.speak.call(cat);
