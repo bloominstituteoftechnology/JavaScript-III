@@ -198,7 +198,6 @@ Humanoid.prototype.greet = function(){
     language: 'English',
   });
 
-
   function Hero(attributes){
     this.team =attributes.team;
     this.weapons = attributes.weapons;
