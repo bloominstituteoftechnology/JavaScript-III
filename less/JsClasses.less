@@ -1,0 +1,58 @@
+.destroyed {
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 4rem;
+  font-family: "Press start 2P", cursive;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+  transform: rotateX(360deg);
+  transition-duration: 2s;
+}
+.restart {
+  font-family: "Bungee Shade", cursive;
+  color: goldenrod;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+
+  transition-duration: 2s;
+}
+
+.attacked {
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+
+  animation-name: shake, blink;
+  animation-duration: 0.2s;
+  animation-iteration-count: 3;
+}
+
+.defended {
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+  animation-name: recover;
+  animation-duration: 0.5s;
+  animation-iteration-count: 2;
+}

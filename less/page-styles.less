@@ -1,0 +1,174 @@
+html {
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+//Player choice styles
+.player-choices {
+  display: flex;
+  // border: 1px dashed red;
+  justify-content: space-between;
+
+  .player-heading {
+    width: 100%;
+    height: 20%;
+    text-align: center;
+
+    h1 {
+      padding-top: 0;
+      margin-top: 0;
+    }
+  }
+
+  .vs {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+
+    .vs-text {
+      border-radius: 10px;
+      animation-name: blink;
+      animation-duration: 0.5s;
+      animation-iteration-count: infinite;
+      cursor: pointer;
+    }
+  }
+
+  .player-choice {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-bottom: 1%;
+    width: 43%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .player-img-container {
+      // border: 1px dashed red;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .characters {
+    width: 15%;
+    height: 100%;
+    opacity: 0.3;
+
+    &:hover {
+      border-top: 1px solid red;
+      border-bottom: 1px solid red;
+      cursor: pointer;
+      transform: rotateY(180deg);
+      transition-duration: 1.5s;
+      opacity: 1;
+    }
+  }
+}
+
+// display styles
+.display {
+  display: flex;
+
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  font-size: 2rem;
+  // border: 1px dotted black;
+
+  .player-info {
+    font-family: "Bungee Shade", cursive;
+    display: flex;
+    width: 40%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    // border: 1px dashed blue;
+
+    // .name {
+    //   height: 5%;
+    // }
+  }
+
+  .img-place-holder {
+    background-position: center;
+    background-repeat: no-repeat;
+    border-top: 10px solid black;
+    border-bottom: 10px solid black;
+    width: 73%;
+    height: 300px;
+    margin: 0 auto;
+  }
+
+  .display-player1 {
+    background-image: url("../img/Swordsman.jpg");
+  }
+
+  .display-player2 {
+    background-image: url("../img/Boromir.jpg");
+  }
+
+  .display-container {
+    display: flex;
+    align-items: center;
+    width: 20%;
+
+    .text-display {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5%;
+      width: 100%;
+      height: 45%;
+      margin-bottom: 17%;
+      text-align: center;
+      border-radius: 10px;
+      background: black;
+      color: lime;
+    }
+  }
+
+  .buttons {
+    margin: 0px;
+    height: 10%;
+    width: 73%;
+    display: flex;
+    justify-content: space-around;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+
+    img {
+      width: 20%;
+
+      &:hover {
+        border-top: 1px solid red;
+        border-block-end: 1px solid red;
+      }
+    }
+  }
+}
+
+.start-div {
+  font-family: "Bungee Shade", cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+.start-btn {
+  font-family: "Press Start 2P", cursive;
+  height: 100px;
+  font-size: 3rem;
+  border-radius: 10px;
+  color: black;
+  transition-duration: 1s;
+
+  &:hover {
+    transition-duration: 1s;
+    color: red;
+    border: 1px solid black;
+  }
+}

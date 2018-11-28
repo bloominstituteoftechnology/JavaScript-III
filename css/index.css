@@ -1,0 +1,239 @@
+@keyframes blink {
+  50% {
+    border-color: red;
+  }
+}
+@keyframes recover {
+  50% {
+    border-color: lime;
+  }
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+html {
+  font-size: 62.5%;
+}
+* {
+  box-sizing: border-box;
+}
+.player-choices {
+  display: flex;
+  justify-content: space-between;
+}
+.player-choices .player-heading {
+  width: 100%;
+  height: 20%;
+  text-align: center;
+}
+.player-choices .player-heading h1 {
+  padding-top: 0;
+  margin-top: 0;
+}
+.player-choices .vs {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+}
+.player-choices .vs .vs-text {
+  border-radius: 10px;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  cursor: pointer;
+}
+.player-choices .player-choice {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding-bottom: 1%;
+  width: 43%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.player-choices .player-choice .player-img-container {
+  display: flex;
+  justify-content: space-between;
+}
+.player-choices .characters {
+  width: 15%;
+  height: 100%;
+  opacity: 0.3;
+}
+.player-choices .characters:hover {
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
+  cursor: pointer;
+  transform: rotateY(180deg);
+  transition-duration: 1.5s;
+  opacity: 1;
+}
+.display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-size: 2rem;
+}
+.display .player-info {
+  font-family: "Bungee Shade", cursive;
+  display: flex;
+  width: 40%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.display .img-place-holder {
+  background-position: center;
+  background-repeat: no-repeat;
+  border-top: 10px solid black;
+  border-bottom: 10px solid black;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+}
+.display .display-player1 {
+  background-image: url("../img/Swordsman.jpg");
+}
+.display .display-player2 {
+  background-image: url("../img/Boromir.jpg");
+}
+.display .display-container {
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+.display .display-container .text-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5%;
+  width: 100%;
+  height: 45%;
+  margin-bottom: 17%;
+  text-align: center;
+  border-radius: 10px;
+  background: black;
+  color: lime;
+}
+.display .buttons {
+  margin: 0px;
+  height: 10%;
+  width: 73%;
+  display: flex;
+  justify-content: space-around;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.display .buttons img {
+  width: 20%;
+}
+.display .buttons img:hover {
+  border-top: 1px solid red;
+  border-block-end: 1px solid red;
+}
+.start-div {
+  font-family: "Bungee Shade", cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+}
+.start-btn {
+  font-family: "Press Start 2P", cursive;
+  height: 100px;
+  font-size: 3rem;
+  border-radius: 10px;
+  color: black;
+  transition-duration: 1s;
+}
+.start-btn:hover {
+  transition-duration: 1s;
+  color: red;
+  border: 1px solid black;
+}
+.destroyed {
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 4rem;
+  font-family: "Press start 2P", cursive;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+  transform: rotateX(360deg);
+  transition-duration: 2s;
+}
+.restart {
+  font-family: "Bungee Shade", cursive;
+  color: goldenrod;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 2rem;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+  transition-duration: 2s;
+}
+.attacked {
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+  animation-name: shake, blink;
+  animation-duration: 0.2s;
+  animation-iteration-count: 3;
+}
+.defended {
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 73%;
+  height: 300px;
+  margin: 0 auto;
+  animation-name: recover;
+  animation-duration: 0.5s;
+  animation-iteration-count: 2;
+}

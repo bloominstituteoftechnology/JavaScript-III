@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/index.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Bungee+Shade|Warnes"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+      rel="stylesheet"
+    />
+
+    <title>JS III</title>
+  </head>
+
+  <body>
+    <div class="player-choices">
+      <div class="player-choice choice1">
+        <div class="player-heading"><h1>Player 1</h1></div>
+        <div class="player-img-container">
+          <img src="../img/Archer.jpg" alt="" class="characters archer" />
+          <img src="../img/Boromir.jpg" alt="" class="characters boromir" />
+          <img src="../img/Goblin.jpg" alt="" class="characters goblin" />
+          <img src="../img/Mage.jpg" alt="" class="characters mage" />
+          <img src="../img/Swordsman.jpg" alt="" class="characters swordsman" />
+        </div>
+      </div>
+
+      <div class="vs"><h1 class="vs-text">= VS =</h1></div>
+
+      <div class="player-choice choice2">
+        <div class="player-heading"><h1>Comp</h1></div>
+        <div class="player-img-container">
+          <img src="../img/Archer.jpg" alt="" class="characters comp comp1" />
+          <img src="../img/Boromir.jpg" alt="" class="characters comp comp2" />
+          <img src="../img/Goblin.jpg" alt="" class="characters comp comp3" />
+          <img src="../img/Mage.jpg" alt="" class="characters comp comp4" />
+          <img
+            src="../img/Swordsman.jpg"
+            alt=""
+            class="characters comp comp5"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="display">
+      <div class="player-info">
+        <h2 class="info name">Name</h2>
+        <h2 class="info hp">HP: <span class="hp-pts">00</span></h2>
+        <div class="img-place-holder display-player1"></div>
+        <div class="buttons">
+          <img class="player-attack-btn" src="../img/attack.png" alt="" />
+          <img class="player-defend-btn" src="../img/defend.jpg" alt="" />
+        </div>
+      </div>
+      <div class="display-container">
+        <div class="text-display">
+          <p class="text-display-top"></p>
+          <p class="text-display-middle">= VS =</p>
+          <p class="text-display-bottom"></p>
+        </div>
+      </div>
+      <div class="player-info">
+        <h2 class="info comp-name">Name</h2>
+        <h2 class="info hp">HP: <span class="comp-hp-pts">00</span></h2>
+        <div class="img-place-holder display-player2"></div>
+        <div class="buttons">
+          <img class="attack-btn" src="../img/attack.png" alt="" />
+          <img class="defend-btn" src="../img/defend.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>
