@@ -77,6 +77,42 @@ Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}`;
 }
 
+function Villain(villainAttrs){
+  Humanoid.call(this, villainAttrs);
+  this.isVillain = villainAttrs.isVillain;
+  this.evilDesign = villainAttrs.evilDesign;
+  this.numOfMinions = villainAttrs.numOfMinions;
+  this.strength = villainAttrs.strength;
+  this.motivation = villainAttrs.motivation;
+  this.cunning = Math.max(villainAttrs.cunning, 10);
+
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.attack = function(target){
+  let damage = Math.floor(Math.random()*this.strength);
+  target.healthPoints -= damage;
+}
+
+function Hero(heroAttrs){
+  Humanoid.call(this, heroAttrs);
+  this.isHero = heroAttrs.isHero;
+  this.nobleCause = heroAttrs.nobleCause;
+  this.allies = heroAttrs.allies;
+  this.strength = heroAttrs.strength;
+  this.strengthOfSpirit = Math.max(heroAttrs.strengthOfSpirit,10);
+
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.attack = function(target){
+  let damage = Math.floor(Math.random()*this.strengthOfSpirit);
+  target.healthPoints -= damage;
+}
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
