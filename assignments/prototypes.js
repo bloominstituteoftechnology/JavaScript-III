@@ -54,14 +54,13 @@ CharacterStats.prototype.takeDamage = function() {
 */
 
 function Humanoid(value) {
-  GameObject.call(this, value);
   CharacterStats.call(this, value);
 
   this.team = value.team;
   this.weapons = value.weapons;
   this.language = value.language;
 }
-Humanoid.prototype = Object.create(GameObject.prototype);
+//Humanoid.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
@@ -133,3 +132,71 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+Humanoid.prototype.attack = function(opponent) {
+  opponent.healthPoints--;
+  if (opponent.healthPoints <= 0) {
+    return opponent.destroy();
+  } else {
+    return `${opponent.takeDamage()} Health Points: ${opponent.healthPoints}`;
+  }
+};
+
+function Villain(value1) {
+  Humanoid.call(this, value1);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+function Hero(value2) {
+  Humanoid.call(this, value2);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+const viggo = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 4,
+    height: 4
+  },
+  healthPoints: 10,
+  name: "Viggo",
+  team: "Dragon Hunters",
+  weapons: ["Sword", "Dagger"],
+  language: "Unknown"
+});
+
+const hiccup = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 3
+  },
+  healthPoints: 10,
+  name: "Hiccup",
+  team: "Dragon Riders",
+  weapons: ["Fire Sword", "Night Fury Dragon"],
+  language: "Old Norse"
+});
+
+function fight(hero, villain) {
+  // both players have life, attack
+  while (hero.healthPoints > 0 && villain.healthPoints > 0) {
+    const villainAttacks = Math.random() > 0.5;
+
+    if (villainAttacks) {
+      console.log(villain.attack(hero));
+    } else {
+      console.log(hero.attack(villain));
+    }
+  }
+
+  // check who won
+  if (hero.healthPoints > 0) {
+    return `Winner: ${hero.name}`;
+  } else {
+    return `Winner: ${villain.name}`;
+  }
+}
+console.log(fight(hiccup, viggo));
