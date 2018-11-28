@@ -80,7 +80,7 @@ Villain.prototype = Object.create(Humanoid.prototype);
 
 Villain.prototype.removeHealth = function() {
   this.healthPoints--;
-  return `You now have ${this.healthPoints} health.`;
+  return `${this.name} from team ${this.team} inflicted 1 damage with ${this.weapons}: ${this.healthPoints} health remaining.`;
 }
 
 Villain.prototype.dead = function() {
@@ -97,7 +97,7 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.removeHealth = function() {
   this.healthPoints--;
-  return `You took 1 damage: ${this.healthPoints} health remaining.`;
+  return `${this.name} from team ${this.team} inflicted 1 damage with ${this.weapons}: ${this.healthPoints} health remaining.`;
 }
 
 Hero.prototype.dead = function() {
@@ -173,7 +173,7 @@ Hero.prototype.dead = function() {
       height: 1,
     },
     healthPoints: 1,
-    name: 'Cletus',
+    name: 'Rogue',
     team: 'Assassin Guild',
     weapons: [
       'Poison Dagger',
@@ -189,7 +189,7 @@ Hero.prototype.dead = function() {
       height: 1,
     },
     healthPoints: 1,
-    name: 'Jimbob',
+    name: 'Paladin',
     team: 'Bringers of Light',
     weapons: [
       'Sword of Light',
