@@ -37,6 +37,8 @@ GameObject.prototype.destroy = function() {
 */
 //Child Element of GameObject
 function CharacterStats(childAttributes) {
+  //Binding of the this keyword to GameObject
+  GameObject.call(this, childAttributes);
   this.healthPoints = childAttributes.healthPoints;
   this.name = childAttributes.name;
 }
