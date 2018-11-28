@@ -14,18 +14,44 @@
 * write out a code example of each explanation above
 */
 
-// Principle 1
+// Principle 1 - window binding
 
-// code example for Window Binding
+// global scope
+const favoriteColor = function() {
+    console.log(this.color);
+}
 
-// Principle 2
+favoriteColor(); // returns undefined because window doesn't have a key of 'color'
 
-// code example for Implicit Binding
 
-// Principle 3
+// Principle 2 - Implicit binding
 
-// code example for New Binding
+const leighAnn = {
+    name: 'Leigh-Ann',
+    color: green,
+    food: pizza,
+    favoriteColor: function() {
+        console.log(`${this.name}'s favorite color is ${this.color}.`)
+    }
+}
 
-// Principle 4
+leighAnn.favoriteColor(); // returns "Leigh-Ann's favorite color is green." because leighAnn is the object preceding the method's period
 
-// code example for Explicit Binding
+
+// Principle 3 - new Binding
+
+const Person = function(name, color)){
+    this.name: name,
+    this.color: color
+
+}
+
+const jeff = new Person('Jeff', 'red'); // this will point to jeff any time jeff is the object being called upon, and it will have the key/value pair structure of the constructor function Person
+
+// Principle 4 - Explicit binding
+
+const favoriteFood = function() {
+    console.log(`${this.name}'s favorite food is ${this.food}.`)
+}
+
+favoriteFood.call(leighAnn); // returns "Leigh-Ann's favorite food is pizza." because the leighAnn object is the argument for .call()
