@@ -30,12 +30,6 @@ const tree = {
 tree.fall();
 
 // Principle 3
-// code example for New Binding
-const snack =
-    grilledCheese.bind(bread, cheese);
-snack();
-
-// Principle 4
 // code example for Explicit Binding
 const bread = {
     name: 'buttermilk bread'
@@ -49,3 +43,9 @@ function grilledCheese(cheese1, cheese2, cheese3) {
 }
 
 grilledCheese.call(bread, cheese);
+
+// Principle 4
+// code example for New Binding
+const snack =
+    grilledCheese.bind(bread, cheese);
+snack();
