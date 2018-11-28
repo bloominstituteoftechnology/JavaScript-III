@@ -185,8 +185,45 @@ Humanoid.prototype.greet = function() {
       'Broadsword',
       'Concentrated Energy',
     ],
+    lightbuff: 5,
     language: 'Humanisheseic',
   });
 
   //FIGHT!
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }  
+
+    var heropts = 75;
+    var villpts = 70;
+
+    console.log(heropts);
+
+  do {
+    var turn = getRandomInt(2);
+    if (turn === 0) {
+      console.log("Hero's turn!");
+      var ttldmg = 0;
+      ttldmg = getRandomInt(11);
+      console.log(`${Hero.name} hit the enemy with ${Hero.weapons} for ` + ttldmg + `dmg`);
+      villpts -= ttldmg;
+      turn = getRandomInt(2);
+      continue;
+    } else {
+      console.log("Villan's turn!");
+      var ttldmg = 0;
+      ttldmg = getRandomInt(11);
+      console.log(`${Villan.name} hit the enemy with ${Villan.weapons} for ` + ttldmg + `dmg`);
+      heropts -= ttldmg;
+      turn = getRandomInt(2);
+      continue;
+    }
+   } while (heropts > 0 && villpts > 0 );
+
+   if (heropts <= 0) {
+     console.log("THE HERO HAS PERISHED!");
+   } else {
+     console.log("Evil has been overcome!");
+   }
 
