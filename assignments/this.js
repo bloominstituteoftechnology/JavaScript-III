@@ -25,10 +25,12 @@ thisWindow();
 const myObj = {
     thing: "Ima say a thing",
     sayThing: function(){
-        console.log(`I say: ${this.thing}`)
+        console.log(`I say: ${this.thing}`);
         console.log(this);
     }
 }
+
+myObj.sayThing();
 
 // Principle 3
 
