@@ -9,7 +9,7 @@
  * 2. Implicit Binding
  *    Implicit binding is when you bind this inside of an object; the this keyword will then bind to the object in questions, such
  *    as when you are creating a key-value pair in a constructor function with this.name = attributes.name. It is important to note
- *    that, in methods (inside of a constructor function), you have to use a normal ES5 function istead of an ES6 arrow function. If
+ *    that, when building objectmethods (inside of a constructor function), you have to use a normal ES5 function istead of an ES6 arrow function. If
  *    you use an arrow, the "this" keyword inside of the method will bind a level above the constructor function (or any function when
  *    it's used).
  *
@@ -23,7 +23,7 @@
 
 // Principle 1
 
-function windowBinding() {);
+function windowBinding() {
   console.log(this);
 }
 
@@ -31,7 +31,15 @@ windowBinding();
 
 // Principle 2
 
-// code example for Implicit Binding
+const implicitExample = {
+  name: "The Dude",
+  phrase: "That's just like, your opinion, man",
+  statement: function() {
+    console.log(`${this.name} abides.`);
+  }
+};
+
+implicitExample.statement();
 
 // Principle 3
 
