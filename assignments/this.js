@@ -72,7 +72,7 @@ const teacher = new LearnNums('Josh'); // LearnNums {nums: '123', you: 'Josh', t
 const student = new LearnNums('Bob'); // LearnNums {nums: '123', you: 'Bob', teachMeNums: function}
 
 // console.log(teacher.teachMeNums()); // Without the call method teacher = 'you' = 'josh' would be value of this 
-console.log(teacher.teachMeNums.call(student)); // here is where call explicilty defines is value of this as 'student' = 'you' = 'Bob'
+// console.log(teacher.teachMeNums.call(student)); // here is where call explicilty defines is value of this as 'student' = 'you' = 'Bob'
 
 
 // Example 2
