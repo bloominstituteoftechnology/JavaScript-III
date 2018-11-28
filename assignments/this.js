@@ -7,15 +7,15 @@
  *    refer to the window object. You typically don't want this to happen.
  *
  * 2. Implicit Binding
- *    Implicit binding is when you bind this inside of an object; the this keyword will then bind to the object in questions, such
+ *    Implicit binding is when you bind "this" inside of an object; the this keyword will then bind to the object in questions, such
  *    as when you are creating a key-value pair in a constructor function with this.name = attributes.name. It is important to note
- *    that, when building objectmethods (inside of a constructor function), you have to use a normal ES5 function istead of an ES6 arrow function. If
+ *    that, when building object methods (inside of a constructor function), you have to use a normal ES5 function istead of an ES6 arrow function. If
  *    you use an arrow, the "this" keyword inside of the method will bind a level above the constructor function (or any function when
  *    it's used).
  *
  * 3. Explicit Binding
  *    Explicit binding is when we specifically use .bind(), .call(), .apply(), or otherwise specifically connect the "this" phrase with an object or element.
- *    For example, this is often used in Pseudo-Classical Prototype Inheritance to connect a parent constructor function with a child one.
+ *    For example, this is often used in Pseudo-Classical Prototypal Inheritance to connect a parent constructor function with a child one.
  *
  * 4. New Binding
  *    The New binding is used to instantiate objects through a constructor function. Through this process, there is a lot more going on than just object
@@ -51,7 +51,7 @@ function ForceUser(attributes) {
   this.feels = attributes.feels;
 }
 ForceUser.prototype.feeling = function() {
-  return `I have a ${this.feels} about this.`;
+  return `I have a ${this.feels} feeling about this.`;
 };
 
 function Sith(sithAttributes) {
