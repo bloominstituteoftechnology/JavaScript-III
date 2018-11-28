@@ -48,11 +48,12 @@ function GameObject(attributes) {
   this.dimensions = attributes.dimensions;
 }
 GameObject.prototype.destroy = function () {
-  console.log(`Object was removed from the game`);
+  return `${this.name} was removed from the game`; //Instead of a console.log() I used a return to get rid of that rogue undefined on line 138 in the console.
 }
 
 // === Character Stats ===
 function CharacterStats(characterAttributes) {
+  GameObject.call(this, characterAttributes);
   this.healthPoints = characterAttributes.healthPoints;
   this.name = characterAttributes.name;
 }
@@ -61,8 +62,10 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage`;
 }
+
 // === Humanoid ===
 function Humanoid(humanAttributes){
+  CharacterStats.call(this, humanAttributes);
   this.team = humanAttributes.team;
   this.weapons = humanAttributes.weapons;
   this.language = humanAttributes.language;
@@ -88,7 +91,7 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Common Tongue',
   });
-
+console.log(mage);
   const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
