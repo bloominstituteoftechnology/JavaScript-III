@@ -24,6 +24,15 @@ myName("Kelli");
 
 // code example for Implicit Binding
 
+const myGreeting = {
+    greeting: 'Hi',
+    sayHi: function(name) {
+        console.log(`${this.greeting} my name is ${name}`);
+    }
+};
+
+myGreeting.sayHi('Kelli');
+
 // Principle 3
 
 // code example for New Binding
