@@ -12,10 +12,23 @@
 // Principle 1
 
 // code example for Window Binding
+function introduce(firstName) {
+    console.log(this);
+    return name;
+}
+introduce("Olivia");
 
 // Principle 2
 
 // code example for Implicit Binding
+const myObj = {
+    firstName: "Olivia",
+    lastName: "Osborn",
+    greeting: function() {
+        console.log(`Hello  my name is ${this.firstName} ${this.lastName}`);
+    }
+};
+myObj.greeting();
 
 // Principle 3
 
