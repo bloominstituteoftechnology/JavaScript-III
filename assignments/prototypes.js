@@ -14,6 +14,17 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+  this.name = attributes.name;
+  GameObject.prototype.destroy = function(){
+    return `${this.name} was removed from the game.`
+  }
+}
+
+
+
 
 /*
   === CharacterStats ===
@@ -22,7 +33,16 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(attributes){
+  GameObject.call(this, attributes);
+  this.healthPoints = attributes.healthPoints;
+  this.name = attributes.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype)
 
+  CharacterStats.prototype.takeDamage = function(){
+    return (`${this.name} took damage.`)
+  }
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -32,7 +52,17 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+ function Humanoid(attributes){
+  CharacterStats.call(this,attributes);
+   this.team = attributes.team;
+   this.weapons = attributes.weapons;
+   this.language = attributes.language;
+ }
+ Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+   Humanoid.prototype.greet = function(){
+    return (`${this.name} offers a greeting in ${this.language}`)
+   }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -91,6 +121,41 @@
     ],
     language: 'Elvish',
   });
+
+  const hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 3,
+    },
+    healthPoints: 20,
+    name: 'Timmy',
+    team: 'North Pole',
+    weapons: [
+      'GreatAxe',
+      'Stinger Missile',
+      'Susan the velociraptor',
+    ],
+    language: 'Sign',
+  });
+
+  const villain = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 4,
+      height: 5,
+    },
+    healthPoints: 50,
+    name: 'Forgotten lego brick on floor',
+    team: 'Evil',
+    weapons:[
+      'Bumps',
+    ]
+    language: 'Evil'
+  });
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
