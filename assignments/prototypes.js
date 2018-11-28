@@ -23,10 +23,9 @@ function GameObject(attributes){
 
 //GameObject Methods:
 GameObject.prototype.destroy = function(){
-  console.log(`${this.name} was removed from the game.`)
+  return `${this.name} was removed from the game.`
 };
 
-console.log(GameObject);
 
 /*
   === CharacterStats ===
@@ -46,15 +45,8 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 
 //CharacterStats Methods: 
 CharacterStats.prototype.takeDamage = function() {
-  console.log(`${this.name} took damage`);
+  return `${this.name} took damage`;
 }
-
-const mage = new CharacterStats({
-  name: "Mr. Mage",
-  healthPoints: 100,
-})
-
-mage.takeDamage();
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -66,6 +58,20 @@ mage.takeDamage();
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes);
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+//Humanoid Methods:
+CharacterStats.prototype.greet = function () {
+  return
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
