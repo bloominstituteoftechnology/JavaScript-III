@@ -140,3 +140,75 @@ Humanoid.prototype.greet = function(){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villain(villAttrs){
+    Humanoid.call(this, villAttrs);
+    this.evilLaugh = villAttrs.evilLaugh;
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.hit = function(target){
+    const theHit = Math.floor(Math.random()*4);
+    target.healthPoints -= theHit;
+    if(target.healthPoints <= 0){
+      console.log(`The great hero ${target.name} has been defeated`);
+      console.log(`The evil villain ${this.name} says: ${this.evilLaugh}`);
+      target.destroy();
+    }else{
+      console.log(`${this.name} hits ${target.name} for ${theHit}`);
+    }
+  }
+
+  function Hero(heroAttrs){
+    Humanoid.call(this, heroAttrs);
+    this.catchPhrase = heroAttrs.catchPhrase;
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.hit = function(target){
+    const theHit = Math.floor(Math.random()*4);
+    target.healthPoints -= theHit;
+    if(target.healthPoints <= 0){
+      console.log(`The evil villain ${target.name} has been vanquished`);
+      console.log(`The great hero ${this.name} says: ${this.catchPhrase}`);
+      target.destroy();
+    }else{
+      console.log(`${this.name} hits ${target.name} for ${theHit}`);
+    }
+  }
+
+  const dogman = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Dog Man',
+    team: 'Owner',
+    weapons: [
+      'Bite',
+      'Bork',
+    ],
+    language: 'Borkish',
+    catchPhrase: 'Bark, Bark, Bark',
+  });
+
+  const catman = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Cat Man',
+    team: 'His Own',
+    weapons: [
+      'Scratch',
+      'Hiss',
+    ],
+    language: 'Meowith',
+    evilLaugh: '*Hisses uncontrolablly*',
+  });
