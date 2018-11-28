@@ -1,7 +1,7 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Default Binding
+* 1. Windows Binding - calls a stand alone function invocation.
 * 2. Implicit binding
 * 3. Explicit Binding
 * 4. New Binding
@@ -12,6 +12,10 @@
 // Principle 1
 
 // code example for Window Binding
+    function myName() {
+        console.log(this);
+    }
+    greeting();
 
 // Principle 2
 
