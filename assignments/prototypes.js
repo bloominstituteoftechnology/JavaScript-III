@@ -39,8 +39,14 @@ function CharacterStats(attributes) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage.`;
+CharacterStats.prototype.takeDamage = function(healthPoints) {
+  this.healthPoints -= healthPoints;
+  let msg = `${this.name} took ${healthPoints} HP damage.\nCurrent HP at ${this.healthPoints}.`;
+  if (this.healthPoints <= 0) {
+    this.destroy();
+    msg += `\n${this.name} died.`;
+  }
+  return msg;
 }
 
 /*
@@ -133,7 +139,7 @@ Humanoid.prototype.greet = function() {
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
+  console.log(mage.takeDamage(10)); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
