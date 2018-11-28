@@ -15,13 +15,13 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject(createdAt, dimensions) {
-    this.createdAt = createdAt;
-    this.dimensions = dimensions;
+function GameObject(gameObjAttrs) {
+    this.createdAt = gameObjAttrs.createdAt;
+    this.dimensions = gameObjAttrs.dimensions;
 }
 
 GameObject.prototype.destroy = function() {
-  return `${this} was removed from the game.`
+  return `${this.name} was removed from the game.`
 };
 
 /*
@@ -32,10 +32,13 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats(healthPoints, name) {
-    this.healthPoints = healthPoints;
-    this.name = name;
+function CharacterStats(characterAttrs) {
+    GameObject.call(this, characterAttrs);
+    this.healthPoints = characterAttrs.healthPoints;
+    this.name = characterAttrs.name;
 }
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage!`
@@ -51,6 +54,17 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
  
+
+function Humanoid(humanoidAttrs) {
+  CharacterStats.call(this, humanoidAttrs);
+  this.team = humanoidAttrs.team;
+  this.weapons = humanoidAttrs.weapons;
+  this.language = humanoidAttrs.weapons;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -59,7 +73,7 @@ CharacterStats.prototype.takeDamage = function() {
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -75,6 +89,8 @@ CharacterStats.prototype.takeDamage = function() {
     ],
     language: 'Common Tongue',
   });
+
+  console.log(mage.destroy());
 
   const swordsman = new Humanoid({
     createdAt: new Date(),
@@ -110,6 +126,7 @@ CharacterStats.prototype.takeDamage = function() {
     language: 'Elvish',
   });
 
+  /*
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
