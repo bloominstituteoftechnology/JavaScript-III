@@ -36,14 +36,14 @@
 <section class="flex">
   <div class="Hero flex-two">
     <img src="knight.png" alt="">
-    <button onclick="matt.attack.call(witch)">Attack</button>
+    <button onclick="matt.attack(witch, matt.power)">Attack</button>
     <div class="health">
       <h3 id="herohealth"></h3>
     </div>
   </div>
   <div class="Villan flex-two">
     <img src="witch.jpg" alt="">
-    <button onclick="witch.spell.call(matt)">Spell</button>
+    <button onclick="witch.spell(matt, witch.power)">Spell</button>
     <div class="health">
         <h3 id="vilhealth"></h3>
 
