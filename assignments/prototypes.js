@@ -51,7 +51,23 @@ function CharacterStats(characterAttributes) {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+ function Humanoid(humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes);
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
+  this.greet = function() {
+    return `${this.name} offers a greeting in ${this.language}.`;
+  }
+ }
+ const humanoidTester = new Humanoid({
+   name: 'Dingus',
+   team: "The brown towns",
+   weapons: "Knowledge",
+   language: "Armenian"
+ });
+ console.log(humanoidTester);
+ console.log(humanoidTester.greet());
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
