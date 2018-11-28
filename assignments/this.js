@@ -39,9 +39,34 @@ const students = {
 
 // code example for New Binding
 
+function NewStudents(name){
+    this.name = name;
+    this.message = 'Welcome';
+    this.hello = function() {
+      console.log(`${this.message} ${this.name}!`)
+    }
+  }
+
+const Joe = new NewStudents('Joe');
+const Tom = new NewStudents('Tom');
+
+
+Joe.hello();
+Tom.hello();
+
 // Principle 4
 
 // code example for Explicit Binding
 
+const teacher = {
+    name: 'Ms. Apple'
+  }
+
+const school = "Sagecreek Elementary"
 
 
+function assignment(school){
+    console.log(`Hello ${this.name}. You will be teaching at ${school} this year.`);
+}
+
+assignment.call(teacher, school);
