@@ -16,7 +16,7 @@
 */
 
 function GameObject(attributes){
-  this.createdAd = attributes.createdAd;
+  this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
 }
 
