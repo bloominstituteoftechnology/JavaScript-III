@@ -68,27 +68,6 @@ Humanoid.prototype.greet = function() {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-//==============Stretch Goals===================
-// Stretch task: 
-// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
-// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-// * Create two new objects, one a villain and one a hero and fight it out with methods!
-function Hero (heroAtts) {
-  Humanoid.call(this, heroAtts);
-}
-Hero.prototype = Object.create(Humanoid.prototype);
-Hero.prototype.heroicSlash = function(heroDmgDone) {
-  console.log(`${this.name} slashed the villain for ${heroDmgDone}!`);
-}
-
-function Villain (villAtts) {
-  Humanoid.call(this, villAtts);
-}
-Villain.prototype = Object.create(Humanoid.prototype);
-Villain.prototype.evilSlam = function(villainDmgDone) {
-  console.log(`${this.name} maliciously slams the hero for ${villainDmgDone}`);
-}
-
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
 const mage = new Humanoid({
@@ -152,10 +131,37 @@ console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-// Stretch task: 
+
+//==========STRETCH TASKS=========== 
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+//Hero creator 
+function Hero (heroAtts) {
+  Humanoid.call(this, heroAtts);
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.introSpeech = function(){
+  console.log(`Do not fear, I am ${this.name} and I will defeat all evil villains!`);
+}
+Hero.prototype.heroicSlash = function(heroDmgDone) {
+  console.log(`${this.name} slashed the villain for ${heroDmgDone}HP!`);
+}
+
+//Villain creator
+function Villain (villAtts) {
+  Humanoid.call(this, villAtts);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.introSpeech = function() {
+  console.log(`It is I, ${this.name}, the evilest of all villains!`);
+}
+Villain.prototype.evilSlam = function(villainDmgDone) {
+  console.log(`${this.name} maliciously slams the hero for ${villainDmgDone}HP.`);
+}
+
+//make a hero object
 const mainHero = new Hero ({
   createdAt: new Date(),
   dimensions: {
@@ -163,7 +169,7 @@ const mainHero = new Hero ({
     width: 15,
     height: 20,
   },
-  healthPoints: 100,
+  healthPoints: 125,
   name: 'Anduin',
   team: 'Alliance',
   weapons: [
@@ -172,14 +178,15 @@ const mainHero = new Hero ({
   language: 'Common Tongue',
 });
 
+//make a villain object
 const mainVillain = new Villain({
   createdAt: new Date(),
   dimensions: {
-    length: 1,
-    width: 2,
-    height: 4,
+    length: 8,
+    width: 14,
+    height: 25,
   },
-  healthPoints: 10,
+  healthPoints: 100,
   name: 'Sylvanas',
   team: 'Horde',
   weapons: [
@@ -188,4 +195,28 @@ const mainVillain = new Villain({
   language: 'Elvish',
 });
 
+
 console.log(`A hero and a villain enter the fight! *gasp*`);
+
+//Character intros
+mainHero.introSpeech();
+mainVillain.introSpeech();
+
+
+//invoke methods to have them fight
+console.log(`Let the fight BEGIN!`);
+mainHero.heroicSlash(25);
+console.log(mainVillain.takeDamage());
+mainVillain.healthPoints -= 25;
+console.log(`${mainVillain.name} now has ${mainVillain.healthPoints}HP left.`);
+console.log(`${mainVillain.name} hits back!`);
+mainVillain.evilSlam(75);
+console.log(mainHero.takeDamage());
+mainHero.healthPoints -= 75;
+console.log(`${mainHero.name} now has ${mainHero.healthPoints}HP left.`);
+mainHero.heroicSlash(75);
+console.log(`It's super effective!`);
+console.log(mainVillain.takeDamage());
+mainVillain.healthPoints -= 75;
+console.log(mainVillain.destroy());
+console.log(`${mainHero.name} wins the battle!`);
