@@ -16,7 +16,7 @@ function sayName(name) {
     console.log(this);
     return name;
   }
-  sayName("Megan");
+
 
 // Principle 2
 
