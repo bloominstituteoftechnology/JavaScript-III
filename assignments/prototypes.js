@@ -47,7 +47,7 @@ function CharacterStats(characterAttibutes) {
   this.healthPoints = characterAttibutes.healthPoints;
   this.name = characterAttibutes.name;
   this.takeDamage = function () {
-    return '${this.name} took damage.'
+    return `${this.name} took damage.`
   }
 }
 
@@ -61,8 +61,6 @@ console.log(tester2);
 
 console.log(tester2.destroy());
 
-
-
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -73,9 +71,26 @@ console.log(tester2.destroy());
   * should inherit takeDamage() from CharacterStats
 */
 
-function Hunamoid(holder) {
-
+function Humanoid(humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes);
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapon;
+  this.language = humanoidAttributes.language;
+  this.greet = function () {
+    return `${this.name} offers a greeting in ${this.language}.`
+  }
 }
+
+const tester3 = new Humanoid({
+  dimensions: '12',
+  healthPoints: 20,
+  name: 'Jo',
+  team: "teamteam",
+  weapon: "star",
+  language: "yes"
+});
+
+
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
