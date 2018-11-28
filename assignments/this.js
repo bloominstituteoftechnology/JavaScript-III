@@ -58,7 +58,7 @@ function introduce(shows1, shows2) {
     console.log(`Hi! My name is ${this.name}, and my favorite shows are ${shows1} and ${shows2}`)
 }
 
-introduce.apply(myself, shows);
+// introduce.apply(myself, shows);
 
 
 
