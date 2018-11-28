@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1. Default Binding
+* 2. Implicit binding
+* 3. Explicit Binding
+* 4. New Binding
 *
 * write out a code example of each explanation above
 */
