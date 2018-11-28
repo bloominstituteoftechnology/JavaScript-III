@@ -49,6 +49,7 @@ function GameObject(attributes) {
 }
 GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the game`; //Instead of a console.log() I used a return to get rid of that rogue undefined on line 138 in the console.
+  
 }
 
 // === Character Stats ===
@@ -76,8 +77,9 @@ Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`;
 }
 Humanoid.prototype.attack = function (objectToAttack) {
-  if (objectToAttack.healthPoints <= 1) {
+  if (objectToAttack.healthPoints <= 0) {
     objectToAttack.destroy();
+    console.log(`${objectToAttack.name} has been destroyed`);
   } else {
     objectToAttack.healthPoints -= this.damage;
     console.log(`
@@ -85,6 +87,16 @@ Humanoid.prototype.attack = function (objectToAttack) {
     ${objectToAttack.name} is now at ${objectToAttack.healthPoints} Health Points`);
   }
 }
+//Incomplete functionality
+Humanoid.prototype.isAlive = function () {
+  if(this.healthPoints > 0){
+    this.alive = true;
+  }else{
+    this.alive = false;
+    console.log(`${this.name} has been defeated!`)
+  }
+}
+
 Humanoid.prototype.printStatistics = function () {
   console.log(`
   ===${this.name}=== \n
@@ -121,6 +133,7 @@ const mage = new Humanoid({
   damage: 1,
   name: 'Bruce',
   team: 'Mage Guild',
+  alive: true,
   weapons: [
     'Staff of Shamalama',
   ],
@@ -134,6 +147,7 @@ const swordsman = new Humanoid({
     width: 2,
     height: 2,
   },
+  alive: true,
   healthPoints: 15,
   damage: 1,
   name: 'Sir Mustachio',
@@ -152,6 +166,7 @@ const archer = new Humanoid({
     width: 2,
     height: 4,
   },
+  alive: true,
   healthPoints: 10,
   damage: 1,
   name: 'Lilith',
@@ -170,6 +185,7 @@ const villian = new Villian({
     width: 2,
     height: 4,
   },
+  alive: true,
   healthPoints: 25,
   damage: 1,
   name: 'Hannibal',
@@ -186,6 +202,7 @@ const hero = new Hero({
     width: 2,
     height: 4,
   },
+  alive: true,
   healthPoints: 10,
   damage: 1,
   name: 'Brandon',
@@ -198,6 +215,7 @@ const hero = new Hero({
 });
 const allPlayers = [mage, swordsman, archer, villian, hero];
 
+
 function getStats() {
   allPlayers.forEach((player) => {
     player.printStatistics();
@@ -205,17 +223,20 @@ function getStats() {
 }
 
 function startFight() {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 11; i++) {
     setTimeout(() => {
-      hero.attack(villian);
-      villian.attack(hero);
-    }, 2500 * i);
+        hero.attack(villian);
+        villian.attack(hero);
+    }, 1000 * i);
   }
+  
 }
+
 
 function gameBoard() {
   getStats();
   startFight();
+  
 }
 gameBoard();
 // console.log(mage.createdAt); // Today's date
