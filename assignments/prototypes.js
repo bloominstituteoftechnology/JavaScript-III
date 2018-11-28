@@ -20,7 +20,7 @@ function GameObject(gameAttributes) {
   this.dimensions = gameAttributes.dimensions;
 }
 GameObject.prototype.destroy = function () {
-  console.log(`${this.name} was removed from the game.`);
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -85,7 +85,7 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Common Tongue',
   });
-debugger;
+
   const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
