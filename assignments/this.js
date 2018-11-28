@@ -68,5 +68,5 @@ function CordialPerson(greeter) {
 const Kelli = new CordialPerson('Marissa');
 const Marissa = new CordialPerson('Kelli');
 
-Kelli.speak.call();
-Marissa.speak.apply();
+Kelli.speak.call(Marissa);
+Marissa.speak.apply(Kelli);
