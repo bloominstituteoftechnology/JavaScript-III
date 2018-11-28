@@ -81,10 +81,17 @@ ChosenOnes.prototype.victory = function () {
   console.log(`${this.name} defeated the ${this.enemy}!!!`);
 }
 
+function subtract(a, b, cb) {
+  return cb(a - b);
+}
+//let health = 0;
 ChosenOnes.prototype.attack = function () {
   console.log(`${this.name} attacked the ${this.enemy}.`);
   console.log(`${this.enemy} took ${this.damage} damage.`);
   console.log(`${this.enemy} healthpoints are at ${this.healthPoints - this.damage}}.`);
+  //subtract(this.healthPoints, this.damage, function (health) {
+  //  console.log(health);
+  //});
 }
 
 /*
@@ -202,8 +209,6 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 console.log(hero.attack());
 console.log(villain.attack());
-
-
-
+console.log(hero.attack());
 console.log(hero.victory());
 console.log(villain.victory());
