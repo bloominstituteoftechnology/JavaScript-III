@@ -14,7 +14,11 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-
+function GameObject(gameObject) {
+  this.createdAt = new Date('November 28, 2018 15:00:00');
+}
+const tester = new GameObject();
+console.log(tester);
 /*
   === CharacterStats ===
   * healthPoints
