@@ -153,3 +153,110 @@ Humanoid.prototype.greet = function(){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  // VILLAIN 
+  
+  function Villain(stats){
+    Humanoid.call(this, stats);
+    this.special = stats.special;
+    this.power = stats.power;
+  }
+   Villain.prototype = Object.create(Humanoid.prototype);
+   Villain.prototype.attack = function(obj){
+    let damage = (Math.floor(Math.random() * this.power) + 5);
+    obj.healthPoints = obj.healthPoints - damage;
+    if(obj.healthPoints <= 0){
+      return obj.destroy();
+    } else {
+      return obj.healthPoints;
+    }
+  }
+   Villain.prototype.heal = function(){
+    let regenerate = (Math.floor(Math.random() * 10) + 5);
+    this.healthPoints = this.healthPoints + regenerate;
+    if(this.healthPoints >= 50){
+      this.healthPoints = 50;
+      return this.healthPoints;
+    } else {
+    return this.healthPoints;
+    }
+  }
+   const thanos = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 50,
+    name: 'Thanos',
+    team: 'Titan',
+    weapons: [
+      'Gauntlet',
+      'Cute Smile',
+    ],
+    language: 'Greek',
+    special: 'Infinity Stones',
+    power: 30
+  });
+
+
+    // HERO 
+  
+    function Hero(stats){
+      Humanoid.call(this, stats);
+      this.special = stats.special;
+      this.power = stats.power;
+    }
+     Hero.prototype = Object.create(Humanoid.prototype);
+     Hero.prototype.attack = function(obj){
+      let damage = (Math.floor(Math.random() * this.power) + 5);
+      obj.healthPoints = obj.healthPoints - damage;
+      if(obj.healthPoints <= 0){
+        return obj.destroy();
+      } else {
+        return obj.healthPoints;
+      }
+    }
+     Hero.prototype.heal = function(){
+      let regenerate = (Math.floor(Math.random() * 10) + 5);
+      this.healthPoints = this.healthPoints + regenerate;
+      if(this.healthPoints >= 50){
+        this.healthPoints = 50;
+        return this.healthPoints;
+      } else {
+      return this.healthPoints;
+      }
+    }
+     const hulk = new Hero({
+      createdAt: new Date(),
+      dimensions: {
+        length: 1,
+        width: 3,
+        height: 4,
+      },
+      healthPoints: 50,
+      name: 'Hulk',
+      team: 'Avengers',
+      weapons: [
+        'Anger',
+      ],
+      language: 'English',
+      special: 'Smash',
+      power: 40
+    });
+
+  let obj = thanos;
+
+  console.log(hulk.attack(obj));
+  console.log(hulk.attack(obj));
+  console.log(hulk.attack(obj));
+  console.log(thanos.heal(obj));
+  console.log(hulk.attack(obj));
+
+  
+    
+
+
+  
+
