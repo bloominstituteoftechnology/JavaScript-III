@@ -18,11 +18,11 @@ function GameObject(gameAttributes) {
   this.createdAt = new Date('November 28, 2018 15:00:00');
   this.dimensions = gameAttributes.dimensions;
   this.destroy = function() {
-    return 'Object was removed from the game.';
+    return `${this.name} was removed from the game.`;
   }
 }
-const tester = new GameObject({dimensions: 'who cares'});
-console.log(tester.destroy());
+// const tester = new GameObject({dimensions: 'who cares'});
+// console.log(tester.destroy());
 /*
   === CharacterStats ===
   * healthPoints
@@ -30,7 +30,18 @@ console.log(tester.destroy());
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
+function CharacterStats(characterAttributes) {
+  GameObject.call(this, characterAttributes);
+  this.healthPoints = characterAttributes.healthPoints;
+  this.name = characterAttributes.name;
+  this.takeDamage = function() {
+    return `${this.name} took damage.`
+  }
+}
+// const charTester = new CharacterStats({dimensions: 'who cares', name: "Dingus", healthPoints: 2});
+// console.log(charTester);
+// console.log(charTester.takeDamage());
+// console.log(charTester.destroy());
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
