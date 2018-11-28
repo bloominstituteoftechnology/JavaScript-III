@@ -3,8 +3,8 @@
 *
 * 1. window binding - points or bound to the whole window.
 * 2. implicit binding - points to the object when attached to a key.
-* 3. new binding - pass in the object you want to the this keyword to be bound to
-* 4. 
+* 3. new binding - when you use the new keyword in front of a constructor function
+* 4. explicit binding - pass in the object you want to the this keyword to be bound to
 *
 * write out a code example of each explanation above
 */
@@ -31,12 +31,16 @@ const person = {
 // Principle 3
 
 // code example for New Binding
+function Person(name) {
+	this.name = name;
+}
+const tom = new Person('Tom');
+console.log(tom);
+// Principle 4
+
+// code example for Explicit Binding
 function intro() {
 	console.log(`Hi, my name is ${this.name}`);
 }
 
 intro.call(person);
-
-// Principle 4
-
-// code example for Explicit Binding
