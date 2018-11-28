@@ -66,6 +66,45 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`
 }
+
+// Stretch task: 
+  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.removeHealth = function() {
+  this.healthPoints--;
+  return `You now have ${this.healthPoints} health.`;
+}
+
+Villain.prototype.dead = function() {
+  if (this.healthPoints <= 0) {
+    return this.destroy();
+  }
+}
+
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.removeHealth = function() {
+  this.healthPoints--;
+  return `You took 1 damage: ${this.healthPoints} health remaining.`;
+}
+
+Hero.prototype.dead = function() {
+  if (this.healthPoints <= 0) {
+    return this.destroy();
+  }
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -126,6 +165,38 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const badGuy = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    healthPoints: 1,
+    name: 'Cletus',
+    team: 'Assassin Guild',
+    weapons: [
+      'Poison Dagger',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const goodGuy = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    healthPoints: 1,
+    name: 'Jimbob',
+    team: 'Bringers of Light',
+    weapons: [
+      'Sword of Light',
+    ],
+    language: 'Common Tongue',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -137,6 +208,10 @@ Humanoid.prototype.greet = function() {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+  console.log(badGuy.removeHealth());
+  console.log(badGuy.dead());
+  console.log(goodGuy.removeHealth());
+  console.log(goodGuy.dead());
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
