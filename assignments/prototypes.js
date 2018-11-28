@@ -15,6 +15,19 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+let spellEffect = [
+  'frozen in carbonite',
+  'held upside down by reversed forces of gravity',
+  'stuck in a paralyzed state',
+  'converted to the opposing side'
+]
+
+VillainChar.prototype.castSpell = function(character) {
+  let randomArray = [];
+  for (let spellIndex = 0; spellIndex < spellEffect.length; spellIndex++) {
+return spellEffect.push[Math.floor(Math.random() * spellEffect.length)];
+}
+
 function GameObject(objAttributes){
   this.createdAt = objAttributes.createdAt;
   this.dimensions = objAttributes.dimensions;  
@@ -83,6 +96,7 @@ function VillainChar(evilAttributes){
   this.sidekick = evilAttributes.sidekick;
   this.nemesis = evilAttributes.nemesis;
   this.strength = evilAttributes.strength;
+  this.evilSpeech = evilAttributes.evilSpeech;
 }
 
 VillainChar.prototype = Object.create(Humanoid.prototype); // Great-Grandchild Inheritance
@@ -91,7 +105,13 @@ VillainChar.prototype.threat = function() {
   return `${this.name} threatens you with ${this.weapons}.`;
 }
 VillainChar.prototype.monologue = function() {
-  return `The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right. Greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms, greed for life, for money, for love, knowledge, has marked the upward surge of mankind. And greed, you mark my words, will not only save Rohan, but that other malfunctioning realm called Skarsgaard!`
+  return `"${this.evilSpeech}"`;
+}
+
+VillainChar.prototype.castSpell = function(character, spells) {
+  let randomArray = [];
+  for (let spellIndex = 0; spellIndex < spellEffect.length; spellIndex++) {
+return spellEffect.push[Math.floor(Math.random() * spellEffect.length)];
 }
 
 //===================================== Hero Below
@@ -182,6 +202,7 @@ HeroChar.prototype.saysCatchPhrase = function() {
     sidekick: 'Sir Hiss',
     nemesis: 'Solaire the Brave',
     strength: 'Intelligence and a lot of money',
+    evilSpeech: `The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right. Greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms, greed for life, for money, for love, knowledge, has marked the upward surge of mankind. And greed, you mark my words, will not only save Rohan, but that other malfunctioning realm called Skarsgaard!`
   });
 
   const hero = new HeroChar({
