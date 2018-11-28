@@ -119,9 +119,9 @@ GameObject.prototype.destroy = function() {
 }
 
 function CharacterStats(cstats){
+  GameObject.call(this, cstats);
   this.healthPoints = cstats.healthPoints;
   this.name = cstats.name;
-  GameObject.call(this, cstats);
 }
 
 CharacterStats.prototype.takeDamage = function(this) {
@@ -129,10 +129,10 @@ CharacterStats.prototype.takeDamage = function(this) {
 }
 
 function Humanoid(human) {
+  CharacterStats.call(this, human);
   this.team = human.team;
   this.weapons = human.weapons;
   this.language = human.language; 
-  CharacterStats.call(this, human);
 }
 
 Humanoid.prototype.greet = function(this) {
