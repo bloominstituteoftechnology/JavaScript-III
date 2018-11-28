@@ -27,7 +27,6 @@ GameObject.prototype.destroy = function(){
   return `${this.name} was removed from the game.`;
 }
 
-
 // Child Constructor
 /*
   === CharacterStats ===
@@ -49,6 +48,11 @@ CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 } 
 
+CharacterStats.prototype.attack = function(character, damageLevel){
+  let newhealth = character.healthPoints - damageLevel;
+  return `${this.name} attacked ${character} and caused ${damageLevel} units of damage! ${character}'s health is now at ${newhealth}`
+}
+
 // Grandchild Constructor
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -60,11 +64,11 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid(noidAttributes){
-  CharacterStats.call(this, noidAttributes); // Binds 'this' to Child (Grandchild Parent) 
-  this.team = noidAttributes.team;
-  this.weapons = noidAttributes.weapons;
-  this.language = noidAttributes.language;
+function Humanoid(humanoidAttributes){
+  CharacterStats.call(this, humanoidAttributes); // Binds 'this' to Child (Grandchild Parent) 
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype); // Grandchild Inheritance
@@ -72,39 +76,30 @@ Humanoid.prototype = Object.create(CharacterStats.prototype); // Grandchild Inhe
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 } 
+
  // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects 
   // which could result in destruction if health gets to 0 or drops below 0;
-
-  // function Villain(evilAttributes){
-  //   Humanoid.call(this, evilAttributes); // Binds 'this' to Grandchild
-  //   this.sidekick = evilAttributes.sidekick;
-  //   this.nemesis = evilAttributes.nemesis;
-  //   this.strength = evilAttributes.strength;
-  // }
+// VILLAIN
+  function VillainChar(evilAttributes){
+    Humanoid.call(this, evilAttributes); // Binds 'this' to Grandchild = Humanoid
+    this.sidekick = evilAttributes.sidekick;
+    this.nemesis = evilAttributes.nemesis;
+    this.strength = evilAttributes.strength;
+  }
   
-  // Villain.prototype = Object.create(Humanoid.prototype); // Great-Grandchild Inheritance
+  VillainChar.prototype = Object.create(Humanoid.prototype); // Great-Grandchild Inheritance
   
-  // Villain.prototype.threat = function() {
-  //   return `${this.name} threatens you with ${this.weapon}.`;
-  // } 
+  VillainChar.prototype.threat = function() {
+    return `${this.name} threatens you with ${this.weapons}.`;
+  } 
 
-
+  VillainChar.prototype.monologue = function() {
+    return `The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right. Greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms, greed for life, for money, for love, knowledge, has marked the upward surge of mankind. And greed... you mark my words... will not only save The Realm of Norja, but that other malfunctioning territory called Skarsgaard.`;
+  }   
   // HERO
-  // function Hero(goodAttributes){
-  //   Villain.call(this, goodAttributes); // Binds 'this' to Great Grandchild
-  //   this.belief = goodAttributes.belief;
-  //   this.training = goodAttributes.training;
-  //   this.specialItem = goodAttributes.specialItem;
-  // }
-  
-  // Villain.prototype = Object.create(Humanoid.prototype); // Great-Great-Grandchild Inheritance
-  
-  // Hero.prototype.threat = function() {
-  //   return `${this.name} threatens you with ${this.weapon}.`;
-  // } 
- 
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -163,6 +158,25 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const villain = new VillainChar({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 3,
+    },
+    healthPoints: 10,
+    name: 'Lord Business',
+    team: 'No one but himself',
+    weapons: [
+      'his greater wit',
+    ],
+    language: 'he only speaks in money',
+    sidekick: 'Sir Hiss',
+    nemesis: 'Hjallmar',
+    strength: 'Intelligence and a lot of money',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -173,6 +187,10 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(villain.team); // No one but himself
+  console.log(villain.threat()); // Evil McEvilFace threatens you with his greater wit.
+  console.log(villain.monologue());
+  console.log(swordsman.attack(villain.name, 3));
 
   // Stretch task:
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
