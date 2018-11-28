@@ -18,8 +18,8 @@ function GameObject(attributes){
     this.createdAt = attributes.createdAt;
     this.dimensions = attributes.dimensions;
 }
-GameObject.prototype.destroy = function(){
-    return `Object was removed from the game.`
+GameObject.prototype.destroy = function(name){
+    return `${name} was removed from the game.`
 }
 
 function CharacterStats(charAttributes){
@@ -29,7 +29,7 @@ function CharacterStats(charAttributes){
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function(){
-  return `${this.name} took damage.`
+  console.log(`${this.name} took damage.`)
 }
 /*
   === CharacterStats ===
@@ -118,19 +118,99 @@ Humanoid.prototype.greet = function(){
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.healthPoints); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.healthPoints); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.team); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  function Hero(heroAttrs){
+    Humanoid.call(this, heroAttrs);
+    this.power = heroAttrs.power;
+  }
+  Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype.attack = function(){
+    if(this.healthPoints > 1){
+      console.log(`I'm attacking ${this.name}`);
+      this.healthPoints -= 3;
+      console.log(`Their health is ${this.healthPoints}`);
+      if(this.healthPoints == 0){
+        console.log(this.destroy(`${this.name}`))
+      }
+      }
+    else{
+      console.log(this.destroy(`${this.name}`))
+    }
+  }
+  const matt = new Hero ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Matt',
+    team: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+    power: 3,
+  });
+ 
+ 
+  function Villain(villAttrs){
+    Humanoid.call(this, villAttrs);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.spell = function(){
+    if(this.healthPoints > 1){
+      console.log(`I'm attacking ${this.name}`);
+      this.healthPoints -= 2;
+      console.log(`Their health is ${this.healthPoints}`);
+      if(this.healthPoints == 0){
+        console.log(this.destroy(`${this.name}`))
+      }
+      }
+    else{
+      console.log(this.destroy(`${this.name}`))
+    }
+  }
+
+  const witch = new Villain ({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Evil Witch',
+    team: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+  matt.attack.call(witch);
+  witch.spell.call(matt);
+  matt.attack.call(witch);
+  witch.spell.call(matt);
+  matt.attack.call(witch);
+  witch.spell.call(matt);
+  matt.attack.call(witch);
+  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
