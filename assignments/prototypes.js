@@ -15,12 +15,15 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject(gameAttributes) {
-  this.createdAt = gameAttributes.createdAt;
-  this.dimensions = gameAttributes.dimensions;
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
 };
 
-GameObject.prototype.destroy = () => {return `${this.name} was removed from the game.`};
+// arrow syntaz not working? 
+// GameObject.prototype.destroy = () => {return `${this.name} was removed from the game.`}
+GameObject.prototype.destroy = function() {return `${this.name} was removed from the game.`}
+
 
 /*
   === CharacterStats ===
@@ -37,7 +40,10 @@ function CharacterStats(statsAttributes) {
 };
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = () => {return `${this.name} took damage`};
+// arrow syntax not working?
+// CharacterStats.prototype.takeDamage = () => {return `${this.name} took damage`};
+CharacterStats.prototype.takeDamage = function() {return `${this.name} took damage`};
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -57,8 +63,9 @@ function Humanoid(humanoidAttributes) {
 };
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-Humanoid.prototype.greet = () => {return `${this.name} offers a greeting in ${this.language}`};
-
+// arrow syntax not working?
+// Humanoid.prototype.greet = () => {return `${this.name} offers a greeting in ${this.language}`};
+Humanoid.prototype.greet = function() {return `${this.name} offers a greeting in ${this.language}`};
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
