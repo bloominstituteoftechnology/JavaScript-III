@@ -27,7 +27,7 @@ object we see fit.
 
 // Principle 1
 
-// code example for Window Binding
+console.log(`${this.name} would happen to be the value of the name property of your Window object.`)
 
 // Principle 2
 
@@ -44,8 +44,31 @@ dessert.speak()
 
 // Principle 3
 
-// code example for New Binding
+const MusicMaker = function(genre, artist, songname) {
+    this.genre = genre;
+    this.artist = artist;
+    this.songname = songname
+    this.instruments = []
+}
+MusicMaker.prototype.addinstrument = function (instrument) {
+    this.instruments.push(instrument)
+}
+
+const NewSong1 = new MusicMaker('Alt. Rock', 'Modest Mouse', 'Float On');
+
 
 // Principle 4
+const vacations = ['San Francisco', 'New York City', 'Cancun', 'Colorado Springs']
 
-// code example for Explicit Binding
+const myname = {
+  first_name: 'Jacob',
+  last_name: 'Bryan'
+}
+
+function statement(place1, place2, place3, place4) {
+    return (`My name is ${this.first_name} ${this.last_name}, and I have visited ${place1}, ${place2}, ${place3}, and ${place4} on vacations in my life.`)
+}
+
+function speak() {
+    console.log(statement.apply(myname, vacations))
+}
