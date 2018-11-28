@@ -88,7 +88,7 @@ Villain.prototype.doDamage = function (victim, cb) {
   if (victim.healthPoints > 0){
     return `${this.name} attacked ${victim.name} -- ${victim.name} lost ${damage} health points and has ${victim.healthPoints} remaining!`
   } else {
-    return `${this.name} attacked ${victim.name} -- ${victim.name} lost ${damage} health points and has been destroyed`
+    return `${this.name} attacked ${victim.name} -- ${victim.name} lost ${damage} health points and has been destroyed.`
   }
 }
 
@@ -96,6 +96,26 @@ const random = function(min, max) {
   result = Math.random() * max + min;
   return Math.floor(result);
 }
+
+// === Healer
+
+function Healer(healerAttributes) {
+  Humanoid.call(this, healerAttributes);
+}
+
+Healer.prototype = Object.create(Humanoid.prototype);
+
+Healer.prototype.heal = function (patient, cb) {
+  if (patient.healthPoints > 0) {
+    const health = cb;
+    patient.healthPoints = patient.healthPoints + health;
+    return `${this.name} healed ${patient.name} -- ${patient.name} now has ${health} health points`
+  } else {
+    return `Sorry, ${patient.name} cannot be revived`
+  }
+}
+
+
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -105,18 +125,18 @@ const random = function(min, max) {
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-  const ogre = new Villain({
+  const bandit = new Villain({
     createdAt: new Date(),
     dimensions: {
-      length: 4,
-      width: 3,
-      height: 10,
+      length: 2,
+      width: 1,
+      height: 3,
     },
-    healthPoints: 40,
+    healthPoints: 10,
     name: "Karl",
     team: "",
     weapons: "club",
-    language: "Ogre Tongue",
+    language: "Common Tongue",
     armor: "Breast plate"
   })
 
@@ -181,6 +201,7 @@ const random = function(min, max) {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   console.log(ogre.doDamage(mage, random(1, 5)));
+  console.log(ogre.doDamage(swordsman, random(1, 16)))
 
 
   // Stretch task: 
