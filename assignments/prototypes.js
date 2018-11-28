@@ -17,15 +17,16 @@
 //Parent element
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
-  this.dimensions = {
-    length = attributes.length,
-    width = attributes.width,
-    height = attributes.height,
-  };
+  this.dimensions = attributes.dimensions;
+  // {
+  //   length = attributes.length,
+  //   width = attributes.width,
+  //   height = attributes.height,
+}
 
 
 GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game.';
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -59,6 +60,20 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+//Child element of CharacterStats, granchild of GameObject
+function Humanoid(grandchildAttributes) {
+  //Binding of the this keyword to CharacterStats
+  CharacterStats.call(this, grandchildAttributes);
+  this.team = grandchildAttributes.team;
+  this.weapons = grandchildAttributes.weapons;
+  this.language = grandchildAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+CharacterStats.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -68,7 +83,7 @@ CharacterStats.prototype.takeDamage = function() {
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -129,7 +144,6 @@ CharacterStats.prototype.takeDamage = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
