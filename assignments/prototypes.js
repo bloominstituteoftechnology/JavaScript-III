@@ -83,7 +83,13 @@ Villain.prototype = Object.create(Humanoid.prototype);
 
 //Villain Methods: 
 Villain.prototype.doDamage = function (victim, cb) {
-  return `${this.name} attacked ${victim} -- ${victim} lost ${cb} health points!`
+  const damage = cb;
+  victim.healthPoints = victim.healthPoints - damage;
+  if (victim.healthPoints > 0){
+    return `${this.name} attacked ${victim.name} -- ${victim.name} lost ${damage} health points and has ${victim.healthPoints} remaining!`
+  } else {
+    return `${this.name} attacked ${victim.name} -- ${victim.name} lost ${damage} health points and has been destroyed`
+  }
 }
 
 const random = function(min, max) {
@@ -174,7 +180,7 @@ const random = function(min, max) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log(ogre.doDamage("mage", random(1, 5)));
+  console.log(ogre.doDamage(mage, random(1, 5)));
 
 
   // Stretch task: 
