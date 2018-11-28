@@ -73,6 +73,43 @@ Humanoid.prototype.greet = function(){
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+/* Hero constructor
+* Stretch task: 
+* Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+* Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+* Create two new objects, one a villain and one a hero and fight it out with methods!
+*/
+
+function Hero(heroAttributes){
+  this.damageAmount = heroAttributes.damageAmount;
+  Humanoid.call(this, heroAttributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.doDamage = function(otherCharacter){
+  otherCharacter.healthPoints -= this.damageAmount;
+  if(otherCharacter.healthPoints <= 0){
+    return otherCharacter.destroy();
+  }
+  console.log(`${this.name} attacks ${otherCharacter.name} for ${this.damageAmount} damage and leaves them with ${otherCharacter.healthPoints} health points!`)
+}
+
+function Villain(villainAttributes){
+  this.specialDamage = villainAttributes.specialDamage;
+  Hero.call(this, villainAttributes);
+}
+
+Villain.prototype = Object.create(Hero.prototype);
+
+Villain.prototype.specialAttack = function(otherCharacter){
+  otherCharacter.healthPoints -= this.specialDamage;
+  console.log(`${this.name} attacks ${otherCharacter.name} with a special attack for ${this.damageAmount} damage and leaves ${otherCharacter.name} with ${otherCharacter.healthPoints} health points!`)
+  if(otherCharacter.healthPoints <= 0){
+    otherCharacter.destroy();
+  }
+}
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
   const mage = new Humanoid({
@@ -140,3 +177,48 @@ Humanoid.prototype.greet = function(){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+const theHero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 2,
+    height: 4,
+  },
+  healthPoints: 15,
+  name: 'Kieran',
+  team: 'The Hero',
+  weapons: [
+    'Bow and Arrow',
+    'Dagger',
+  ],
+  language: 'Common Tongue',
+  damageAmount: 5
+});
+
+const theVillain = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 4,
+    height: 7,
+  },
+  healthPoints: 15,
+  name: 'The Masked Villain, Madvillain',
+  team: 'Czarface',
+  weapons: [
+    'Verses',
+    'Bombs',
+  ],
+  language: 'Common Tongue',
+  damageAmount: 3,
+  specialDamage: 5
+});
+
+//Start fight!
+theHero.doDamage(theVillain);
+theVillain.doDamage(theHero);
+theVillain.specialAttack(theHero);
+theHero.doDamage(theVillain);
+theVillain.doDamage(theHero);
+theHero.doDamage(theVillain);
