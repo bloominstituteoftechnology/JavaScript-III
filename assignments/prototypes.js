@@ -73,6 +73,32 @@ Humanoid.prototype.greet = function() {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+//-------------hero--------------
+
+function Hero(heroAttributes) {
+  CharacterStats.call(this, heroAttributes);
+  this.specialAttack = heroAttributes.specialAttack;
+  this.magic = heroAttributes.magic;
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.cloak = function() {
+  console.log(`${this.name} has cloaked using ${this.magic}`);
+}
+
+//-------------villain--------------
+
+function Villain(villainAttributes) {
+  CharacterStats.call(this, villainAttributes);
+  this.specialAttack = villainAttributes.specialAttack;
+  this.magic = villainAttributes.magic;
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.vanish = function() {
+  console.log(`${this.name} has disappered using ${this.magic}`);
+}
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
 
@@ -126,6 +152,48 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
+//-------------hero--------------
+
+const luckyFarmBoy = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  healthPoints: 25,
+  name: 'Chuck',
+  team: 'Farmer',
+  weapons: [
+    'Pitch Fork',
+  ],
+  language: 'Lower Tongue',
+  specialAttack: "Hay Toss",
+  magic: "Special Beans"
+});
+
+//-------------villain--------------
+
+const evilPrince = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  healthPoints: 25,
+  name: 'Charming',
+  team: 'Royals',
+  weapons: [
+    'Gold Sword',
+  ],
+  language: 'Higher Tongue',
+  specialAttack: "Crown Toss",
+  magic: "Handheld Mirror"
+});
+
+
+
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.healthPoints); // 15
@@ -136,6 +204,11 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+console.log(luckyFarmBoy.specialAttack);
+console.log(luckyFarmBoy.cloak());
+console.log(evilPrince.specialAttack);
+console.log(evilPrince.vanish());
 
 
   // Stretch task: 
