@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Using .this in the global scope refers to the window
-* 2. Using .this within a certain block scope, what you're referring to is automatic/implied.
-* 3. Using a constructor function and the new keyword, .this refers to the Object new instantiates.
-* 4. Harcoding what the .this refers to using .bind
+* 1. Window binding: Using .this in the global scope refers to the window.
+* 2. Implicit binding: Using .this within a certain block scope, what you're referring to is automatic/implied. 
+* 3. New Binding: Using a constructor function and the new keyword, .this refers to the new Object.
+* 4. Explicit binding:  Harcoding what the .this refers to.
 *
 * write out a code example of each explanation above
 */
