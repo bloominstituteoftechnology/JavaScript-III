@@ -11,46 +11,45 @@
 
 // Principle 1
 // code example for Window Binding
-console.log(this);
+// console.log(this);
 // Principle 2
 // code example for Implicit Binding
-const myObj = {
-    test: "testing our this keyword",
-    demo: function(){
-        console.log(this.test); //Returns "testing our this keyword"
-        console.log(this); // Returns our full object - myObj
-    }
-}
-myObj.demo();
+// const myObj = {
+//     test: "testing our this keyword",
+//     demo: function(){
+//         console.log(this.test); //Returns "testing our this keyword"
+//         console.log(this); // Returns our full object - myObj
+//     }
+// }
+// myObj.demo();
 // Principle 3
 // code example for New Binding
-const me ={
-    name:"Matt",
-    location: "Brooklyn"
-};
+// const me ={
+//     name:"Matt",
+//     location: "Brooklyn"
+// };
 
-function howdy(){
-    "use strict"
-    console.log(`Howdy partner, my name is ${this.name} and I'm from ${this.location}!`);
-}
+// function howdy(){
+//     "use strict"
+//     console.log(`Howdy partner, my name is ${this.name} and I'm from ${this.location}!`);
+// }
 
-howdy.call(me);
+// howdy.call(me);
 
 // Principle 4
 // code example for Explicit Binding
-function Person(attr){
-    this.name = attr.name,
-    this.height = attr.height,
-    this.weight = attr.weight,
-    this.health = function(){
-        console.log(`Hi I'm ${this.name} and I'm ${this.height} inches tall and weigh ${this.weight} pounds`)
-    }
-}
+// function Person(attr){
+//     this.name = attr.name,
+//     this.height = attr.height,
+//     this.weight = attr.weight,
+//     this.health = function(){
+//         console.log(`Hi I'm ${this.name} and I'm ${this.height} inches tall and weigh ${this.weight} pounds`)
+//     }
+// }
+// const matt = new Person({
+//     name: "Matt",
+//     height: 69,
+//     weight: 185
+// });
 
-const matt = new Person({
-    name: "Matt",
-    height: 69,
-    weight: 185
-});
-
-matt.health();
+// matt.health();
