@@ -25,30 +25,52 @@
  * write out a code example of each explanation above
  */
 
-// Principle 1
+// Principle 1 - Window Binding
 
 function windowBinding() {
-  console.log(this);
+  console.log(this); // The this is bound to the window in this instance. NOT a good thing to do.
 }
-
 windowBinding();
 
-// Principle 2
+// Principle 2 - Implicit Binding
 
 const implicitExample = {
   name: "The Dude",
   phrase: "That's just like, your opinion, man",
   statement: function() {
-    console.log(`${this.name} abides.`);
+    console.log(`${this.name} abides.`); // The this is bound to the implicitExample object implicitly
   }
 };
-
 implicitExample.statement();
 
-// Principle 3
+// Principle 3 - Explicit Binding
 
-// code example for New Binding
+function ForceUser(attributes) {
+  this.lightsaberColor = attributes.lightsaberColor;
+  this.birthplace = attributes.birthplace;
+  this.feels = attributes.feels;
+}
+ForceUser.prototype.feeling = function() {
+  return `I have a ${this.feels} about this.`;
+};
 
-// Principle 4
+function Sith(sithAttributes) {
+  ForceUser.call(this, sithAttributes); // Explicitly binding here
+  this.enemies = sithAttributes.enemies;
+}
+Sith.prototype = Object.create(ForceUser.prototype); // Explicitly binding here
+Sith.prototype.catchPhrase = function() {
+  return `From my point of view the ${this.enemies} are evil!`;
+};
 
-// code example for Explicit Binding
+// Principle 4 - New Keyword Binding
+
+const darthVader = new Sith({
+  // Binding using the "new" keyword here
+  lightsaberColor: "Red",
+  birthplace: "Tatooine",
+  feels: "bad",
+  enemies: "Jedi"
+});
+console.log(darthVader.feeling());
+console.log(darthVader.catchPhrase());
