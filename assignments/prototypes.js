@@ -115,17 +115,17 @@ function GameObject(gameobj){
 }
 
 GameObject.prototype.destroy = function() {
-  return "Object was removed from the game.";
+  return `${this} was removed from the game.`;
 }
 
 function CharacterStats(cstats){
   this.healthPoints = cstats.healthPoints;
   this.name = cstats.name;
-
+  this.destroy = GameObject.destroy();
 }
 
 CharacterStats.prototype.takeDamage = function () {
-  return "`{$this.name} took damage.`"
+  return `${this.name} took damage.`;
 }
 
 function Humanoid(human) {
@@ -133,4 +133,8 @@ function Humanoid(human) {
   this.weapons = human.weapons;
   this.language = human.language;
 
+}
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
 }
