@@ -22,15 +22,39 @@ const dog = {
     breed: 'Pit-Bull',
     food: 'Pedigree',
     bark: function() {
-      console.log(`${this.name} ate a whole bag of ${this.food}`);
+      console.log(`My ${this.breed} ate a whole bag of ${this.food}`);
     }
   }
 
-  dog(bark);
+  dog.bark();
 // Principle 3
 
-// code example for New Binding
+const Dog = {
+    name: 'Juno'
+  }
+  const skills = ['Play', 'Sit', 'Shake'];
+  
+  function sayHello(skills1, skills2, skills3) {
+    console.log(`Hello! My name is ${this.name}, and I can ${skills1}, ${skills2}, ${skills3}`);
+  }
 
+  sayHello.call(Dog, 'Play, Sit Shake');
+  sayHello.apply(Dog, skills);
+  sayHello.bind(Dog,...skills);
 // Principle 4
 
-// code example for Explicit Binding
+function Person(programmer){
+    this.programmer = programmer;
+    this.greeting = 'How are you today';
+    this.speak = function() {
+      console.log(`${this.greeting}, ${this.programmer}`)
+    }
+  }
+  
+  const billy = new Person('Billy');
+
+  
+  console.log(billy);
+  
+  billy.speak();
+  
