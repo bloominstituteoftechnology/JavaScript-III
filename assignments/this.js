@@ -28,8 +28,8 @@ favoriteColor(); // returns undefined because window doesn't have a key of 'colo
 
 const leighAnn = {
     name: 'Leigh-Ann',
-    color: green,
-    food: pizza,
+    color: 'green',
+    food: 'pizza',
     favoriteColor: function() {
         console.log(`${this.name}'s favorite color is ${this.color}.`)
     }
@@ -40,16 +40,19 @@ leighAnn.favoriteColor(); // returns "Leigh-Ann's favorite color is green." beca
 
 // Principle 3 - new Binding
 
-const Person = function(name, color) {
+function Person(name, color) {
     this.name = name;
     this.color = color;
 }
 
 const jeff = new Person('Jeff', 'red'); // this will point to jeff any time jeff is the object being called upon, and it will have the key/value pair structure of the constructor function Person
 
+console.log(jeff);
+
+
 // Principle 4 - Explicit binding
 
-const favoriteFood = function() {
+let favoriteFood = function() {
     console.log(`${this.name}'s favorite food is ${this.food}.`)
 }
 
