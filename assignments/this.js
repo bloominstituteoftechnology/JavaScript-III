@@ -40,10 +40,9 @@ leighAnn.favoriteColor(); // returns "Leigh-Ann's favorite color is green." beca
 
 // Principle 3 - new Binding
 
-const Person = function(name, color)){
-    this.name: name,
-    this.color: color
-
+const Person = function(name, color) {
+    this.name = name;
+    this.color = color;
 }
 
 const jeff = new Person('Jeff', 'red'); // this will point to jeff any time jeff is the object being called upon, and it will have the key/value pair structure of the constructor function Person
