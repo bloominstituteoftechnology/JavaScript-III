@@ -10,12 +10,29 @@
 */
 
 // Principle 1
+// You will be seeing the window object and everything related to it.
+
 
 // code example for Window Binding
+// first we create a short object 
+function checkWindow(){
+    console.log(window);
+}
+checkWindow();
 
 // Principle 2
 
 // code example for Implicit Binding
+const obj = {
+    name : "jimmyJoe",
+    breed:"pointer",
+    color:"best color ever",
+    info :function(){
+        return `${this.name},I wish you were still here.why do ${this.breed} dogs die so early`
+    }
+}
+
+console.log(obj.info());
 
 // Principle 3
 
