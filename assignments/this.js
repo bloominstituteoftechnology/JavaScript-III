@@ -13,7 +13,7 @@
      the specific object that was created by the constructor.
 
 * 4. Explicit (forced) Binding:
-     When the 'call' or 'apply' method is used the value of 'this' will be
+     When the 'call', 'apply', or 'bind' method is used the value of 'this' will be
      explicitly defined by what the method is calling/applying upon. 
      [ex. const1.function1.call(const2) => this refers to const2]
 
@@ -48,12 +48,12 @@ function Learn(me) {
     this.alphabet = 'ABC';
     this.me = me;
     this.teachMe = function () {
-        console.log(this); // this === Learn {alphabet: 'ABC', me: 'Chelsea', teachMe: function}
-        return (`${this.me} says ${this.alphabet}'s are fun!`); // this === Learn >>> this.alphabet === Learn.alphabet === 'ABC' // this.me === Learn.me === 'Chelsea' (me was set to 'Chelsea' when we invoked new constructor function of Learn(Chelsea))
+        console.log(this); // this === first === Learn {alphabet: 'ABC', me: 'Chelsea', teachMe: function}
+        return (`${this.me} says ${this.alphabet}'s are fun!`); // this === first === Learn >>> this.alphabet === Learn.alphabet === 'ABC' // this.me === Learn.me === 'Chelsea' (me was set to 'Chelsea' when we invoked new constructor function of Learn(Chelsea))
     };
 };
-const first = new Learn('Chelsea'); // here is when 'first' eastablishes a new object 'Learn' with 'Chelsea' as a value of 'me'
-// console.log(first.teachMe()); // here is where the 'this' is invoked by the .function 
+const first = new Learn('Chelsea'); // here is when 'first' eastablishes a new object of 'first' with 'Chelsea' as a value of 'me'
+// console.log(first.teachMe()); // here is where the 'this' or 'first' is invoked by the .function 
 
 // Principle 4
 // code example for Explicit Binding
@@ -64,15 +64,15 @@ function LearnNums(you) {
     this.nums = '123';
     this.you = you;
     this.teachMeNums = function () {
-        console.log(this); // this === LearnNums {nums: '123', you: 'Bob', teachMeNums: function}
+        console.log(this); // this === student ==  LearnNums {nums: '123', you: 'Bob', teachMeNums: function}
         return (`${this.you} says ${this.nums}'s are fun!`); // this === LearnNums >>> 'student' = 'you' = 'Bob'
     };
 };
 const teacher = new LearnNums('Josh'); // LearnNums {nums: '123', you: 'Josh', teachMeNums: function}
 const student = new LearnNums('Bob'); // LearnNums {nums: '123', you: 'Bob', teachMeNums: function}
 
-//console.log(teacher.teachMeNums()); // Without the call method 'teacher' = 'you' = 'josh' would be within the value of this 
-// console.log(teacher.teachMeNums.call(student)); // here is where call explicilty defines is value of 'student' = 'you' = 'Bob'
+// console.log(teacher.teachMeNums()); // Without the call method teacher = 'you' = 'josh' would be value of this 
+console.log(teacher.teachMeNums.call(student)); // here is where call explicilty defines is value of this as 'student' = 'you' = 'Bob'
 
 
 // Example 2
