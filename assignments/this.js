@@ -16,7 +16,7 @@ function introduce(firstName) {
     console.log(this);
     return name;
 }
-introduce("Olivia");
+// introduce("Olivia");
 
 // Principle 2
 
@@ -28,12 +28,38 @@ const myObj = {
         console.log(`Hello  my name is ${this.firstName} ${this.lastName}`);
     }
 };
-myObj.greeting();
+// myObj.greeting();
 
 // Principle 3
 
 // code example for New Binding
+function GreetSomeone(greeter){
+    this.greeter = greeter;
+    this.greeting = "Hi there!"
+    this.speak = function() {
+        console.log(`${this.greeting} My name is ${this.greeter}`)
+    }
+}
+
+const me = new GreetSomeone("Olivia");
+// me.speak();
 
 // Principle 4
 
 // code example for Explicit Binding
+const myself = {
+    name: "Olivia",
+    age: 23
+}
+
+const shows = ["The office", "The Great British Bake Off"]
+
+function introduce(shows1, shows2) {
+    console.log(`Hi! My name is ${this.name}, and my favorite shows are ${shows1} and ${shows2}`)
+}
+
+introduce.apply(myself, shows);
+
+
+
+
