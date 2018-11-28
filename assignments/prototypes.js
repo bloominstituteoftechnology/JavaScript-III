@@ -71,7 +71,7 @@ function Humanoid(grandchildAttributes) {
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-CharacterStats.prototype.greet = function() {
+Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 }
  
@@ -80,6 +80,46 @@ CharacterStats.prototype.greet = function() {
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+
+//Hero constructor - inherits from humanoid
+function Hero(heroAttributes) {
+  //Binding of the this keyword to Humanoid
+  Humanoid.call(this, heroAttributes);
+  this.armor = heroAttributes.armor;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.takeAHit = function(damage) {
+  let hitPoint = Math.ceil((Math.random() * 10));
+  if (hitPoint < damage) {
+    this.healthPoints--;
+    this.takeDamage();
+  } else {
+    return `${this.name} blocked your attack!`;
+  }
+}
+
+
+
+//Villain constructor - inherits from humanoid
+function Villain(villainAttributes) {
+  //Binding of the this keyword to humanoid
+  Humanoid.call(this, villainAttributes);
+  this.spells = villainAttributes.spells;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.dodge = function() {
+  let hitPoint = Math.round(Math.random());
+  if (hitPoint < 1) {
+    this.healthPoints--;
+    this.takeDamage();
+  } else {
+    return `${this.name} dodged your attack!`;
+  }
+}
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
@@ -144,6 +184,7 @@ CharacterStats.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
