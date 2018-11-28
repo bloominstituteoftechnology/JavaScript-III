@@ -100,13 +100,17 @@ Humanoid.prototype.greet = function() {
   }   
 
   let spellEffect = [
-    {text: "frozen in carbonite"},
-    {text: "held upside down by reversed forces of gravity"}, 
-    {text: "stuck in a paralyzed state"}, 
-    {text: "converted to the opposing side"}
+    "frozen in carbonite",
+    "held upside down by reversed forces of gravity",
+    "stuck in a paralyzed state", 
+    "converted to the opposing side",
+    "kicked in the pants",
+    "thrown into a pit of defanged vipers for slow torture",
+    "forced to listen to Katy Perry on repeat",
+    "forced to relive Thanksgiving dinner with their mother in law times infinity"
 ]
 
-  VillainChar.prototype.castSpell = function(spellArray, attacker, target) {
+  VillainChar.prototype.castSpell = function(character) {
     let spell = spellEffect[Math.floor(Math.random() * spellEffect.length)];
     return `${this.name} cast a spell on ${character.name} and caused them to be ${spell}!`
   }
