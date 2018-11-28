@@ -32,7 +32,7 @@ GameObject.prototype.destroy = () => {return `${this.name} was removed from the 
 
 function CharacterStats(statsAttributes) {
   GameObject.call(this, statsAttributes);
-  this.healthpoints = statsAttributes.healthpoints;
+  this.healthPoints = statsAttributes.healthPoints; // lol, Points needed to be capitalized
   this.name = statsAttributes.name;
 };
 
