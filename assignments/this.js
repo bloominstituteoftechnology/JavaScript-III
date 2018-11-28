@@ -2,7 +2,7 @@
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. 'this' can reference the window or console's object. (For example: it can reveal the methods on Console, such as .log)
-* 2. 
+* 2. When a method is called, 'this' refers to the object to the left of the .
 * 3. 
 * 4. 
 *
