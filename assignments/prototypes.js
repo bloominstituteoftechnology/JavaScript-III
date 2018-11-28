@@ -15,6 +15,18 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(obj){
+  // constructor assigns whatever is passed in for createdAt
+  this.createdAt = obj.createdAt;
+  // constructor assigns whatever is passed in for dimensions
+  this.dimensions = obj.dimensions;
+}
+
+// create a prototype method called destroy assigned to GameObject
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * healthPoints
@@ -22,6 +34,22 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(stats) {
+ // call the methods and properties from GameObject
+ GameObject.call(this, stats);
+ // assign hp based on what is passed in
+ this.healthPoints = stats.healthPoints;
+ // assign name based on what is passed in
+ this.name = stats.name;
+}
+
+// assign inheritance of the prototype methods from GameObject to CharacterStats
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+// create a prototype method called takeDamage and assigns it to the CharacterStats.prototype
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,6 +60,23 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(character){
+  // call the methods and prototypes from CharacterStats
+  CharacterStats.call(this, character);
+  // assign team based on what is passed in
+  this.team = character.team;
+  // assign weapons based on what is passed in
+  this.weapons = character.weapons;
+  // assign language based on what is passed in
+  this.language = character.language;
+}
+ // assign inheritance of prototype methods and properties from CharacterStats to Humanoid
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+ // declare a prototype method of greet for the Humanoid prototype
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +86,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -96,13 +141,13 @@
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
   console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
+  console.log(archer.team); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+ 
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
