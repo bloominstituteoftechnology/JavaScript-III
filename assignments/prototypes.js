@@ -46,7 +46,7 @@ function GameObject(attributes) {
 } //GameObject
 
 GameObject.prototype.destroy = function() {
-  console.log(`${this.name} was removed from the game.`);
+  return `${this.name} was removed from the game.`;
 };
 
 function CharacterStats(attributes) {
@@ -57,12 +57,11 @@ function CharacterStats(attributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  console.log(`${this.name} took damage.`);
+  return `${this.name} took damage.`;
 };
 
 function Humanoid(attributes) {
   CharacterStats.call(this, attributes);
-  // CharacterStats.bind(this, attributes);
   this.team = attributes.team;
   this.weapons = attributes.weapons;
   this.language = attributes.language;
@@ -71,7 +70,41 @@ function Humanoid(attributes) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-  console.log(`${this.name} offers a greeting in ${this.language}.`);
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+  this.attack = attributes.attack;
+  this.damage = attributes.damage;
+  this.catchphrase = attributes.catchphrase;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.smite = function() {
+  console.log(
+    `${this.name} shouts \"${this.catchphrase}\" and attacks with ${
+      this.attack
+    }. ${this.name} does ${this.damage} points of damage.`
+  );
+};
+
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+  this.attack = attributes.attack;
+  this.damage = attributes.damage;
+  this.catchphrase = attributes.catchphrase;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.lunge = function() {
+  console.log(
+    `${this.name} shrieks \"${this.catchphrase}\" and lunges with ${
+      this.attack
+    }. ${this.name} does ${this.damage} points of damage.`
+  );
 };
 
 const mage = new Humanoid({
@@ -116,6 +149,40 @@ const archer = new Humanoid({
   language: "Elvish"
 });
 
+const goodGuy = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  healthPoints: 100,
+  name: "Dudley",
+  team: "Valhalla",
+  weapons: ["Fist", "Sword"],
+  language: "Heroic",
+  attack: "fiery fists",
+  damage: 36,
+  catchphrase: "take THAT"
+});
+
+const badGuy = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4
+  },
+  healthPoints: 100,
+  name: "Snidely",
+  team: "Hades",
+  weapons: "Whip",
+  language: "Heroic",
+  attack: "dangerous whip",
+  damage: 36,
+  catchphrase: "muahahahahahaa"
+});
+
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.healthPoints); // 15
@@ -131,3 +198,5 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+badGuy.lunge();
+goodGuy.smite();
