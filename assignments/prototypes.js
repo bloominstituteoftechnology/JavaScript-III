@@ -50,7 +50,7 @@ CharacterStats.prototype.takeDamage = function() {
 
 CharacterStats.prototype.attack = function(character, damageLevel){
   let newhealth = character.healthPoints - damageLevel;
-  return `${this.name} attacked ${character} and caused ${damageLevel} units of damage! ${character}'s health is now at ${newhealth}`
+  return `${this.name} attacked ${character.name} and caused ${damageLevel} units of damage! ${character.name}'s health is now at ${newhealth}`
 }
 
 // Grandchild Constructor
@@ -99,6 +99,21 @@ Humanoid.prototype.greet = function() {
     return `The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right. Greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms, greed for life, for money, for love, knowledge, has marked the upward surge of mankind. And greed... you mark my words... will not only save The Realm of Norja, but that other malfunctioning territory called Skarsgaard.`;
   }   
   // HERO
+
+  function HeroChar(heroAttributes){
+    Humanoid.call(this, heroAttributes); // Binds 'this' to Great-Grandchild = Humanoid
+    this.training = heroAttributes.training;
+    this.ability = heroAttributes.ability;
+    this.quest = heroAttributes.quest;
+    this.catchPhrase = heroAttributes.catchPhrase;
+    this.animalCompanion = heroAttributes.animalCompanion;
+  }
+  
+  HeroChar.prototype = Object.create(Humanoid.prototype); // Great-Grandchild Inheritance
+  
+  HeroChar.prototype.saysCatchPhrase = function() {
+    return `${this.name} bellows "${this.catchPhrase}"`;
+  }
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -173,9 +188,32 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'he only speaks in money',
     sidekick: 'Sir Hiss',
-    nemesis: 'Hjallmar',
+    nemesis: 'Solaire the Brave',
     strength: 'Intelligence and a lot of money',
   });
+
+  const hero = new HeroChar({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 15,
+    name: 'Solaire the Brave',
+    team: 'Warriors of the Sun',
+    weapons: [
+      'Greatsword',
+      "BattleAxe",
+      'Greatshield',
+    ],
+    language: 'Common Tongue',
+    training: 'Faith Magic',
+    ability: 'Lightning Bolt',
+    quest: 'Defeat Evil',
+    animalCompanion: 'European Swallow',
+    catchPhrase: 'The Greater Good will always prevail!',
+  }); 
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -190,7 +228,9 @@ Humanoid.prototype.greet = function() {
   console.log(villain.team); // No one but himself
   console.log(villain.threat()); // Evil McEvilFace threatens you with his greater wit.
   console.log(villain.monologue());
-  console.log(swordsman.attack(villain.name, 3));
+  console.log(swordsman.attack(villain, 3));
+  console.log(villain.threat());
+  console.log(hero.saysCatchPhrase());
 
   // Stretch task:
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
