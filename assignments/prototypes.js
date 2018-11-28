@@ -66,6 +66,41 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`
 }
+
+// ================================================= Villian constructor
+
+function Villian(vAttr) {
+  Humanoid.call(this, vAttr);
+  this.minions = vAttr.minions;
+  this.castle = vAttr.castle;
+  this.dmgMitigation = vAttr.dmgMitigation;
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.shadowAttack = function(target) {
+  return `${target} takes 5 damage from ${this.name}'s Shadow Attack! ${target} now has ${target.healthPoints} left!`
+}
+// ================================================= Hero constructor
+
+function Hero(hAttr) {
+  Humanoid.call(this, hAttr);
+  this.power = hAttr.power;
+  this.shieldPoints = hAttr.shieldPoints;
+  this.armorPierce = hAttr.armorPierce;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.weaponSlash = function(target) {
+  let dmg = this.power + 5;
+  let res = target.healthPoints - dmg;
+
+  if (target.healthPoints === 0) {
+    return target.destroy();
+  }
+  return `${target.name} takes 10 damage from ${this.name}'s ${this.weapons[0]} Slash Attack! ${target.name} now has ${res} left!`
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -76,67 +111,107 @@ Humanoid.prototype.greet = function() {
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
 
-  const mage = new Humanoid({
+  // const mage = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 2,
+  //     width: 1,
+  //     height: 1,
+  //   },
+  //   healthPoints: 5,
+  //   name: 'Bruce',
+  //   team: 'Mage Guild',
+  //   weapons: [
+  //     'Staff of Shamalama',
+  //   ],
+  //   language: 'Common Tongue',
+  // });
+
+  // const swordsman = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 2,
+  //     width: 2,
+  //     height: 2,
+  //   },
+  //   healthPoints: 15,
+  //   name: 'Sir Mustachio',
+  //   team: 'The Round Table',
+  //   weapons: [
+  //     'Giant Sword',
+  //     'Shield',
+  //   ],
+  //   language: 'Common Tongue',
+  // });
+
+  // const archer = new Humanoid({
+  //   createdAt: new Date(),
+  //   dimensions: {
+  //     length: 1,
+  //     width: 2,
+  //     height: 4,
+  //   },
+  //   healthPoints: 10,
+  //   name: 'Lilith',
+  //   team: 'Forest Kingdom',
+  //   weapons: [
+  //     'Bow',
+  //     'Dagger',
+  //   ],
+  //   language: 'Elvish',
+  // });
+
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.healthPoints); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.team); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+  const darkWarrior = new Villian({
     createdAt: new Date(),
     dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
+      length: 5,
+      width: 4,
+      height: 9,
     },
-    healthPoints: 5,
-    name: 'Bruce',
-    team: 'Mage Guild',
+    healthPoints: 25,
+    name: 'Billy',
+    team: 'Villians Association',
     weapons: [
-      'Staff of Shamalama',
+      'Sword of Darkness',
     ],
     language: 'Common Tongue',
+    minions: 500,
+    castle: 2,
+    dmgMitigation: 2
   });
 
-  const swordsman = new Humanoid({
+  const warrior = new Hero({
     createdAt: new Date(),
     dimensions: {
-      length: 2,
+      length: 3,
       width: 2,
-      height: 2,
+      height: 5,
     },
-    healthPoints: 15,
-    name: 'Sir Mustachio',
-    team: 'The Round Table',
+    healthPoints: 35,
+    name: 'Jimmy',
+    team: 'Heros Association',
     weapons: [
-      'Giant Sword',
-      'Shield',
+      'Sword of Epicness',
     ],
     language: 'Common Tongue',
+    power: 10,
+    shieldPoints: 30,
+    armorPierce: 5
   });
 
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    healthPoints: 10,
-    name: 'Lilith',
-    team: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
-
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.healthPoints); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(warrior.weaponSlash(darkWarrior));
+  console.log(warrior.weaponSlash(darkWarrior));
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
