@@ -151,11 +151,10 @@ Humanoid.prototype.greet = function(){
     const theHit = Math.floor(Math.random()*4);
     target.healthPoints -= theHit;
     if(target.healthPoints <= 0){
-      console.log(`The great hero ${target.name} has been defeated`);
-      console.log(`The evil villain ${this.name} says: ${this.evilLaugh}`);
       target.destroy();
-    }else{
-      console.log(`${this.name} hits ${target.name} for ${theHit}`);
+      return `The great hero ${target.name} has been defeated by ${this.name}, the evil villain ${this.name} says: ${this.evilLaugh}`;
+    }else if(this.healthPoints > 0){
+      return `${this.name} hits ${target.name} for ${theHit}`;
     }
   }
 
@@ -169,11 +168,12 @@ Humanoid.prototype.greet = function(){
     const theHit = Math.floor(Math.random()*4);
     target.healthPoints -= theHit;
     if(target.healthPoints <= 0){
-      console.log(`The evil villain ${target.name} has been vanquished`);
-      console.log(`The great hero ${this.name} says: ${this.catchPhrase}`);
       target.destroy();
-    }else{
-      console.log(`${this.name} hits ${target.name} for ${theHit}`);
+      return `The evil villain ${target.name} has been vanquished by ${this.name}, the great hero ${this.name} says: ${this.catchPhrase}`;
+    }else if(this.healthPoints > 0){
+      return `${this.name} hits ${target.name} for ${theHit}`;
+    }else {
+      return '';
     }
   }
 
@@ -212,3 +212,39 @@ Humanoid.prototype.greet = function(){
     language: 'Meowith',
     evilLaugh: '*Hisses uncontrolablly*',
   });
+
+
+  const theBtn = document.querySelector('.fight-btn');
+  const fighter1Health = document.querySelector('.health1');
+  const fighter2Health = document.querySelector('.health2');
+  const chat = document.querySelector('.chat');
+
+  theBtn.addEventListener('click', function(){
+    if(dogman.healthPoints > 0 && catman.healthPoints > 0){
+      if(dogman.healthPoints > 0){
+        chatIt(dogman.hit(catman));
+      }
+
+      if(catman.healthPoints > 0){
+        chatIt(catman.hit(dogman));
+      }
+
+      if(dogman.healthPoints < 0){
+        dogman.healthPoints = 0;
+      }
+      if(catman.healthPoints < 0){
+        catman.healthPoints = 0;
+      }
+      //chatIt(`Dog Man HP: ${dogman.healthPoints}  Cat Man HP: ${catman.healthPoints}`);
+    }
+    fighter1Health.style.width = `${(dogman.healthPoints/10)*100}%`;
+    fighter2Health.style.width = `${(catman.healthPoints/10)*100}%`;
+  });
+
+  function chatIt(theChat){
+    let chatElem = document.createElement('P');
+    let theText = document.createTextNode(theChat);
+    chatElem.appendChild(theText);
+    chatElem.setAttribute('class', 'chats');
+    chat.appendChild(chatElem);
+  }
