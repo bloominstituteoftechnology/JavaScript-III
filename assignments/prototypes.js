@@ -21,7 +21,7 @@ function GameObject(gameCharacter) {
 }
 
 GameObject.prototype.destroy = function() {
-	return `Character was removed from the game`;
+	return `${this.name} was removed from the game`;
 };
 
 /*
@@ -131,3 +131,47 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+// ------------------------- VILLAIN CONSTRUTOR -------------------------
+function Villain(attributes) {
+	Humanoid.call(this, attributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+const villain = new Villain({
+	createdAt: new Date(),
+	dimensions: {
+		length: 2,
+		width: 4,
+		height: 8
+	},
+	healthPoints: 100,
+	name: 'Demon King',
+	team: 'Demon',
+	weapons: [ 'Magic Staff' ],
+	language: 'All Languages'
+});
+
+// ------------------------- HERO CONSTRUTOR -------------------------
+function Hero(attributes) {
+	Humanoid.call(this, attributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+const hero = new Hero({
+	createdAt: new Date(),
+	dimensions: {
+		length: 2,
+		width: 4,
+		height: 8
+	},
+	healthPoints: 100,
+	name: 'All Might',
+	team: 'Humanity',
+	weapons: [ 'Bare Hands' ],
+	language: 'Japanese'
+});
+
+console.log(Hero());
