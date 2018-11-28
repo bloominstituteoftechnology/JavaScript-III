@@ -135,14 +135,14 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 function Villain(villainAttributes) {
   Humanoid.call(this, villainAttributes);
-  this.side = villianAttributes.side;
+  this.side = villainAttributes.side;
 }
 Villain.prototype = Object.create(Humanoid.prototype);
 Villain.prototype.clubbing = function() {
-  return 5;
+  return 2;
 };
 Villain.prototype.claw = function() {
-  return 2;
+  return 1;
 };
 Villain.prototype.mace = function() {
   return 4;
@@ -154,11 +154,93 @@ function Hero(heroAttributes) {
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.bow = function() {
-  return 4;
+  return 2;
 };
 Hero.prototype.sword = function() {
   return 5;
 };
 Hero.prototype.punch = function() {
-  return 2;
+  return 1;
 };
+
+const aragorn = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 6
+  },
+  healthPoints: 20,
+  name: "Aragorn the Dunedain",
+  team: "Minas Tirith",
+  weapons: ["Sword", "Bow"],
+  language: ["Elvish", "English"],
+  side: "Good"
+});
+
+const orc = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 1,
+    height: 4
+  },
+  healthPoints: 18,
+  name: "Blargh",
+  team: "Orcs",
+  weapons: ["Mace", "Claws", "Fangs"],
+  language: ["Orcish", "English"],
+  side: "bad"
+});
+console.log(orc);
+
+function heroAttack(hero) {
+  const num = Math.random();
+  if (num < 0.33) return hero.bow();
+  if (num < 0.66) return hero.sword();
+  if (num < 1) return hero.punch();
+}
+
+function villainAttack(villain) {
+  const num = Math.random();
+  if (num < 0.33) return villain.clubbing();
+  if (num < 0.66) return villain.claw();
+  if (num < 1) return villain.mace();
+}
+
+function finishHim(hero, villain) {
+  let round = 1;
+  while (hero.healthPoints > 0 && villain.healthPoints > 0) {
+    console.log(`=========== Round ${round} ===========`);
+    round++;
+    let heroDamage = heroAttack(hero);
+    villain.healthPoints -= heroDamage;
+    console.log(
+      `${hero.name} dealt ${heroDamage} damage to the villain ${villain.name}.`
+    );
+    let villainDamage = villainAttack(villain);
+    console.log(
+      `${villain.name} dealt ${villainDamage} damage to the hero ${hero.name}.`
+    );
+    hero.healthPoints -= villainDamage;
+  }
+  console.log(`============ Result ============`);
+  if (hero.healthPoints <= 0) {
+    console.log(
+      `The hero ${hero.name} died! ${villain.name} has ${
+        villain.healthPoints
+      } health left and won the battle!`
+    );
+    return;
+  }
+  if (villain.healthPoints <= 0) {
+    console.log(
+      `The villain ${villain.name} died! ${hero.name} has ${
+        hero.healthPoints
+      } health left and won the battle!`
+    );
+    return;
+  }
+}
+
+finishHim(aragorn, orc);
