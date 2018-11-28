@@ -68,6 +68,7 @@ function Humanoid(humanAttributes){
   CharacterStats.call(this, humanAttributes);
   this.team = humanAttributes.team;
   this.weapons = humanAttributes.weapons;
+  this.damage = humanAttributes.damage;
   this.language = humanAttributes.language;
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
@@ -75,12 +76,23 @@ Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`;
 }
 Humanoid.prototype.attack = function (objectToAttack) {
-  if(objectToAttack.healthPoints <= 0){
+  if(objectToAttack.healthPoints <= 1){
     objectToAttack.destroy();
   }else{
-    objectToAttack.healthPoints -= 1;
-    console.log(`${objectToAttack.name} is now at ${objectToAttack.healthPoints} Health Points`);
+    objectToAttack.healthPoints -= this.damage;
+    console.log(`
+    ${this.name} attacked ${objectToAttack.name} for ${this.damage}\n
+    ${objectToAttack.name} is now at ${objectToAttack.healthPoints} Health Points`);
   }
+}
+Humanoid.prototype.printStatistics = function () {
+  console.log
+  (`
+  ===${this.name}=== \n
+  Current Health: ${this.healthPoints} \n
+  Weapons Available: ${this.weapons}
+  ==================
+  `)
 }
 
 // Villian
@@ -89,14 +101,6 @@ function Villian(villianAttributes){
 }
 Villian.prototype = Object.create(Humanoid.prototype);
 
-Villian.prototype.attack = function (objectToAttack) {
-  if(objectToAttack.healthPoints <= 0){
-    console.log(objectToAttack.destroy());
-  }else{
-    objectToAttack.healthPoints -= 1;
-    console.log(`${objectToAttack.name} is now at ${objectToAttack.healthPoints} Health Points`);
-  }
-}
 
 // Hero
 function Hero(heroAttributes){
@@ -104,14 +108,7 @@ function Hero(heroAttributes){
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 
-Hero.prototype.attack = function (objectToAttack) {
-  if(objectToAttack.healthPoints <= 0){
-    objectToAttack.destroy();
-  }else{
-    objectToAttack.healthPoints -= 1;
-    console.log(`${objectToAttack.name} is now at ${objectToAttack.healthPoints} Health Points`);
-  }
-}
+
 
 
   const mage = new Humanoid({
@@ -122,6 +119,7 @@ Hero.prototype.attack = function (objectToAttack) {
       height: 1,
     },
     healthPoints: 5,
+    damage: 1,
     name: 'Bruce',
     team: 'Mage Guild',
     weapons: [
@@ -138,6 +136,7 @@ Hero.prototype.attack = function (objectToAttack) {
       height: 2,
     },
     healthPoints: 15,
+    damage: 1,
     name: 'Sir Mustachio',
     team: 'The Round Table',
     weapons: [
@@ -154,7 +153,8 @@ Hero.prototype.attack = function (objectToAttack) {
       width: 2,
       height: 4,
     },
-    healthPoints: 0,
+    healthPoints: 10,
+    damage: 1,
     name: 'Lilith',
     team: 'Forest Kingdom',
     weapons: [
@@ -172,6 +172,7 @@ Hero.prototype.attack = function (objectToAttack) {
       height: 4,
     },
     healthPoints: 25,
+    damage: 1,
     name: 'Hannibal',
     team: 'Serial Killers',
     weapons: [
@@ -187,6 +188,7 @@ Hero.prototype.attack = function (objectToAttack) {
       height: 4,
     },
     healthPoints: 10,
+    damage: 1,
     name: 'Brandon',
     team: 'Tampa',
     weapons: [
@@ -195,9 +197,23 @@ Hero.prototype.attack = function (objectToAttack) {
     ],
     language: 'Common Tongue',
   });
+  const allPlayers = [mage, swordsman, archer, villian, hero];
 
-villian.attack(archer);
-hero.attack(villian);
+  function getStats(){
+    allPlayers.forEach((player) => {
+      player.printStatistics();
+    });
+  }
+  function GameBoard() {
+    getStats();
+    for(let i = 0; i < 10; i++){
+      setTimeout(() => {
+        hero.attack(villian);
+        villian.attack(hero);
+      }, 3000 * i);
+    }
+  }
+GameBoard();
   // console.log(mage.createdAt); // Today's date
   // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   // console.log(swordsman.healthPoints); // 15
