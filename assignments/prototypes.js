@@ -72,6 +72,21 @@ CharacterStats.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}`
 }
 
+// === Villain 
+
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+  this.armor = villainAttributes.armor;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+//Villain Methods: 
+Villain.prototype.doDamage = function () {
+
+}
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -79,6 +94,21 @@ CharacterStats.prototype.greet = function () {
 */
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
+
+  const ogre = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 3,
+      height: 10,
+    },
+    healthPoints: 40,
+    name: "Karl",
+    team: "",
+    weapons: "club",
+    language: "Ogre Tongue",
+    armor: "Breast plate"
+  })
 
   const mage = new Humanoid({
     createdAt: new Date(),
