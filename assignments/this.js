@@ -14,9 +14,13 @@
  *    it's used).
  *
  * 3. Explicit Binding
- *    Explicit binding is when
+ *    Explicit binding is when we specifically use .bind(), .call(), .apply(), or otherwise specifically connect the "this" phrase with an object or element.
+ *    For example, this is often used in Pseudo-Classical Prototype Inheritance to connect a parent constructor function with a child one.
  *
  * 4. New Binding
+ *    The New binding is used to instantiate objects through a constructor function. Through this process, there is a lot more going on than just object
+ *    creation; any methods on the current prototype chain are then available to the new object, and any "this" keywords inside of the methods will bind to
+ *    that object when the object calls them. This is because these objects are instances of their parent constuctor function, bound together by "new."
  *
  * write out a code example of each explanation above
  */
