@@ -71,6 +71,25 @@ Humanoid.prototype.greet = function() {
   return (`${this.name} offers a greeting in ${this.language}`);
 }
 
+function Hero(heroAttribs) {
+  Humanoid.call(this, heroAttribs);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.doDamageToVillain = function() {
+  return `${this.name} does some damage.`;
+} 
+
+function Villain(villainAttribs) {
+  Humanoid.call(this, villainAttribs);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.doDamageToHero = function() {
+  return `${this.name} does some damage.`;
+} 
 
 
 
@@ -133,6 +152,44 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const skywalker = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 35,
+    name: 'Luke',
+    team: 'Jedis',
+    weapons: [
+      'Green Light Saber',
+      'Sword',
+    ],
+    language: 'Basic',
+  });
+
+  const vader = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 20,
+    name: 'Darth Vader',
+    team: 'Dark Side',
+    weapons: [
+      'Red Light Saber',
+      'Dagger',
+    ],
+    language: 'Sith',
+  });
+
+
+
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -143,9 +200,21 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(skywalker.doDamageToVillain());
+  console.log(vader.doDamageToHero());
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function randomNumber() {
+    let num = parseInt((Math.random() * 100), 10)
+    if (num<33) return `${num} is in the top third of random choices\n`;
+    if (num<66) return `${num} is in the middle third of random choices\n`;
+    return `${num} is in the bottom third of random choices\n`;
+  }
+
+  for (let x=0; x<11;x++) {
+    console.log(randomNumber());
+  }
