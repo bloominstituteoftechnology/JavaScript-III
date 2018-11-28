@@ -23,7 +23,11 @@
 
 // Principle 1
 
-// code example for Window Binding
+function windowBinding() {);
+  console.log(this);
+}
+
+windowBinding();
 
 // Principle 2
 
