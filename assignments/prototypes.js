@@ -186,7 +186,18 @@ function Villian(villianAttributes) {
   }
 }
 
-const dingus = new Villian({
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+  this.banjo = function (opponent) {
+    console.log(opponent.takeDamage());
+    --opponent.healthPoints;
+    if (opponent.healthPoints === 0) {
+      console.log(opponent.destroy());
+    }
+  }
+}
+
+const ryan = new Villian({
   createdAt: new Date(),
   dimensions: {
     length: 2,
@@ -194,8 +205,24 @@ const dingus = new Villian({
     height: 7,
   },
   healthPoints: 25,
-  name: 'Dingus',
+  name: 'Ryan',
   team: 'Death to Hero',
+  weapons: [
+    'Fire'
+  ],
+  language: 'EvilAF',
+});
+
+const josh = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 7,
+  },
+  healthPoints: 25,
+  name: 'Josh',
+  team: 'Banjo for Life',
   weapons: [
     'Fire'
   ],
