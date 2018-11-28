@@ -34,6 +34,7 @@ GameObject.prototype.destroy = function() {
 function CharacterStats(attrs) {
   this.hp = attrs.hp;
   this.name = attrs.name;
+  this.power = attrs.power;
   GameObject.call(this, attrs);
 }
 
@@ -133,24 +134,23 @@ function Heros(attrs) {
   Humanoid.call(this, attrs);
 }
 
-Heros.prototype = Object.create(Humanoid.prototype);
-
-Heros.prototype.defend = function(hp, power) {
-  console.log(power);
-  console.log(hp);
-  let currentHp = hp;
-  while (currentHp > 0) {
-    currentHp -= power;
-    console.log(`YOUR CURRENT HEALTH IS ${currentHp}`);
-  }
-  console.log("YOU LOSE!!");
-};
-
 function Villians(attrs) {
   Humanoid.call(this, attrs);
 }
 
+Heros.prototype = Object.create(Humanoid.prototype);
 Villians.prototype = Object.create(Humanoid.prototype);
+
+Heros.prototype.defend = function(hp, power) {
+  let currentHp = hp;
+  while (currentHp > 0) {
+    currentHp -= power;
+    console.log(
+      `HIT!!!! YOUR CURRENT HEALTH IS ${currentHp}, You opponent is ${power} STRONG!`
+    );
+  }
+  console.log("YOU LOSE!!");
+};
 
 Villians.prototype.attack = function(power) {
   console.log(power);
@@ -165,5 +165,8 @@ const Villian = new Villians({
   name: "BAD"
 });
 
-console.log(Villian.power);
-Hero.defend(Hero.hp, 5);
+const JOHN = new Villians({
+  name: "JOHN",
+  power: 1
+});
+Hero.defend(Hero.hp, Villian.power);
