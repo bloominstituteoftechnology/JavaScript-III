@@ -153,9 +153,10 @@ Humanoid.prototype.greet = function() {
 
   Villain.prototype.attack = function(char, points) {
     let updateHealth = char.healthPoints -= points;
+    let randomWeapon = this.weapons[(Math.floor(Math.random() * this.weapons.length))];
     if (char.healthPoints <= 0) {
       return `${char.name} is out of health!`;
-    } else return `${this.name} attacked ${char.name}! ${char.name}'s health is now ${updateHealth}.`;
+    } else return `${this.name} attacked ${char.name} with their ${randomWeapon}! ${char.name}'s health is now ${updateHealth}.`;
   }
 
 
@@ -177,7 +178,10 @@ Humanoid.prototype.greet = function() {
     team: 'Evil Folk',
     weapons: [
       'Fire',
-      'Scales',
+      'Melting Scales',
+      'Smoke Breath',
+      'Claws',
+      'Bite'
     ],
     language: 'Roarish',
   });
@@ -195,6 +199,9 @@ Humanoid.prototype.greet = function() {
     weapons: [
       'Slingshot',
       'Grenade Launcher',
+      'Double-Edged Sword',
+      'Metal Helmet',
+      'Attack Parrot',
     ],
     language: 'Dutch',
   });
