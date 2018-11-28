@@ -98,8 +98,21 @@ Humanoid.prototype.greet = function() {
 */
  
 
+////////////////////////// STRETCH ///////////////////////
 
 
+function Villain(badMan){
+  Humanoid.call(this, badMan);
+  this.healthPoints = badMan.healthPoints;
+  this.weapons = badMan.weapons; 
+}
+
+//inherit from humanoid
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.attacking= function() {
+  console.log(`${this.name} will attack you`);
+}
 
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
@@ -154,6 +167,11 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'Elvish',
   });
+
+
+////////////////////////// STRETCH Objects ///////////////////////
+
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
