@@ -154,6 +154,10 @@ Humanoid.prototype.greet = function() {
 
   Anathemanoid.prototype = Object.create(CharacterStats.prototype);
 
+  var villanweaponsarray = ['Division Strikes',
+  'Force Field',
+  'Slimebow',];
+
   const Villan = new Anathemanoid({
     createdAt: new Date(),
     dimensions: {
@@ -164,12 +168,13 @@ Humanoid.prototype.greet = function() {
     healthPoints: 60,
     name: 'Xap',
     team: 'pride',
-    weapons: [
-      'Giant Sword',
-      'Force Field',
-    ],
+    weapons: villanweaponsarray,
     language: 'Uncommon Tongue',
   });
+
+  var heroweaponsarray = ['Broadsword',
+  'Concentrated Energy',
+  'Sunchucks',];
 
   const Hero = new Humanoid({
     createdAt: new Date(),
@@ -181,13 +186,12 @@ Humanoid.prototype.greet = function() {
     healthPoints: 70,
     name: 'Pax',
     team: 'Good People',
-    weapons: [
-      'Broadsword',
-      'Concentrated Energy',
-    ],
+    weapons: heroweaponsarray,
     lightbuff: 5,
     language: 'Humanisheseic',
   });
+
+  var ttlweapons = heroweaponsarray.length;
 
   //FIGHT!
 
@@ -200,36 +204,74 @@ Humanoid.prototype.greet = function() {
 
     console.log(heropts);
 
+
     console.log('BATTLE TIME!');
 
+    var weapttl = ttlweapons;
     var turn = getRandomInt(2);
-    var weap = getRandomInt(2);
+    var weap = getRandomInt(weapttl);
 
-  do {
-    if (turn === 0) {
+    function herobattle() {
       console.log("Hero's turn!");
       var ttldmg = 0;
       ttldmg = getRandomInt(11);
-      weap = getRandomInt(2);
+      weap = getRandomInt(weapttl);
       console.log(`${Hero.name} hit the enemy with ${Hero.weapons[weap]} for ` + ttldmg + `dmg`);
       villpts -= ttldmg;
       turn += 1;
-      continue;
-    } else {
+    }
+
+    function villanbattle() {
       console.log("Villan's turn!");
       var ttldmg = 0;
       ttldmg = getRandomInt(11);
-      weap = getRandomInt(2);
+      weap = getRandomInt(weapttl);
       console.log(`${Villan.name} hit the enemy with ${Villan.weapons[weap]} for ` + ttldmg + `dmg`);
       heropts -= ttldmg;
       turn -= 1;
-      continue;
     }
-   } while (heropts > 0 && villpts > 0 );
+
+  do {
+    if (turn === 0 && heropts > 0) {
+      console.log("Hero's turn!");
+      var ttldmg = 0;
+      ttldmg = getRandomInt(11);
+      weap = getRandomInt(weapttl);
+      console.log(`${Hero.name} hit the enemy with ${Hero.weapons[weap]} for ` + ttldmg + `dmg`);
+      document.getElementById('hbo').innerHTML = `${Hero.name} hit the enemy with ${Hero.weapons[weap]} for ` + ttldmg + `dmg`;
+      villpts -= ttldmg;
+      turn += 1;
+      continue;
+    } else if (turn === 1 && villpts > 0) {
+      console.log("Villan's turn!");
+      var ttldmg = 0;
+      ttldmg = getRandomInt(11);
+      weap = getRandomInt(weapttl);
+      console.log(`${Villan.name} hit the enemy with ${Villan.weapons[weap]} for ` + ttldmg + `dmg`);
+      document.getElementById('vbo').innerHTML = `${Villan.name} hit the enemy with ${Villan.weapons[weap]} for ` + ttldmg + `dmg`;
+      heropts -= ttldmg;
+      turn -= 1;
+      continue;
+    } else {
+      break;
+    }
+   } while (heropts >= 0 && villpts >= 0 );
+
+   if (villpts < 0) {
+     villpts = 0;
+   } else if (heropts < 0) {
+     heropts = 0;
+   }
+
+
+
+    document.getElementById('hph').innerHTML = heropts;
+
+    document.getElementById('hpv').innerHTML = villpts;
 
    if (heropts <= 0) {
-     console.log("THE HERO HAS PERISHED!");
+    document.getElementById('outcome').innerHTML = "THE HERO HAS PERISHED!";
    } else {
-     console.log("Evil has been overcome!");
+    document.getElementById('outcome').innerHTML = "Evil has been overcome!";
    }
 

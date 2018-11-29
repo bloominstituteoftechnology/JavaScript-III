@@ -1,0 +1,50 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.outcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    font-weight: bold;
+    width: 75%;
+    margin: auto;
+}
+
+.battleZone {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+    margin: auto;
+    height: auto;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero .hp {
+    display: flex;
+    flex-direction: row;
+}
+
+.hero .hp #hpv {
+    padding-left: 10px;
+}
+
+.villan {
+    display: flex;
+    flex-direction: column;
+}
+
+.villan .vp {
+    display: flex;
+    flex-direction: row;
+}
+
+.villan .vp #hpv {
+    padding-left: 10px;
+}
