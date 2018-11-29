@@ -191,15 +191,10 @@ let vill2 = new Villian({
     language: 'Does not exist langauge',
 })
 
-console.log(vill2.team); // The Round Table
-console.log(vill2.weapons); // Staff of Shamalama
-console.log(vill2.language); // Elvish
-console.log(vill2.greet()); // Lilith offers a greeting in Elvish.
-console.log(vill2.takeDamage()); // Bruce took damage.
+console.log(vill2.team); 
+console.log(vill2.weapons); 
+console.log(vill2.language); 
+console.log(vill2.greet()); 
+console.log(vill2.takeDamage()); 
 console.log(vill2.destroy());
 
-
-
-
-
-// not finished yet... more update is coming.........
