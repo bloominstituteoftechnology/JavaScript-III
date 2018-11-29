@@ -20,9 +20,9 @@ function GameObject(desc) {
   this.dimensions = desc.dimensions;
 }
 
-GameObject.prototype.destroy = function () {
-  console.log(`${this.name} was removed from the game.`)
-}
+GameObject.prototype.destroy = function() {
+  console.log(`${this.name} was removed from the game.`);
+};
 
 /*
   === CharacterStats ===
@@ -39,9 +39,9 @@ function CharacterStats(characterstatDesc) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function () {
-  console.log(`${this.name} took damage.`)
-}
+CharacterStats.prototype.takeDamage = function() {
+  console.log(`${this.name} took damage.`);
+};
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -62,9 +62,9 @@ function Humanoid(humanoidDesc) {
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-Humanoid.prototype.greet = function () {
+Humanoid.prototype.greet = function() {
   console.log(`${this.name} offers a greeting in ${this.language}`);
-}
+};
 
 /* Hero and Villain */
 
@@ -77,22 +77,24 @@ function ChosenOnes(chosenDesc) {
 
 ChosenOnes.prototype = Object.create(Humanoid.prototype);
 
-ChosenOnes.prototype.victory = function () {
+ChosenOnes.prototype.victory = function() {
   console.log(`${this.name} defeated the ${this.enemy}!!!`);
-}
+};
 
 function subtract(a, b, cb) {
   return cb(a - b);
 }
 //let health = 0;
-ChosenOnes.prototype.attack = function () {
+ChosenOnes.prototype.attack = function() {
   console.log(`${this.name} attacked the ${this.enemy}.`);
   console.log(`${this.enemy} took ${this.damage} damage.`);
-  console.log(`${this.enemy} healthpoints are at ${this.healthPoints - this.damage}}.`);
+  console.log(
+    `${this.enemy} healthpoints are at ${this.healthPoints - this.damage}}.`
+  );
   //subtract(this.healthPoints, this.damage, function (health) {
   //  console.log(health);
   //});
-}
+};
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -102,21 +104,18 @@ ChosenOnes.prototype.attack = function () {
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-
 const mage = new Humanoid({
   createdAt: new Date(),
   dimensions: {
     length: 2,
     width: 1,
-    height: 1,
+    height: 1
   },
   healthPoints: 5,
-  name: 'Bruce',
-  team: 'Mage Guild',
-  weapons: [
-    'Staff of Shamalama',
-  ],
-  language: 'Common Tongue',
+  name: "Bruce",
+  team: "Mage Guild",
+  weapons: ["Staff of Shamalama"],
+  language: "Common Tongue"
 });
 
 const swordsman = new Humanoid({
@@ -124,16 +123,13 @@ const swordsman = new Humanoid({
   dimensions: {
     length: 2,
     width: 2,
-    height: 2,
+    height: 2
   },
   healthPoints: 15,
-  name: 'Sir Mustachio',
-  team: 'The Round Table',
-  weapons: [
-    'Giant Sword',
-    'Shield',
-  ],
-  language: 'Common Tongue',
+  name: "Sir Mustachio",
+  team: "The Round Table",
+  weapons: ["Giant Sword", "Shield"],
+  language: "Common Tongue"
 });
 
 const archer = new Humanoid({
@@ -141,16 +137,13 @@ const archer = new Humanoid({
   dimensions: {
     length: 1,
     width: 2,
-    height: 4,
+    height: 4
   },
   healthPoints: 10,
-  name: 'Lilith',
-  team: 'Forest Kingdom',
-  weapons: [
-    'Bow',
-    'Dagger',
-  ],
-  language: 'Elvish',
+  name: "Lilith",
+  team: "Forest Kingdom",
+  weapons: ["Bow", "Dagger"],
+  language: "Elvish"
 });
 
 const hero = new ChosenOnes({
@@ -158,17 +151,15 @@ const hero = new ChosenOnes({
   dimensions: {
     length: 2,
     width: 4,
-    height: 8,
+    height: 8
   },
   healthPoints: 100,
-  name: 'Hero',
-  weapons: [
-    'Light'
-  ],
-  language: 'Ancient',
-  destiny: 'To fight the Chosen One',
-  enemy: 'Villain',
-  damage: 25,
+  name: "Hero",
+  weapons: ["Light"],
+  language: "Ancient",
+  destiny: "To fight the Chosen One",
+  enemy: "Villain",
+  damage: 25
 });
 
 const villain = new ChosenOnes({
@@ -176,17 +167,15 @@ const villain = new ChosenOnes({
   dimensions: {
     length: 2,
     width: 4,
-    height: 8,
+    height: 8
   },
   healthPoints: 100,
-  name: 'Villain',
-  weapons: [
-    'Darkness'
-  ],
-  language: 'Ancient',
-  destiny: 'To fight the Chosen One',
-  enemy: 'Hero',
-  damage: 25,
+  name: "Villain",
+  weapons: ["Darkness"],
+  language: "Ancient",
+  destiny: "To fight the Chosen One",
+  enemy: "Hero",
+  damage: 25
 });
 
 console.log(mage.createdAt); // Today's date
@@ -200,15 +189,13 @@ console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-
-// Stretch task: 
-// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+// Stretch task:
+// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
-
 console.log(hero.attack());
 console.log(villain.attack());
-console.log(hero.attack());
+
 console.log(hero.victory());
 console.log(villain.victory());
