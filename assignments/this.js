@@ -6,8 +6,10 @@ The 'this' keyword is bound to the "Window" object by default. "Window" is a glo
 variable that is representative of the browser window that is affected by the code.
 
 * 2. Implicit Binding
-The 'this' keyword is implicitly bound an object when invoking a method results in 
-running code that contains it. In this case, 
+The 'this' keyword is implicitly bound to an object when invoking a method results in
+running its code. The object that proceeds the '.' in the function is known
+as the 'owner object' (source www.w3schools.com). This 'owner object' is what the
+'this' keyword will be bound to.
 
 * 3. New Binding
 The 'this' keyword is bound by the "new" keyword when creating an object from a
@@ -25,9 +27,14 @@ object we see fit.
 * write out a code example of each explanation above
 */
 
+
+
+
 // Principle 1
 
-console.log(`${this.name} would happen to be the value of the name property of your Window object.`)
+console.log(`${this.name} <--- would happen to be the value of the name property of your Window object.`)
+
+
 
 // Principle 2
 
@@ -39,6 +46,9 @@ var dessert = {
     }
 }
 dessert.speak()
+
+
+
 
 
 
@@ -55,6 +65,10 @@ MusicMaker.prototype.addinstrument = function (instrument) {
 }
 
 const NewSong1 = new MusicMaker('Alt. Rock', 'Modest Mouse', 'Float On');
+
+
+
+
 
 
 // Principle 4
