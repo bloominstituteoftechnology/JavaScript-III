@@ -155,9 +155,6 @@ Humanoid.prototype.greet = function(){
      }
     } 
   }
-  
-  
-  
  
   function Villain(villAttrs){
     Humanoid.call(this, villAttrs);
