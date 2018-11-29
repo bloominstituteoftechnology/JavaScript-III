@@ -43,4 +43,17 @@ function Tacos(type){
 
 // Principle 4
 
+function Tacos(type){
+    this.Location = 'Taco Bell';
+    this.type = 'Beef';
+    this.eat = function(){
+     console.log(`I like ${type} tacos from ${this.Location} `);
+    }
+  }
+  
+  const cheese = new Tacos('cheese');
+  const eggs = new Tacos('eggs');
+  
+  eggs.eat.call(cheese);
+
 // code example for Explicit Binding
