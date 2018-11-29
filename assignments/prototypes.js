@@ -167,16 +167,18 @@ Humanoid.prototype.greet = function(){
     obj.healthPoints = obj.healthPoints - damage;
     if(obj.healthPoints <= 0){
       return obj.destroy();
+    } else if (obj.healthPoints >= 0 && obj.healthPoints < 15){
+      return `${this.name} health is low, heal NOW! Health remains: ${obj.healthPoints}`;
     } else {
       return obj.healthPoints;
     }
   }
    Villain.prototype.heal = function(){
-    let regenerate = (Math.floor(Math.random() * 10) + 5);
+    let regenerate = (Math.floor(Math.random() * 50) + 25);
     this.healthPoints = this.healthPoints + regenerate;
     if(this.healthPoints >= 50){
       this.healthPoints = 50;
-      return this.healthPoints;
+      return this.healthPoints; 
     } else {
     return this.healthPoints;
     }
@@ -197,9 +199,8 @@ Humanoid.prototype.greet = function(){
     ],
     language: 'Greek',
     special: 'Infinity Stones',
-    power: 30
+    power: 40
   });
-
 
     // HERO 
   
@@ -214,12 +215,14 @@ Humanoid.prototype.greet = function(){
       obj.healthPoints = obj.healthPoints - damage;
       if(obj.healthPoints <= 0){
         return obj.destroy();
+      } else if (obj.healthPoints >= 0 && obj.healthPoints < 25){
+        return `${this.name} health is low, heal NOW! Health remains: ${obj.healthPoints}`
       } else {
         return obj.healthPoints;
       }
     }
      Hero.prototype.heal = function(){
-      let regenerate = (Math.floor(Math.random() * 10) + 5);
+      let regenerate = (Math.floor(Math.random() * 50) + 15);
       this.healthPoints = this.healthPoints + regenerate;
       if(this.healthPoints >= 50){
         this.healthPoints = 50;
@@ -251,7 +254,7 @@ Humanoid.prototype.greet = function(){
   console.log(hulk.attack(obj));
   console.log(hulk.attack(obj));
   console.log(hulk.attack(obj));
-  console.log(thanos.heal(obj));
+
   console.log(hulk.attack(obj));
 
   
