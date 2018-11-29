@@ -58,6 +58,36 @@ function Humanoid(attributes) {
     return `${this.name} offers a greeting in ${this.language}`
   }
 }
+
+function Hero(attributes) {
+  Humanoid.call(this, attributes);
+  this.punch = function (person) {
+    const dmg = Math.ceil(Math.random() * 10);
+
+    person.healthPoints -= dmg;
+    
+    if(person.healthPoints <= 0) {
+      return person.name + " has died!"
+    } else {
+      return `${this.name} punches ${person.name} for ${dmg}`
+    }
+  }
+}
+
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+  this.throw = function (person) {
+    const dmg = Math.ceil(Math.random() * 10);
+
+    person.healthPoints -= dmg;
+
+    if(person.healthPoints <= 0) {
+      return person.name + " has died!"
+    } else {
+      return `${this.name} throws acid at ${person.name} for ${dmg}`
+    }
+  }
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -118,6 +148,39 @@ function Humanoid(attributes) {
     language: 'Elvish',
   });
 
+  const testHero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 4,
+      height: 4,
+    },
+    healthPoints: 30,
+    name: 'Hulk',
+    team: 'The Avengers',
+    weapons: [
+      'Hands',
+      'Fist',
+    ],
+    language: 'English',
+  })
+
+  const testVillain = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 4,
+      height: 4,
+    },
+    healthPoints: 30,
+    name: 'The Joker',
+    team: 'Gotham City',
+    weapons: [
+      'Acid',
+    ],
+    language: 'English',
+  })
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -129,6 +192,8 @@ function Humanoid(attributes) {
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
+  console.log(testHero.punch(archer));
+  console.log(testVillain.throw(swordsman));
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
