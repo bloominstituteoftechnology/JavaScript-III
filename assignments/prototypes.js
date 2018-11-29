@@ -68,6 +68,41 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   console.log(`${this.name} offers a greeting in ${this.language}.`);
 }
+
+
+
+function Villain(badGuyAttributes) {
+  Humanoid.call(this, badGuyAttributes);
+  this.power = badGuyAttributes.power;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.attack = function(characterAttributes, hitDamage) {
+  let healthStatus = characterAttributes.healthPoints - hitDamage;
+  if (healthStatus < 1) {
+    console.log(`${this.name} attacked with ${this.power} causing the loss of ${hitDamage} health points. ${characterAttributes.name} was removed from the game.`);
+  } else {
+  console.log(`${this.name} attacked with ${this.power} causing the loss of ${hitDamage} health points. ${characterAttributes.name}'s health is now at ${healthStatus}.`);
+  }
+}
+
+function Hero(heroicAttributes) {
+  Humanoid.call(this, heroicAttributes);
+  this.skill = heroicAttributes.skill;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.heals = function(characterAttributes, currentHealth) {
+  let healingPower = 5;
+  let newHealth = currentHealth + healingPower;
+  if (currentHealth < 1) {
+    console.log(`${this.name} tried but could not save ${characterAttributes.name}. ${characterAttributes.name} remains dead.`)
+  } else {
+    console.log(`${this.name} restored ${healingPower} health points to ${characterAttributes.name} bringing their total health up to ${newHealth}!`)
+  }
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -128,6 +163,42 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const warlock = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 3,
+    },
+    healthPoints: 15,
+    name: 'Eliphas',
+    team: 'Mordor',
+    weapons: [
+      'Staff',
+      'Dagger',
+    ],
+    language: 'Enochian',
+    power: 'Spell Casting',
+  });
+
+  const witch = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 1,
+    },
+    healthPoints: 13,
+    name: 'Locasta',
+    team: 'Northland',
+    weapons: [
+      'Bow',
+      'Magic Whip',
+    ],
+    language: 'Theban',
+    skill: 'Magical Regeneration',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -138,6 +209,12 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+  console.log(warlock.attack(mage, 7)); //mage suffers fatal attack from warlock
+  console.log(warlock.attack(archer, 7)); // archer damaged but still lives
+
+  console.log(witch.heals(mage, -2)); // hero can't heal removed character
+  console.log(witch.heals(archer, 3)); // hero heals damaged archer
 
 
   // Stretch task: 
