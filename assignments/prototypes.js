@@ -1,8 +1,6 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
-
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
-
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
@@ -45,6 +43,7 @@ function CharacterStats (attributes) {
   }
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -64,6 +63,8 @@ function Humanoid (attributes) {
     return `${this.name} offers a greeting in ${this.language}.`
   }
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -150,6 +151,8 @@ function Humanoid (attributes) {
     }
   }
 
+  Villain.prototype = Object.create(Humanoid.prototype);
+
   function Hero (attributes) {
     Humanoid.call(this, attributes);
     this.onePunch = function (victim) {
@@ -158,6 +161,8 @@ function Humanoid (attributes) {
       return `${this.name} used One Punch on ${victim.name} for ${damage} damage!`;
     }
   }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
   
   const newVillain = new Villain({
     createdAt: new Date(),
@@ -192,7 +197,3 @@ function Humanoid (attributes) {
     ],
     language: 'Elvish',
   });
-
-  console.log(newVillain.murderify(archer));
-  console.log(ourHero.onePunch(newVillain));
-
