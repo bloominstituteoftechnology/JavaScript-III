@@ -98,9 +98,9 @@ Hero.prototype.heals = function(characterAttributes, currentHealth) {
   let healingPower = 5;
   let newHealth = currentHealth + healingPower;
   if (currentHealth < 1) {
-    console.log(`${this.name} tried but could not save ${characterAttributes.name}. ${characterAttributes.name} remains dead.`)
+    console.log(`${this.name} tried but could not save ${characterAttributes.name} using ${this.skill}. ${characterAttributes.name} remains dead.`)
   } else {
-    console.log(`${this.name} restored ${healingPower} health points to ${characterAttributes.name} bringing their total health up to ${newHealth}!`)
+    console.log(`${this.name} restored ${healingPower} health points using ${this.skill} to ${characterAttributes.name} bringing their total health up to ${newHealth}!`)
   }
 }
  
