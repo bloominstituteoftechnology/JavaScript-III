@@ -168,7 +168,7 @@ Humanoid.prototype.greet = function(){
     if(obj.healthPoints <= 0){
       return obj.destroy();
     } else if (obj.healthPoints >= 0 && obj.healthPoints < 15){
-      return `${this.name}'s health is low, heal NOW! Health remains: ${obj.healthPoints}`;
+      return `${this.name}'s health is low, heal NOW! Health remains: ${obj.healthPoints} points`;
     } else {
       return obj.healthPoints;
     }
@@ -216,7 +216,7 @@ Humanoid.prototype.greet = function(){
       if(obj.healthPoints <= 0){
         return obj.destroy();
       } else if (obj.healthPoints >= 0 && obj.healthPoints < 25){
-        return `${this.name}'s health is low, heal NOW! Health remains: ${obj.healthPoints}`
+        return `${this.name}'s health is low, heal NOW! Health remains: ${obj.healthPoints} points`
       } else {
         return obj.healthPoints;
       }
