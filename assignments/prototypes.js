@@ -19,7 +19,7 @@ function GameObject(gameAttributes){
   this.createdAt = gameAttributes.createdAt;
   this.dimensions = gameAttributes.dimensions;
 }
-GameObject.prototype.destroy = ()=>`Object was removed from the game`;
+GameObject.prototype.destroy = function(){return `Object was removed from the game`};
 /*
   === CharacterStats ===
   * healthPoints
@@ -34,7 +34,7 @@ function CharacterStats(CharStatAttributes){
   GameObject.call(this, CharStatAttributes);
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = ()=>`${this.name} took damage.`;
+CharacterStats.prototype.takeDamage = function(){return `${this.name} took damage.`};
 
 
 /*
@@ -51,10 +51,11 @@ function Humanoid(humanoidAttributes){
   this.team = humanoidAttributes.team;
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
+  this.score = humanoidAttributes.score;
   CharacterStats.call(this, humanoidAttributes);
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
-Humanoid.prototype.greet = ()=>`${this.name} offers a greeting in ${this.language}.`;
+Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in ${this.language}.`};
 
  
 /*
@@ -136,16 +137,69 @@ Humanoid.prototype.greet = ()=>`${this.name} offers a greeting in ${this.languag
   function Villain(villainAttributes) {
     Humanoid.call(this, villainAttributes);
   }
-  Villain.prototype.flopAndOne = ()=>`*Whistle* Harden gets two free-throws`;
-  Villain.prototype.stepBackCrossoverJumber = ()=>`ISO Harden with the step back three!`;
-  Villain.prototype.tomohawkDunk = ()=>`Harden breaks away and slams it with a Tomohawk DUNK!`;
+  Villain.prototype.flopAndOne = function(){
+    if (Math.floor(Math.random()*10) +1 < 6) {
+      this.score += 2;
+      return `*Whitles* Harden down the lane and flails to the ground DRAMATICALLY while being far away from his opponents. Knocks down 2 free throws.
+      Score is ${this.score}`
+    } else {
+      return `Harden just did not sell his flop very well.
+      Score is ${this.score}`
+    }
+  };
+  Villain.prototype.stepBackCrossoverJumber = function(){
+    if (Math.floor(Math.random()*10) +1 < 6) {
+      this.score += 3;
+      return `ISO Harden with the step back three!
+      Score is ${this.score}`
+    } else {
+      return `Harden turns the ball over
+      Score is ${this.score}`
+    }
+  };
+  Villain.prototype.tomohawkDunk = function(){
+    if (Math.floor(Math.random()*10) +1 < 6) {
+      this.score += 3;
+      return `${this.name} breaks away and slams it with a Tomohawk DUNK AND ONE!
+      Score is ${this.score}`
+    } else {
+      return `Harden gets BLOCKED! Score is ${this.score}`
+    }
+  };
   
   function Hero(heroAttributes) {
     Humanoid.call(this, heroAttributes);
   }
-  Hero.prototype.pullUpFromHalfCourt = ()=>`Curry, from the half-court.. shoots and scores!`;
-  Hero.prototype.stepBackJumper = ()=>`Step back jumper... GOOD!`;
-  Hero.prototype.floater = ()=>`Curry the Chef, cookin then lays it in!`;
+  Hero.prototype.pullUpFromHalfCourt = function(){
+    if (Math.floor(Math.random()*10) +1 < 6){
+      this.score += 3;
+      return `${this.name}, walking passed half-court... Shoots out of nowhere and scores!
+      Score is ${this.score}`
+    } else {
+      return `Not a good look, it was a bad shot.
+      Score is ${this.score}`
+    }
+  };
+  Hero.prototype.stepBackJumper = function(){
+    if (Math.floor(Math.random()*10) +1 < 6){
+      this.score += 3;
+      return `Step back jumper... GOOD!
+      Score is ${this.score}`
+    } else {
+      return `Curry shoots, and no good.
+      Score is ${this.score}`
+    }
+  };
+  Hero.prototype.floater = function(){
+    if (Math.floor(Math.random()*10) +1 < 6) {
+      this.score += 2;
+      return `Curry the Chef, cookin then lays it in!
+      Score is ${this.score}`
+    } else {
+      return `Curry gets blocked!
+      Score is ${this.score}`
+    }
+  };
   
   // child
 
@@ -156,7 +210,7 @@ Humanoid.prototype.greet = ()=>`${this.name} offers a greeting in ${this.languag
       width: 2,
       height: 2,
     },
-    healthPoints: 10,
+    score: 0,
     name: 'James Harden',
     team: 'Houston Rockets',
     weapons: [
@@ -172,7 +226,7 @@ Humanoid.prototype.greet = ()=>`${this.name} offers a greeting in ${this.languag
       width: 2,
       height: 1,
     },
-    healthPoints: 10,
+    score: 0,
     name: 'Steph Curry',
     team: 'Golden State Warriors',
     weapons: [
@@ -180,3 +234,7 @@ Humanoid.prototype.greet = ()=>`${this.name} offers a greeting in ${this.languag
     ],
     language: 'Common Tongue',
   });
+
+  console.log(theBeard.tomohawkDunk())
+  console.log(chefCurry.pullUpFromHalfCourt())
+  console.log(chefCurry.floater())
