@@ -12,6 +12,7 @@ window.onload=function(){
     
             if(score === 10){
                 sagatWin.innerHTML= "You win the game,hail to the almighty Sagat";
+                congrat.style.backgroundColor ="red";
             }
         let one = Math.floor(Math.random()*100);
         let two = Math.floor(Math.random()*240);
@@ -20,6 +21,7 @@ window.onload=function(){
         Rio.style.backgroundColor = rgb;
 
     })
+    
     span2 = document.querySelector("#span2");
     defendSagat = document.querySelector("#defendSagat");
     sagat = document.querySelector(".Sagat");
@@ -41,5 +43,14 @@ window.onload=function(){
     defendRio.addEventListener("click",function(){
         span1.innerHTML = score--;
 
+    })
+    
+    
+    reset = document.querySelector("#reset");
+    reset.addEventListener("click",function(){
+        score = scoreRio = 0;
+        span1.textContent = 0;
+        span2.textContent =0;
+        sagaWin.innerHTML.style.display = "<div> </div>";
     })
 }
