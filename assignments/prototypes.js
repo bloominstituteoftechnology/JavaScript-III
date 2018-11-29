@@ -21,7 +21,7 @@ function GameObject(gameAttributes) {
 }
 
 GameObject.prototype.destroy = function() {
-  console.log(`${this.name} was removed from the game.`);
+  return `${this.name} was removed from the game.`;
 }
 
 /*
@@ -34,6 +34,7 @@ GameObject.prototype.destroy = function() {
 
 function CharacterStats(characterAttributes) {
   GameObject.call(this, characterAttributes);
+
   this.healthPoints = characterAttributes.healthPoints;
   this.name = characterAttributes.name;
 }
@@ -41,7 +42,7 @@ function CharacterStats(characterAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-  console.log(`${this.name} took damage.`);
+  return `${this.name} took damage.`;
 }
 
 /*
@@ -56,6 +57,7 @@ CharacterStats.prototype.takeDamage = function() {
  
 function Humanoid(humanoidAttributes) {
   CharacterStats.call(this, humanoidAttributes);
+
   this.team = humanoidAttributes.team;
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
@@ -64,7 +66,7 @@ function Humanoid(humanoidAttributes) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-  console.log(`${this.name} offers a greeting in ${this.language}`);
+  return `${this.name} offers a greeting in ${this.language}`;
 }
 
 /*
@@ -77,26 +79,28 @@ Humanoid.prototype.greet = function() {
 
 function Hero(heroAttributes) {
   CharacterStats.call(this, heroAttributes);
+
   this.specialAttack = heroAttributes.specialAttack;
   this.magic = heroAttributes.magic;
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.cloak = function() {
-  console.log(`${this.name} has cloaked using ${this.magic}`);
+  return `${this.name} has cloaked using ${this.magic}`;
 }
 
 //-------------villain--------------
 
 function Villain(villainAttributes) {
   CharacterStats.call(this, villainAttributes);
+
   this.specialAttack = villainAttributes.specialAttack;
   this.magic = villainAttributes.magic;
 }
 Villain.prototype = Object.create(Humanoid.prototype);
 
 Villain.prototype.vanish = function() {
-  console.log(`${this.name} has disappered using ${this.magic}`);
+  return `${this.name} has disappered using ${this.magic}`;
 }
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
@@ -205,10 +209,10 @@ console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-console.log(luckyFarmBoy.specialAttack);
-console.log(luckyFarmBoy.cloak());
-console.log(evilPrince.specialAttack);
-console.log(evilPrince.vanish());
+console.log(luckyFarmBoy.specialAttack); // Hay Toss
+console.log(luckyFarmBoy.cloak()); // Chuck has cloaked using Special Beans
+console.log(evilPrince.specialAttack); // Crown Toss
+console.log(evilPrince.vanish()); // Charming has disappered using Handheld Mirror
 
 
   // Stretch task: 
