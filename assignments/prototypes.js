@@ -107,7 +107,8 @@ Humanoid.prototype.greet = function() {
     "kicked in the pants",
     "thrown into a pit of defanged vipers for slow torture",
     "forced to listen to Katy Perry on repeat",
-    "forced to relive Thanksgiving dinner with their mother in law times infinity"
+    "forced to relive Thanksgiving dinner with their mother in law times infinity",
+    "be related to Umbridge",
 ]
 
   VillainChar.prototype.castSpell = function(character) {
