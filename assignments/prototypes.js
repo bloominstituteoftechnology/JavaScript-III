@@ -144,10 +144,10 @@ Humanoid.prototype.greet = function(){
   }
   Hero.prototype = Object.create(Humanoid.prototype);
   Hero.prototype.attack = function(char, power){
-    let finalBlow = power;
+     let finalBlow = power();
     if(char.healthPoints>0){
-     alert(`Attacking ${char.name}`);
-     char.healthPoints -= power;
+     alert(`Attacking ${char.name} for ${finalBlow}`);
+     char.healthPoints -= finalBlow;
      document.getElementById("vilhealth").innerHTML = `Health: ${char.healthPoints}`;
      if(char.healthPoints <= 0){
       alert(this.destroy(char));
@@ -163,8 +163,9 @@ Humanoid.prototype.greet = function(){
 
   Villain.prototype = Object.create(Humanoid.prototype);
   Villain.prototype.spell = function(char, power){
-     alert(`Casting a spell on ${char.name}`);
-     char.healthPoints -= power;
+      let blow = power();
+     alert(`Casting a spell on ${char.name} for ${blow}`);
+     char.healthPoints -= blow;
      document.getElementById("herohealth").innerHTML = `Health: ${char.healthPoints}`;
      if(char.healthPoints <= 0){
       alert(this.destroy(char));
@@ -187,7 +188,9 @@ Humanoid.prototype.greet = function(){
       'Dagger',
     ],
     language: 'Elvish',
-    power: 3,
+    power: function(){
+      return Math.floor(Math.random() * Math.floor(11));
+    },
   });
   const witch = new Villain ({
     createdAt: new Date(),
@@ -204,7 +207,9 @@ Humanoid.prototype.greet = function(){
       'Dagger',
     ],
     language: 'Elvish',
-    power: 2,
+    power: function(){
+      return Math.floor(Math.random() * Math.floor(11));
+    },
   });
  
   // console.log(matt.attack(witch, matt.power))
