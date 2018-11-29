@@ -200,8 +200,8 @@ Healer.prototype.heal = function (patient, cb) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log(ogre.doDamage(mage, random(1, 5)));
-  console.log(ogre.doDamage(swordsman, random(1, 16)))
+  console.log(bandit).doDamage(mage, random(1, 5));
+  console.log(bandit).doDamage(swordsman, random(1, 16))
 
 
   // Stretch task: 
