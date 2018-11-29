@@ -151,12 +151,15 @@ Humanoid.prototype.greet = function() {
     Humanoid.call(this, vilAttributes);
   };
 
+  Villain.prototype = Object.create(Humanoid.prototype);
+
   Villain.prototype.attack = function(char, points) {
     let updateHealth = char.healthPoints -= points;
     let randomWeapon = this.weapons[(Math.floor(Math.random() * this.weapons.length))];
     if (char.healthPoints <= 0) {
-      return `${char.name} is out of health!`;
-    } else return `${this.name} attacked ${char.name} with their ${randomWeapon}! ${char.name}'s health is now ${updateHealth}.`;
+      return `${char.name} is out of health! ${char.destroy()}`;
+      // return `${char.name} is out of health!`;
+    } else return `${this.name} attacked ${char.name} with their ${randomWeapon}! ${char.takeDamage()} ${char.name}'s health is now ${updateHealth}.`;
   }
 
 
