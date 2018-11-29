@@ -157,7 +157,7 @@ Hero.prototype.bow = function() {
   return 2;
 };
 Hero.prototype.sword = function() {
-  return 5;
+  return 4;
 };
 Hero.prototype.punch = function() {
   return 1;
@@ -185,7 +185,7 @@ const orc = new Villain({
     width: 1,
     height: 4
   },
-  healthPoints: 18,
+  healthPoints: 15,
   name: "Blargh",
   team: "Orcs",
   weapons: ["Mace", "Claws", "Fangs"],
@@ -207,7 +207,16 @@ function villainAttack(villain) {
   if (num < 0.66) return villain.claw();
   if (num < 1) return villain.mace();
 }
-
+function heroWeaponUsed(num) {
+  if (num === 2) return "bow";
+  if (num === 4) return "sword";
+  if (num === 1) return "punch";
+}
+function villainWeaponUsed(num) {
+  if (num === 1) return "claw";
+  if (num === 4) return "mace";
+  if (num === 2) return "club";
+}
 function finishHim(hero, villain) {
   let round = 1;
   while (hero.healthPoints > 0 && villain.healthPoints > 0) {
@@ -215,32 +224,29 @@ function finishHim(hero, villain) {
     round++;
     let heroDamage = heroAttack(hero);
     villain.healthPoints -= heroDamage;
+    let heroUsed = heroWeaponUsed(heroDamage);
     console.log(
-      `${hero.name} dealt ${heroDamage} damage to the villain ${villain.name}.`
+      `${hero.name} dealt ${heroDamage} damage to the villain ${
+        villain.name
+      } using a ${heroUsed}.`
     );
     let villainDamage = villainAttack(villain);
-    console.log(
-      `${villain.name} dealt ${villainDamage} damage to the hero ${hero.name}.`
-    );
     hero.healthPoints -= villainDamage;
+    let villainUsed = villainWeaponUsed(villainDamage);
+    console.log(
+      `${villain.name} dealt ${villainDamage} damage to the hero ${
+        hero.name
+      } using a ${villainUsed}.`
+    );
   }
   console.log(`============ Result ============`);
   if (hero.healthPoints <= 0) {
-    console.log(
-      `The hero ${hero.name} died! ${villain.name} has ${
-        villain.healthPoints
-      } health left and won the battle!`
-    );
+    console.log(`${hero.name} died! ${villain.name} won the battle!`);
     return;
   }
   if (villain.healthPoints <= 0) {
-    console.log(
-      `The villain ${villain.name} died! ${hero.name} has ${
-        hero.healthPoints
-      } health left and won the battle!`
-    );
+    console.log(`${villain.name} died! ${hero.name} won the battle!`);
     return;
   }
 }
-
 finishHim(aragorn, orc);
