@@ -14,17 +14,29 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-function GameObject(character) {
-  this.createdAt = "Treyarch";
-  this.character = character;
-  this.dimensons = "7^2"
+function GameObject(attribute)  {
+  this.createdAt = attribute.createdAt;
+  this.dimensions = attribute.dimensions;
+
 
 }
 GameObject.prototype.destroy= function() {
-  return "Object was removed froom the game";
+
+  return `${this.name} was removed froom the game`;
 }
 
-/*
+function CharacterLife(cattribute) {
+GameObject.call(this,cattribute )
+this.healthPoints = cattribute.healthPoints;
+this.name = cattribute.name;
+
+}
+CharacterLife.prototype = Object.create(GameObject.prototype);
+CharacterLife.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+};
+
+/* 
   === CharacterStats ===
   * healthPoints
   * name
