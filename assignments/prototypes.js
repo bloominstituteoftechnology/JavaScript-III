@@ -69,7 +69,7 @@ function Humanoid(attributes){
 Humanoid.prototype = Object.create(CharacterStats.prototype) 
 
 Humanoid.prototype.greet = function() {
-  console.log(`${this.name} offers a greeting in ${this.language}`)
+  return `${this.name} offers a greeting in ${this.language}`;
 }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -190,17 +190,39 @@ Humanoid.prototype.greet = function() {
 
   }
 
-
-  Villain.prototype = Object.create(Humanoid.prototype) 
+  const spellPoints = [ {spell: 'Riddikulus', points: 5}, 
+  {spell: 'Obliviate', points: 3}, 
+  {spell: 'Sectumsempra', points: 7}, 
+  {spell: 'Avada Kedavra', points: 2}, 
+  {spell: 'Alohomora', points: 4}, 
+  {spell: 'Lumos', points: 2}, 
+  {spell: 'Expelliarmus', points: 1}, 
+  {spell: 'Wingardium Leviosa', points: 1},
+  {spell: 'Accio', points: 7},   
+  {spell: 'Expecto Patronum', points: 2}              
+];
+  
+  Hero.prototype.save = function(obj) {
+    return obj.healthPoints 
+  }
   Hero.prototype =Object.create(Humanoid.prototype)
 
-  Villain.prototype.attack = function(obj) {
-    return obj.healthPoints += -2
+
+  Villain.prototype.attack = function(spell, obj) {
+    let val = 0;
+    spellPoints.forEach(function(e){
+      if(e.spell === spell){
+         return val = e.points
+      }
+    })
+
+    obj.healthPoints = obj.healthPoints - val
+    console.log(val)
+    return `${this.name} has cast the spell "${spell}" you have lost ${val} health points! ${obj.name} you now have  ${obj.healthPoints} health points!`;
+    
   }
 
-  Hero.prototype.save = function(obj) {
-    return obj,healthPoints --
-  }
+  Villain.prototype = Object.create(Humanoid.prototype) 
 
 
 
