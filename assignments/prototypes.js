@@ -127,8 +127,25 @@ Humanoid.prototype.greet = ()=>`${this.name} offers a greeting in ${this.languag
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
-
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  // parent
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+  }
+  
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+  }
+
+  // child
+  const doomBringer = new Villain({
+
+  });
+
+  const slimReaper = new Hero({
+    
+  });
