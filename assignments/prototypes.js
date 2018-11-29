@@ -42,7 +42,7 @@ function CharacterStats(charAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
-return `${this.name} took damage.`;
+  return `${this.name} took damage.`;
 }// CharacterStats
 
 
@@ -165,3 +165,61 @@ Humanoid.prototype.greet = function() {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+  }
+  
+  Hero.prototype = Object.create(Humanoid.prototype);
+  
+  Hero.prototype.swingSword = function(villainObj) {
+    console.log(`${villainObj.name} took 5 damage.`);
+    return villainObj.healthPoints -= 5;
+  }
+
+  const meldon = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    healthPoints: 20,
+    name: 'Meldon',
+    team: 'Knights Templar',
+    weapons: [
+      'Sword',
+      'Dagger',
+    ],
+    language: 'Common Tongue',
+  });
+
+
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+  }
+  
+  Villain.prototype = Object.create(Humanoid.prototype);
+  
+  Villain.prototype.castSpell = function(heroObj) {
+    console.log(`${heroObj.name} took 8 damage.`);
+    return heroObj.healthPoints -= 8;
+  }
+
+
+  const lazarus = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 20,
+    name: 'Lazarus',
+    team: 'Wizard\'s Council',
+    weapons: [
+      'Staff of Wonders',
+      'Poison',
+    ],
+    language: 'Draconian',
+  });
