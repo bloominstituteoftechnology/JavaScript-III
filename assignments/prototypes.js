@@ -78,7 +78,9 @@ Hero.prototype = Object.create(Humanoid.prototype);
 function Hero(heroAttributes){
   Humanoid.call(this, heroAttributes);
   this.powers = heroAttributes.powers;
-  this.nemesis = heroAttributes.nemesis;
+  // this.nemesis = function(nemTarget){
+  //   Villain.call(nemTarget, villainAttributes);
+  // };
 }
 
 Hero.prototype.determination = function(){
@@ -93,40 +95,44 @@ Hero.prototype.determination = function(){
 
 
 
-Hero.prototype.dispenseJustice = function(){
-  // if (this.weapons.hasOwnProperty('Guillotine Sword') === true && this.powers == 'Willpower') {
-    if (this.nemesis.powers == 'Schemes') {
+
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+function Villain(villainAttributes){
+  Humanoid.call(this, villainAttributes);
+  this.powers = villainAttributes.powers;
+  // this.nemesis = function(nemTarget){
+  //   Hero.call(nemTarget, heroAttributes);
+  // };
+}
+
+Hero.prototype.dispenseJustice = function(nemTarget){
+  if (this.weapons.includes('Guillotine Sword') === true && this.powers == 'Willpower') {
+    if (nemTarget.powers === 'Schemes') {
       let hitOrMiss = Math.random();
       if (hitOrMiss > .9) {
-        this.nemesis.destroy();
+        console.log(nemTarget.destroy());
       }
-      else if(.3 > hitOrMiss < .9) {
-        this.nemesis.healthPoints -= 5;
-        this.nemesis.takeDamage();
-        this.nemesis.checkHP();
+      else if(hitOrMiss > .3 && hitOrMiss <= .9) {
+        nemTarget.healthPoints -= 5;
+        console.log(nemTarget.takeDamage());
+        nemTarget.checkHP();
       }
       else {
         console.log(`${this.name} missed`)
       }
     }
     else {
-      this.nemesis.destroy();
+      console.log(nemTarget.destroy());
     }
-  // }
-// else {
-//     console.log(`Not today, ${this.name}`);
-//   }  
+    // console.log(nemTarget.powers)
+    
+  }
+  else {
+      console.log(`Not today, ${this.name}`);
+    }  
 }
-
-Villain.prototype = Object.create(Humanoid.prototype);
-
-function Villain(villainAttributes){
-  Humanoid.call(this, villainAttributes);
-  this.powers = villainAttributes;
-  this.nemesis = villainAttributes;
-}
-
-
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -202,10 +208,10 @@ function Villain(villainAttributes){
     ],
     language: 'Dialectic',
     powers: 'Willpower',
-    nemesis: 'baron'
+    // nemesis: 'baron'
   });
 
-  const baron = new Villain({
+  var baron = new Villain({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -220,8 +226,8 @@ function Villain(villainAttributes){
     ],
     language: 'Evilese',
     powers: 'Schemes',
-    nemesis: 'soldier'
-  })
+    // nemesis: 'soldier'
+  });
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -233,9 +239,19 @@ function Villain(villainAttributes){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  console.log(soldier.weapons);
+  // console.log(soldier.weapons);
+  // console.log(soldier.nemesis.name);
+  // console.log(soldier.weapons.includes('Guillotine Sword'));
 
-  soldier.dispenseJustice();
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+
+  //he better be dead after this
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
