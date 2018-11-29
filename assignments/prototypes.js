@@ -64,7 +64,7 @@ function Humanoid (gameHumanoid) {
   this.weapons = gameHumanoid.weapons;
   this.language = gameHumanoid.language;
 
-  Humanoid.call(this, gameHumanoid);
+  CharacterStats.call(this, gameHumanoid);
 }
 
 Humanoid.prototype.greet = function() {
@@ -82,6 +82,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 
 function Villian(gameVillian) {
+ 
 
 };
 
