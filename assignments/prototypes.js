@@ -19,12 +19,14 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function  gameObject(mage) {
-  this.name = mage.name;
-  this.createdAt = mage.createdAt;
-  this.dimensions = mage.dimensions;
-  this.destroy = function() {
-    return `Object was removed from the game.`
+function  GameObject(gameThing) {
+  this.name = gameThing.name;
+  this.createdAt = gameThing.createdAt;
+  this.dimensions = gameThing.dimensions;
+  }
+
+  GameObject.prototype.destroy = function() {
+    return `${this.name} was removed from the game`;
   };
 
 /*
@@ -119,4 +121,4 @@ function  gameObject(mage) {
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+  // * Create two new objects, one a villain and one a hero and fight it out with methods! 
