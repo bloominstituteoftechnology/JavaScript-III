@@ -163,6 +163,6 @@ console.log(swordsman.team); // The Round Table
 console.log(mage.weapons); // Staff of Shamalama
 console.log(archer.language); // Elvish
 archer.greet(); // Lilith offers a greeting in Elvish.
-archer.forcePush(swordsman); // Lilith used Force Push on Sir Mustachio.
-swordsman.forceChoke(archer); // Lilith used Force Push on Sir Mustachio.
+archer.forcePush(swordsman); // Lilith used Force Push on Sir Mustachio. Sir Mustachio took 25 HP damage.
+swordsman.forceChoke(archer); // Sir Mustachio used Force Choke on Sir Mustachio. Lilith took 50 HP damage. Lilith was removed from the game.
 swordsman.destroy(); // Sir Mustachio was removed from the game.
