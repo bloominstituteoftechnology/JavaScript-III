@@ -239,9 +239,6 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
-
-  //BattleSequence takes the Hero and Villain into a battle until one or both are defeated.
-  //They each take turns attacking with a random attack that they have.
   function battleSequence(player1, player2) {
     console.warn('Battle Starting')
     let turnNum = 2;
