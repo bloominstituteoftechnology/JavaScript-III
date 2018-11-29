@@ -197,7 +197,7 @@ function Hero(heroAttributes) {
   }
 }
 
-const ryan = new Villian({
+const dingus = new Villian({
   createdAt: new Date(),
   dimensions: {
     length: 2,
