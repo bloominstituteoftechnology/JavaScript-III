@@ -16,17 +16,16 @@
 */
 
 let spellEffect = [
-  'frozen in carbonite',
-  'held upside down by reversed forces of gravity',
-  'stuck in a paralyzed state',
-  'converted to the opposing side'
+  "frozen in carbonite",
+  "held upside down by reversed forces of gravity",
+  "stuck in a paralyzed state", 
+  "converted to the opposing side",
+  "kicked in the pants",
+  "thrown into a pit of defanged vipers for slow torture",
+  "forced to listen to Katy Perry on repeat",
+  "forced to relive Thanksgiving dinner with their mother in law times infinity",
+  "is now related to Dolores Umbridge"
 ]
-
-VillainChar.prototype.castSpell = function(character) {
-  let randomArray = [];
-  for (let spellIndex = 0; spellIndex < spellEffect.length; spellIndex++) {
-return spellEffect.push[Math.floor(Math.random() * spellEffect.length)];
-}
 
 function GameObject(objAttributes){
   this.createdAt = objAttributes.createdAt;
@@ -108,10 +107,9 @@ VillainChar.prototype.monologue = function() {
   return `"${this.evilSpeech}"`;
 }
 
-VillainChar.prototype.castSpell = function(character, spells) {
-  let randomArray = [];
-  for (let spellIndex = 0; spellIndex < spellEffect.length; spellIndex++) {
-return spellEffect.push[Math.floor(Math.random() * spellEffect.length)];
+VillainChar.prototype.castSpell = function(character) {
+  let spell = spellEffect[Math.floor(Math.random() * spellEffect.length)];
+  return `${this.name} cast a spell on ${character.name} and caused them to be ${spell}!`
 }
 
 //===================================== Hero Below
@@ -241,6 +239,7 @@ HeroChar.prototype.saysCatchPhrase = function() {
   console.log(villain.threat()); // Lord Business threatens you with his greater wit
   console.log(hero.saysCatchPhrase()); // Solaire the Brave bellows The Greater Good will always prevail!
   console.log(mage.attack(villain, 4));
+  console.log(villain.castSpell(hero));
 
 
   // Stretch task: 
