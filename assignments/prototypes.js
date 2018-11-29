@@ -15,16 +15,18 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject(gameAttrs){
-  this.createdAt = gameAttrs.createdAt.toString();
-  this.dimensions = gameAttrs.dimensions;
 
+
+class GameObject{
+  constructor(gameAttrs){
+    this.createdAt = gameAttrs.createdAt.toString();
+    this.dimensions = gameAttrs.dimensions;
   }
-
-
-GameObject.prototype.destroy = function(){
-  return `${this.name} was removed from the game.`;
+  destroy(){
+    return `${this.name} was removed from the game.`;
+  }
 }
+
 
 
 
@@ -37,20 +39,22 @@ GameObject.prototype.destroy = function(){
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(charAttrs){
-  GameObject.call(this, charAttrs);
-  this.healthPoints = charAttrs.healthPoints;
-  this.name = charAttrs.name;
+
+
+class CharacterStats extends GameObject{
+  constructor(charAttrs){
+    super(charAttrs);
+    this.healthPoints = charAttrs.healthPoints;
+    this.name = charAttrs.name;
 
   }
+  takeDamage(){
+    return `${this.name} took damage.`;
 
-
-
-CharacterStats.prototype = Object.create(GameObject.prototype);
-
-CharacterStats.prototype.takeDamage = function(){
-  return `${this.name} took damage.`;
+  }
 }
+
+
 
 
 
@@ -64,52 +68,48 @@ CharacterStats.prototype.takeDamage = function(){
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid(humAttrs){
-  CharacterStats.call(this, humAttrs);
-  this.team = humAttrs.team;
-  this.weapons = humAttrs.weapons;
-  this.language = humAttrs.language;
+
+class Humanoid extends CharacterStats{
+  constructor(humAttrs){
+    super(humAttrs);
+    this.team = humAttrs.team;
+    this.weapons = humAttrs.weapons;
+    this.language = humAttrs.language;
+  }
+  greet(){
+    return `${this.name} offers a greeting in ${this.language}`;
+
+  }
 }
 
-Humanoid.prototype = Object.create(CharacterStats.prototype);
+class Villain extends Humanoid{
+  constructor(villainAttrs){
+    super(villainAttrs);
+    this.isVillain = villainAttrs.isVillain;
+    this.evilDesign = villainAttrs.evilDesign;
+    this.numOfMinions = villainAttrs.numOfMinions;
+    this.strength = villainAttrs.strength;
+    this.motivation = villainAttrs.motivation;
+    this.cunning = Math.max(villainAttrs.cunning, 10);
+  }
 
-Humanoid.prototype.greet = function(){
-  return `${this.name} offers a greeting in ${this.language}`;
+  attack(target){let damage = Math.floor(Math.random()*this.strength);
+  target.healthPoints -= damage;}
 }
 
-function Villain(villainAttrs){
-  Humanoid.call(this, villainAttrs);
-  this.isVillain = villainAttrs.isVillain;
-  this.evilDesign = villainAttrs.evilDesign;
-  this.numOfMinions = villainAttrs.numOfMinions;
-  this.strength = villainAttrs.strength;
-  this.motivation = villainAttrs.motivation;
-  this.cunning = Math.max(villainAttrs.cunning, 10);
-
-}
-
-Villain.prototype = Object.create(Humanoid.prototype);
-
-Villain.prototype.attack = function(target){
-  let damage = Math.floor(Math.random()*this.strength);
-  target.healthPoints -= damage;
-}
-
-function Hero(heroAttrs){
-  Humanoid.call(this, heroAttrs);
-  this.isHero = heroAttrs.isHero;
-  this.nobleCause = heroAttrs.nobleCause;
-  this.allies = heroAttrs.allies;
-  this.strength = heroAttrs.strength;
-  this.strengthOfSpirit = Math.max(heroAttrs.strengthOfSpirit,10);
-
-}
-
-Hero.prototype = Object.create(Humanoid.prototype);
-
-Hero.prototype.attack = function(target){
-  let damage = Math.floor(Math.random()*this.strengthOfSpirit);
-  target.healthPoints -= damage;
+class Hero extends Humanoid{
+  constructor(heroAttrs){
+    super(heroAttrs);
+    this.isHero = heroAttrs.isHero;
+    this.nobleCause = heroAttrs.nobleCause;
+    this.allies = heroAttrs.allies;
+    this.strength = heroAttrs.strength;
+    this.strengthOfSpirit = Math.max(heroAttrs.strengthOfSpirit,10);
+  }
+  attack(target){
+    let damage = Math.floor(Math.random()*this.strengthOfSpirit);
+    target.healthPoints -= damage;
+  }
 }
 
 
