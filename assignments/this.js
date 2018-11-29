@@ -18,7 +18,7 @@ function myName(name) {
     return name;
 }
 
-myName("Kelli");
+// myName("Kelli");
 
 // Principle 2
 
@@ -31,7 +31,7 @@ const myGreeting = {
     }
 };
 
-myGreeting.sayHi('Kelli');
+// myGreeting.sayHi('Kelli');
 
 // Principle 3
 
@@ -46,27 +46,27 @@ function CordialPerson(greeter) {
     };
 }
 
-const Kelli = new CordialPerson('Marissa');
-const Marissa = new CordialPerson('Kelli');
+// const Kelli = new CordialPerson('Marissa');
+// const Marissa = new CordialPerson('Kelli');
 
-Kelli.speak();
-Marissa.speak();
+// Kelli.speak();
+// Marissa.speak();
 
 // Principle 4
 
 // code example for Explicit Binding
 
-function CordialPerson(greeter) {
-    this.greeting = 'Hello';
-    this.greeter = greeter;
-    this.speak = function() {
-        console.log(this.greeting + this.greeter);
-        console.log(this);
-    };
-}
+// function CordialPerson(greeter) {
+//     this.greeting = 'Hello';
+//     this.greeter = greeter;
+//     this.speak = function() {
+//         console.log(this.greeting + this.greeter);
+//         console.log(this);
+//     };
+// }
 
-const Kelli = new CordialPerson('Marissa');
-const Marissa = new CordialPerson('Kelli');
+// const K = new CordialPerson('Marissa');
+// const M = new CordialPerson('Kelli');
 
-Kelli.speak.call(Marissa);
-Marissa.speak.apply(Kelli);
+// K.speak.call(Marissa);
+// M.speak.apply(Kelli);

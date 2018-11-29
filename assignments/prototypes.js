@@ -20,13 +20,12 @@
 */
 
 function  GameObject(object) {
-  this.name = object.name;
   this.createdAt = object.createdAt;
   this.dimensions = object.dimensions;
   }
 
   GameObject.prototype.destroy = function() {
-    return `${this.name} was removed from the game`;
+    return `${this.name} was removed from the game.`;
   };
 
 /*
@@ -38,15 +37,17 @@ function  GameObject(object) {
 */
 
 function CharacterStats(gameStats) {
+  GameObject.call(this, gameStats);
   this.healthPoints = gameStats.healthPoints;
   this.name = gameStats.name;
 
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 
-CharacterStats.prototype = Object.create(GameObject.prototype.destroy);
 };
 
 /*
@@ -67,10 +68,12 @@ function Humanoid (gameHumanoid) {
   CharacterStats.call(this, gameHumanoid);
 }
 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 
-Humanoid.prototype = Object.create(CharacterStats.prototype);
+
 };
 
  
@@ -81,19 +84,19 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 */
 
 
-function Villian(gameVillian) {
+// function Villian(gameVillian) {
  
 
-};
+// };
 
-function Hero(gameHero) {
+// function Hero(gameHero) {
 
-};
+// };
 
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -154,7 +157,7 @@ function Hero(gameHero) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
