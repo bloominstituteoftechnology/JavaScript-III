@@ -82,7 +82,7 @@ Villian.prototype = Object.create(Humanoid.prototype);
 //villians Attack method
 Villian.prototype.shadowAttack = function(target) {
   let dmg = 5;
-  let hp = target.healthPoints - dmg;
+  let hp = target.healthPoints -= dmg;
 
     if(hp <= 0) {
       return target.destroy();
@@ -104,7 +104,7 @@ Hero.prototype = Object.create(Humanoid.prototype);
 //Hero's attack method
 Hero.prototype.weaponSlash = function(target) {
   let dmg = this.power + 5;
-  let hp = target.healthPoints - dmg;
+  let hp = target.healthPoints -= dmg;
 
     if(hp <= 0) {
       return target.destroy();
@@ -222,6 +222,7 @@ Hero.prototype.weaponSlash = function(target) {
 
   console.log(warrior.weaponSlash(darkWarrior));
   console.log(darkWarrior.shadowAttack(warrior));
+  console.log(warrior.weaponSlash(darkWarrior));
   
   
   // Stretch task: 
