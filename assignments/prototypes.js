@@ -117,16 +117,16 @@ Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in 
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.healthPoints); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.healthPoints); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.team); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
@@ -137,67 +137,65 @@ Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in 
   function Villain(villainAttributes) {
     Humanoid.call(this, villainAttributes);
   }
+  Villain.prototype = Object.create(Humanoid.prototype);
   Villain.prototype.flopAndOne = function(){
     if (Math.floor(Math.random()*10) +1 < 6) {
       this.score += 2;
-      return `*Whitles* Harden down the lane and flails to the ground DRAMATICALLY while being far away from his opponents. Knocks down 2 free throws.
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>*Whitles* Harden down the lane and flails to the ground DRAMATICALLY while being far away from his opponents. Knocks down 2 free throws.</p>`
+      document.getElementById("hardenscore").innerHTML = this.score;
     } else {
-      return `Harden just did not sell his flop very well.
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Harden just did not sell his flop very well.</p>`
     }
   };
   Villain.prototype.stepBackCrossoverJumber = function(){
     if (Math.floor(Math.random()*10) +1 < 6) {
       this.score += 3;
-      return `ISO Harden with the step back three!
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Iso Harden with the step back three!</p>`
+      document.getElementById("hardenscore").innerHTML = this.score;
     } else {
-      return `Harden turns the ball over
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Harden turns the ball over! </p>`
     }
   };
   Villain.prototype.tomohawkDunk = function(){
     if (Math.floor(Math.random()*10) +1 < 6) {
       this.score += 3;
-      return `${this.name} breaks away and slams it with a Tomohawk DUNK AND ONE!
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Harden breaks away and slams it with a Tomohawk DUNK AND ONE! 3 points!</p>`
+      document.getElementById("hardenscore").innerHTML = this.score;
     } else {
-      return `Harden gets BLOCKED! Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Harden gets BLOCKED!</p>`
     }
   };
   
   function Hero(heroAttributes) {
     Humanoid.call(this, heroAttributes);
   }
+  Hero.prototype = Object.create(Humanoid.prototype);
+
   Hero.prototype.pullUpFromHalfCourt = function(){
     if (Math.floor(Math.random()*10) +1 < 6){
       this.score += 3;
-      return `${this.name}, walking passed half-court... Shoots out of nowhere and scores!
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Curry, walking pass half-court... Shoots out of nowhere and scores! 3 points!</p>`
+      document.getElementById("curryscore").innerHTML = this.score;
     } else {
-      return `Not a good look, it was a bad shot.
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Not a good look, it was a bad shot.</p>`
     }
   };
   Hero.prototype.stepBackJumper = function(){
     if (Math.floor(Math.random()*10) +1 < 6){
       this.score += 3;
-      return `Step back jumper... GOOD!
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Step back jumper... GOOD! 3 points! </p>`
+      document.getElementById("curryscore").innerHTML = this.score;
     } else {
-      return `Curry shoots, and no good.
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Curry shoots, and no good. </p>`
     }
   };
   Hero.prototype.floater = function(){
     if (Math.floor(Math.random()*10) +1 < 6) {
       this.score += 2;
-      return `Curry the Chef, cookin then lays it in!
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Curry the Chef, cookin then lays it in! 2 points!</p>`;
+      document.getElementById("curryscore").innerHTML = this.score;
     } else {
-      return `Curry gets blocked!
-      Score is ${this.score}`
+      document.getElementById("playbyplay").innerHTML += `<p>Curry gets blocked!</p>`;
     }
   };
   
@@ -234,7 +232,3 @@ Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in 
     ],
     language: 'Common Tongue',
   });
-
-  console.log(theBeard.tomohawkDunk())
-  console.log(chefCurry.pullUpFromHalfCourt())
-  console.log(chefCurry.floater())
