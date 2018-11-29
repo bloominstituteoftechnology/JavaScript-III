@@ -173,8 +173,11 @@ Humanoid.prototype.greet = function() {
   Hero.prototype = Object.create(Humanoid.prototype);
   
   Hero.prototype.swingSword = function(villainObj) {
-    console.log(`${villainObj.name} took 5 damage.`);
-    return villainObj.healthPoints -= 5;
+    console.log(villainObj.takeDamage());
+    villainObj.healthPoints -= 5;
+    if( villainObj.healthPoints <= 0) {
+      console.log(villainObj.destroy());
+    }
   }
 
   const meldon = new Hero({
@@ -202,8 +205,11 @@ Humanoid.prototype.greet = function() {
   Villain.prototype = Object.create(Humanoid.prototype);
   
   Villain.prototype.castSpell = function(heroObj) {
-    console.log(`${heroObj.name} took 8 damage.`);
-    return heroObj.healthPoints -= 8;
+    console.log(heroObj.takeDamage());
+    heroObj.healthPoints -= 8;
+    if( heroObj.healthPoints <= 0) {
+      console.log(heroObj.destroy());
+    }
   }
 
 
@@ -223,3 +229,14 @@ Humanoid.prototype.greet = function() {
     ],
     language: 'Draconian',
   });
+
+
+  console.log(lazarus);
+  console.log(meldon);
+
+  meldon.swingSword(lazarus);
+  lazarus.castSpell(meldon);
+  meldon.swingSword(lazarus);
+  lazarus.castSpell(meldon);
+  meldon.swingSword(lazarus);
+  lazarus.castSpell(meldon);
