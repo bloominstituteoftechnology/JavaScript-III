@@ -25,16 +25,30 @@ GameObject.prototype.destroy= function() {
   return `${this.name} was removed froom the game`;
 }
 
-function CharacterLife(cattribute) {
+function CharacterStats(cattribute) {
 GameObject.call(this,cattribute )
 this.healthPoints = cattribute.healthPoints;
 this.name = cattribute.name;
 
 }
-CharacterLife.prototype = Object.create(GameObject.prototype);
-CharacterLife.prototype.takeDamage = function () {
-  return `${this.name} took damage.`;
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} Took damage.`;
 };
+
+function Humanoid(hattribute) {
+  CharacterStats.call(this, hattribute);
+
+  this.team = hattribute.team;
+  this.weapons = hattribute.weapons;
+  this.language = hattribute.language;
+} 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function () {
+  return `${this.name} Hello how are you ? ${this.language}`
+}
+
+
 
 /* 
   === CharacterStats ===
