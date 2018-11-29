@@ -71,18 +71,23 @@ function Humanoid(attributes) {
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
-  return (`${this.name} offers a greeting in ${this.language}.`);
-};
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
 
 //Stretch
 function Hero(attributes) {
   Humanoid.call(this, attributes);
-
 }
 
 function Villain(attributes) {
   Humanoid.call(this, attributes);
 }
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.say = function() {
+  return `Im ${this.name}!`;
+};
 
 
   const mage = new Humanoid({
@@ -135,7 +140,7 @@ function Villain(attributes) {
     language: 'Elvish',
   });
 
-  const hero = new Humanoid({
+  const hero = new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -152,7 +157,7 @@ function Villain(attributes) {
     language: 'Common Tongue',
   });
 
-  const villain = new Humanoid({
+  const villain = new Villain({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -179,6 +184,7 @@ function Villain(attributes) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(hero.say());
 
 
   // Stretch task: 

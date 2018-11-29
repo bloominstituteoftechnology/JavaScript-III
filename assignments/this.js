@@ -37,8 +37,8 @@ function CordialPerson(greeter) {
     this.greeting = 'Hello ';
     this.greeter = greeter;
     this.speak = function() {
-      console.log(this.greeting + this.greeter);
-      console.log(this);
+      return(this.greeting + this.greeter);
+      return(this);
     };
   }
   
