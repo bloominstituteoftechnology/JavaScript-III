@@ -136,16 +136,47 @@ Humanoid.prototype.greet = ()=>`${this.name} offers a greeting in ${this.languag
   function Villain(villainAttributes) {
     Humanoid.call(this, villainAttributes);
   }
+  Villain.prototype.flopAndOne = ()=>`*Whistle* Harden gets two free-throws`;
+  Villain.prototype.stepBackCrossoverJumber = ()=>`ISO Harden with the step back three!`;
+  Villain.prototype.tomohawkDunk = ()=>`Harden breaks away and slams it with a Tomohawk DUNK!`;
   
   function Hero(heroAttributes) {
     Humanoid.call(this, heroAttributes);
   }
-
+  Hero.prototype.pullUpFromHalfCourt = ()=>`Curry, from the half-court.. shoots and scores!`;
+  Hero.prototype.stepBackJumper = ()=>`Step back jumper... GOOD!`;
+  Hero.prototype.floater = ()=>`Curry the Chef, cookin then lays it in!`;
+  
   // child
-  const doomBringer = new Villain({
 
+  const theBeard = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 10,
+    name: 'James Harden',
+    team: 'Houston Rockets',
+    weapons: [
+      'Step Back Crossover Jumper',
+    ],
+    language: 'Common Tongue',
   });
 
-  const slimReaper = new Hero({
-    
+  const chefCurry = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 1,
+    },
+    healthPoints: 10,
+    name: 'Steph Curry',
+    team: 'Golden State Warriors',
+    weapons: [
+      'Pull Up From Halfcourt',
+    ],
+    language: 'Common Tongue',
   });
