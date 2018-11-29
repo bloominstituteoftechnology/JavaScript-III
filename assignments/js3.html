@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="./prototypes.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="js3.css" />
+  </head>
+  <body>
+    <div class="par">
+      <div class="joker">
+        <h2>The Joker</h2>
+        <img src="joker.jpeg" alt="" /> <br /><button id="btn">click me</button>
+        <p id="p1"></p>
+      </div>
+      <div class="batman">
+        <h2>Batman</h2>
+        <img src="batman.jpeg" alt="" /> <br /><button id="btn2">
+          click me
+        </button>
+        <p id="p2"></p>
+      </div>
+    </div>
+
+    <script>
+      const p1 = document.getElementById("p1");
+      let button = document.getElementById("btn");
+      $("#btn").click(function() {
+        $("#p1").append(joker.attack(), "<br> <br> <br>");
+      });
+
+      const p2 = document.getElementById("p2");
+      let button2 = document.getElementById("btn2");
+      $("#btn2").click(function() {
+        $("#p2").append(batman.attack(), "<br> <br> <br>");
+      });
+    </script>
+  </body>
+</html>
