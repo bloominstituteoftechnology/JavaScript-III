@@ -8,13 +8,14 @@ window.onload=function(){
     Rio = document.querySelector(".Rio");
     attackSagat.addEventListener("click",function(){
         span1.innerHTML = score++;
+        console.log(score);
         Rio.style.backgroundColor = "red";
         let one = Math.floor(Math.random()*100);
         let two = Math.floor(Math.random()*240);
         let three = Math.floor(Math.random()*1);
         let rgb = 'rgb(' + one + ',' + two + ',' + three + ')';
         Rio.style.backgroundColor = rgb;
-        
+
     })
     let scoreSagat =0;
     span2 = document.querySelector("#span2");
@@ -23,7 +24,7 @@ window.onload=function(){
     defendSagat.addEventListener("click",function(){
         span2.innerHTML = scoreSagat --;
         sagat.style.backgroundColor= "yellow";
-         let one = Math.floor(Math.random()*10);
+        let one = Math.floor(Math.random()*10);
         let two = Math.floor(Math.random()*200);
         let three = Math.floor(Math.random()*60);
         let rgb = 'rgb(' + one + ',' + two + ',' + three + ')';
@@ -39,6 +40,6 @@ window.onload=function(){
     defendRio = document.querySelector("#defendRio");
     defendRio.addEventListener("click",function(){
         span1.innerHTML = scoreRandom--;
-        
+
     })
 }
