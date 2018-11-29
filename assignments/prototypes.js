@@ -47,6 +47,7 @@ function CharacterStats(childAttributes) {
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
+
   return `${this.name} took damage.`;
 }
 
@@ -74,6 +75,13 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 }
+
+Humanoid.prototype.death = function() {
+  if (this.healthPoints <= 0) {
+    return this.destroy();
+  } 
+  return (`${this.name} has ${this.healthPoints} health points.`)
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -93,12 +101,20 @@ Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.takeAHit = function(damage) {
   let hitPoint = Math.ceil((Math.random() * 10));
   if (hitPoint < damage) {
-    this.healthPoints--;
-    this.takeDamage();
+    this.healthPoints = this.healthPoints - (damage - hitPoint);
+    return this.takeDamage();  
   } else {
     return `${this.name} blocked your attack!`;
   }
+  
 }
+
+Hero.prototype.swordStrike = function() {
+  let strikePoint = Math.ceil((Math.random() * 10));
+  return strikePoint;
+
+  }
+
 
 
 
@@ -111,15 +127,25 @@ function Villain(villainAttributes) {
 
 Villain.prototype = Object.create(Humanoid.prototype);
 
-Villain.prototype.dodge = function() {
+Villain.prototype.dodge = function(damage) {
   let hitPoint = Math.round(Math.random());
   if (hitPoint < 1) {
-    this.healthPoints--;
-    this.takeDamage();
-  } else {
+    this.healthPoints = this.healthPoints - damage;
+    return this.takeDamage();
+    } else {
     return `${this.name} dodged your attack!`;
   }
 }
+
+Villain.prototype.castSpell = function() {
+  let spellPoint = Math.round(Math.random());
+  if (spellPoint < 1) {
+    return 7;
+  } else {
+    return 0;
+  }
+}
+
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
@@ -174,6 +200,45 @@ Villain.prototype.dodge = function() {
     language: 'Elvish',
   });
 
+  const whiteKnight = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    healthPoints: 16,
+    name: 'Lance Cutlass',
+    team: 'The Knights of Night',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Tongue',
+    armor: 'Helm and Mantle of Justice'
+  });
+
+  const wizard = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 4,
+    },
+    healthPoints: 13,
+    name: 'Drake Darkfang',
+    team: 'The Poisoned Chalice',
+    weapons: [
+      'Poisoned Lance',
+      'Pheonix Tail Wand',
+    ],
+    language: 'Elvish',
+    spells: [
+      'Cloak of Shadow',
+      'Poison Fog',
+    ]
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -190,3 +255,15 @@ Villain.prototype.dodge = function() {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+  //Hero and Villain Battle!
+
+
+  for (i = 0; i < 3; i++) {
+    console.log(whiteKnight.takeAHit(wizard.castSpell()));
+    console.log(whiteKnight.death());
+    console.log(wizard.dodge(whiteKnight.swordStrike()));
+    console.log(wizard.death());
+  }
+  
