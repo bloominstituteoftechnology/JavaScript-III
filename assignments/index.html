@@ -1,17 +1,242 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="https://unpkg.com/nes.css@0.0.2/css/nes.css" rel="stylesheet" />
+    <title>Document</title>
 
-  <title>JS III</title>
+    <style>
+      html {
+        font-size: 62.5%;
+      }
 
-  <script src="this.js"></script>
-  <script src="prototypes.js"></script>
-</head>
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Russo One", sans-serif;
+        color: #23293b;
+      }
 
-<body>
-<h1>JS III - Check your work in the console!</h1>
-</body>
+      h2 {
+        font-size: 3.2rem;
+      }
+
+      h3 {
+        font-size: 2.8rem;
+      }
+
+      p {
+        font-size: 1.6rem;
+        line-height: 1.4;
+      }
+
+      .container {
+        max-width: 1100px;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        /* background-color: white; */
+      }
+
+      body {
+        background-color: black;
+      }
+
+      #outsidecontainer {
+          background-color: white;
+          max-width: 1100px;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        z-index: 999;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border: 5px solid black;
+      }
+
+      #playbyplaycontainer {
+        width: 300px;
+        border-radius: 2px;
+        height: 380px;
+        font-size: 1.6rem;
+        padding: 10px;
+        margin: auto;
+        position: relative;
+      }
+
+      #playbyplay {
+        padding-top: 20px;
+        font-size: 1.3rem;
+      }
+
+      .container .headercontainer {
+        display: flex;
+        justify-content: center;
+      }
+
+      .container .middlecontainer {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+      }
+
+      .container .oneVOneContainer {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .container .oneVOneContainer {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 50px;
+      }
+
+      .container .playercontainer {
+        text-align: center;
+      }
+
+      .container .playercontainer p {
+        font-size: 1rem;
+      }
+
+      .container .playercontainer img {
+        height: 250px;
+      }
+
+      .oneVOneContainer .playercontainer .buttonsection {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .oneVOneContainer .playercontainer .buttonsection button {
+        padding: 10px 0;
+        border-radius: 5px;
+        margin-bottom: 2px;
+      }
+
+      #player {
+        font-size: 1.6rem;
+      }
+
+      #underpbp {
+        position: absolute;
+        top: 30rem;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        left: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="outsidecontainer">
+      <div class="container with-title">
+        <header class="headercontainer title"><p>Game Of 21</p></header>
+        <div class="oneVOneContainer">
+          <section class="chefCurry">
+            <div class="playercontainer">
+              <p id="player">Steph Curry</p>
+              <img src="img/Steph-Curry.jpg" alt="A picture of steph curry" />
+              <div class="text cheftext">
+                <p>AKA: Chef Curry, <br />AKA: Baby-Faced Assassin</p>
+                <p>Team: Golden State Warriors</p>
+              </div>
+              <div class="buttonsection">
+                <button class="btn" onclick="chefCurry.floater()" id="floater">
+                  Floater +2
+                </button>
+                <button
+                  class="btn"
+                  onclick="chefCurry.pullUpFromHalfCourt(chefCurry)"
+                  id="pullUpFromHalfCourt"
+                >
+                  Pull Up from Half-Court +3
+                </button>
+
+                <button
+                  class="btn"
+                  onclick="chefCurry.stepBackJumper(chefCurry)"
+                  id="stepBackJumper"
+                >
+                  Step Back Jumper +3
+                </button>
+              </div>
+            </div>
+          </section>
+          <!-- middle section -->
+          <div class="middlecontainer">
+            <header class="headercontainer">
+              <p>Point-Guard Battles: 21</p>
+            </header>
+            <section class="boxscore">
+              <span id="curryscore"></span> <span> : </span>
+              <span id="hardenscore"></span>
+            </section>
+            <section class="playbyplay">
+              <div id="playbyplaycontainer" class="container with-title">
+                <p class="title">Play by Play</p>
+                <p id="playbyplay"></p>
+                <div id="underpbp">
+                  <div class="stephfieldgoal">
+                    <span id="stephfgm"></span> <span>/</span>
+                    <span id="stephfga"></span>
+                  </div>
+                  <div class="beardfieldgoal">
+                    <span id="beardfgm"></span> <span>/</span>
+                    <span id="beardfga"></span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- bottom section -->
+          <section class="theBeard">
+            <div class="playercontainer">
+              <p id="player">James Harden</p>
+              <img src="img/james_harden.jpg" alt="A picture of James Harden" />
+              <div class="text beardtext">
+                <p>AKA: The Beard, <br />AKA: Step Daddy</p>
+                <p>Team: Houston Rockets</p>
+              </div>
+              <div class="buttonsection">
+                <button
+                  class="btn"
+                  onclick="theBeard.flopAndOne(theBeard)"
+                  id="flopAndOne"
+                >
+                  Flop And One +2
+                </button>
+                <button
+                  class="btn"
+                  onclick="theBeard.stepBackCrossoverJumber(theBeard)"
+                  id="stepBackCrossoverJumber"
+                >
+                  Step Back Crossover Jumper +3
+                </button>
+                <button
+                  class="btn"
+                  onclick="theBeard.tomohawkDunk(theBeard)"
+                  id="tomohawkDunk"
+                >
+                  Tomohawk Dunk +3
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="assignments/prototypes.js"></script>
+  </body>
 </html>

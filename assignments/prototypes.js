@@ -144,7 +144,7 @@ Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in 
   Villain.prototype.flopAndOne = function(){
     if (Math.floor(Math.random()*10) +1 < 6) {
       this.score += 2;
-      document.getElementById("playbyplay").innerHTML = `<p>*Whitles* Harden down the lane and flails to the ground DRAMATICALLY while being far away from his opponents. Knocks down 2 free throws.</p>`
+      document.getElementById("playbyplay").innerHTML = `<p>*Whistles* Harden down the lane and flails to the ground DRAMATICALLY while being far away from his opponents. Knocks down 2 free throws.</p>`
       document.getElementById("hardenscore").innerHTML = this.score;
       // increases field goal made in play by play
       this.fgm++;
@@ -157,9 +157,7 @@ Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in 
     } else {
       document.getElementById("playbyplay").innerHTML = `<p style="color: red;">Harden just did not sell his flop very well.</p>`
 
-      // increases field goal attempts in play by play
-      this.fga++;
-      document.getElementById("beardfga").innerHTML = this.fga;
+     // does not increase fga due to nba rules
     }
   };
   Villain.prototype.stepBackCrossoverJumber = function(){
@@ -236,7 +234,7 @@ Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in 
   Hero.prototype.stepBackJumper = function(){
     if (Math.floor(Math.random()*10) +1 < 6){
       this.score += 3;
-      document.getElementById("playbyplay").innerHTML = `<p>Step back jumper... GOOD! 3 points! </p>`
+      document.getElementById("playbyplay").innerHTML = `<p>Step back jumper... GOOD! AND ONE! 3 points! </p>`
       document.getElementById("curryscore").innerHTML = this.score;
 
       // increases field goal made in play by play
