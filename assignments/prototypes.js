@@ -156,10 +156,10 @@ Humanoid.prototype.greet = function(){
     healthPoints:100,
     name: 'Thor',
     team: 'Avengers',
-    weapons: [
-      'Hammer',
-      'Lightning',
-    ],
+    weapons: {
+      'Hammer':5,
+      'Lightning':10,
+    },
     language: 'English',
 
   });
@@ -183,15 +183,19 @@ Humanoid.prototype.greet = function(){
   });
 
 // Attack function with character and damage values parameters
-  CharacterStats.prototype.attack = function(char, dmg){
-    let newhealth = char.healthPoints - dmg;
+  CharacterStats.prototype.attack = function(char, wpn){
+    let newhealth = char.healthPoints - this.weapons[wpn];
     char.healthPoints = newhealth
+    console.log(newhealth)
     if(newhealth <= 0){
       return `${char.name} has died. #RIP`
     }
-    return `${this.name} attacked ${char.name} for ${dmg} damage. ${char.name} health is now at ${char.healthPoints}`
+    return `${this.name} attacked ${char.name} for ${this.weapons[wpn]} damage. ${char.name} health is now at ${char.healthPoints}`
   }
   
   console.log(hero.takeDamage());
-  console.log(hero.attack(archer, 5));
-  console.log(archer.healthPoints);
+  console.log(hero.attack(villian, 'Lightning'));
+  console.log(hero.attack(villian, 'Hammer'));
+  console.log(villian.healthPoints);
+
+  // console.log(hero.healthPoints - villian.weapons['Ice Dagger'])
