@@ -149,12 +149,12 @@ Humanoid.prototype.greet = function(){
      alert(`Attacking ${char.name}`);
      char.healthPoints -= power;
      document.getElementById("vilhealth").innerHTML = `Health: ${char.healthPoints}`;
-     if(char.healthPoints-finalBlow <= 0){
+     if(char.healthPoints <= 0){
       alert(this.destroy(char));
+      document.getElementById("vilhealth").innerHTML = `Health: 0`;
      }
-    } else{alert(this.destroy(char));}
-      
-    }
+    } 
+  }
   
   
   
@@ -169,7 +169,10 @@ Humanoid.prototype.greet = function(){
      alert(`Casting a spell on ${char.name}`);
      char.healthPoints -= power;
      document.getElementById("herohealth").innerHTML = `Health: ${char.healthPoints}`;
-     return char.healthPoints;
+     if(char.healthPoints <= 0){
+      alert(this.destroy(char));
+      document.getElementById("herohealth").innerHTML = `Health: 0`;
+     }
     };
 
   const matt = new Hero ({
