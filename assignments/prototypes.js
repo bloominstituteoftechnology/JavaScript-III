@@ -62,7 +62,6 @@ function Humanoid (humAttributes) {
   this.language = humAttributes.language;
 };
 
-Humanoid.prototype = Object.create(GameObject.prototype);
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function () {
@@ -128,7 +127,7 @@ Humanoid.prototype.greet = function () {
     ],
     language: 'Elvish',
   });
-
+/*
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -139,8 +138,87 @@ Humanoid.prototype.greet = function () {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+*/
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+  function Hero (heroAttributes) {
+    GameObject.call(this, heroAttributes);
+    CharacterStats.call(this, heroAttributes);
+    Humanoid.call(this, heroAttributes);
+  };
+  
+  Hero.prototype = Object.create(Humanoid.prototype);
+  
+  Hero.prototype.giveDamage = function (prey) {
+    console.log(`${this.name} hurts ${prey.name}.`);
+    let newHealth = prey.healthPoints = prey.healthPoints - 5;
+    return (`${prey.name}'s health is now ${newHealth}`)
+  };
+
+  function Villain(vilAttributes){
+    GameObject.call(this, vilAttributes);
+    CharacterStats.call(this, vilAttributes);
+    Humanoid.call(this, vilAttributes);
+  };
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.serveDamage = function (enemy) {
+    console.log(`${this.name} hits ${enemy.name}`);
+    let newHealth = enemy.healthPoints = enemy.healthPoints - 3;
+    return (`${enemy.name}'s health is now ${newHealth}`)
+  };
+
+  const human = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 1,
+      height: 3,
+    },
+    healthPoints: 15,
+    name: 'David',
+    team: 'Forest Kingdom',
+    weapons: [
+      'Rock',
+      'Slingshot',
+    ],
+    language: 'English',
+  });
+  
+  const oger = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 3,
+      height: 6,
+    },
+    healthPoints: 20,
+    name: 'Goliath',
+    team: 'Oger Rebellion',
+    weapons: [
+      'Sword',
+      'Shield',
+    ],
+    language: 'Latin',
+  });
+
+
+
+console.log(human.giveDamage(oger)); 
+console.log(oger.serveDamage(human));
+console.log(human.giveDamage(oger)); 
+console.log(oger.serveDamage(human));
+console.log(human.giveDamage(oger)); 
+console.log(oger.serveDamage(human));
+console.log(human.giveDamage(oger)); 
+console.log(oger.serveDamage(human));
+console.log(human.giveDamage(oger)); 
+console.log(oger.serveDamage(human));
+console.log(human.giveDamage(oger)); 
+console.log(oger.serveDamage(human));
