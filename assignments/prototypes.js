@@ -51,9 +51,9 @@ CharacterStats.prototype.takeDamage = function() {
 function Humanoid(humanoidAttributes) {
   // GameObject.call(this, characterStatsAttributes);
   CharacterStats.call(this, humanoidAttributes);
-  this.team = team.humanoidAttributes;
-  this.weapons = weapons.humanoidAttributes;
-  this.language = language.humanoidAttributes;
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
 }
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
