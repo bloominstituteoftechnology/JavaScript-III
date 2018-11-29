@@ -45,6 +45,8 @@ function CharacterStats(gameStats) {
 
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
+
+CharacterStats.prototype = Object.create(GameObject.prototype.destroy);
 };
 
 /*
@@ -56,12 +58,29 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid (gameHumanoid) {
+  this.team = gameHumanoid.team;
+  this.weapons = gameHumanoid.weapons;
+  this.language = gameHumanoid.language;
+
+  Humanoid.call(this, gameHumanoid);
+}
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+};
+
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+
+
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
