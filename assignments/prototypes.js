@@ -20,8 +20,8 @@ function GameObject(desc) {
   this.dimensions = desc.dimensions;
 }
 
-GameObject.prototype.destroy = function() {
-  console.log(`${this.name} was removed from the game.`);
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`;
 };
 
 /*
@@ -39,8 +39,8 @@ function CharacterStats(characterstatDesc) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function() {
-  console.log(`${this.name} took damage.`);
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
 };
 
 /*
@@ -62,8 +62,8 @@ function Humanoid(humanoidDesc) {
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-Humanoid.prototype.greet = function() {
-  console.log(`${this.name} offers a greeting in ${this.language}`);
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}`;
 };
 
 /* Hero and Villain */
@@ -77,20 +77,19 @@ function ChosenOnes(chosenDesc) {
 
 ChosenOnes.prototype = Object.create(Humanoid.prototype);
 
-ChosenOnes.prototype.victory = function() {
-  console.log(`${this.name} defeated the ${this.enemy}!!!`);
+ChosenOnes.prototype.victory = function () {
+  return `${this.name} defeated the ${this.enemy}!!!`;
 };
 
-function subtract(a, b, cb) {
-  return cb(a - b);
-}
+//function subtract(a, b, cb) {
+//  return cb(a - b);
+//}
 //let health = 0;
-ChosenOnes.prototype.attack = function() {
+
+ChosenOnes.prototype.attack = function () {
   console.log(`${this.name} attacked the ${this.enemy}.`);
   console.log(`${this.enemy} took ${this.damage} damage.`);
-  console.log(
-    `${this.enemy} healthpoints are at ${this.healthPoints - this.damage}}.`
-  );
+  console.log(`${this.enemy} healthpoints are at ${this.healthPoints - this.damage}.`);
   //subtract(this.healthPoints, this.damage, function (health) {
   //  console.log(health);
   //});

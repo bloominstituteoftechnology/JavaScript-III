@@ -46,6 +46,10 @@ grilledCheese.call(bread, cheese);
 
 // Principle 4
 // code example for New Binding
+grilledCheese.call(bread, cheese);
+
+grilledCheese.apply(bread, cheese);
+
 const snack =
     grilledCheese.bind(bread, cheese);
 snack();
