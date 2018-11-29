@@ -19,7 +19,7 @@ function GameObject(gameAttributes){
   this.createdAt = gameAttributes.createdAt;
   this.dimensions = gameAttributes.dimensions;
 }
-GameObject.prototype.destroy = function(){return `Object was removed from the game`};
+GameObject.prototype.destroy = function(){return `${this.name} was removed from the game`};
 /*
   === CharacterStats ===
   * healthPoints
@@ -274,6 +274,10 @@ Humanoid.prototype.greet = function(){return `${this.name} offers a greeting in 
     }
   };
   
+  document.getElementById("stephfga").placeholder = "0";
+  document.getElementById("stephfgm").placeholder = "0";
+  document.getElementById("beardfga").placeholder = "0";
+  document.getElementById("beardfga").placeholder = "0";
   // child
 
   const theBeard = new Villain({
