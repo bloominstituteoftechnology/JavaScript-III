@@ -2,6 +2,7 @@ html {
   width: 900px;
   max-width: 100%;
   margin: 0 auto;
+  background: lightgrey;
 }
 
 .par {
@@ -34,6 +35,12 @@ html {
 h2 {
   font-size: 2rem;
 }
-.batman {
-  display: grid;
+
+#p1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+#p2 {
+  font-size: 1.2rem;
+  font-weight: 600;
 }

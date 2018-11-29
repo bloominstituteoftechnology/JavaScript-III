@@ -82,7 +82,7 @@ Villain.prototype.attack = function() {
   if (batman.healthPoints === 0) {
     return `You dead bitch`;
   } else
-    return `batmans healthpoints have went down to ${batman.healthPoints--}`;
+    return `- batmans healthpoints have went down to ${batman.healthPoints--}`;
 };
 
 function Hero(vAtr) {
@@ -93,7 +93,8 @@ Humanoid.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.attack = function() {
   if (joker.healthPoints === 0) {
     return `You dead bitch`;
-  } else return `jokers healthpoints have went down to ${joker.healthPoints--}`;
+  } else
+    return `- jokers healthpoints have went down to ${joker.healthPoints--}`;
 };
 
 console.log(Humanoid.prototype);
