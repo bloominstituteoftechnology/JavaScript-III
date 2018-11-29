@@ -104,7 +104,7 @@ Villain.prototype = Object.create(Hero.prototype);
 
 Villain.prototype.specialAttack = function(otherCharacter){
   otherCharacter.healthPoints -= this.specialDamage;
-  console.log(`${this.name} attacks ${otherCharacter.name} with a special attack for ${this.damageAmount} damage and leaves ${otherCharacter.name} with ${otherCharacter.healthPoints} health points!`)
+  console.log(`${this.name} attacks ${otherCharacter.name} with a special attack for ${this.specialDamage} damage and leaves ${otherCharacter.name} with ${otherCharacter.healthPoints} health points!`)
   if(otherCharacter.healthPoints <= 0){
     otherCharacter.destroy();
   }
