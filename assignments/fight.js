@@ -31,8 +31,13 @@ window.onload=function(){
     let scoreRio = 0;
     attackRio = document.querySelector("#attackRio");
     congrat = document.querySelector("#congrat");
+    rioDiv = document.querySelector("#Rio-div")
     attackRio.addEventListener("click",function(){
         span2.innerHTML = scoreRio++;
+          if(scoreRio === 10){
+                rioDiv.innerHTML= "I do not like Rio, So for me, he will always lose";
+                rioDiv.style.backgroundColor ="orange";
+            }
         let one = Math.floor(Math.random()*100);
         let two = Math.floor(Math.random()*240);
         let three = Math.floor(Math.random()*1);
@@ -45,12 +50,11 @@ window.onload=function(){
 
     })
     
-    
     reset = document.querySelector("#reset");
     reset.addEventListener("click",function(){
         score = scoreRio = 0;
         span1.textContent = 0;
         span2.textContent =0;
-        sagaWin.innerHTML.style.display = "<div> </div>";
+        
     })
 }
