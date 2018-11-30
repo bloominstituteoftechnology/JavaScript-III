@@ -171,7 +171,7 @@ Humanoid.prototype.greet = function(){
     } else if(obj.healthPoints <= 0){
       return obj.destroy();
     } else if (obj.healthPoints < 30 && obj.healthPoints > 1){
-      return `${obj.name}'s health is low, ATTACK!!! Health remains: ${obj.healthPoints} points.`
+      return `${obj.name}'s health is low, ATTACK!!! Health remains: ${obj.healthPoints} points. ${this.name} health ${this.healthPoints}`
     } else {
       return `${this.name} attacked ${obj.name} with ${this.special}. ${obj.name} ${obj.healthPoints} health left! ${this.name} ${this.healthPoints}`;
     }
@@ -222,7 +222,7 @@ Humanoid.prototype.greet = function(){
       } else if(obj.healthPoints <= 0){
         return obj.destroy();
       } else if (obj.healthPoints < 30 && obj.healthPoints > 1){
-        return `${obj.name}'s health is low, ATTACK!!! Health remains: ${obj.healthPoints} points.`
+        return `${obj.name}'s health is low, ATTACK!!! Health remains: ${obj.healthPoints} points. ${this.name} health ${this.healthPoints}`
       } else {
         return `${this.name} attacked ${obj.name} with ${this.special}. ${obj.name} ${obj.healthPoints} health left! ${this.name} ${this.healthPoints}`;
       }
@@ -256,16 +256,17 @@ Humanoid.prototype.greet = function(){
     });
 
   let obj = thanos;
+  let obj2 = hulk;
 
-  console.log(hulk.attack(obj));
-  console.log(hulk.attack(obj));
-  console.log(hulk.attack(obj));
-  console.log(hulk.attack(obj));
-  console.log(hulk.attack(obj));
+  console.log(obj2.attack(obj));
+  console.log(obj2.attack(obj));
+  console.log(obj2.attack(obj));
+  console.log(obj2.attack(obj));
+  console.log(obj2.attack(obj));
   console.log(thanos.heal());
-  console.log(hulk.attack(obj));
-  console.log(hulk.attack(obj));
-  console.log(hulk.attack(obj));
+  console.log(obj2.attack(obj));
+  console.log(obj2.attack(obj));
+  console.log(obj2.attack(obj));
 
   
     
