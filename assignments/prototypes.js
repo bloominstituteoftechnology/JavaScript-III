@@ -54,7 +54,7 @@ class Villain extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("beardfga").innerHTML = this.fga;
-    } else {
+    } else if (chefCurry.score <21 && (Math.random() * 10) + 1 >= 6)  {
       document.getElementById(
         "playbyplay"
       ).innerHTML = `<p style="color: red;">Harden just did not sell his flop very well.</p>`;
@@ -62,6 +62,8 @@ class Villain extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("beardfga").innerHTML = this.fga;
+    } else {
+      return;
     }
     if (this.score >=21 && this.score <=23) {
       document.getElementById(
@@ -86,7 +88,7 @@ class Villain extends Humanoid {
       this.fga++;
       document.getElementById("beardfga").innerHTML = this.fga;
       
-    } else {
+    } else if (chefCurry.score <21 && (Math.random() * 10) + 1 >= 6)  {
       document.getElementById(
         "playbyplay"
       ).innerHTML = `<p style="color: red;">Harden turns the ball over! </p>`;
@@ -94,6 +96,8 @@ class Villain extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("beardfga").innerHTML = this.fga;
+    } else {
+      return;
     }
 
     if (this.score >=21 && this.score <=23) {
@@ -117,7 +121,7 @@ class Villain extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("beardfga").innerHTML = this.fga;
-    } else {
+    } else if (chefCurry.score <21 && (Math.random() * 10) + 1 >= 6) {
       document.getElementById(
         "playbyplay"
       ).innerHTML = `<p style="color: red;">Harden gets BLOCKED!</p>`;
@@ -155,7 +159,7 @@ class Hero extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("stephfga").innerHTML = this.fga;
-    } else {
+    } else if (theBeard.score <21 && (Math.random() * 10) + 1 >= 6){
       document.getElementById(
         "playbyplay"
       ).innerHTML = `<p style="color: red;">Not a good look, it was a bad shot.</p>`;
@@ -163,6 +167,8 @@ class Hero extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("stephfga").innerHTML = this.fga;
+    } else {
+      return;
     }
     if (this.score >=21 && this.score <=23) {
       document.getElementById(
@@ -185,7 +191,7 @@ class Hero extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("stephfga").innerHTML = this.fga;
-    } else {
+    } else if (theBeard.score <21 && (Math.random() * 10) + 1 >= 6){
       document.getElementById(
         "playbyplay"
       ).innerHTML = `<p style="color: red;">Curry shoots, and no good. </p>`;
@@ -193,6 +199,8 @@ class Hero extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("stephfga").innerHTML = this.fga;
+    } else {
+      return;
     }
     if (this.score >=21 && this.score <=23) {
       document.getElementById(
@@ -216,7 +224,7 @@ class Hero extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("stephfga").innerHTML = this.fga;
-    } else {
+    } else if (theBeard.score <21 && (Math.random() * 10) + 1 >= 6){
       document.getElementById(
         "playbyplay"
       ).innerHTML = `<p style="color: red;">Curry gets blocked!</p>`;
@@ -224,6 +232,8 @@ class Hero extends Humanoid {
       // increases field goal attempts in play by play
       this.fga++;
       document.getElementById("stephfga").innerHTML = this.fga;
+    } else {
+      return;
     }
     if (this.score >=21 && this.score <=23) {
       document.getElementById(
