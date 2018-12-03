@@ -8,6 +8,8 @@ class GameObject {
     return `${this.name} was removed from the game`;
   }
 }
+
+
 class CharacterStats extends GameObject {
   constructor(CharStatAttributes) {
     super(CharStatAttributes);
@@ -15,6 +17,7 @@ class CharacterStats extends GameObject {
     this.name = CharStatAttributes.name;
   }
 }
+
 class Humanoid extends CharacterStats {
   constructor(humanoidAttributes) {
     super(humanoidAttributes);
@@ -25,10 +28,13 @@ class Humanoid extends CharacterStats {
     this.fgm = humanoidAttributes.fgm;
     this.fga = humanoidAttributes.fga;
   }
+
   greet() {
     return `${this.name} offers a greeting in ${this.language}.`;
   }
 }
+
+
 // parent
 class Villain extends Humanoid {
   constructor(villainAttributes) {
@@ -66,7 +72,7 @@ class Villain extends Humanoid {
     }
   };
 
-  stepBackCrossoverJumber() {
+  stepBackCrossoverJumper() {
     if (chefCurry.score < 21 && this.score < 21 && Math.floor(Math.random() * 10) + 1 < 6) {
       this.score += 3;
       document.getElementById(
@@ -132,6 +138,8 @@ class Villain extends Humanoid {
     }
   };
 }
+
+
 class Hero extends Humanoid {
   constructor(heroAttributes){
     super(heroAttributes);
@@ -197,7 +205,7 @@ class Hero extends Humanoid {
     if (this.score >=21 && this.score <=23) {
       document.getElementById(
         "playbyplay"
-      ).innerHTML = `<p style="color: red;">HARDEN IS THE WINNER</br></br> <a href="index.html">Play Again?</a></p>`;
+      ).innerHTML = `<p style="color: red;">CURRY IS THE WINNER</br></br> <a href="index.html">Play Again?</a></p>`;
     }
   };
 
@@ -230,7 +238,7 @@ class Hero extends Humanoid {
     if (this.score >=21 && this.score <=23) {
       document.getElementById(
         "playbyplay"
-      ).innerHTML = `<p style="color: red;">HARDEN IS THE WINNER</br></br> <a href="index.html">Play Again?</a></p>`;
+      ).innerHTML = `<p style="color: red;">CURRY IS THE WINNER</br></br> <a href="index.html">Play Again?</a></p>`;
     }
   };
 }
