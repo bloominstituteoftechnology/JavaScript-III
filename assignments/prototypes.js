@@ -8,8 +8,6 @@ class GameObject {
     return `${this.name} was removed from the game`;
   }
 }
-
-
 class CharacterStats extends GameObject {
   constructor(CharStatAttributes) {
     super(CharStatAttributes);
@@ -17,7 +15,6 @@ class CharacterStats extends GameObject {
     this.name = CharStatAttributes.name;
   }
 }
-
 class Humanoid extends CharacterStats {
   constructor(humanoidAttributes) {
     super(humanoidAttributes);
@@ -28,13 +25,10 @@ class Humanoid extends CharacterStats {
     this.fgm = humanoidAttributes.fgm;
     this.fga = humanoidAttributes.fga;
   }
-
   greet() {
     return `${this.name} offers a greeting in ${this.language}.`;
   }
 }
-
-
 // parent
 class Villain extends Humanoid {
   constructor(villainAttributes) {
@@ -138,8 +132,6 @@ class Villain extends Humanoid {
     }
   };
 }
-
-
 class Hero extends Humanoid {
   constructor(heroAttributes){
     super(heroAttributes);
