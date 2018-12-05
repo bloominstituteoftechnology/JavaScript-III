@@ -8,12 +8,34 @@
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
   
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function () {
+  return 'Object was removed from the game.';
+};
+
 /*
   === GameObject ===
   * createdAt
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+
+function CharacterStats(charAttributes) {
+  GameObject.call(this, charAttributes);
+  this.hp = charAttributes.hp;
+  this.name = charAttributes.name;
+  this.healthPoints = charAttributes.healthPoints;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage`;
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +44,20 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function Humanoid(humanAttributes) {
+  CharacterStats.call(this, humanAttributes);
+    this.team = humanAttributes.team;
+    this.weapons = humanAttributes.weapons;
+    this.language = humanAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -41,7 +77,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +138,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  

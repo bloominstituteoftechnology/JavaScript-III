@@ -11,7 +11,7 @@ This challenge focuses on using the `this` keyword as well as getting comfortabl
 
 ## Assignment Set Up
 
-* [ ] Complete all the exercises as described inside each assignment file.
+* [x] Complete all the exercises as described inside each assignment file.
 * [x] To test your `console.log()` statements, open up the index.html file found in the assignments folder and use the developer tools to view the console.  
 
 ## The `this` keyword
@@ -22,5 +22,5 @@ This challenge focuses on using the `this` keyword as well as getting comfortabl
 
 The prototype challenge will focus on building prototypes for a fantasy themed game that includes mages, swordsmen, and archers.  Follow the [prototypes.js](assignments/this.js) instructions closely to create the beginnings of what could be an awesome JavaScript game.
 
-* [ ] Read the instructions found within the file carefully to finish the challenges. 
-* [ ] Remember to un-comment the objects and console logs to test your work at the bottom of the page.
+* [x] Read the instructions found within the file carefully to finish the challenges. 
+* [x] Remember to un-comment the objects and console logs to test your work at the bottom of the page.
