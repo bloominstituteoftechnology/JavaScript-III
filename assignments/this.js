@@ -11,62 +11,18 @@
 
 // Principle 1
 
-// code example for Window Binding
-
-function myName(name) {
-    console.log(this);
-    return name;
-}
-
-// myName("Kelli");
 
 // Principle 2
 
-// code example for Implicit Binding
-
-const myGreeting = {
-    greeting: 'Hi',
-    sayHi: function(name) {
-        console.log(`${this.greeting} my name is ${name}`);
-    }
-};
-
-// myGreeting.sayHi('Kelli');
 
 // Principle 3
 
+
+
 // code example for New Binding
 
-function CordialPerson(greeter) {
-    this.greeting = 'Hello';
-    this.greeter = greeter;
-    this.speak = function() {
-        console.log(this.greeting + this.greeter);
-        console.log(this);
-    };
-}
 
-// const Kelli = new CordialPerson('Marissa');
-// const Marissa = new CordialPerson('Kelli');
 
-// Kelli.speak();
-// Marissa.speak();
-
-// Principle 4
 
 // code example for Explicit Binding
 
-// function CordialPerson(greeter) {
-//     this.greeting = 'Hello';
-//     this.greeter = greeter;
-//     this.speak = function() {
-//         console.log(this.greeting + this.greeter);
-//         console.log(this);
-//     };
-// }
-
-// const K = new CordialPerson('Marissa');
-// const M = new CordialPerson('Kelli');
-
-// K.speak.call(Marissa);
-// M.speak.apply(Kelli);
