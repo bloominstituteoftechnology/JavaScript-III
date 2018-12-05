@@ -24,6 +24,14 @@ speak("Hello");
 // Principle 2
 
 // code example for Implicit Binding
+const salutations = {
+    farewel: "Good bye",
+    sayGoodBye: function (later) {
+        console.log(`${this.farewell} It was nice meeting you! ${later}`);
+        console.log(this);
+    }
+}
+    salutations.sayGoodBye("See you later");
 
 
 // Principle 3
