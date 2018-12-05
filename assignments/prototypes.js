@@ -62,6 +62,21 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit takeDamage() from CharacterStats
 */
 
+function Humanoid (gameHumanoid) {
+  this.team = gameHumanoid.team;
+  this.weapons = gameHumanoid.weapons;
+  this.language = gameHumanoid.language;
+
+  CharacterStats.call(this, gameHumanoid);
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+
+
+};
 
  
 /*
@@ -148,8 +163,74 @@ CharacterStats.prototype.takeDamage = function() {
 
 // };
 
+// make villian/Hero constructor 
+// inherit humanoid constructor
+// give both methods to remove health healthPoints
+// destruction of health if gets below 0
+// make two new objects
+// have them fight with methods
+
+function Villian(gameVillian) {
+  Humanoid.call(this, gameVillian);
+
+}
+
+Villian.prototype = Object.create(GameObject.prototype);
+
+Villian.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+
+};
+
 // function Hero(gameHero) {
 
 // };
+
+function Hero(gameHero) {
+  Humanoid.call(this, gameHero);
+
+}
+
+Hero.prototype = Object.create(GameObject.prototype);
+
+Hero.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+
+};
+
+const joker = new Villan({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  healthPoints: 3,
+  name: 'Joker',
+  team: 'Evil',
+  weapons: [
+    'Potato Peeler',
+  ],
+  language: 'English',
+});
+
+const batman = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2,
+  },
+  healthPoints: 20,
+  name: 'Batman',
+  team: 'Good',
+  weapons: [
+    'Batarang',
+  ],
+  language: 'English',
+});
+
+
+
 
 
