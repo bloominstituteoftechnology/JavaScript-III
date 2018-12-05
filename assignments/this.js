@@ -12,56 +12,18 @@
 // Principle 1
 
 // code example for Window Binding
-function speak (greeting) {
-    console.log(this);
-    return greeting;
-}
-speak("Hello");
+
 // Principle 2
 
 // code example for Implicit Binding
-const salutations = {
-    farewel: "Good bye",
-    sayGoodBye: function (later) {
-        console.log(`${this.farewell} It was nice meeting you! ${later}`);
-        console.log(this);
-    }
-}
-    salutations.sayGoodBye("See you later");
+
 
 // Principle 3
 
 // code example for New Binding
-    function Assault(attack) {
-        this.person = "person"
-        this.attack = attack;
-        this.hurt = function () {
-            console.log(this.person + this.attack);
-            console.log(this);
-        }
-    }
-    const judo = new Assault("bjj");
-    const bjj = new Assault("judo");
-
-    judo.hurt();
-    bjj.hurt();
+    
 
 
 // Principle 4
 
 // code example for Explicit Binding
-function Assault(attack) {
-    this.person = "person"
-    this.attack = attack;
-    this.hurt = function () {
-        console.log(this.person + this.attack);
-        console.log(this);
-    }
-}
-    const judo = new Assault("bjj");
-    const bjj = new Assault("judo");
-    judo.hurt.call(bjj);
-    bjj.hurt.call(judo);
-
-    judo.hurt();
-    bjj.hurt();
