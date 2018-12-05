@@ -37,9 +37,36 @@ const salutations = {
 // Principle 3
 
 // code example for New Binding
-    
+function Assault(attack) {
+    this.person = "Jason"
+    this.attack = attack;
+    this.hurt = function () {
+        console.log(this.person + this.attack);
+        console.log(this);
+    }
+}
+const judo = new Assault("bjj");
+const bjj = new Assault("judo");
+
+
 
 
 // Principle 4
 
 // code example for Explicit Binding
+function Assault(attack) {
+    this.person = "Jason"
+    this.attack = attack;
+    this.hurt = function () {
+        return `Took damage by ${this.person}`;
+       
+    }
+    console.log(this.person + this.attack);
+    console.log(this);
+}
+    const Batman = new Assault("Joker");
+    const Joker = new Assault("Batman");
+    Batman.hurt.call(Joker);
+    Joker.hurt.call(Batman);
+
+    Bat
