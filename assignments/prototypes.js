@@ -38,7 +38,19 @@ function GameObject(object) {
   * should inherit destroy() from GameObject's prototype
 */
 
+function CharacterStats(gameStats) {
+  GameObject.call(this, gameStats);
+  this.healthPoints = gameStats.healthPoints;
+  this.name = gameStats.name;
 
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+
+};
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -58,15 +70,6 @@ function GameObject(object) {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-
-// function Villian(gameVillian) {
- 
-
-// };
-
-// function Hero(gameHero) {
-
-// };
 
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
@@ -138,3 +141,15 @@ function GameObject(object) {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods! 
+
+
+// function Villian(gameVillian) {
+ 
+
+// };
+
+// function Hero(gameHero) {
+
+// };
+
+
