@@ -12,6 +12,14 @@
 // Principle 1
 
 // code example for Window Binding
+function speak (greeting) {
+    console.log(this);
+    return greeting;
+}
+speak("Hello");
+
+
+
 
 // Principle 2
 
