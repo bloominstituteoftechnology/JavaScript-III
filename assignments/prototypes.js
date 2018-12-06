@@ -166,6 +166,8 @@ Humanoid.prototype.greet = function() {
 // make two new objects
 // have them fight with methods
 
+// Hi this is not right. I was just trying to get it started.
+
 function Villian(gameVillian) {
   Humanoid.call(this, gameVillian);
 
