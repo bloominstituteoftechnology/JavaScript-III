@@ -158,10 +158,6 @@ Humanoid.prototype.greet = function() {
   // * Create two new objects, one a villain and one a hero and fight it out with methods! 
 
 
-// function Villian(gameVillian) {
- 
-
-// };
 
 // make villian/Hero constructor 
 // inherit humanoid constructor
@@ -175,16 +171,13 @@ function Villian(gameVillian) {
 
 }
 
-Villian.prototype = Object.create(GameObject.prototype);
+Villian.prototype = Object.create(Humanoid.prototype);
 
 Villian.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 
 };
 
-// function Hero(gameHero) {
-
-// };
 
 function Hero(gameHero) {
   Humanoid.call(this, gameHero);
@@ -230,7 +223,8 @@ const batman = new Hero({
   language: 'English',
 });
 
-
+// console.log(batman.(joker));
+// console.log(joker.(batman));
 
 
 
