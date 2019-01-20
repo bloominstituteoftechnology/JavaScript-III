@@ -1,3 +1,5 @@
+"use strict";
+
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
@@ -12,6 +14,8 @@
 // Principle 1
 
 // code example for Window Binding
+console.log(this.window);
+
 
 // Principle 2
 
@@ -24,3 +28,5 @@
 // Principle 4
 
 // code example for Explicit Binding
+
+
