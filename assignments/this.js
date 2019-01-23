@@ -18,7 +18,7 @@ function greeting() {
     console.log(this);
 }
 
-gretting();
+greeting();
 
 // Principle 2
 
@@ -38,9 +38,16 @@ starWars.cook();
 
 // code example for New Binding
 
-const useLater = introduce.bind(person,...skills);
-useLater();
+const user = {
+    firstName : "Shayaan"
+};
 
+function func() {
+    alert(this.firstName);
+}
+
+let funcUser = func.bind(user);
+funcUser(); // Shayaan
 
 
 // Principle 4
