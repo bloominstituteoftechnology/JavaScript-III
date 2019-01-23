@@ -15,15 +15,16 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 function GameObject(attributes){
-  this.name = attributes.name;
+  
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
 };
 
-GameObject.prototype.destroy = () => {
-  // delete GameObject;
-  return `${this.name}+'was removed from the game.'`;
-}
+GameObject.prototype.destroy = function() {
+  // delete GameObject;                     
+  GameObject.prototype.destroy() = function () {
+    return `${this.name} was removed from the game.`;
+  };
 
 const objectA = new GameObject({createdAt : '01/05/05', dimensions : '2x2x2'});
 
@@ -44,7 +45,7 @@ function CharacterStats(attributes){
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = () => {
+CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage.`;
 };
 
