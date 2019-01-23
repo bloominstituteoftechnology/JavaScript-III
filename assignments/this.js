@@ -11,18 +11,49 @@
 
 // Principle 1
 
-// code example for Window Binding
+console.log('Code example for Window Binding');
+    
+    window.name = 'Will';
+
+    function sayName() {
+        console.log('My name is ' + this.name);
+    }  
+
+sayName();
 
 // Principle 2
 
-// code example for Implicit Binding
+console.log('Code example for Implicit Binding');
+
+    const streamer = {
+        name: 'Steven',
+        age: 15,
+        greet(){
+            console.log('Hello and welcome to my stream. My name is ' + this.name);
+        }
+    }
+
+    streamer.greet();
 
 // Principle 3
 
-// code example for New Binding
+console.log('Code example for New Binding');
 
+function Gamer(name, age){
+    this.name = name;
+    this.age = age;
+}
 
+const tester = new Gamer('Garret', 19);
+
+console.log(tester);
 
 // Principle 4
 
-// code example for Explicit Binding
+console.log('Code example for Explicit Binding');
+
+function sayHello() {
+    console.log('Hello World, my name is ' + this.name);
+}
+
+sayHello.call(tester);
