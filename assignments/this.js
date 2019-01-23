@@ -13,9 +13,22 @@
 
 // code example for Window Binding
 
+
+
 // Principle 2
 
 // code example for Implicit Binding
+
+const sayHello = { 
+    greeting: 'Hello', 
+    speak: function(){ 
+      console.log(this)
+        return `${this.greeting}, world!`
+    }
+}
+
+sayHello.speak()
+
 
 // Principle 3
 
