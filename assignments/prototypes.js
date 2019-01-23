@@ -14,15 +14,15 @@
   * dimensions
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-
-
-function GameObject (profession) {
-  this.createdAt = profession.createdAt
-  this.dimensions = profession.dimensions
-}
+function GameObject(params) {
+  this.createdAt = params.createdAt;
+  this.dimensions = params.dimensions;
+};
 GameObject.prototype.destroy = function() {
-  return 'Object was removed from the game'
-}
+  return 'Object was removed from the game';
+};
+
+
 
 /*
   === CharacterStats ===
@@ -31,17 +31,19 @@ GameObject.prototype.destroy = function() {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats (character) {
-  GameObject.call(this, character)
-  this.hp = character.hp
-  this.name = character.name
-}
+function CharacterStats(params) {
+  GameObject.call(this, params);
+  this.hp = params.hp;
+  this.name = params.name;
+};
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
-CharacterStats.prototype.takeDamage = function() {
-  return `${this.name} took damage!`
-}
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage`
+};
+
 
 /*
   === Humanoid ===
@@ -52,17 +54,18 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- function Humanoid (param){
-   CharacterStats.call(this, param)
-   this.faction = param.faction
-   this.weapons = param.weapons
-   this.language = param.language
+function Humanoid(params) {
+  CharacterStats.call(this, params);
+  this.faction = params.faction;
+  this.weapons = params.weapons;
+  this.language = params.language;
+};
+ Humanoid.prototype.greet = function() {
+   return `${this.name} offers a greeting in ${this.language}`
  }
-Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-Humanoid.prototype.greet = function() {
-   return `${this.name} offers a greeting!`
- }
+
+ 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
