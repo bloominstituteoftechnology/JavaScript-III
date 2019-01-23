@@ -1,10 +1,10 @@
 /* THE for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Implicit Binding- 
-* 2. 
-* 3. 
-* 4. 
+* 1. Implicit Binding- The object left of the dot gets the this. The left of the . is where the "this" is pointed. 
+* 2. Global/Window Binding - In global scope the vale of this will be the window or console object. 
+* 3. New Binding - 
+* 4. Explict Binding - 
 *
 * write out a code example of each explanation above
 */
