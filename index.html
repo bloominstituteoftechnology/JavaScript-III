@@ -4,179 +4,185 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
+  <!--<![endif]-->
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Avengers vs Thanos</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+      rel="stylesheet"
+    />
     <!-- <link rel="stylesheet" href=""> -->
-</head>
+  </head>
 
-<body>
+  <body>
     <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
     <header>
-        <img class="header-img" src="img/avengerspixelart.jpg" alt="">
-        <h1>Avengers vs Thanos</h1>
+      <img class="header-img" src="img/avengerspixelart.jpg" alt="" />
+      <h1>Avengers vs Thanos</h1>
     </header>
 
     <div class="showdown">
-        <div class="thanos">
-            <div class="infinity-stones">
-                <img class="stone" src="img/power-stone.png" alt="">
-                <img class="stone" src="img/space-stone.png" alt="">
-                <img class="stone" src="img/reality-stone.png" alt="">
-                <img class="stone" src="img/soul-stone.png" alt="">
-                <img class="stone" src="img/time-stone.png" alt="">
-                <img class="stone" src="img/mind-stone.png" alt="">
-            </div>
-            <img class="thanos-pic" src="img/thanos.png" alt="" title="Thanos">
-            <h3>Thanos</h3>
-            <p>HP: <span id="thanos-hp"></span></p>
-            <div class="thanos-msg message">
-                <p>"The end is near."</p>
-            </div>
+      <div class="thanos">
+        <div class="infinity-stones">
+          <img class="stone" src="img/power-stone.png" alt="" />
+          <img class="stone" src="img/space-stone.png" alt="" />
+          <img class="stone" src="img/reality-stone.png" alt="" />
+          <img class="stone" src="img/soul-stone.png" alt="" />
+          <img class="stone" src="img/time-stone.png" alt="" />
+          <img class="stone" src="img/mind-stone.png" alt="" />
         </div>
+        <img class="thanos-pic" src="img/thanos.png" alt="" title="Thanos" />
+        <h3>Thanos</h3>
+        <p>HP: <span id="thanos-hp"></span></p>
+        <div class="thanos-msg message"><p>"The end is near."</p></div>
+      </div>
 
-        <div class="avengers">
-            <div class="avengers-msg">
-                <p>Avengers Assemble!</p>
-            </div>
-            <div class="hero-wrapper">
-                <div id="thor">
-                    <img class="avenger" src="img/thor.png" alt="">
-                    <h3>Thor</h3>
-                    <p>HP: <span id="thor-hp"></span></p>
-                    <button id="thor-attack">Attack</button>
-                </div>
-                <div id="hulk">
-                    <img class="avenger" src="img/hulk.png" alt="">
-                    <h3>Hulk</h3>
-                    <p>HP: <span id="hulk-hp"></span></p>
-                    <button id="hulk-attack">Attack</button>
-                </div>
-                <div id="cap">
-                    <img class="avenger" src="img/cap.png" alt="">
-                    <h3>Captain America</h3>
-                    <p>HP: <span id="cap-hp"></span></p>
-                    <button id="cap-attack">Attack</button>
-                </div>
-                <div id="ironman">
-                    <img class="avenger" src="img/tony.png" alt="">
-                    <h3>Iron Man</h3>
-                    <p>HP: <span id="ironman-hp"></span></p>
-                    <button id="ironman-attack">Attack</button>
-                </div>
-            </div> <!-- .hero-wrapper -->
-        </div> <!-- .avengers -->
-    </div> <!-- .showdown -->
+      <div class="avengers">
+        <div class="avengers-msg"><p>Avengers Assemble!</p></div>
+        <div class="hero-wrapper">
+          <div id="thor">
+            <img class="avenger" src="img/thor.png" alt="" />
+            <h3>Thor</h3>
+            <p>HP: <span id="thor-hp"></span></p>
+            <button id="thor-attack">Attack</button>
+          </div>
+          <div id="hulk">
+            <img class="avenger" src="img/hulk.png" alt="" />
+            <h3>Hulk</h3>
+            <p>HP: <span id="hulk-hp"></span></p>
+            <button id="hulk-attack">Attack</button>
+          </div>
+          <div id="cap">
+            <img class="avenger" src="img/cap.png" alt="" />
+            <h3>Captain America</h3>
+            <p>HP: <span id="cap-hp"></span></p>
+            <button id="cap-attack">Attack</button>
+          </div>
+          <div id="ironman">
+            <img class="avenger" src="img/tony.png" alt="" />
+            <h3>Iron Man</h3>
+            <p>HP: <span id="ironman-hp"></span></p>
+            <button id="ironman-attack">Attack</button>
+          </div>
+        </div>
+        <!-- .hero-wrapper -->
+      </div>
+      <!-- .avengers -->
+    </div>
+    <!-- .showdown -->
 
     <script src="assignments/prototypes.js" async defer></script>
-</body>
+  </body>
 
-<style>
+  <style>
     body {
-        background-color: #101010;
-        color: white;
-        font-family: 'Press Start 2P', cursive;
+      background-color: #101010;
+      color: white;
+      font-family: "Press Start 2P", cursive;
+      min-height: 100vh;
+      min-width: 100vw;
     }
 
     header {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     h1 {
-        text-align: center;
+      text-align: center;
     }
 
     h3 {
-        height: 40px;
+      height: 40px;
     }
 
     .avengers {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        transition: 5s;
-        /* border: 1px solid red; */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      transition: 5s;
+      /* border: 1px solid red; */
     }
 
     .avengers-msg {
-        /* height: 30px; */
+      /* height: 30px; */
     }
 
     .hero-wrapper {
-        display: flex;
+      display: flex;
     }
 
     .avenger {
-        width: 200px;
+      width: 200px;
     }
 
     .showdown {
-        max-width: 1250px;
-        display: flex;
-        justify-content: space-between;
-        margin: 60px auto;
-        text-align: center;
+      max-width: 1250px;
+      display: flex;
+      justify-content: space-between;
+      margin: 60px auto;
+      text-align: center;
     }
 
     .infinity-stones {
-        width: 350px;
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        margin: 0 auto;
+      width: 350px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 0 auto;
     }
 
     .stone {
-        width: 50px;
-        height: 50px;
+      width: 50px;
+      height: 50px;
     }
 
     button {
-        padding: 10px 20px;
-        font-family: 'Press Start 2P', cursive;
-        background: #CF6510;
-        border: 2px solid #F4AB27;
-        color: white;
-        margin-bottom: 45px;
+      padding: 10px 20px;
+      font-family: "Press Start 2P", cursive;
+      background: #cf6510;
+      border: 2px solid #f4ab27;
+      color: white;
+      margin-bottom: 45px;
     }
 
     button:active {
-        background: rgb(121, 60, 10);
+      background: rgb(121, 60, 10);
     }
 
     .btn-disabled {
-        background: #aaa;
-        border: 2px solid #555;
+      background: #aaa;
+      border: 2px solid #555;
     }
 
     .thanos {
-        width: 70%;
-        padding-right: 50px;
-        padding-bottom: 45px;
-        /* border: 1px solid red; */
+      width: 70%;
+      padding-right: 50px;
+      padding-bottom: 45px;
+      /* border: 1px solid red; */
     }
 
     .thanos-pic {
-        width: 250px;
+      width: 250px;
     }
 
     .message {
-        color: #CF6510;
-        line-height: 1.4;
-        background: #101010;
-        height: 70px;
+      color: #cf6510;
+      line-height: 1.4;
+      background: #101010;
+      height: 70px;
     }
-</style>
-
+  </style>
 </html>
