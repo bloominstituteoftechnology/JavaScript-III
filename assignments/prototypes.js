@@ -19,15 +19,10 @@ function GameObject(attributes){
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
 };
-
-GameObject.prototype.destroy = function() {
-  // delete GameObject;                     
-  GameObject.prototype.destroy() = function () {
+                   
+  GameObject.prototype.destroy = function () {
     return `${this.name} was removed from the game.`;
   };
-
-const objectA = new GameObject({createdAt : '01/05/05', dimensions : '2x2x2'});
-
 /*
   === CharacterStats ===
   * healthPoints
@@ -37,7 +32,7 @@ const objectA = new GameObject({createdAt : '01/05/05', dimensions : '2x2x2'});
 */
 
 function CharacterStats(attributes){
-  GameObject.call(this,attributes);
+  GameObject.call(this , attributes);
   this.name = attributes.name;
   this.healthPoints = attributes.healthPoints;
 
