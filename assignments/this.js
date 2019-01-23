@@ -12,14 +12,13 @@
 // Principle 1
 
 console.log('Code example for Window Binding');
-    
-    window.name = 'Will';
+    window.hello = 'Will';    
 
-    function sayName() {
-        console.log('My name is ' + this.name);
+    function sayNames() {
+        console.log('My name is ' + this.hello);
     }  
 
-sayName();
+sayNames();
 
 // Principle 2
 
