@@ -28,12 +28,25 @@ const grandfather = {
        console.log(`${this.name} created a ${this.method} time loop.`) 
       }
 }
-
-
+grandfather.make();
+//Im not to sure whats going on here??
 // Principle 3
 
 // code example for New Binding
+function Newsoul(type) {
+    this.name = type;
+    this.speak = function() {
+        console.log(`me nombrea ${this.name}.`)
+    }
+}
+
+const henery = new Newsoul("Henery");
+henery.speak()
+
 
 // Principle 4
 
 // code example for Explicit Binding
+
+const robin = new Newsoul('robben');
+henery.speak.call(robin);
