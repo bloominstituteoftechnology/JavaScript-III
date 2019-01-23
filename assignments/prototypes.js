@@ -22,8 +22,9 @@ function GameObject(game) {
 }
 
 GameObject.prototype.destroy = function () {
-  return `object was removed from the game.`;
-}
+  return 'Object was removed from the game.';
+};
+
 
 /*
   === CharacterStats ===
@@ -34,15 +35,17 @@ GameObject.prototype.destroy = function () {
 */
 
 function CharacterStats(stats) {
+  GameObject.call(this, stats);
   this.healthPoints = stats.healthPoints;
   this.name = stats.name;
 }
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage`;
 }
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -55,15 +58,18 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 */
 
 function Humanoid(human) {
+  CharacterStats.call(this, human);
   this.team = human.team;
   this.weapons = human.weapons;
   this.language = human.language;
 }
 
-Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}`;
-}
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
