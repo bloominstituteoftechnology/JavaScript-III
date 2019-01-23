@@ -18,14 +18,9 @@
 function GameObject (attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
-  this.destroy = function () {
-    return `${this.name} was removed from the game`
-  }
 }
 
-// GameObject.prototype.destroy = function () {
-//   return `${this.name} was removed from the game`
-// }
+
 
 /*
   === CharacterStats ===
@@ -39,14 +34,9 @@ function CharacterStats (attributes) {
   GameObject.call(this, attributes);
   this.name = attributes.name;
   this.healthPoints = attributes.healthPoints;
-  this.takeDamage = function () {
-    return `${this.name} took damage`
-  }
 }
 
-// CharacterStats.prototype.takeDamage = function () {
-//   return `${this.name} took damage`
-// }
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -64,10 +54,8 @@ function Humanoid (attributes) {
   this.team = attributes.team;
   this.weapons = attributes.weapons;
   this.language = attributes.language;
-  this.greet = function () {
-    return `My arrows are very pointy`
-  }
 }
+
 
 
 /*
@@ -76,6 +64,20 @@ function Humanoid (attributes) {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game`
+}
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage`
+}
+
+Humanoid.prototype.greet = function () {
+  return `Hello I am ${this.name}`
+}
 
 
 

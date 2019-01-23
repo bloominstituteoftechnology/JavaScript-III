@@ -15,6 +15,9 @@ function Child(childAttributes) {
 }
 
 
+Child.prototype = Object.create(Parent.prototype);
+
+
 const fred = new Parent({
   age: 35,
   name: 'Fred',
@@ -38,6 +41,6 @@ const pebbles = new Child({
 
 console.log(pebbles.toy);
 console.log(pebbles.age);
-
+console.log(fred.toy);
 fred.speak();
 willma.speak();
