@@ -40,44 +40,6 @@
 */
 
 
-function GameObject(dimensions){
-    function createdAt(){
-        console.log('I was created at 1/22/2019');
-    }
-    function destroy() {
-        return('Object was removed from the game');
-    }
-    function dimensions(){
-        return this.dimensions;
-    }
-}
-
-function CharacterStats(name, healthpoints){
-
-    GameObject.call(this, destroy());
-
-    this.healthpoints = healthpoints;
-    this.name = name;
-    function takeDamage(){
-        return(this.name + ' took damage.');
-    }
-}
-
-function Humanoid(name, team, weapons, language) {
-    GameObject.call(this);
-    this.team = team;
-    this.weapons = weapons;
-    this.language  = language;
-
-    function greet(){
-        if (language === 'Common Tongue'){
-            return(this.name + 'Hello Everyone');
-        }else if (language === 'Elvish'){
-            return(this.name + 'Hail!')
-        }}   
-}
-
-
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
 
@@ -131,7 +93,7 @@ function Humanoid(name, team, weapons, language) {
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
+//  console.log(mage.createdAt); // Today's date
 //  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 //  console.log(swordsman.healthPoints); // 15
 //  console.log(mage.name); // Bruce
