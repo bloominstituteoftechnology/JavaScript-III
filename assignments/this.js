@@ -21,6 +21,14 @@ Shake('hips');
 // Principle 2
 
 // code example for Implicit Binding
+const grandfather = {
+      name: 'Rick',
+      method: 'paradoxical',
+      make: () => {
+       console.log(`${this.name} created a ${this.method} time loop.`) 
+      }
+}
+
 
 // Principle 3
 
