@@ -6,7 +6,7 @@
 * 3. 
 * 4. 
 *
-* write out a code example of each explanation above
+* write out a code example of each explanation above.
 */
 
 // Principle 1
@@ -23,4 +23,4 @@
 
 // Principle 4
 
-// code example for Explicit Binding
+// code example for Explicit Binding.
