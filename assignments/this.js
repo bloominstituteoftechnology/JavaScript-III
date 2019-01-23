@@ -13,16 +13,16 @@
 */
 
 // Principle 1
-// code example for Window Binding
+'use strict' // code example for Window Binding
 
 
-// Principle 2
-// Principle 3
-// Principle 4
 
+// Principle 2,3
 function Pokemon(attackLvl) {
+    this.name = pokemonsName;
     this.go = `I choose you,`; 
     this.lvl = attackLvl;
+    this.canTalk = true;
     this.attackPts = this.lvl ^ 10 * Math.random();
     this.choosePokeball = function(name, attack) { // code example for Implicit Binding (?)
         attackPt = this.attackPts;
@@ -37,56 +37,33 @@ function Pokemon(attackLvl) {
         console.log(`${this.go} ${name} (L${this.lvl}), ${attack.toUpperCase()}!!!  ${attackPt}`);
     };
 }
-const pokemons = new Pokemon(6);  // code example for New Binding
-pokemons.choosePokeball('Pikachu', 'scratch'); // code example for Implicit Binding (?)
-pokemons.choosePokeball('Charmander', 'flame');
+let pokemonsName = 'Pikachu';
+let pokemonsAttack = 'scratch';
+let pokemonsLevel = 6;
+const pokemons = new Pokemon(pokemonsLevel);  // code example for New Binding
+pokemons.choosePokeball(pokemonsName, pokemonsAttack); // code example for Implicit Binding (?)
 
-// code example for Explicit Binding
-
-function Fruit(attrs) {
-    this.type = attrs.type;
-    this.name = attrs.name;
-    this.isRipe = attrs.isRipe;
-    this.calories = attrs.calories;
+// Principle 4
+// This is kinda fuzzy still; I plan to come back to this.
+function PokemonStats(pokemonAttrs) {
+    Pokemon.call(this, pokemonAttrs); // code example for Explicit Binding
+    this.charLevel = pokemonAttrs.charLevel;
 }
-  
-Fruit.prototype.shipped = function(destination) {
-    console.log(`Shipping ${this.name} to ${destination}`);
-};
-  
-Fruit.prototype.calculateCals = function() {
-    console.log(`Calories in ${this.name} are ${this.calories * 200}`);
-};
+PokemonStats.prototype = Object.create(Pokemon.prototype);
 
-function Banana(bananaAttrs) {
-    Fruit.call(this, bananaAttrs);
-    this.doMonkeysLikeIt = bananaAttrs.doMonkeysLikeIt;
-}
-
-Banana.prototype = Object.create(Fruit.prototype);
-
-Banana.prototype.checkIfMonkeysLikeIt = function() {
-    if(this.doMonkeysLikeIt) {
-        return true;
+PokemonStats.prototype.checkCharLevel = function() {
+    if(this.charLevel > 1) {
+        console.log(`Character level: ${this.charLevel}`);
+        return this.charLevel;
     } else {
+        console.log(`You need to level up, you're pokemon is a ${this.charLevel}`);
         return false;
     }
 };
+const newPokemonStats = new PokemonStats(
+    {
+        charLevel: 10
+    }
+);
+newPokemonStats.checkCharLevel();
 
-const newBanana = new Banana({
-    doMonkeysLikeIt: true,
-    type: 'Tree',
-    name: 'Banana',
-    isRipe: false,
-    calories: 0.1
-});
-
-
-// newKiwi.shipped('Alaska');
-newBanana.shipped('Colorado');
-newBanana.checkIfMonkeysLikeIt(); // returns true
-// newKiwi.checkIfMonkeysLikeIt(); // won't work
-// newKiwi.checkIfFuzzy(); // returns true
-// newBanana.checkIfFuzzy(); // won't work
-newBanana.calculateCals();
-// newKiwi.calculateCals();
