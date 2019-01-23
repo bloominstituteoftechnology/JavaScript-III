@@ -70,7 +70,25 @@ Humanoid.prototype.greet = function() {
 
 
 
- 
+ function Hero(mainHero) {
+  Humanoid.call(this, mainHero);
+    this.magicPoints = mainHero.magicPoints;
+    this.armor = mainHero.armor;
+ }
+ Hero.prototype = Object.create(Humanoid.prototype);
+
+
+
+ function Villain(mainVil) {
+  Humanoid.call(this, mainVil);
+    this.sorcery = mainVil.sorcery;
+    this.armor = mainVil.armor;
+    this.breath = mainVil.breath;
+ }
+ Villain.prototype = Object.create(Humanoid.prototype);
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -130,6 +148,46 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const theone = new Hero({
+      createdAt: new Date(),
+      dimensions: {
+        length: 3, 
+        width: 3, 
+        height: 3
+      },
+      healthPoints: 25,
+      magicPoints: 25,
+      armor: 10,
+      name: 'Hubris',
+      team: 'The Winning Team',
+      weapons: [
+        'Confident Gaze',
+        'Sharp Words',
+      ],
+      language: 'Careless Whispers',
+  });
+
+  const dragon = new Villain({
+      createdAt: new Date(),
+      dimensions: {
+        length: 30,
+        width: 9,
+        height: 16,
+      },
+      healthPoints: 60,
+      sorcery: 30,
+      armor: 20,
+      breath: 'Eww! Gross!',
+      name: 'Soulshucker, World Blight and Clam Enthusiast',
+      team: 'I',
+      weapons: [
+        'Claw, Claw, Bite',
+        'Breathe Chowder',
+        'Tail Swipe',
+      ],
+      language: 'Ancient Dank',
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -140,6 +198,8 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(theone.greet());
+  console.log(dragon.greet());
 
 
   // Stretch task: 
