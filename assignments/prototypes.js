@@ -387,34 +387,48 @@ Hero.prototype.capAttack = function() {
 /* =========== IRON MAN =========== */
 Hero.prototype.ironManAttack = function() {
   let attackDamage = Math.ceil(Math.random() * ironMan.offense);
+  // If both Thanos and Tony are alive
   if (thanos.hp > 0 && ironMan.hp > 0) {
+    // Tony will attack Thanos
     thanos.hp -= attackDamage;
+    // If Thanos dies
+    if (thanos.hp <= 0) {
+      // Game Over. Avengers win!
+      document.getElementById("thanos-hp").innerText = "0";
+      alert("Game Over");
+    }
     document.querySelector("#thanos-hp").textContent = thanos.hp;
     document.querySelector(".avengers-msg").innerHTML =
       "<p>" + `${ironMan.name} attacks. Damage: ${attackDamage}` + "<p>";
     console.log(thanos.hp);
+
     setTimeout(() => {
       let thanosAttack = Math.ceil(Math.random() * thanos.offense);
       ironMan.hp -= thanosAttack;
       document.querySelector("#ironman-hp").textContent = ironMan.hp;
-      document.querySelector(".thanos-msg").innerHTML =
-        "<p>" +
-        `${thanos.name} attacked ${ironMan.name}. Damage: ${thanosAttack}` +
-        "<p>";
-      document.querySelector(".thanos-msg").style.color = "#CF6510";
+      didThanosWin();
+
+      if (thanos.hp > 0 && ironMan.hp <= 0) {
+        // Display Tony's HP
+        ironMan.hp = 0;
+        document.querySelector("#ironman-hp").textContent = ironMan.hp;
+
+        // Thanos brags
+        document.querySelector(".thanos-msg").innerHTML =
+          "<p>" + `"I hope they remember you."` + "<p>";
+        document.querySelector(".thanos-msg").style.color = "#8311FC";
+
+        // Disable attack button
+        document.getElementById("ironman-attack").disabled = true;
+        document.getElementById("ironman-attack").classList.add("btn-disabled");
+      } else {
+        document.querySelector(".thanos-msg").innerHTML =
+          "<p>" +
+          `${thanos.name} attacked ${ironMan.name}. Damage: ${thanosAttack}` +
+          "<p>";
+        document.querySelector(".thanos-msg").style.color = "#CF6510";
+      }
     }, 250);
-    didThanosWin;
-  } else if (thanos.hp > 0 && ironMan.hp <= 0) {
-    document.querySelector("#ironman-hp").textContent = "0";
-    document.getElementById("ironman-attack").disabled = true;
-    document.getElementById("ironman-attack").classList.add("btn-disabled");
-    document.querySelector(".thanos-msg").innerHTML =
-      "<p>" + `"I hope they remember you."` + "<p>";
-    document.querySelector(".thanos-msg").style.color = "#8311FC";
-    didThanosWin;
-  } else if (thanos.hp <= 0) {
-    document.getElementById("thanos-hp").innerText = "0";
-    alert("Game Over");
   }
 };
 
