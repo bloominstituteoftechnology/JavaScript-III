@@ -72,23 +72,38 @@ Humanoid.prototype.greet = function() {
 
  function Hero(mainHero) {
   Humanoid.call(this, mainHero);
+    this.maxHealthPoints = mainHero.maxHealthPoints;
     this.magicPoints = mainHero.magicPoints;
     this.armor = mainHero.armor;
  }
- Hero.prototype = Object.create(Humanoid.prototype);
+  Hero.prototype = Object.create(Humanoid.prototype);
 
+  Hero.prototype.gaze = function(target) {
+    let damage = (target.healthPoints - 15);
+    console.log(`Your foe has ${damage} health remaining!`);
+    if (damage < 1) {
+      console.log(target.destroy());
+    }
+  }
 
 
  function Villain(mainVil) {
   Humanoid.call(this, mainVil);
+    this.maxHealthPoints = mainVil.maxHealthPoints;
     this.sorcery = mainVil.sorcery;
     this.armor = mainVil.armor;
     this.breath = mainVil.breath;
  }
  Villain.prototype = Object.create(Humanoid.prototype);
 
-
-
+  Villain.prototype.breathWeapon = function(target) {
+    let damage = (target.healthPoints - 30);
+    console.log(`You were buried in boiling hot chowder! You have ${damage} health left!`);
+    if (damage < 1) {
+      console.log(target.destroy());
+    }
+  }
+ 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -201,7 +216,8 @@ Humanoid.prototype.greet = function() {
   console.log(theone.greet());
   console.log(dragon.greet());
 
-
+dragon.breathWeapon(theone);
+theone.gaze(dragon);
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
