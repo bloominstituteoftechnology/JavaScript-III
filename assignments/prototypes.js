@@ -41,9 +41,52 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+function GameObject(pAttributes) {
+  this.createdAt = pAttributes.createdAt;
+  this.dimensions = pAttributes.dimensions;
+    this.length = pAttributes.length;
+    this.width= pAttributes.width;
+    this.height =pAttributes.height;
+  
+};
+
+
+GameObject.prototype.destroy = function () {
+  return (`${this.name} was removed from the game.`);
+}
+
+function CharacterStats(cAttributes) {
+  this.healthPoints= cAttributes.healthPoints;
+  this.name= cAttributes.name;
+  GameObject.call(this, cAttributes)
+}
+
+
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function () {
+  return (`${this.name} took damage.`)
+}
+
+
+function Humanoid(gAttributes) {
+  this.team= gAttributes.team;
+  this.weapons= gAttributes.weapons;
+  this.language= gAttributes.language;
+  CharacterStats.call(this, gAttributes)
+  }
+  
+
+
+Humanoid.prototype= Object.create(GameObject.prototype);
+Humanoid.prototype= Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return (`${this.name} offers a greeting in ${this.language}.`)
+}
+
+
   const mage = new Humanoid({
-    createdAt: new Date(),
+    createdAt: new Date('January 21, 2019'),
     dimensions: {
       length: 2,
       width: 1,
@@ -59,7 +102,7 @@
   });
 
   const swordsman = new Humanoid({
-    createdAt: new Date(),
+    createdAt: new Date('January 21, 2019'),
     dimensions: {
       length: 2,
       width: 2,
@@ -76,7 +119,7 @@
   });
 
   const archer = new Humanoid({
-    createdAt: new Date(),
+    createdAt: new Date('January 21, 2019'),
     dimensions: {
       length: 1,
       width: 2,
@@ -102,7 +145,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
