@@ -305,12 +305,14 @@ Hero.prototype.hulkAttack = function() {
     console.log(thanos.hp);
     document.querySelector(".avengers-msg").innerHTML =
       "<p>" + `HULK SMASH!!! Damage: ${attackDamage}` + "<p>";
+
     setTimeout(() => {
       let thanosAttack = Math.ceil(Math.random() * thanos.offense);
       hulk.hp -= thanosAttack;
       document.querySelector("#hulk-hp").textContent = hulk.hp;
       didThanosWin();
       if (thanos.hp > 0 && hulk.hp <= 0) {
+        // Display Hulk's HP
         console.log("hulk hp before: ", hulk.hp);
         hulk.hp = 0;
         console.log("hulk hp after: ", hulk.hp);
@@ -340,35 +342,45 @@ Hero.prototype.capAttack = function() {
   let attackDamage = Math.ceil(Math.random() * captainAmerica.offense);
   if (thanos.hp > 0 && captainAmerica.hp > 0) {
     thanos.hp -= attackDamage;
+    if (thanos.hp <= 0) {
+      document.getElementById("thanos-hp").innerText = "0";
+      alert("Game Over");
+    }
+
     document.querySelector("#thanos-hp").textContent = thanos.hp;
+    console.log(thanos.hp);
     document.querySelector(".avengers-msg").innerHTML =
       "<p>" + `${captainAmerica.name} attacks. Damage: ${attackDamage}` + "<p>";
-    console.log(thanos.hp);
 
     setTimeout(() => {
       let thanosAttack = Math.ceil(Math.random() * thanos.offense);
       captainAmerica.hp -= thanosAttack;
       document.querySelector("#cap-hp").textContent = captainAmerica.hp;
-      document.querySelector(".thanos-msg").innerHTML =
-        "<p>" +
-        `${thanos.name} attacked ${
-          captainAmerica.name
-        }. Damage: ${thanosAttack}` +
-        "<p>";
-      document.querySelector(".thanos-msg").style.color = "#CF6510";
-    }, 250);
+      didThanosWin();
+      // If Thanos is alive and Cap Dies
+      if (thanos.hp > 0 && captainAmerica.hp <= 0) {
+        // Display Cap's HP
+        captainAmerica.hp = 0;
+        document.querySelector("#cap-hp").textContent = captainAmerica.hp;
 
-    didThanosWin;
-  } else if (thanos.hp > 0 && captainAmerica.hp <= 0) {
-    document.querySelector("#cap-hp").textContent = "0";
-    document.getElementById("cap-attack").disabled = true;
-    document.getElementById("cap-attack").classList.add("btn-disabled");
-    document.querySelector(".thanos-msg").innerHTML =
-      "<p>" + `"When I'm done, half of humanity will still exist."` + "<p>";
-    document.querySelector(".thanos-msg").style.color = "#8311FC";
-  } else if (thanos.hp <= 0) {
-    document.getElementById("thanos-hp").innerText = "0";
-    alert("Game Over");
+        // Thanos talks
+        document.querySelector(".thanos-msg").innerHTML =
+          "<p>" + `"When I'm done, half of humanity will still exist."` + "<p>";
+        document.querySelector(".thanos-msg").style.color = "#8311FC";
+
+        // Disable attack button
+        document.getElementById("cap-attack").disabled = true;
+        document.getElementById("cap-attack").classList.add("btn-disabled");
+      } else {
+        document.querySelector(".thanos-msg").innerHTML =
+          "<p>" +
+          `${thanos.name} attacked ${
+            captainAmerica.name
+          }. Damage: ${thanosAttack}` +
+          "<p>";
+        document.querySelector(".thanos-msg").style.color = "#CF6510";
+      }
+    }, 250);
   }
 };
 
