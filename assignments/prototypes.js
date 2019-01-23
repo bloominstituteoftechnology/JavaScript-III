@@ -199,9 +199,14 @@ const didThanosWin = function() {
     captainAmerica.hp <= 0 &&
     ironMan.hp <= 0
   ) {
-    document.querySelector(".avenger").style.opacity = "0";
-    document.querySelector(".avenger").style.transition = "9s";
-    document.querySelector("h1").innerText = "Thanos wins...";
+    document.querySelector("h1").innerText = "* Snap *";
+    // document.querySelectorAll("avenger").style.opacity = "0";
+    // document.querySelectorAll("avenger").style.transition = "9s";
+    document.querySelectorAll(".avenger").forEach(function(el) {
+      console.log(el);
+      el.style.opacity = "0";
+      el.style.transition = "9s";
+    });
     // document.querySelector(".avengers").style.transition = "5s";
     // alert("Game Over");
   }
@@ -274,7 +279,7 @@ Hero.prototype.thorAttack = function() {
         // Thanos talks
         document.querySelector(".thanos-msg").innerHTML =
           "<p>" + `"You should've gone for the head."` + "<p>";
-        document.querySelector(".thanos-msg").style.color = "#8311FC";
+        document.querySelector(".thanos-msg").style.color = "#aa69f0";
 
         // Disable attack button
         document.getElementById("thor-attack").disabled = true;
@@ -321,7 +326,7 @@ Hero.prototype.hulkAttack = function() {
         // Thanos talks
         document.querySelector(".thanos-msg").innerHTML =
           "<p>" + `"This... does put a smile on my face."` + "<p>";
-        document.querySelector(".thanos-msg").style.color = "#8311FC";
+        document.querySelector(".thanos-msg").style.color = "#aa69f0";
 
         // Disable attack button
         document.getElementById("hulk-attack").disabled = true;
@@ -366,7 +371,7 @@ Hero.prototype.capAttack = function() {
         // Thanos talks
         document.querySelector(".thanos-msg").innerHTML =
           "<p>" + `"When I'm done, half of humanity will still exist."` + "<p>";
-        document.querySelector(".thanos-msg").style.color = "#8311FC";
+        document.querySelector(".thanos-msg").style.color = "#aa69f0";
 
         // Disable attack button
         document.getElementById("cap-attack").disabled = true;
@@ -416,7 +421,7 @@ Hero.prototype.ironManAttack = function() {
         // Thanos brags
         document.querySelector(".thanos-msg").innerHTML =
           "<p>" + `"I hope they remember you."` + "<p>";
-        document.querySelector(".thanos-msg").style.color = "#8311FC";
+        document.querySelector(".thanos-msg").style.color = "#aa69f0";
 
         // Disable attack button
         document.getElementById("ironman-attack").disabled = true;
