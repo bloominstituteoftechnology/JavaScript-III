@@ -74,10 +74,10 @@ Humanoid.prototype.greet = function() {
 //   Humanoid.prototype = Object.create(GameObject.prototype);
 
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
-  * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
-  * Instances of CharacterStats should have all of the same properties as GameObject.
-*/
+ * Inheritance chain: GameObject -> CharacterStats -> Humanoid
+ * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
+ * Instances of CharacterStats should have all of the same properties as GameObject.
+ */
 
 // Test you work by uncommenting these 3 objects and the list of console logs below:
 
@@ -199,9 +199,10 @@ const didThanosWin = function() {
     captainAmerica.hp <= 0 &&
     ironMan.hp <= 0
   ) {
-    document.querySelector(".avengers").style.display = "none";
+    document.querySelector(".avenger").style.opacity = "0";
+    document.querySelector(".avenger").style.transition = "9s";
     // document.querySelector(".avengers").style.transition = "5s";
-    alert("Game Over");
+    // alert("Game Over");
   }
 };
 
@@ -242,6 +243,7 @@ const didThanosWin = function() {
 //   }
 // };
 
+/* =========== THOR =========== */
 Hero.prototype.thorAttack = function() {
   let attackDamage = Math.ceil(Math.random() * thor.offense);
   if (thanos.hp > 0 && thor.hp > 0) {
@@ -266,27 +268,38 @@ Hero.prototype.thorAttack = function() {
       if (thanos.hp > 0 && thor.hp <= 0) {
         // separate if statement
         thor.hp = 0;
-        document.getElementById("thor-attack").disabled = true;
-        document.getElementById("thor-attack").classList.add("btn-disabled");
         document.querySelector("#thor-hp").textContent = thor.hp;
+
+        // Thanos talks
         document.querySelector(".thanos-msg").innerHTML =
           "<p>" + `"You should've gone for the head."` + "<p>";
         document.querySelector(".thanos-msg").style.color = "#8311FC";
+
+        // Disable attack button
+        document.getElementById("thor-attack").disabled = true;
+        document.getElementById("thor-attack").classList.add("btn-disabled");
+      } else {
+        document.querySelector(".thanos-msg").innerHTML =
+          "<p>" +
+          `${thanos.name} attacked ${thor.name}. Damage: ${thanosAttack}` +
+          "<p>";
+        document.querySelector(".thanos-msg").style.color = "#CF6510";
       }
-      document.querySelector(".thanos-msg").innerHTML =
-        "<p>" +
-        `${thanos.name} attacked ${thor.name}. Damage: ${thanosAttack}` +
-        "<p>";
-      document.querySelector(".thanos-msg").style.color = "#CF6510";
     }, 250);
     // didThanosWin();
   }
 };
 
+/* =========== HULK =========== */
 Hero.prototype.hulkAttack = function() {
   let attackDamage = Math.ceil(Math.random() * hulk.offense);
   if (thanos.hp > 0 && hulk.hp > 0) {
+    // If Hulk and Thanos are both alive, Hulk will attack Thanos
     thanos.hp -= attackDamage;
+    if (thanos.hp <= 0) {
+      document.getElementById("thanos-hp").innerText = "0";
+      alert("Game Over");
+    }
     document.querySelector("#thanos-hp").textContent = thanos.hp;
     console.log(thanos.hp);
     document.querySelector(".avengers-msg").innerHTML =
@@ -295,26 +308,33 @@ Hero.prototype.hulkAttack = function() {
       let thanosAttack = Math.ceil(Math.random() * thanos.offense);
       hulk.hp -= thanosAttack;
       document.querySelector("#hulk-hp").textContent = hulk.hp;
-      document.querySelector(".thanos-msg").innerHTML =
-        "<p>" +
-        `${thanos.name} attacked ${hulk.name}. Damage: ${thanosAttack}` +
-        "<p>";
-      document.querySelector(".thanos-msg").style.color = "#CF6510";
+      didThanosWin();
+      if (thanos.hp > 0 && hulk.hp <= 0) {
+        console.log("hulk hp before: ", hulk.hp);
+        hulk.hp = 0;
+        console.log("hulk hp after: ", hulk.hp);
+        document.querySelector("#hulk-hp").textContent = hulk.hp;
+
+        // Thanos talks
+        document.querySelector(".thanos-msg").innerHTML =
+          "<p>" + `"This... does put a smile on my face."` + "<p>";
+        document.querySelector(".thanos-msg").style.color = "#8311FC";
+
+        // Disable attack button
+        document.getElementById("hulk-attack").disabled = true;
+        document.getElementById("hulk-attack").classList.add("btn-disabled");
+      } else {
+        document.querySelector(".thanos-msg").innerHTML =
+          "<p>" +
+          `${thanos.name} attacked ${hulk.name}. Damage: ${thanosAttack}` +
+          "<p>";
+        document.querySelector(".thanos-msg").style.color = "#CF6510";
+      }
     }, 250);
-    didThanosWin;
-  } else if (thanos.hp > 0 && hulk.hp <= 0) {
-    document.querySelector("#hulk-hp").textContent = "0";
-    document.getElementById("hulk-attack").disabled = true;
-    document.getElementById("hulk-attack").classList.add("btn-disabled");
-    document.querySelector(".thanos-msg").innerHTML =
-      "<p>" + `"This... does put a smile on my face."` + "<p>";
-    document.querySelector(".thanos-msg").style.color = "#8311FC";
-  } else if (thanos.hp <= 0) {
-    document.getElementById("thanos-hp").innerText = "0";
-    alert("Game Over");
   }
 };
 
+/* =========== CAPT AMERICA =========== */
 Hero.prototype.capAttack = function() {
   let attackDamage = Math.ceil(Math.random() * captainAmerica.offense);
   if (thanos.hp > 0 && captainAmerica.hp > 0) {
@@ -351,6 +371,7 @@ Hero.prototype.capAttack = function() {
   }
 };
 
+/* =========== IRON MAN =========== */
 Hero.prototype.ironManAttack = function() {
   let attackDamage = Math.ceil(Math.random() * ironMan.offense);
   if (thanos.hp > 0 && ironMan.hp > 0) {
