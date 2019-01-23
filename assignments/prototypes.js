@@ -201,6 +201,7 @@ const didThanosWin = function() {
   ) {
     document.querySelector(".avenger").style.opacity = "0";
     document.querySelector(".avenger").style.transition = "9s";
+    document.querySelector("h1").innerText = "Thanos wins...";
     // document.querySelector(".avengers").style.transition = "5s";
     // alert("Game Over");
   }
