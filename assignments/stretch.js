@@ -41,7 +41,32 @@ drHangover.attacks = [
         health: 5,
         strength: 0,
         text: `You feel a slight ache move over you whole body as you try to move. -5 health.`
-    }
+    },
+    {
+        health: 5,
+        strength: 0,
+        text: `Dr. Hangover grabs ahold of you; his cold hands are cold and causes you to shake. -5 health.`
+    },
+    {
+        health: 0,
+        strength: 10,
+        text: `You're handed a rubix cube; this is not the time for that. -10 strength.`
+    },
+    {
+        health: 0,
+        strength: -10,
+        text: `Dr. Hangover uses taunt; you're heart begins to race. +10 strength.`
+    },
+    {
+        health: 20,
+        strength: 0,
+        text: `Dr. Hangover opens the flashlight app on his phone. The glare is too much. -20 health.`
+    },
+    {
+        health: 10,
+        strength: 0,
+        text: `Dr. Hangover drinks an ice cold glass of OJ in front of you. And no he's not sharing. Your cottenmouth intensifies. -10 health.`
+    },
 ]
 
 const beercules = new Humanoid({
