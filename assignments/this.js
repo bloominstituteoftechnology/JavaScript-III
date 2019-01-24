@@ -13,9 +13,7 @@
 */
 
 // Principle 1
-'use strict' // code example for Window Binding
-
-
+// 'use strict' // code example for Window Binding
 
 // Principle 2,3
 function Pokemon(attackLvl) {
@@ -29,7 +27,6 @@ function Pokemon(attackLvl) {
         if (attackPt === 0) {
             attackPt = `Attack Misses! Oh No!`;
         } else if (attackPt > this.lvl * 2) {
-            
             attackPt = `Massive blow!!! Attack hits for ${this.attackPts} points!`;
         } else {
             attackPt = `Attack hits for ${this.attackPts} points!!!`;
