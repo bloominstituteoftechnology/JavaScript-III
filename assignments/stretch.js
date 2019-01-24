@@ -13,14 +13,13 @@ function Hero(atts) {
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.attack = function(attacker, victim, atkNum) {
     let atk = {};
-    if(!atkNum) {
+    if(atkNum === undefined) {
         atk = getRandomInt(attacker.attacks.length);
         atk = attacker.attacks[atk];
     }
     else {
         atk = attacker.attacks[atkNum];
     }
-    console.log(atk.text);
     if(atk.DMGenemy) victim.chgHitpoints(atk.DMGenemy);
     if(atk.DMGself) attacker.chgHitpoints(atk.DMGself);
     if(atk.STRenemy) victim.chgStrength(atk.STRenemy);
@@ -33,6 +32,8 @@ Hero.prototype.message = function(text) {
 }
 Hero.prototype.chgHitpoints = function(val) {
     this.healthPoints += val;
+    if(this.healthPoints > this.maxHitpoints) this.healthPoints = this.maxHitpoints;
+    if(this.healthPoints < 0) this.healthPoints = 0;
     document.getElementById(this.currentHitpointTag).textContent = this.healthPoints;
 }
 Hero.prototype.chgMaxHitpoints = function(val) {
@@ -41,11 +42,12 @@ Hero.prototype.chgMaxHitpoints = function(val) {
 }
 Hero.prototype.chgStrength = function(val) {
     this.strength += val;
+    if(this.strength > 100) this.strength = 100;
+    if(this.strength < 0) this.strength = 1;
     document.getElementById(this.strengthTag).textContent = this.strength;
 }
 Hero.prototype.chgBAC = function(val) {
     this.bac += val;
-    if(this.bac >= 100) gameOver("Your body couldn't handle this much bro'ness. Try again tomorrow.");
 }
 Hero.prototype.halved = function() {
     this.healthPoints /= 2;
@@ -108,11 +110,11 @@ beercules.endTurn = function() {
 
 //ATTACKS
 beercules.attacks = [
-    {   DMGenemy: 20,
+    {   DMGenemy: -20,
         text: `After taking a power nap you awake to find Dr. Hangover with 20 less hit points.`,
     },{ DMGenemy: -10,
         DMGself: 10,
-        STRenemy: 10,
+        STRself: 10,
         text: `You devoir a burrito; the grease fills the empty void in your soul. You siphen 10 hit points from Dr. Hangover and gain 10 strength.`,
     },{ STRself: 50,
         text: `You crack open a cold one with the boys; you feel invigorated. +50 Strength.`,
@@ -123,6 +125,7 @@ window.onload = function() {
     document.getElementById("msg-ok").addEventListener("click", clickedOK);
 }
 let canAttack = true;
+let isDead = false;
 function clickedOK() {
     document.getElementById("atk-sleep").addEventListener("click", function() {
         if(canAttack) {
@@ -132,6 +135,7 @@ function clickedOK() {
             setTimeout(function() {
                 drHangover.attack(drHangover, beercules);
                 canAttack = true;
+                if(beercules.healthPoints <= 0) gameOver("No sense getting up; you've already lost.");
             }, 1000);
         }
     });
@@ -143,6 +147,7 @@ function clickedOK() {
             setTimeout(function() {
                 drHangover.attack(drHangover, beercules);
                 canAttack = true;
+                if(beercules.healthPoints <= 0) gameOver("You can't burrito your way out of this one.");
             }, 1000);
         }
     });
@@ -151,9 +156,12 @@ function clickedOK() {
             beercules.message("");
             beercules.attack(beercules, drHangover, 2);
             canAttack = false;
+            beercules.chgBAC(10);
             setTimeout(function() {
                 drHangover.attack(drHangover, beercules);
                 canAttack = true;
+                if(beercules.healthPoints <= 0) gameOver("Bruh! You're dead.");
+                if(beercules.boa >= 100) gameOver("Your body couldn't handle this much bro'ness. Try again tomorrow.")
             }, 1000);
         }
     });
@@ -166,8 +174,8 @@ function gameOver(text) {
         beercules.message("GAME OVER");
         document.getElementById("msg-hero").classList.add("gameOverText");
         drHangover.message(text);
-        ok = false;
-        dead = true;
+        canAttack = false;
+        isDead = true;
     },100);
 }
 function getRandomInt(max) {
