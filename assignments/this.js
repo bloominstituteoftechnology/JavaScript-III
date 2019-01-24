@@ -3,7 +3,7 @@
 *
 * 1. Window/Global Binding: when in the global scope, 'this' will become window/console Object. However, we can use "use strict" to prevent it.
 * 2. Implicit(automatic) Binding: when a function is called by a preceding dot, the object before that dot is 'this'. It specifically deals with objects.
-* 3. New Binding: when a constructor function is used, 'this' refers to the specific instance of the object i.e. craeted and returned ny the contructor function.
+* 3. New Binding: when a constructor function is used, 'this' refers to the specific instance of the object i.e. created and returned ny the contructor function.
 * 4. Explicit Binding: used to bulid new objects. when JS's call/apply method is used, 'this' is explicitly defined. In other words, we control 'this' within functions.
 *
 * write out a code example of each explanation above
@@ -38,12 +38,12 @@ car.mileage();*/
 // Principle 3
 
 // code example for New Binding
-function Vehicle() {
+/*function Vehicle() {
     this.type = luxury
 
 }
 const type = new Vehicle("Tesla"); //new applies 'this' binding to the constructor function
-
+*/
 // Principle 4
 //If we want to use colors, we must have to pass arguments in the function. 'this' keyword is NOT an argument but 'colors' are an argument. 'this' is housed with a car.
 
