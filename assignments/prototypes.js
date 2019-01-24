@@ -14,14 +14,16 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-function GameObject(gamOb) {
-    this.createdAt = gamOb.createdAt;
-    this.dimensions = gamOb.dimensions;
+
+class GameObject {
+    constructor(gamOb) {
+      this.createdAt = gamOb.createdAt;
+      this.dimensions = gamOb.dimensions;
+    }
+    destroy() {
+      return 'Object was removed from the game.';
+    }
 }
-GameObject.prototype.destroy = function () {
-  return 'Object was removed from the game.';
-};
-console.log(GameObject);
 
 
 /*
@@ -31,19 +33,17 @@ console.log(GameObject);
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(charStat) {
-  GameObject.call(this, charStat);
-    this.healthPoints = charStat.healthPoints;
-    this.name = charStat.name;
+
+class CharacterStats extends GameObject {
+    constructor(charStat) {
+        super(charStat);
+        this.healthPoints = charStat.healthPoints;
+        this.name = charStat.name;
+    }
+    takeDamage() {
+      return `${this.name} took damage.`;
+    }
 }
-
-CharacterStats.prototype = Object.create(GameObject.prototype);
-
-CharacterStats.prototype.takeDamage = function () {
-  return `${this.name} took damage.`;
-};
-
-console.log(CharacterStats);
 
 
 /*
@@ -55,54 +55,51 @@ console.log(CharacterStats);
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid(hum) {
-  CharacterStats.call(this, hum);
-    this.team = hum.team;
-    this.weapons = hum.weapons;
-    this.language = hum.language;
+
+class Humanoid extends CharacterStats {
+    constructor(hum) {
+        super(hum);
+        this.team = hum.team;
+        this.weapons = hum.weapons;
+        this.language = hum.language;
+    }
+    greet() {
+      return `${this.name} offers a greeting in ${this.language}`;
+    }
 }
 
-Humanoid.prototype = Object.create(CharacterStats.prototype);
-
-Humanoid.prototype.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}`;
-};
-
-
-
- function Hero(mainHero) {
-  Humanoid.call(this, mainHero);
-    this.maxHealthPoints = mainHero.maxHealthPoints;
-    this.magicPoints = mainHero.magicPoints;
-    this.armor = mainHero.armor;
- }
-  Hero.prototype = Object.create(Humanoid.prototype);
-
-  Hero.prototype.gaze = function(target) {
-    let damage = (target.healthPoints - 15);
-    console.log(`Your foe has ${damage} health remaining!`);
-    if (damage < 1) {
-      console.log(target.destroy());
+class Hero extends Humanoid {
+    constructor(mainHero) {
+        super(mainHero);
+        this.maxHealthPoints = mainHero.maxHealthPoints;
+        this.magicPoints = mainHero.magicPoints;
+        this.armor = mainHero.armor;
     }
-  }
-
-
- function Villain(mainVil) {
-  Humanoid.call(this, mainVil);
-    this.maxHealthPoints = mainVil.maxHealthPoints;
-    this.sorcery = mainVil.sorcery;
-    this.armor = mainVil.armor;
-    this.breath = mainVil.breath;
- }
- Villain.prototype = Object.create(Humanoid.prototype);
-
-  Villain.prototype.breathWeapon = function(target) {
-    let damage = (target.healthPoints - 30);
-    console.log(`You were buried in boiling hot chowder! You have ${damage} health left!`);
-    if (damage < 1) {
-      console.log(target.destroy());
+    gaze(target) {
+        let damage = (target.healthPoints - 15);
+        console.log(`Your foe has ${damage} health remaining!`);
+        if (damage < 1) {
+            console.log(target.destroy());
+        }
     }
-  }
+}
+
+class Villain extends Humanoid {
+    constructor(mainVil) {
+        super(mainVil);
+        this.maxHealthPoints = mainVil.maxHealthPoints;
+        this.sorcery = mainVil.sorcery;
+        this.armor = mainVil.armor;
+        this.breath = mainVil.breath;
+    }
+    breathWeapon(target) {
+        let damage = (target.healthPoints - 30);
+        console.log(`You were buried in boiling hot chowder! You have ${damage} health left!`);
+        if (damage < 1) {
+            console.log(target.destroy());
+        }
+    }
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
