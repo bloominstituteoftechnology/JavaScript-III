@@ -106,6 +106,7 @@ beercules.burrito = function() {
 beercules.drink = function() {
     drHangover.message(`You crack open a cold one with the boys; you feel invigorated. +50 Strength`);
     beercules.chgStrength(50);
+    beercules.getTipsy(10);
     beercules.endTurn();
 }
 //MISC
