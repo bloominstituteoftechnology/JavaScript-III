@@ -119,7 +119,7 @@ beercules.endTurn = function() {
 }
 beercules.getTipsy = function(points) {
     beercules.drunkeness += points;
-    if(beercules.drunkeness >= 100) gameover("Your body couldn't handle this much bro'ness. Try again tomorrow.");
+    if(beercules.drunkeness >= 100) gameOver("Your body couldn't handle this much bro'ness. Try again tomorrow.");
 }
 beercules.chgStrength = function(points) {
     beercules.strength += points;
