@@ -4,14 +4,87 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="stylesheet" type="text/css" href="cessy.css">
   <title>JS III</title>
 
   <script src="this.js"></script>
   <script src="prototypes.js"></script>
+  <script src="stretch.js"></script>
 </head>
 
 <body>
-<h1>JS III - Check your work in the console!</h1>
+  <div class="container">
+    <div class="stats">
+      <div class="hero">
+
+        <div class="hero-top-stats">
+          <span class="hero-name">Beercules</span>
+          <div class="hero-stats">
+            <div class="hero-stat">
+                <pre>Health:</pre>
+                <pre id="hero-health-cur">100</pre>
+                <pre>/</pre>
+                <pre id="hero-health-tot">100</pre>
+            </div>
+            <div class="hero-stat">
+                <pre>Mana:</pre>
+                <pre id="hero-mana-cur">10</pre>
+                <pre>/</pre>
+                <pre id="hero-mana-tot">10</pre>
+            </div>
+            <div class="hero-stat">
+                <pre>Strength:</pre>
+                <pre id="hero-strength-cur">100</pre>
+            </div>
+          </div>
+        </div><!--top stats-->
+
+        <div id="msgBox" class="hero-messages">
+          <pre id="msg-hero"></pre>
+          <button id="msg-ok">START</button>
+        </div>
+
+        <div class="hero-attacks">
+          <span>Attacks</span>
+          <div>
+            <button id="atk-sleep">ZzZap</button>
+            <button id="atk-burrito">Burrito</button>
+            <button id="atk-drink">Hair of the dog</button>
+          </div>
+        </div><!--attacks-->
+
+        <!-- <div class="hero-items">
+          <span>Items</span>
+          <div>
+            <button id="itm-water">Potion (10)</button>
+            <button id="itm-redbull">Elixer (5)</button>
+          </div>
+        </div> -->
+      </div><!--hero-->
+
+      <div class="hero">
+          <div class="hero-top-stats">
+              <span class="hero-name">Dr. Hangover</span>
+              <div class="hero-stats">
+                <div class="hero-stat">
+                    <pre>Health:</pre>
+                    <pre id="villian-health-cur">1000</pre>
+                    <pre>/</pre>
+                    <pre id="villian-health-tot">1000</pre>
+                </div>
+                <div class="hero-stat">
+                    <pre>Mana:</pre>
+                    <pre id="villian-mana-cur">100</pre>
+                    <pre>/</pre>
+                    <pre id="villian-mana-tot">100</pre>
+                </div>
+              </div>
+            </div><!--top stats-->
+        <div class="hero-messages">
+          <pre id="msg-villian"></pre>
+        </div>
+      </div><!--hero-->
+    </div>
+  </div>
 </body>
 </html>

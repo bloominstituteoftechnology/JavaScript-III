@@ -10,14 +10,14 @@
 */
 
 // Principle 1 - Window Binding
-// When the developer forgets to give this a map or directions to what it should be bounded to.
+// When the developer forgets to give this a map or directions to what it should be bounded to;
 // this will by default bind itself to the window property.
 
 // code example for Window Binding
 let rockwell = function() {
     console.log(`I always feel like, ${this.whatsHappening}.`);
 }
-window.whatsHappening = "somebody's watching me"
+window.whatsHappening = "somebody's watching me";
 rockwell();
 
 // Principle 2 - Implicit Binding
