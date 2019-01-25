@@ -60,9 +60,29 @@ function Humanoid(humanoidDetails) {
   };
   
   Humanoid.prototype.greet = () => {
-    return `${this.name} offers a greeting in ${this.language}`
+    return `${this.name} offers a greeting in ${this.language}`;
 
 };
+
+// stretch new objects
+function Villain(villianDetails) {
+  Humanoid.call(this, villianDetails);
+
+  Villain.prototype.move = function(characterName) {
+    return (characterName.healthPoints - 5);
+  }
+
+  };
+
+function Hero(heroDetails) {
+  Villain.call(this, heroDetails);
+
+  Hero.prototype.ultimate = function(characterName) {
+    return characterName.healthPoints - 30;
+  }
+
+};
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -124,6 +144,41 @@ function Humanoid(humanoidDetails) {
     language: 'Elvish',
   });
 
+  // new stretch objects
+  const hulk = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 4,
+      height: 7,
+    },
+    healthPoints: 50,
+    name: 'Bruce Banner',
+    team: 'The Avengers',
+    weapons: [
+      'Thor\'s Hammer' ,
+      'Infinity Gauntlet',
+    ],
+    language: 'English',
+  });
+
+  const thanos = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 4,
+      height: 8,
+    },
+    healthPoints: 30,
+    name: 'Thanos',
+    team: 'The Universe',
+    weapons: [
+      'The Gauntlet',
+      'Infinity Stones',
+    ],
+    language: 'N/A',
+  });
+  
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -131,3 +186,17 @@ function Humanoid(humanoidDetails) {
   console.log(swordsman.team); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
+
+// stretch console
+console.log(hulk.healthPoints);
+console.log(thanos.healthPoints);
+console.log(thanos.move(hulk));
+console.log(hulk.ultimate(thanos));
+
+
+  // Stretch task: 
+// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
