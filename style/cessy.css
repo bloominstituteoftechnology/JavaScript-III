@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+html {
+    font-size: 10px;
+}
+body {
+    background-color: #333;
+    color: #ccc;
+}
+.container {
+    display: flex;
+        justify-content: center;
+        align-items: center;
+}
+.stats {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    height: 600px;
+}
+.hero {
+    display: flex;
+    flex-direction: column;
+    background-color: #0000cc;
+    border: 2rem solid #111111;
+    padding: 1rem;
+}
+.hero:nth-of-type(2) {
+    background-color: #660000;
+}
+.hero-top-stats {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: .2rem dashed #111;
+    height: 20%;
+}
+.hero-name {
+    font-size: 3rem;
+}
+.hero-stats {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+}
+.hero-stats > span {
+    text-align: right;
+}
+.hero-stat {
+    display: flex;
+}
+.hero-stat > pre {
+    margin: 0;
+}
+.hero-messages {
+    font-size: 1.5rem;
+    width: 333px;
+    border-bottom: .2rem dashed #111;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 25%;
+}
+.hero-messages > pre {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    margin: 0;
+}
+.hero-messages > button {
+    width: 100px;
+}
+/* ///////////////////// */
+.hero-attacks,
+.hero-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 15%;
+    border-bottom: .2rem dashed #111;
+}
+.hero-attacks > span,
+.hero-items > span {
+    font-size: 2rem;
+}
+.hero-attacks > div,
+.hero-items > div {
+    display: flex;
+    justify-content: space-around;
+}
+.gameOverText {
+    font-size: 3rem;
+}
