@@ -51,6 +51,7 @@ Hero.prototype.chgBAC = function(val) {
 }
 Hero.prototype.halved = function() {
     this.healthPoints /= 2;
+    this.maxHitpoints /= 2;
     this.strength /= 2;
     document.getElementById(this.currentHitpointTag).textContent = this.healthPoints;
     document.getElementById(this.maxHitpointTag).textContent = this.healthPoints;
