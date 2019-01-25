@@ -20,30 +20,34 @@
     return(`${this.name} was removed from the game.`)
   }
 
-  GameObject.prototype.takeDamage = function () {
+  // GameObject.prototype.takeDamage = function () {
+  //   return(`${this.name} took damage.`);
+  // }
+
+  function CharacterStats (CharacterStats) {
+   GameObject.call(this, CharacterStats);
+   this.healthPoints = CharacterStats.healthPoints;
+   this.name = CharacterStats.name;
+
+  }
+  GameObject.call(this, CharacterStats);
+  CharacterStats.prototype = Object.create(GameObject.prototype);
+  CharacterStats.prototype.takeDamage = function () {
     return(`${this.name} took damage.`);
   }
 
-  function CharacterStats (CharacterStats) {
-   this.healthPoints = CharacterStats.healthPoints;
-   this.name = CharacterStats.name;
-   GameObject.call(this, CharacterStats);
-  }
-
   function Humanoid (Humanoid) {
+   CharacterStats.call(this, Humanoid);
    this.team = Humanoid.team;
    this.weapons = Humanoid.weapons;
    this.language = Humanoid.language;
-   this.greet = function () {
-    return(`${this.name} offers a greeting in ${this.language}.`)
-  }
-   GameObject.call(this, Humanoid);
-   CharacterStats.call(this, Humanoid);
 
   }
  
-  Humanoid.prototype = Object.create(GameObject.prototype);
-
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
+  Humanoid.prototype.greet = function () {
+    return(`${this.name} offers a greeting in ${this.language}.`) }
+    
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
 
@@ -116,5 +120,4 @@
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with 
   //
-  
   

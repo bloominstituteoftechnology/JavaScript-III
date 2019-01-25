@@ -35,15 +35,15 @@ builder.skill();
 
 // code example for New Binding
 
-let introScene1 = function() {
-    console.log('Finally `${this.name}`... you/ "re awake!');
+let introScene10 = function() {
+    console.log('Finally `${this.name}`... youre awake!');
 };
 
 let dak = {
     name: 'Dak'
 }
 
-let introScene1 = introScene1.bind(dak);
+let introScene1 = introScene10.bind(dak);
 introScene1(); // 'Finally Dak... you're awake!
 
 
