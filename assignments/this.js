@@ -1,13 +1,18 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
+* 1. Window binding is when 'this' is bound to the global/console scope.
 * 2. 
 * 3. 
 * 4. 
 *
 * write out a code example of each explanation above
-*/
+*/function sayHi(name) {
+    console.log(this);
+    return name;
+}
+
+sayHi('John');
 
 // Principle 1
 
