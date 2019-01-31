@@ -14,17 +14,16 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
+
 function GameObject(gameAttr) {
   this.createdAt = gameAttr.createdAt;
   this.dimensions = gameAttr.dimensions;
 }  
 
 GameObject.prototype.destroy = function() {
-  console.log(`Object was removed from the game.`);
+  console.log(`${this.name} was removed from the game.`);
 };
 
-GameObject.prototype = Object.create(CharacterStats.prototype);
-GameObject.prototype = Object.create(Humanoid.prototype);
 
 /*
   === CharacterStats ===
@@ -35,16 +34,17 @@ GameObject.prototype = Object.create(Humanoid.prototype);
 */
 
 function CharacterStats(charAttr) {
+  GameObject.call(this, charAttr);
   this.healthPoints = charAttr.healthPoints;
   this.name = charAttr.name;
-}  
+} 
+
+CharacterStats.prototype = GameObject.prototype;
 
 CharacterStats.prototype.takeDamage = function() {
   console.log(`${this.name} took damage.`);
 };
 
-CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype = Object.create(Humanoid.prototype);
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -57,19 +57,18 @@ CharacterStats.prototype = Object.create(Humanoid.prototype);
 */
 
 function Humanoid(humAttr) {
+  CharacterStats.call(this, humAttr);
   this.team = humAttr.team;
   this.weapons = humAttr.weapons;
   this.language = humAttr.language;
 }  
+Humanoid.prototype = CharacterStats.prototype;
 
 Humanoid.prototype.greet = function() {
   console.log(`${this.name} offers a greeting in ${this.language}.`);
 };
 
 
-Humanoid.prototype = Object.create(GameObject.prototype);
-Humanoid.prototype = Object.create(CharacterStats.prototype);
- 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -80,7 +79,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 
   const mage = new Humanoid({
-    createdAt: new Date(1/31/2019),
+    createdAt: new Date(),
     dimensions: {
       length: 2,
       width: 1,
@@ -96,7 +95,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   });
 
   const swordsman = new Humanoid({
-    createdAt: new Date(1/31/2019),
+    createdAt: new Date(),
     dimensions: {
       length: 2,
       width: 2,
@@ -113,7 +112,7 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
   });
 
   const archer = new Humanoid({
-    createdAt: new Date(1/31/2019),
+    createdAt: new Date(),
     dimensions: {
       length: 1,
       width: 2,
