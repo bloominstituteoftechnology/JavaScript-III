@@ -1,13 +1,13 @@
-# JavaScript - III
+  JavaScript - III
 
-This challenge focuses on using the `this` keyword as well as getting comfortable with prototypes by building out a fantasy themed video game.
+T    his challenge focuses on using the `this` keyword as well as getting comfortable with prototypes by building out a fantasy themed video game.
 
 ## Git Set up
 
-* [ ] Fork the project into your GitHub user account
-* [ ] Clone the forked project into a directory on your machine
-* [ ] Create a pull request before you start working on the project requirements.  You will continuously push your updates throughout the project.
-* [ ] You are now ready to build this project with your preferred IDE
+* [x] Fork the project into your GitHub user account
+* [x] Clone the forked project into a directory on your machine
+* [x] Create a pull request before you start working on the project requirements.  You will continuously push your updates throughout the project.
+* [x] You are now ready to build this project with your preferred IDE
 
 ## Assignment Set Up
 
