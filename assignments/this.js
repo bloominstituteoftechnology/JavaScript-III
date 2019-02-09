@@ -11,17 +11,24 @@ value of ${this} inside that funvtion will be the window object.
 */
 
 // Principle 1
+
+// code example for Window Binding
+
 function greetMe(name) {
     console.log("Hello " + name);
     console.log(this);
 }
 
 greetMe("Jane");
-// code example for Window Binding
+
+//greetMe("Jane"); == window.greetMe("Jane");
+------
 
 // Principle 2
 
 // code example for Implicit Binding
+
+
 
 // Principle 3
 
