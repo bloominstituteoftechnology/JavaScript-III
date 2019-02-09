@@ -1,7 +1,8 @@
-/* The for principles of "this";
+/* The four principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
+* 1. Whenever a function is conatained in the global scope, the
+value of this inside that funvtion will be the window object.
 * 2. 
 * 3. 
 * 4. 
