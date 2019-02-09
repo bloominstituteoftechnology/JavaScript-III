@@ -3,7 +3,9 @@
 *
 * 1. Whenever a function is contained in the global scope, the
 value of ${this} inside that funvtion will be the window object.
-* 2. 
+
+* 2. Implicit binding occurs when dot notation is used to invoke a function
+
 * 3. 
 * 4. 
 *
