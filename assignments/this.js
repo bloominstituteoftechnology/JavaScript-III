@@ -1,8 +1,8 @@
 /* The four principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. Whenever a function is conatained in the global scope, the
-value of this inside that funvtion will be the window object.
+* 1. Whenever a function is contained in the global scope, the
+value of ${this} inside that funvtion will be the window object.
 * 2. 
 * 3. 
 * 4. 
@@ -11,7 +11,12 @@ value of this inside that funvtion will be the window object.
 */
 
 // Principle 1
+function greetMe(name) {
+    console.log("Hello " + name);
+    console.log(this);
+}
 
+greetMe("Jane");
 // code example for Window Binding
 
 // Principle 2
