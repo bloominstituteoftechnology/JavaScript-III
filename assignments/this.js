@@ -6,8 +6,8 @@ value of ${this} inside that function will be the window object.
 
 * 2. Implicit binding occurs when dot notation is used to invoke a function
 
-* 3. Constructor functions return an object. When a constructor function 
-is used in object oriented programming with the keyword "new" for New Binding
+* 3. Constructor functions return an object. A constructor function 
+is used in object oriented programming with the keyword "new" in New Binding
 
 * 4. Explicit Binding
 *
