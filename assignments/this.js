@@ -61,13 +61,13 @@ function Person(greeter) {
   };
 }
 
-const jerry = new CordialPerson('Newman');
-const newman = new CordialPerson('Jerry');
+const claude = new CordialPerson('Pierre');
+const Pierre = new CordialPerson('Claude');
 
-newman.speak();
-newman.speak();
+Pierre.speak();
+Pierre.speak();
 
-// Second Example because I don't know which one is correct //
+// Second Example because I want to know if they are both correct //
 
 function home(country, state, city) {
   this.country = country;
