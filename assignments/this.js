@@ -26,13 +26,13 @@ function greetMe(name) {
 greetMe("Jane");
 
 //greetMe("Jane"); == window.greetMe("Jane");
-------
+//------
 
 // Principle 2
 
 // code example for Implicit Binding
 
-var MyObject = function (){
+let MyObject = function (){
     this.name = 'MyObjectName';
     this.myProperty = 'property';
   };
@@ -52,7 +52,32 @@ var MyObject = function (){
 // Principle 3
 
 // code example for New Binding
+function Person(greeter) {
+  this.greeting = 'Bonjour';
+  this.greeter = greeter;
+  this.speak = function() {
+    console.log(this.greeting + this.greeter);
+    console.log(this);
+  };
+}
 
+const jerry = new CordialPerson('Newman');
+const newman = new CordialPerson('Jerry');
+
+newman.speak();
+newman.speak();
+
+// Second Example because I don't know which one is correct //
+
+function home(country, state, city) {
+  this.country = country;
+  this.state = state;
+  this.city = city;
+}
+
+let location = new home ("United States", "Kentucky", "Louisville");
+
+console.log(location.state);
 
 
 // Principle 4
