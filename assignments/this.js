@@ -2,12 +2,14 @@
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. Whenever a function is contained in the global scope, the
-value of ${this} inside that funvtion will be the window object.
+value of ${this} inside that function will be the window object.
 
 * 2. Implicit binding occurs when dot notation is used to invoke a function
 
-* 3. 
-* 4. 
+* 3. Constructor functions return an object. When a constructor function 
+is used in object oriented programming with the keyword "new" for New Binding
+
+* 4. Explicit Binding
 *
 * write out a code example of each explanation above
 */
@@ -50,6 +52,8 @@ var MyObject = function (){
 // Principle 3
 
 // code example for New Binding
+
+
 
 // Principle 4
 
