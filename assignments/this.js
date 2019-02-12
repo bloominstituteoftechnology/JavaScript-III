@@ -9,7 +9,10 @@ value of ${this} inside that function will be the window object.
 * 3. Constructor functions return an object. A constructor function 
 is used in object oriented programming with the keyword "new" in New Binding
 
-* 4. Explicit Binding
+* 4. When a function is called through the call() or apply() methods
+you are using explicit binding. What call() (or apply()) does is explicitly 
+tell the function what object to use as this.
+
 *
 * write out a code example of each explanation above
 */
@@ -83,3 +86,18 @@ console.log(location.state);
 // Principle 4
 
 // code example for Explicit Binding
+
+function greet (l1, l2, l3) {
+  alert(
+    `Hello, my name is ${this.name} and I know ${l1}, ${l2}, and ${l3}`
+  )
+}
+
+const user = {
+  name: 'Myasia',
+  age: 27,
+}
+
+const languages = ['JavaScript', 'HTML', 'CSS']
+
+greet.call(user, languages[0], languages[1], languages[2])
