@@ -1,12 +1,28 @@
 # JavaScript - III
-This challenge focuses on using the `this` keyword as well as getting comfortable with prototypes by building out a fantasy themed video game.   
 
-## Assignment Description
+This challenge focuses on using the `this` keyword as well as getting comfortable with prototypes by building out a fantasy themed video game.
 
-* Fork/Clone this repository.
+## Set Up The Project With Git
+
+**Follow these steps to set up and work on your project:**
+
+* [ ] Create a forked copy of this project.
+* [ ] Add your project manager as collaborator on Github.
+* [ ] Clone your OWN version of the repository (Not Lambda's by mistake!).
+* [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
+* [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
+* [ ] Push commits: git push origin `<firstName-lastName>`.
+
+**Follow these steps for completing your project.**
+
+* [ ] Submit a Pull-Request to merge <firstName-lastName> Branch into master (student's  Repo). **Please don't merge your own pull request**
+* [ ] Add your project manager as a reviewer on the pull-request
+* [ ] Your project manager will count the project as complete by merging the branch back into master.
+
+## Assignment Set Up
+
 * Complete all the exercises as described inside each assignment file.
 * To test your `console.log()` statements, open up the index.html file found in the assignments folder and use the developer tools to view the console.  
-* Once you finish the exercises in each file, commit your code, and push it to your fork. 
 
 ## The `this` keyword
 
