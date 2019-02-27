@@ -1,0 +1,1 @@
+  CharacterStats.call(this, attributes);
