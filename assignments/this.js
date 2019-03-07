@@ -16,9 +16,17 @@ to the window object unless you're  in strict mode then it will just be undefine
 
 // Window Binding example
 
+const sayAge = function(){
+        console.log (this.age);
+};
 
+const me = {
+        age: 29
+}
 
-
+sayAge();
+window.age= 35;
+sayAge();
 // 
 
 // Implicit Binding example - 
