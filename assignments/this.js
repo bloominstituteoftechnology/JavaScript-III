@@ -26,18 +26,29 @@ const object = {
 
 // Principle 3
 function Computer(obj){
+    this.name = obj.name;
     this.screen = obj.screen;
     this.cpu = obj.cpu;
     console.log(this);
 }
 
+Computer.prototype.print = function(){
+    console.log(`${this.name} has a ${this.screen} and I contain ${this.cpu}`);
+}
+
 const myComp = new Computer({
+    name: 'myComp',
     screen: '27-inch',
     cpu: 'Ryzen 5',
 })
-console.log(myComp);
+
+const yourComp = new Computer({
+    name: 'yourComp',
+    screen: '21-inch',
+    cpu: 'Intel i5',
+})
 // code example for New Binding
 
 // Principle 4
-
+yourComp.print.call(myComp);
 // code example for Explicit Binding
