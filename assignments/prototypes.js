@@ -78,6 +78,81 @@ Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
 }
 
+function Villian(villianAttrs) {
+  this.catchPhrase = villianAttrs.catchPhrase;
+  Humanoid.call(this, villianAttrs);
+}
+
+Villian.prototype = Object.create(Humanoid.prototype);
+
+Villian.prototype.smack = function(person) {
+  let personHP = person.healthPoints - 3;
+  person.healthPoints = personHP;
+  return `${this.name} smacks ${person.name} for ${personHP} damage`;
+}
+
+Villian.prototype.speak = function() {
+  return `${this.name} yells ${this.catchPhrase}`;
+}
+
+// function Hero(heroAttrs) {
+//   this.costume = heroAttrs.costume;
+//   Humanoid.call(this.heroAttrs);
+// }
+
+// Hero.prototype = Object.create(Humanoid.prototype);
+
+// Hero.prototype.deathRay = function(person) {
+//   let personHP = person.healthPoints - 2;
+//   person.healthPoints = personHP;
+//   return `${this.name} uses Death Ray on ${person.name} for ${personHP} damage`;
+// }
+
+// Hero.prototype.costumeMove = function() {
+//   return `${this.name} brandishes his ${this.costume}`;
+// }
+
+
+
+
+const mrVillian = new Villian( {
+  createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 3,
+      height: 3,
+    },
+    healthPoints: 20,
+    name: 'Mister Fart Face',
+    team: 'Evil Dudes R Us',
+    weapons: [
+      'Giant Hand'
+    ],
+    language: 'Weirdo',
+    catchPhrase: 'Gonna get ya!'
+})
+
+// const mrHero = new Hero( {
+//   createdAt: new Date(),
+//     dimensions: {
+//       length: 3,
+//       width: 3,
+//       height: 3,
+//     },
+//     healthPoints: 20,
+//     name: 'Super Dude',
+//     team: 'Loners',
+//     weapons: [
+//       'Eyes'
+//     ],
+//     language: 'meh',
+//     catchPhrase: 'I will save you!',
+//     costume: 'cape'
+// })
+
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -165,9 +240,11 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  //console.log(hero.costumeMove());
+  console.log(mrVillian.speak());
+  console.log(mrVillian.smack(mage));
 
   // Stretch task: 
-  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.   
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
