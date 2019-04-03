@@ -1,13 +1,13 @@
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
 
-  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
+  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.
 
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
-  
+
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
@@ -16,12 +16,47 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+
+
+class GameObject{
+  constructor(gameAttrs){
+    this.createdAt = gameAttrs.createdAt.toString();
+    this.dimensions = gameAttrs.dimensions;
+  }
+  destroy(){
+    return `${this.name} was removed from the game.`;
+  }
+}
+
+
+
+
+
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+
+class CharacterStats extends GameObject{
+  constructor(charAttrs){
+    super(charAttrs);
+    this.healthPoints = charAttrs.healthPoints;
+    this.name = charAttrs.name;
+
+  }
+  takeDamage(){
+    return `${this.name} took damage.`;
+
+  }
+}
+
+
+
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,7 +67,52 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+
+class Humanoid extends CharacterStats{
+  constructor(humAttrs){
+    super(humAttrs);
+    this.team = humAttrs.team;
+    this.weapons = humAttrs.weapons;
+    this.language = humAttrs.language;
+  }
+  greet(){
+    return `${this.name} offers a greeting in ${this.language}`;
+
+  }
+}
+
+class Villain extends Humanoid{
+  constructor(villainAttrs){
+    super(villainAttrs);
+    this.isVillain = villainAttrs.isVillain;
+    this.evilDesign = villainAttrs.evilDesign;
+    this.numOfMinions = villainAttrs.numOfMinions;
+    this.strength = villainAttrs.strength;
+    this.motivation = villainAttrs.motivation;
+    this.cunning = Math.max(villainAttrs.cunning, 10);
+  }
+
+  attack(target){let damage = Math.floor(Math.random()*this.strength);
+  target.healthPoints -= damage;}
+}
+
+class Hero extends Humanoid{
+  constructor(heroAttrs){
+    super(heroAttrs);
+    this.isHero = heroAttrs.isHero;
+    this.nobleCause = heroAttrs.nobleCause;
+    this.allies = heroAttrs.allies;
+    this.strength = heroAttrs.strength;
+    this.strengthOfSpirit = Math.max(heroAttrs.strengthOfSpirit,10);
+  }
+  attack(target){
+    let damage = Math.floor(Math.random()*this.strengthOfSpirit);
+    target.healthPoints -= damage;
+  }
+}
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +121,6 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +181,9 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
 
-  // Stretch task: 
-  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+
+  // Stretch task:
+  // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
