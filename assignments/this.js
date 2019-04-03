@@ -32,7 +32,7 @@ food: `burrito`
 
 //favFood(); returns undefined
 window.food = `Pork Carnitas`; // Binds Pork Carnitas to the window object, otherwise it returns undefined.
-favFood();
+//favFood();
 
 // Principle 2
 // code example for Implicit Binding
@@ -53,18 +53,24 @@ daughter: {
 };
 
 var mandi = Person('Mandi', 33);
-mandi.sayName();
-mandi.daughter.sayName();
+// mandi.sayName();
+// mandi.daughter.sayName();
 
 // Principle 3
 // code example for New Binding
-var Pet = function(breed, name, type) {
-this.breed = breed;
-this.name = name;
-this.type = type;
-};
 
-const Cat = new Pet('Tabby', 'Mau', 'Cat');
+function Pet(mood) {
+this.mood = mood
+this.name = 'Popcorn'
+this.breed = 'Tabby'
+this.today =  function () {
+  console.log(`My name is ${this.name}, and I am a ${this.breed} and today I am ${this.mood}`)
+}
+}
+
+const cat = new Pet ('playful')
+console.log(cat);
+
 
 // Principle 4
 // code example for Explicit Binding
@@ -78,7 +84,7 @@ name: 'Odie',
 breed: 'Mastif-Pit mix'
 };
 
-dogBark.call(odie);
+//dogBark.call(odie);
 
 
 // =========Do I need this, IDFK =============
@@ -94,8 +100,8 @@ breed: 'Mastif-Pit mix'
 
 const treats = ['beef bones', 'carrots', 'peanut butter'];
 
-dogTreats.call(trooper, treats[0], treats[1], treats[2]); //call
-dogTreats.apply(trooper, treats); //apply
+//dogTreats.call(trooper, treats[0], treats[1], treats[2]); //call
+//dogTreats.apply(trooper, treats); //apply
 const moreDogTreats = dogTreats.bind(trooper, treats[0], treats[1], treats[2]); //bind
 
-moreDogTreats();
+//moreDogTreats();
