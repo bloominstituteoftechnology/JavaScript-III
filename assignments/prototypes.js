@@ -88,7 +88,7 @@ Villian.prototype = Object.create(Humanoid.prototype);
 Villian.prototype.smack = function(person, damage) {
   let personHP = person.healthPoints - damage;
   if (personHP <= 0) {
-    return `${this.name} smacks ${person.name} for ${damage} damage. ${person.name} is knocked out.`;
+    return `${this.name} smacks ${person.name} for ${damage} damage. ${person.name} is removed from the game.`;
   } else {
     person.healthPoints = personHP;
     return `${this.name} slashes ${person.name} for ${damage} damage. ${person.name} has ${personHP} HP left`;
@@ -245,7 +245,7 @@ const mrVillian = new Villian( {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-  //console.log(hero.costumeMove());
+  // console.log(mrHero.costumeMove());
   console.log(mrVillian.speak());
   console.log(mrVillian.smack(mage, 4));
   console.log(mrVillian.smack(mage, 3));
