@@ -85,14 +85,19 @@ function Villian(villianAttrs) {
 
 Villian.prototype = Object.create(Humanoid.prototype);
 
-Villian.prototype.smack = function(person) {
-  let personHP = person.healthPoints - 3;
-  person.healthPoints = personHP;
-  return `${this.name} smacks ${person.name} for ${personHP} damage`;
+Villian.prototype.smack = function(person, damage) {
+  let personHP = person.healthPoints - damage;
+  if (personHP <= 0) {
+    return `${this.name} smacks ${person.name} for ${damage} damage. ${person.name} is knocked out.`;
+  } else {
+    person.healthPoints = personHP;
+    return `${this.name} slashes ${person.name} for ${damage} damage. ${person.name} has ${personHP} HP left`;
+  }
+
 }
 
-Villian.prototype.speak = function() {
-  return `${this.name} yells ${this.catchPhrase}`;
+Villian.prototype.speak = function() { 
+  return `${this.name} yells "${this.catchPhrase}" in ${this.language}.`;
 }
 
 // function Hero(heroAttrs) {
@@ -242,7 +247,8 @@ const mrVillian = new Villian( {
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
   //console.log(hero.costumeMove());
   console.log(mrVillian.speak());
-  console.log(mrVillian.smack(mage));
+  console.log(mrVillian.smack(mage, 4));
+  console.log(mrVillian.smack(mage, 3));
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.   
