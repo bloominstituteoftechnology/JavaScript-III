@@ -5,14 +5,15 @@
 
 * 2. The this keyword refers to an object when a function is being called by a proceeding dot. 
 
-* 3. 
+* 3. New Binding uses the new keyword and when it's used, the this keyword is tied to the new keyword and the new keyword is used to create a new object.
 
-* 4. 
+* 4. Explicit binding allows a function to use the this key word as a argument to call an object.
 *
 * write out a code example of each explanation above
 */
 
 // Principle 1
+// Window Binding
 
  function hollerAt(salutations) {
   console.log(this);
@@ -60,6 +61,27 @@ hollerAt("As Salaamu Alaikum");
 
 // code example for New Binding
 
+const Person = function(color, name, gender) {
+    this.color = color;
+    this.name = name;
+    this.gender = gender
+};
+
+
+const Greg = new Person("black", "Abdul", "Male");
+
+
 // Principle 4
 
 // code example for Explicit Binding
+
+const sayAge = function () {
+    console.log("My age is " + this.age + " and my name is " + this.name);
+}; 
+
+const Abdul = {
+    name: 'Abdul Qadir',
+    age: 46
+};
+
+sayAge.call(Abdul);
