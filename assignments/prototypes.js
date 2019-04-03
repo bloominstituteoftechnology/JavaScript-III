@@ -138,5 +138,89 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  //Create two new objects, one a villain and one a hero and fight it out with methods!
+  // * Give the Hero and Villains different methods that could be used to remove health points 
+  // *-- from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+function Base(obj){
+  Humanoid.call(this, obj);
+  this.power = obj.power;
+  this.supName = obj.supName;
+};
+
+Base.prototype = Object.create(Humanoid.prototype);
+
+function Villain(obj){
+  Base.call(this, obj);
+  this.villPower = obj.villPower;
+}
+
+Villain.prototype = Object.create(Base.prototype);
+
+
+
+function Hero(obj){
+  Base.call(this, obj);
+  this.supPower = obj.supPower;
+  this.laserEye = function(opp){
+    opp.healthPoints -= this.supPower;
+    return `${opp.healthPoints} === jackfrost || ${this.healthPoints} === superman`
+  };
+}
+
+Hero.prototype = Object.create(Base.prototype);
+
+const superMan = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  healthPoints: 10,
+  name: 'Lilith',
+  team: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+  supPower: '5',
+});
+
+const jackFrost = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  healthPoints: 10,
+  name: 'Lilith',
+  team: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+  villPower: '3',
+
+})
+function makeMeWork(){
+  while (true) {
+    superMan.laserEye(jackFrost);
+    jackFrost.damage();
+    if (superMan.healthPoints <= 0 || jackFrost.healthPoints <= 0) {            
+      if(superMan.healthPoints === 0){
+        return superMan.destroy();
+      } else {
+        return jackFrost.destroy();
+      }
+    };
+  }
+}
+
+console.log(jackFrost.batSwing(superMan));
+console.log(superMan.laserEye(jackFrost));
+
+console.log(makeMeWork());
