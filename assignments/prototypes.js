@@ -15,7 +15,15 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: '{this.name} was removed from the game.'
 */
-
+function GameObject (attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+ }
+ 
+ GameObject.prototype.destroy = function () {
+   return `${this.name} was removed from the game.`;
+ }
+ 
 /*
   === CharacterStats ===
   * healthPoints
@@ -45,7 +53,7 @@
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
-      length: 2,
+      length: 2, 
       width: 1,
       height: 1,
     },
@@ -110,4 +118,3 @@
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
 
-  // pull request //
