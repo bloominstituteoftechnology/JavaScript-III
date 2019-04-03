@@ -26,7 +26,7 @@ const myObj = {
       console.log(this);
     }
   };
-  myObj.sayHello('Ryan');
+  myObj.sayHello('Pearl');
 
 // Principle 3
 
