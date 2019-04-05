@@ -54,7 +54,7 @@ var Person = function(name, age, weight, height)
 var xavier = Person('xavier vick-west', 22, 225, 6)
 // Principle 3
 
-// code example for New Binding
+/// code example for New Binding
 
 
 function newPerson(buddy) {
