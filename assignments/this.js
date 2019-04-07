@@ -89,6 +89,6 @@ let mean = {
 
 yaddada = yaddada.bind(mean)
 
-yaddada();
+yaddada(); //"YADDADAMEEEEAN???"
 
 //permanently binding 'this' to 'mean' and reassigning 'yaddada' to the permanently bound function. 
