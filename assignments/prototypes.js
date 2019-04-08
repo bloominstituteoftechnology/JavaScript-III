@@ -146,16 +146,20 @@ Humanoid.prototype.greet = function() {
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
    function Villain(vAttributes) {
-   GameObject.call(this, vAttributes);
-   CharacterStats.call(this, vAttributes);
-   this.team = hAttributes.team;
-   this.weapons = hAttributes.weapons;
-   this.language = hAttributes.language;
+   Humanoid.call(this, vAttributes);
+
  }
 
-Humanoid.prototype = Object.create(GameObject.prototype);
-Humanoid.prototype = Object.create(CharacterStats.prototype);
+Villain.prototype = Object.create(Humanoid.prototype);
 
-Humanoid.prototype.greet = function() {
+Villain.prototype.attack = function() {
   return `${this.name} offers a greeting in ${this.language}.`
 }
+
+
+   function Hero(heroAttributes) {
+   Humanoid.call(this, heroAttributes);
+
+ }
+
+Hero.prototype = Object.create(Humanoid.prototype);
