@@ -147,19 +147,61 @@ Humanoid.prototype.greet = function() {
 
    function Villain(vAttributes) {
    Humanoid.call(this, vAttributes);
+   this.damage = vAttributes.damage;
 
  }
 
 Villain.prototype = Object.create(Humanoid.prototype);
 
-Villain.prototype.attack = function() {
-  return `${this.name} offers a greeting in ${this.language}.`
+Villain.prototype.attack = function(hero, damage) {
+  return this.healthPoints - 
+
+  `${this.name} attacks ${hero.name}`
 }
+
+
 
 
    function Hero(heroAttributes) {
    Humanoid.call(this, heroAttributes);
+   this.damage = heroAttributes.damage;
 
  }
 
 Hero.prototype = Object.create(Humanoid.prototype);
+
+
+
+  const wizard = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 3,
+    },
+    healthPoints: 10,
+    name: 'Voldemort',
+    team: 'Death Eaters',
+    weapons: [
+      'Elder Wand',
+    ],
+    language: ['English', 'Parseltongue']
+  });
+
+
+
+  const wizard = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 1,
+    },
+    healthPoints: 7,
+    name: 'Harry Potter',
+    team: 'Order of the Phoenix',
+    weapons: [
+      'Phoenix Tail Wand',
+    ],
+    language: ['English', 'Parseltongue']
+  });
