@@ -145,3 +145,42 @@ Humanoid.prototype.greet = function(){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  var Villain = function(villAttr){
+    Humanoid.call(this, villAttr);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.attack = function(victim){
+    victim.healthPoints = victim.healthPoints - 1;
+    return `${victim.name} took a point of damage!`;
+  };
+
+  var Hero = function(heroAttr){
+    Humanoid.call(this. heroAttr);
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.justiceattack = function(victim){
+    victim.healthPoints = victim.healthPoints - 3;
+    return `The evil ${victim.name} took a heroic blow for 3 damage!`
+  }
+
+  const wizard = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Freak',
+    team: 'Volcano',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
