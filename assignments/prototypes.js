@@ -154,11 +154,16 @@ Humanoid.prototype.greet = function(){
 
   Villain.prototype.attack = function(victim){
     victim.healthPoints = victim.healthPoints - 1;
+    if (victim.healthPoints <= 0) {
+      return victim.destroy();
+    }
+    else {
     return `${victim.name} took a point of damage!`;
+    }
   };
 
   var Hero = function(heroAttr){
-    Humanoid.call(this. heroAttr);
+    Humanoid.call(this, heroAttr);
   }
 
   Hero.prototype = Object.create(Humanoid.prototype);
@@ -183,4 +188,21 @@ Humanoid.prototype.greet = function(){
       'Dagger',
     ],
     language: 'Elvish',
+  });
+
+  const paladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 5,
+    name: 'Powerboy',
+    team: 'The Light',
+    weapons: [
+      'Sword',
+      'Dagger',
+    ],
+    language: 'Human',
   });
