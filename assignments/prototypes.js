@@ -16,12 +16,32 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+GameObject.prototype.destroy = function(){
+  return 'Object was removed from the game.'
+}
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(attributes){
+  this.healthPoints = attributes.healthPoints;
+  this.name = attributes.name;
+  GameObject.call(this, attributes);
+}
+
+
+
+CharacterStats.prototype = Object.create(GameObject.prototype)
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`
+}
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -33,6 +53,22 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(attributes){
+  this.team =attributes.team;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+  CharacterStats.call(this, attributes);
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype) 
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`
+}
+
+  
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +77,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +138,81 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+
+  // function Hero(attributes){
+  //   this.weakness =attributes.weakness;
+    
+  //   Humanoid.call(this, attributes);
+  // }
+
+  // Hero.prototype = Object.create(Humanoid.prototype) 
+  
+
+  // function Villan(attributes){
+  //   this.weakness =attributes.weakness;
+  //   Humanoid.call(this, attributes);
+  // }
+  
+  // Villan.prototype = Object.create(CharacterStats.prototype) 
+ 
+
+
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  const Hero  = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Batman',
+    team: 'Gotham',
+    weapons: [
+      'Machine-Gun',
+      'Longsword',
+    ],
+    language: 'English',
+  });
+
+  const Villain  = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Batman',
+    team: 'Gotham',
+    weapons: [
+      'Grenade',
+      'Knife',
+    ],
+    language: 'English',
+  });
+
+  function Hero(attributes){
+    this.team =attributes.team;
+    this.weapons = attributes.weapons;
+    this.language = attributes.language;
+    Humanoid.call(this, attributes);
+  }
+
+
+  Hero.prototype = Object.create(Humanoid.prototype)
+  
+  Hero.prototype.attack = function(obj) {
+  return obj.healthPoints --
+}
+
+
+
+
+
