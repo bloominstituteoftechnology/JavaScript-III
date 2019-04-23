@@ -29,6 +29,9 @@ const myObj = {
   }
 };
 
+console.log(myObj.speak()); // myObj is to the left of speak (where `this is used`)
+// thus, myObj is `this`
+
 // Principle 3
 
 // code example for New Binding
@@ -41,9 +44,14 @@ Person.prototype.speak = function() {
   return `Hello, my name is ${this.name}`;
 };
 
+// the `new` keyword creates a new object using the Person constructor.
+// Within the Person constructor `this` is the new object saved into the
+// variable `matt`
 let matt = new Person({ name: "Matt" });
 
 // Principle 4
 
 // code example for Explicit Binding
 let leslie = new Person({ name: "Leslie" });
+
+leslie.speak.apply(matt);
