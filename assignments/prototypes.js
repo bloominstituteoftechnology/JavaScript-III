@@ -17,10 +17,10 @@
   * 
 */
 
-var GameObject = function(createdAt, name, dimensions){
-  this.createdAt = createdAt;
-  this.name = name;
-  this.dimensions = dimensions;
+var GameObject = function(attr){
+  this.createdAt = attr.createdAt;
+  this.name = attr.name;
+  this.dimensions = attr.dimensions;
 };
 
 GameObject.prototype.destroy = function() {
@@ -34,9 +34,9 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 
-var CharacterStats = function(healthPoints, createdAt, name, dimensions){
-  GameObject.call(this, createdAt, name, dimensions);
-  this.healthPoints = healthPoints;
+var CharacterStats = function(charAttr){
+  GameObject.call(this, charAttr);
+  this.healthPoints = this.healthPoints;
 };
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -56,11 +56,11 @@ CharacterStats.prototype.takeDamage = function(){
   * should inherit takeDamage() from CharacterStats
 */
  
-var Humanoid = function(healthPoints, createdAt, name, dimensions, team, weapons, language){
-  CharacterStats.call(this, healthPoints, createdAt, name, dimensions);
-  this.team = team;
-  this.weapons = weapons;
-  this.language = language;
+var Humanoid = function(humanoidAttr){
+  CharacterStats.call(this, humanoidAttr);
+  this.team = this.team;
+  this.weapons = this.weapons;
+  this.language = this.language;
 };
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
