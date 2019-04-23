@@ -37,10 +37,13 @@ myObj.sayHello('Ryan');
 // Principle 3
 
 // code example for New Binding
-function CordialPerson(greeter) {
-  this.greeting = 'Hello ';
-  this.greeter = greeter;
-  this.speak = function() {
+class CordialPerson {
+  constructor (greeter) {
+    this.greeting = 'Hello ';
+    this.greeter = greeter;
+  }
+ 
+  speak() {
     console.log(this.greeting + this.greeter);
     console.log(this);
   };
@@ -56,11 +59,5 @@ newman.speak();
 
 // code example for Explicit Binding
 
-function Person(attributes) {
-  this.age = attributes.age;
-  this.name = attributes.name;
-  this.homeTown = attributes.homeTown;
-  this.speak = function () {
-    return `Hello, my name is ${this.name}`;
-  };
-}
+zaur.speak.call(newman); 
+newman.speak.apply(zaur);
