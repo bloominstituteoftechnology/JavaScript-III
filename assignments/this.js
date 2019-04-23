@@ -54,4 +54,6 @@ let matt = new Person({ name: "Matt" });
 // code example for Explicit Binding
 let leslie = new Person({ name: "Leslie" });
 
+// Even though I'm calling speak on the `leslie` object, I am explicitly
+// changing the context of `this` to the `matt` object.
 leslie.speak.apply(matt);
