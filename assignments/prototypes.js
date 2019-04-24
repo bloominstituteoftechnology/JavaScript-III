@@ -15,15 +15,32 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+class GameObject {
+  constructor (createdAt, name, dimensions) {
+      this.createdAt = createdAt;
+      this.name = name;
+      this.dimensions = dimensions;
+  }
 
+  destroy () {
+      return `${this.name} was removed from the game`}
+  }
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+class CharacterStats extends GameObject {
+  constructor (createdAt, name, dimensions, destroy,healthPoints) {
+      super(createdAt, name, dimensions, destroy);
 
-/*
+      this.healthPoints = healthPoints;
+  }
+
+  takeDamage () {
+      return `${this.name} took damage.`}}
+/* 
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
   * weapons
@@ -32,7 +49,16 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+class Humanoid extends CharacterData {
+  constructor(team,weapons,language, healthPoints) {
+      super(healthPoints);
+      this.team = team;
+      this.weapons = weapons;
+      this.language = language;
+  }
+
+  greet () {
+      return `${this.name} offers a greeting in ${this.language}`
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -107,4 +133,4 @@
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-  // * Create two new objects, one a villain and one a hero and fight it out with methods!
+  // * Create two new objects, one a villain and one a hero and fight it out with methods! 
