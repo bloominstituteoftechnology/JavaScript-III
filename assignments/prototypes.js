@@ -51,7 +51,7 @@ CharacterStats.prototype.takeDamage = function(){
   * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
-*/
+*/ 
 
 function Humanoid(humanTraits){
   CharacterStats.call(this, humanTraits);
