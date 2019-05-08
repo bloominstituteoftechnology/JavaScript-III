@@ -75,12 +75,12 @@ Villain.prototype = Object.create(Humanoid.prototype);
 
 Villain.prototype.lasers = function(target) {
   if (target.healthPoints > 0){
-    let randomNum = Math.floor(Math.random * 10);
-    target.healthPoints - randomNum;
+    let randomNum = Math.floor(Math.random() * 5);
+    target.healthPoints -= randomNum;
     if (target.healthPoints < 0){
       return target.destroy()
     } else {
-      `${this.name} attacks ${target} for ${randomNum}. ${target} has ${target.healthPoints} health points left.`
+      return `${this.name} attacks ${target.name} for ${randomNum}. ${target.name} has ${target.healthPoints} health points left.`
     }
   } else {
     return `${target} is already dead.`
@@ -95,12 +95,12 @@ Hero.prototype = Object.create(Humanoid.prototype);
 
 Hero.prototype.truth = function(target) {
   if (target.healthPoints > 0){
-    let randomNum = Math.floor(Math.random * 10);
-    target.healthPoints - randomNum;
+    let randomNum = Math.floor(Math.random() * 5);
+    target.healthPoints -= randomNum;
     if (target.healthPoints < 0){
       return target.destroy()
     } else {
-      `${this.name} attacks ${target} for ${randomNum}. ${target} has ${target.healthPoints} health points left.`
+      return `${this.name} attacks ${target.name} for ${randomNum}. ${target.name} has ${target.healthPoints} health points left.`
     }
   } else {
     return `${target} is already dead.`
@@ -165,8 +165,33 @@ Hero.prototype.truth = function(target) {
     dimensions: {
       length: 2,
       width: 1,
-      height: 
-    }
+      height: 5
+    },
+    healthPoints: 25,
+    name: 'Evil Jeremy',
+    team: 'Army of Darkness',
+    weapons: [
+      'evil laugh',
+      'lightning sword'
+    ],
+    language: 'evil english'
+  })
+
+  const Collosus = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 6,
+      height: 10
+    },
+    healthPoints: 35,
+    name: 'Hero Doug',
+    team: 'Riders of the Light',
+    weapons: [
+      'smile of beauty',
+      'sword of smite'
+    ],
+    language: 'booming english'
   })
 
   console.log(mage.createdAt); // Today's date
@@ -185,3 +210,16 @@ Hero.prototype.truth = function(target) {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+function battle (hero, villain){
+  while (hero.healthPoints > 0 && villain.healthPoints > 0){
+    console.log(hero.truth(villain))
+    console.log(villain.lasers(hero))
+    if (hero.healthPoints < 0) {
+      return `${hero.name} has lost the battle and ${villain.name} is victorious with ${villain.healthPoints} health points left.`
+    } else if (villain.healthPoints < 0){
+      return `${villain.name} has lost the battle and ${hero.name} is victorious with ${hero.healthPoints} health points left.`
+    }
+  }
+}
+battle(Collosus, fireBreath)
