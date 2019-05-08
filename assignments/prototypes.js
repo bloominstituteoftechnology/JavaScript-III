@@ -81,8 +81,72 @@ Humanoid.prototype.greet = function() {
 */
 
 function Hero(heroAttr) {
-
+  Humanoid.call(this, heroAttr);
 }
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.holyLight = function() {
+  if(this.healthPoints > 0) {
+    this.healthPoints = this.healthPoints - 20;
+    return `AAAGH! (${this.name} was purged by the holy light and lost 20 life!)`;
+  } 
+  
+  else {
+    return `${this.name} is already dead, you fool...`
+  }
+  
+}
+
+function Villain(villainAttr) {
+  Humanoid.call(this, villainAttr);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.siphonSoul = function() {
+  if(this.healthPoints > 0) {
+    this.healthPoints = this.healthPoints - 20;
+    return `AAAGH! (${this.name} has lost 20 life!)`;
+  } 
+  
+  else {
+    return `${this.name} is already dead, you fool...`
+  }
+  
+}
+
+const varian = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 2,
+    height: 2
+  },
+  healthPoints: 100,
+  name: 'Varian Wrynn',
+  team: 'Alliance',
+  weapons: [
+    'Shalamayne'
+  ],
+  language: 'Common Tongue'
+});
+
+const sylvanas = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 2
+  },
+  healthPoints: 90,
+  name: 'Sylvanas Windrunner',
+  team: 'Horde',
+  weapons: [
+    'Sunstrider Longbow'
+  ],
+  language: 'Common Tongue'
+});
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
@@ -91,7 +155,7 @@ function Hero(heroAttr) {
     dimensions: {
       length: 2,
       width: 1,
-      height: 1,
+      height: 1
     },
     healthPoints: 5,
     name: 'Bruce',
@@ -107,7 +171,7 @@ function Hero(heroAttr) {
     dimensions: {
       length: 2,
       width: 2,
-      height: 2,
+      height: 2
     },
     healthPoints: 15,
     name: 'Sir Mustachio',
@@ -124,7 +188,7 @@ function Hero(heroAttr) {
     dimensions: {
       length: 1,
       width: 2,
-      height: 4,
+      height: 4
     },
     healthPoints: 10,
     name: 'Lilith',
@@ -146,3 +210,7 @@ function Hero(heroAttr) {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(varian.holyLight.call(sylvanas));
+  console.log(sylvanas.holyLight.call(varian));
+  console.log(varian.healthPoints) // I can't explain how cool this is to me ->
+  console.log(sylvanas.healthPoints); // I can't explain how cool this is to me ->
