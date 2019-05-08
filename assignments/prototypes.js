@@ -131,6 +131,41 @@ Humanoid.prototype.greet = function() {
     language: 'Elvish',
   });
 
+  const villian = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 12,
+      height: 10,
+    },
+    healthPoints: 110,
+    name: 'Sandman',
+    team: 'Kobra Kai',
+    weapons: [
+      'Mac-10',
+      'Machette',
+    ],
+    language: 'Jive',
+  });
+
+  const hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 1,
+      height: 1,
+    },
+    healthPoints: 110,
+    name: 'Mini Me',
+    team: 'Hero',
+    weapons: [
+      'Halitosis',
+      'Super Strength',
+    ],
+    language: 'Pig Latin',
+
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -141,6 +176,7 @@ Humanoid.prototype.greet = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+  console.log(hero.)
 
 
   // Stretch task: 
