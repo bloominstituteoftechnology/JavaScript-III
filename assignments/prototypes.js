@@ -66,26 +66,26 @@ CharacterStats.prototype.takeDamage = function() {
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// //==========Villain Prototype===============
-// function Villain(villainAttributes) {
-//   Humanoid.call(this, villainAttributes);
-//   this.specialMove = villainAttributes.specialMove;
-// }
-// Villain.prototype = Object.create(Humanoid.prototype);
+//==========Villain Prototype===============
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+  this.specialMove = villainAttributes.specialMove;
+}
+Villain.prototype = Object.create(Humanoid.prototype);
 
-// Villain.prototype.lasers = function() {
-//   return `WIP: will update`
-// }
-// //==========Hero Prototype=================
-// function Hero(heroAttributes) {
-//   Humanoid.call(this, heroAttributes);
-//   this.specialMove = heroAttributes.specialMove
-// }
-// Hero.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.lasers = function() {
+  return `WIP: will update`
+}
+//==========Hero Prototype=================
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+  this.specialMove = heroAttributes.specialMove
+}
+Hero.prototype = Object.create(Humanoid.prototype);
 
-// Hero.prototype.truth = function() {
-//   return `WIP: will update`
-// }
+Hero.prototype.truth = function() {
+  return `WIP: will update`
+}
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
