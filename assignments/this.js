@@ -1,10 +1,10 @@
 /* The for principles of "this";
  * in your own words. explain the four principle for the "this" keyword below.
  *
- * 1. Window Binding
- * 2.
- * 3.
- * 4.
+ * 1. Window Binding just get the first this object in which everything is at.
+ * 2. Implicit Binding is just getting the value inside the same function.
+ * 3. New Binding uses the new keyword to connect and get the data.
+ * 4. Explict Binding joins the object and functions via call, apply, or bind.
  *
  * write out a code example of each explanation above
  */
