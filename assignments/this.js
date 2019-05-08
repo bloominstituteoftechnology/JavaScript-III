@@ -20,12 +20,34 @@ myName('Jbarz');
 
 // Principle 2
 
-// code example for Implicit Binding
+const myObj = {
+    assignment: 'project',
+    myName: function (name){
+        console.log('Im ${name} and im working on the ${this.assignment}');
+        console.log(this);
+    }
+};
+
+myObj.myName('Jabari');
 
 // Principle 3
 
-// code example for New Binding
+function ThatMe(greeter) {
+    this.greeting = 'Hello';
+    this.greeter = greeter;
+    this.speak = function() {
+      console.log(this.greeting + this.greeter);
+      console.log(this);
+    };
+  }
+    const Jabari = new ThatMe('Jabari');
+    const Jbarz = new ThatMe('Jbarz');
+
+    Jabari.speak();
+    Jbarz.speak();
+
+
 
 // Principle 4
 
-// code example for Explicit Binding
+
