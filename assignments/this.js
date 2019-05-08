@@ -81,5 +81,5 @@ const victor = new Person2({name: 'Victor',age: 30})
 const adrian = new Person2({name: 'Adrian', age: 32})
 
 
-victor.speak.call(adrian)  
-adrian.speak.apply(victor)
+victor.speak.call(adrian); 
+adrian.speak.apply(victor);
