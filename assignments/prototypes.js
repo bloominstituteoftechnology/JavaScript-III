@@ -73,8 +73,18 @@ function Villain(villainAttributes) {
 }
 Villain.prototype = Object.create(Humanoid.prototype);
 
-Villain.prototype.lasers = function() {
-  return `WIP: will update`
+Villain.prototype.lasers = function(target) {
+  if (target.healthPoints > 0){
+    let randomNum = Math.floor(Math.random * 10);
+    target.healthPoints - randomNum;
+    if (target.healthPoints < 0){
+      return target.destroy()
+    } else {
+      `${this.name} attacks ${target} for ${randomNum}. ${target} has ${target.healthPoints} health points left.`
+    }
+  } else {
+    return `${target} is already dead.`
+  }
 }
 //==========Hero Prototype=================
 function Hero(heroAttributes) {
@@ -83,8 +93,18 @@ function Hero(heroAttributes) {
 }
 Hero.prototype = Object.create(Humanoid.prototype);
 
-Hero.prototype.truth = function() {
-  return `WIP: will update`
+Hero.prototype.truth = function(target) {
+  if (target.healthPoints > 0){
+    let randomNum = Math.floor(Math.random * 10);
+    target.healthPoints - randomNum;
+    if (target.healthPoints < 0){
+      return target.destroy()
+    } else {
+      `${this.name} attacks ${target} for ${randomNum}. ${target} has ${target.healthPoints} health points left.`
+    }
+  } else {
+    return `${target} is already dead.`
+  }
 }
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
@@ -139,6 +159,15 @@ Hero.prototype.truth = function() {
     ],
     language: 'Elvish',
   });
+
+  const fireBreath = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 
+    }
+  })
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
