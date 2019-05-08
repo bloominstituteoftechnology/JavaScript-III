@@ -167,7 +167,7 @@ Hero.prototype.truth = function(target) {
       width: 1,
       height: 5
     },
-    healthPoints: 25,
+    healthPoints: 35,
     name: 'Evil Jeremy',
     team: 'Army of Darkness',
     weapons: [
@@ -215,11 +215,6 @@ function battle (hero, villain){
   while (hero.healthPoints > 0 && villain.healthPoints > 0){
     console.log(hero.truth(villain))
     console.log(villain.lasers(hero))
-    if (hero.healthPoints < 0) {
-      return `${hero.name} has lost the battle and ${villain.name} is victorious with ${villain.healthPoints} health points left.`
-    } else if (villain.healthPoints < 0){
-      return `${villain.name} has lost the battle and ${hero.name} is victorious with ${hero.healthPoints} health points left.`
-    }
   }
 }
 battle(Collosus, fireBreath)
