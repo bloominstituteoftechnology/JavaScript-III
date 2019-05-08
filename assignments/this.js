@@ -56,3 +56,5 @@ function MeanPerson(person) {
 // code example for Explicit Binding
 christian.speak.call(josh);
 josh.speak.apply(christian);
+
+//For reference
