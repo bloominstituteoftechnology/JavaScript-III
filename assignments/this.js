@@ -11,7 +11,12 @@
 
 // Principle 1
 
-// code example for Window Binding
+function myName(name) {
+    console.log(this);
+    return name;
+}
+
+myName('Jbarz');
 
 // Principle 2
 
