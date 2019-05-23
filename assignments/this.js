@@ -1,3 +1,4 @@
+import stacey from 'stacey';
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
@@ -47,26 +48,26 @@ function Person(obj){
 
 // Principle 4
 
-const stacey= {
-   name: "Stacey",
-   age: 34, 
-   sayName: function(){
-     console.log('Mynameis'+ this.name);
-   }
+const tatianna= {
+  name: "Tatianna",
+  age: 34, 
+  sayName: function(){
+    console.log('Mynameis'+ this.name);
+  }
 }
-  stacey.sayName();
+ tatianna.sayName();
 
   // not a method but a function on the global scope
 
-const sayName = funtion(){
+const sayName = function(){
   console.log('Mynameis' + this.name);
 
-const OGtmoni = {
-  name: 'Tmoni',
+const Tatianna = {
+  name: 'Tatianna',
   age: 37, 
 }
 
-const languages = ['JS', 'Ruby', 'Python'];
+const languages = ['JavaScript', 'Ruby', 'Python'];
 }
-sayName.call(OGtmoni, languages[0],languages[1],languages[2] );
-// code example for Explicit Binding
+sayName.call(Tatianna, languages[0],languages[1],languages[2] );
+// code example for Explicit Binding'
