@@ -144,15 +144,15 @@ Humanoid.prototype.greet = function(){
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
-  // const Villain = function(villainAttrs){
-  //   Humanoid.call(this, villainAttrs)
-  //   this.team = humanoidAttrs.team;
-  //   this.weapons = humanoidAttrs.weapons;
-  //   this.language = humanoidAttrs.language;
-  // }
+  const Villain = function(villainAttrs){
+    Humanoid.call(this, villainAttrs)
+    this.team = humanoidAttrs.team;
+    this.weapons = humanoidAttrs.weapons;
+    this.language = humanoidAttrs.language;
+  }
   
-  // Humanoid.prototype = Object.create(CharacterStats.prototype);
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
   
-  // Humanoid.prototype.greet = function(){
-  //   return `${this.name} offers a greeting in ${this.language}.`
-  // }
+  Humanoid.prototype.greet = function(){
+    return `${this.name} offers a greeting in ${this.language}.`
+  }
