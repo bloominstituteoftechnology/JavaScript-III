@@ -4,7 +4,7 @@
 * 1. Window Binding - when you're in global scope, the window/console object is the value of this
 * 2. Implicit Binding - this will point to the object before the dot that precedes a function that is called 
 * 3. New Binding - this will refer the object that is created and returned by the constructor function
-* 4. Explicit Binding - when using .call or .apply, you explicity define this.
+* 4. Explicit Binding - when using .call or .apply, you're explicitly defining this.
 *
 * write out a code example of each explanation above
 */

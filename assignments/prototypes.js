@@ -151,6 +151,18 @@ Humanoid.prototype.greet = function(){
   
   Villain.prototype = Object.create(Humanoid.prototype);
 
+  Villain.prototype.attacked = function() {
+    this.healthPoints--;
+    console.log(`${this.name} was hit!`);
+    if (this.healthPoints <= 0) {
+      console.log(`${this.name}'s health points: ${this.healthPoints}`);
+      return this.destroy();
+    } else {
+      return `${this.name}'s health points: ${this.healthPoints}`;
+    }
+    
+  }
+
 
   // ====== Hero ======
   const Hero = function(heroAttrs){
@@ -168,7 +180,7 @@ const villain = new Villain({
     width: 2,
     height: 4,
   },
-  healthPoints: 25,
+  healthPoints: 2,
   name: 'Mr. Lame',
   team: 'Lame Team',
   weapons: ['Bow'],
@@ -189,4 +201,10 @@ const hero = new Hero({
   weapons: ['Giant Sword'],
   language: 'English',
 });
+
+
+hero.attacked();
+console.log(villain.attacked());
+console.log(villain.attacked());
+
 
