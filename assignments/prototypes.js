@@ -34,9 +34,9 @@ GameObject.prototype.destroy = function(){
   * should inherit destroy() from GameObject's prototype
 */
 
-const CharacterStats = function(characterAttrs){
-  GameObject.call(this, characterAttrs);
-  this.healthPoints = characterAttrs.healthPoints;
+const CharacterStats = function(stats){
+  GameObject.call(this, stats);
+  this.healthPoints = stats.healthPoints;
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -144,15 +144,49 @@ Humanoid.prototype.greet = function(){
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
+  // ====== Villain ======
   const Villain = function(villainAttrs){
     Humanoid.call(this, villainAttrs)
-    this.team = humanoidAttrs.team;
-    this.weapons = humanoidAttrs.weapons;
-    this.language = humanoidAttrs.language;
   }
   
-  Humanoid.prototype = Object.create(CharacterStats.prototype);
-  
-  Humanoid.prototype.greet = function(){
-    return `${this.name} offers a greeting in ${this.language}.`
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+
+  // ====== Hero ======
+  const Hero = function(heroAttrs){
+    Humanoid.call(this, heroAttrs)
   }
+  
+  Hero.prototype = Object.create(Villain.prototype);
+
+
+//====== Villain and Hero Objects ====== 
+const villain = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 2,
+    height: 4,
+  },
+  healthPoints: 25,
+  name: 'Mr. Lame',
+  team: 'Lame Team',
+  weapons: ['Bow'],
+  language: 'English',
+});
+
+
+const hero = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 3,
+    width: 2,
+    height: 4,
+  },
+  healthPoints: 25,
+  name: 'Mr. Awesome',
+  team: 'Super Team',
+  weapons: ['Giant Sword'],
+  language: 'English',
+});
+
