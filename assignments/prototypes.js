@@ -33,6 +33,7 @@ GameObject.prototype.destroy = function() {
 */
 
 function CharacterStats(attributes) {
+  GameObject.call(this, attributes);
   this.healthPoints = attributes.healthPoints;
 }
 
@@ -51,10 +52,13 @@ CharacterStats.prototype.takeDamage = function() {
 */
 
 function Humanoid(attributes) {
+  CharacterStats.call(this, attributes);
   this.team = attributes.team;
   this.weapons = attributes.weapons;
   this.language = attributes.language;
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}.`;
