@@ -9,7 +9,8 @@
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid. 
    Use the objects at the bottom of the page to test your constructor functions.
   
-  Each constructor function has unique properties and methods that are defined in their block comments below:
+  Each constructor function has unique properties and methods that are defined in their 
+  block comments below:
 */
   
 /*
@@ -45,7 +46,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -106,7 +107,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
