@@ -17,7 +17,7 @@ function hello(param){
     console.log(this);
     return `I like to say ${param}`;
 }
-console.log(hello('hey hey'));
+console.log(hello('bubbles'));
 
 // Principle 2
 
@@ -28,7 +28,7 @@ const doggo = {
     plays: 'fetch',
     time: 'all day',
     fetch: function(){
-        return `${this.name} will ${this.play} ${this.time} and everyday if you let her!`
+        return `${this.name} will ${this.plays} ${this.time} everyday if you let her!`
     }
 }
 console.log(doggo.fetch());
