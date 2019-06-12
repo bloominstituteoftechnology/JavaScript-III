@@ -31,7 +31,31 @@ person.sayName();
 // Principle 3
 
 // code example for New Binding
+function Car(name) {
+    this.name = name;
+    this.speed = 55;
+    this.race = function () {
+        console.log(`the ${this.name} wins the race going ${this.speed}MPH`);
+    }
+}
+
+const corvette = new Car('corvette');
+console.log(corvette);
+console.log(corvette.race());
 
 // Principle 4
 
 // code example for Explicit Binding
+
+const car = {
+    name: 'Tesla'
+}
+
+const price = ['35000', '39000', '41000'];
+
+function carAndPrices(price){
+    console.log(`${this.name} can cost ${price}`)
+}
+
+const useLater = carAndPrices.bind(car, price);
+useLater();
