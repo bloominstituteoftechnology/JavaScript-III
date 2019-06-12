@@ -77,6 +77,7 @@ const myObject = {
   }
 
   tellUsAboutYourself.apply(myObject, thingsIEnjoy)
+  tellUsAboutYourself(...thingsIEnjoy)
      
 
 // code example for Explicit Binding
