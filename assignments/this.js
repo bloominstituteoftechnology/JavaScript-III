@@ -18,6 +18,17 @@
 // Principle 1
 
 // code example for Window Binding
+var number = {
+  x: 42,
+  getX: function() {
+    return this.x;
+  }
+}
+
+var globalX = number.getX;
+console.log(globalX());
+
+
 
 // Principle 2
 // code example for Implicit Binding
@@ -68,7 +79,7 @@ function CordialPerson(greeter) {
 const jerry = new CordialPerson('Newman');
 const newman = new CordialPerson('Jerry');
 const beverly = new CordialPerson('Beverly');
-const diego = new CordialPerson('Diego');
+const diego = new CordialPerson(['Diego']);
 
 jerry.speak();
 newman.speak();
