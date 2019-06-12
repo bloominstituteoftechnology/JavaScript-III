@@ -51,6 +51,7 @@ CharacterStats.prototype.takeDamage = function () {
 
 function Humanoid (attributes) {
   CharacterStats.call(this, attributes)
+  this.team = attributes.team 
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype)
@@ -58,7 +59,7 @@ Humanoid.prototype.greet = function () {}
 
 new Humanoid({
   name: 'kelly',
-  
+
 })
 
 
