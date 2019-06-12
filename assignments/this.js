@@ -13,6 +13,12 @@
 
 // code example for Window Binding
 
+function hello(param){
+    console.log(this);
+    return `I like to say ${param}`;
+}
+console.log(hello('hey hey'));
+
 // Principle 2
 
 // code example for Implicit Binding
@@ -37,9 +43,9 @@ console.log(doggo.fetch());
 const wizard = {
     name: "Harry Potter"
 }
-const skills = ['Magic', 'Finding Voldy', 'Breaking my glasses'];
+const skills = ['Magic', 'Finding Voldy', 'Breaking my glasses', ''];
 
 function introduction(wizardry){
-    return `Hello! my name is ${this.name} and these are my skills as a wizarding boi: ${wizardry}`;
+    return `Hello! my name is ${this.name} and these are my skills as a wizarding boi: ${wizardry}.`;
 }
 console.log(introduction.call(wizard, skills));
