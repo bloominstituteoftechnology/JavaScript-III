@@ -17,7 +17,7 @@
 */
 function GameObject(attributes){
   this.name = attributes.name;
-  this.createdArt = attributes.createdArt;
+  this.createdAt = attributes.createdArt;
   this.dimensions = attributes.dimensions;
 
 }
@@ -35,10 +35,17 @@ GameObject.prototype.destroy = function(){
 function CharacterStats(attributes){
   GameObject.call(this, attributes)
   this.healthPoints = attributes.healthPoints;
-
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
+
+const stat = new CharacterStats({
+  createdAt:'Noob', 
+  name: 'Big Noob', 
+  dimensions: 5, 
+  healthPoints: 99
+})
+console.log(stat.destroy());
 
 CharacterStats.prototype.takeDamage = function(){
   return `${this.name} has been damaged!`;
@@ -65,6 +72,7 @@ Humanoid.prototype = Object.create (CharacterStats.prototype)
 Humanoid.prototype.greet = function(){
   return `${this.name} greets in ${this.language}`;
 }
+
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
