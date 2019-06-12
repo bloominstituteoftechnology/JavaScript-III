@@ -36,6 +36,19 @@ console.log(doggo.fetch());
 // Principle 3
 
 // code example for New Binding
+function Friend(greeter){
+    this.greeting = 'Hello';
+    this.greeter = greeter;
+    this.speak = function (){
+        console.log(this.greeting + ' ' + this.greeter);
+    };
+}
+
+const Nisa = new Friend('Ariam');
+const Ariam = new Friend('Nisa');
+
+Nisa.speak();
+Ariam.speak();
 
 // Principle 4
 
