@@ -16,8 +16,8 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
-function GameObject(name) {
-  this.name = name
+function GameObject(attributes) {
+  this.name = attributes.name
 }
 
 GameObject.prototype.destroy = function () {
@@ -53,7 +53,10 @@ function Humanoid () {
 
 }
 
-CharacterStats.prototype = Object.create(GameObject.prototype)
+Humanoid.prototype = Object.create(CharacterStats.prototype)
+Humanoid.prototype.greet = function () {}
+
+new Humanoid()
 
 
  
