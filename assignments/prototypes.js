@@ -31,7 +31,7 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats() {
+function CharacterStats(attributes) {
 
 }
 
@@ -49,7 +49,7 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid () {
+function Humanoid (attributes) {
 
 }
 
