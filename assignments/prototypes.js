@@ -36,8 +36,14 @@ GameObject.prototype.destroy = function(){
 */
 
 
-
-
+function CharacterStats(stats) {
+  GameObject.call(this, stats);
+  this.hp = stats.hp;
+  this.name = stats.name;
+}
+ CharacterStats.prototype = Object.create(GameObject.prototype);
+ CharacterStats.prototype.takeDamage = function() { return `${this.name} has taken damage.`;
+};
 
 
 /*
@@ -49,7 +55,6 @@ GameObject.prototype.destroy = function(){
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-
 
 
 
