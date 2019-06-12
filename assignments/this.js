@@ -7,7 +7,7 @@
         return name;
         }
         sayName("D'Artagnan");
-            -
+            -exactly what it sounds like. a global decloration of what ever is being output by the function. Do not use. 
 * 2. Implicit Binding
         const myObj = {
         greeting: 'Hello',
