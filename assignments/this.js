@@ -75,9 +75,12 @@ const myObject = {
     and I enjoy ${thing1}, ${thing2}, and ${thing3}. 
     I love to eat ${this.favoriteFood}.`
   }
-
+  
   tellUsAboutYourself.apply(myObject, thingsIEnjoy)
   tellUsAboutYourself(...thingsIEnjoy)
+  console.log(tellUsAboutYourself.apply(myObject, thingsIEnjoy));
+
+
      
 
 // code example for Explicit Binding
