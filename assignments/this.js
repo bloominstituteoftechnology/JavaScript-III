@@ -56,7 +56,7 @@ Ariam.speak();
 const wizard = {
     name: "Harry Potter"
 }
-const skills = ['Magic', 'Finding Voldy', 'Breaking my glasses', ''];
+const skills = ['Magic',  'Finding Voldy',  'Breaking my glasses',  'quidditch'];
 
 function introduction(wizardry){
     return `Hello! my name is ${this.name} and these are my skills as a wizarding boi: ${wizardry}.`;
