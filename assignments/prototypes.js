@@ -32,7 +32,7 @@ GameObject.prototype.destroy = function () {
 */
 
 function CharacterStats(attributes) {
-
+  GameObject.call(this, attributes)
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype)
@@ -50,13 +50,16 @@ CharacterStats.prototype.takeDamage = function () {
 */
 
 function Humanoid (attributes) {
-
+  CharacterStats.call(this, attributes)
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype)
 Humanoid.prototype.greet = function () {}
 
-new Humanoid()
+new Humanoid({
+  name: 'kelly',
+  
+})
 
 
  
