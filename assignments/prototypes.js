@@ -109,7 +109,7 @@ Humanoid.prototype.greet = function(){
   });
 
   const archer = new Humanoid({
-    createdAt: new Date(6/12/19),
+    createdAt: new Date(),
     dimensions: {
       length: 1,
       width: 2,
