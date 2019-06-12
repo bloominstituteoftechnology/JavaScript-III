@@ -15,6 +15,14 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game`; //Instead of a console.log I used a return to get rid of that rogue undefined on line 138 in the console.
+  
+}
 
 /*
   === CharacterStats ===
@@ -22,6 +30,16 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(characterAttributes) {
+  GameObject.call(this, characterAttributes);
+  this.healthPoints = characterAttributes.healthPoints;
+  this.name = characterAttributes.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage`;
+}
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
