@@ -21,12 +21,25 @@
 let GameObject = function (attributes) {
   this.createdAt = attributes.createdAt;
   this.name = attributes.name;
+  this.gender = attributes.gender;
   this.dimensions = attributes.dimensions;
 }
-GameObject.prototype.destroy = function () {
-  return `${this.name} was removed from the game`;
-}
 
+GameObject.prototype = {
+  constructor: GameObject,
+  waves: function () {
+    if (this.gender === undefined) {
+      return `${this.name} waves their hand`;
+    } else if (this.gender === 'female') {
+      return `${this.name} waves her hand`;
+    } else {
+      return `${this.name} waves his hand`;
+    }
+  },
+  destroy: function () {
+    return `${this.name} was removed from the game`;
+  }
+}
 
 let CharacterStats = function (attributes) {
   GameObject.call(this, attributes);
@@ -60,9 +73,12 @@ Humanoid.prototype.greet = function () {
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
+//Using "attributes" as the param & implicitly binding it in the constructor function allows object literals to be 
+//passed into it and map at those attributes: 
 
 const mage = new Humanoid({
   createdAt: new Date(),
+  gender: "male",
   dimensions: {
     length: 2,
     width: 1,
@@ -79,6 +95,7 @@ const mage = new Humanoid({
 
 const swordsman = new Humanoid({
   createdAt: new Date(),
+  gender: "male",
   dimensions: {
     length: 2,
     width: 2,
@@ -96,6 +113,7 @@ const swordsman = new Humanoid({
 
 const archer = new Humanoid({
   createdAt: new Date(),
+  gender: "female",
   dimensions: {
     length: 1,
     width: 2,
@@ -121,6 +139,7 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+console.log(mage.waves())
 // Stretch task: 
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
