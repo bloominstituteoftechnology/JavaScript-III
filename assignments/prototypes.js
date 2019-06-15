@@ -113,3 +113,26 @@
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+  function mathWizard(num1, num2, callback) {
+    return callback(num1, num2)
+  }
+  
+  function add(num1, num2) {
+    return num1 + num2;
+  }
+function multiply(num1, num2) {
+  return num1 * num2;
+}
+function square(num1) {
+  return num1 * num1
+}
+function subtract(num1,num2) {
+  return num1 - num2;
+}
+
+console.log(subtract(10,5))
+console.log(add(7, 10))
+console.log(multiply(7, 10))
+console.log(square(10)) 
