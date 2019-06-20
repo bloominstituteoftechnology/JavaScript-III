@@ -1,10 +1,10 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1. Implicit what ever is left of the dot when fuction is invloked,
+* 2. Explicit - when explicitly bind this using bind, apply and call
+* 3. new binding - Class
+* 4. winodws binding
 *
 * write out a code example of each explanation above
 */
