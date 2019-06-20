@@ -31,10 +31,20 @@ const me = {
 }
 me.sayName()
 
-// Principle 3
+// Principle 3 code example for New Binding
 
-// code example for New Binding
+const Animal = function (color, name, type) {
+  this.color = color
+  this.name = name
+  this.type = type
+  this.peek = function () {
+    console.log(`${this.color}, ${this.name}, ${this.type}`)
+    console.log(this)
+  }
+}
+const zebra = new Animal('black and white', 'Zim', 'Zebra')
+zebra.peek()
 
-// Principle 4
+// console.log(zebra)
 
-// code example for Explicit Binding
+// Principle 4 code example for Explicit Binding
