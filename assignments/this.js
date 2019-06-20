@@ -4,7 +4,7 @@
 * 1. Implicit what ever is left of the dot when fuction is invloked,
 * 2. Explicit - when explicitly bind this using bind, apply and call
 * 3. new binding - Class
-* 4. winodws binding
+* 4. winodws binding - window global object
 *
 * write out a code example of each explanation above
 */
@@ -12,6 +12,13 @@
 // Principle 1
 
 // code example for Window Binding
+const calculateAge = function (age) {
+  console.log(this)
+  // this refers to the global window/Console Object since there is no context defined
+  return age
+}
+
+calculateAge(35)
 
 // Principle 2
 
