@@ -39,12 +39,33 @@ const Animal = function (color, name, type) {
   this.type = type
   this.peek = function () {
     console.log(`${this.color}, ${this.name}, ${this.type}`)
-    console.log(this)
+    console.log(this, 'New Binding')
+    // this points to the Animal object
   }
 }
 const zebra = new Animal('black and white', 'Zim', 'Zebra')
+const lion = new Animal('brown/tan', 'Zaza', 'Lion')
 zebra.peek()
+lion.peek()
 
 // console.log(zebra)
 
 // Principle 4 code example for Explicit Binding
+const sayName = function () {
+  console.log(`My name is ${this.name}`)
+  console.log(this)
+}
+
+const dina = {
+  name: 'Dina',
+  age: 39
+}
+const arega = {
+  name: 'Arega',
+  age: 42
+}
+
+sayName.call(dina)
+sayName.apply(arega)
+const newFn = sayName.bind(dina)
+newFn()
