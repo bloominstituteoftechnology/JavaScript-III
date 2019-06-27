@@ -12,10 +12,10 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-const GameObject = function (createdAt, name, dimensions) {
-  this.createdAt = createdAt
-  this.name = name
-  this.dimensions = dimensions
+const GameObject = function (attributes) {
+  this.createdAt = attributes.createdAt
+  this.name = attributes.name
+  this.dimensions = attributes.dimensions
 }
 
 GameObject.prototype.destroy = function () {
@@ -23,18 +23,21 @@ GameObject.prototype.destroy = function () {
 }
 
 /*
-  === CharacterStats ===
-  * healthPoints
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
+=== CharacterStats ===
+* healthPoints
+* takeDamage() // prototype method -> returns the string '<object name> took damage.'
+* should inherit destroy() from GameObject's prototype
 */
-const CharacterStats = function (healthPoints) {
-  GameObject.call(this, healthPoints)
-  this.healthPoints = healthPoints
+
+const CharacterStats = function (attribs) {
+  GameObject.call(this, attribs)
+  this.healthPoints = attribs.healthPoints
 }
+CharacterStats.prototype = Object.create(GameObject.prototype)
 CharacterStats.prototype.takeDamage = function () {
   return `${this.name} took damage`
 }
+// CharacterStats.prototype = Object.create(GameObject.prototype)
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -45,12 +48,13 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-const Humanoid = function (team, weapons, language) {
-  CharacterStats.call(this, team, weapons, language)
-  this.team = team
-  this.weapons = weapons
-  this.language = language
+const Humanoid = function (attribs) {
+  CharacterStats.call(this, attribs)
+  this.team = attribs.team
+  this.weapons = attribs.weapons
+  this.language = attribs.language
 }
+Humanoid.prototype = Object.create(CharacterStats.prototype)
 Humanoid.prototype.greet = function () {
   return `${this.name} offers greetings in ${this.language}`
 }
@@ -120,8 +124,8 @@ console.log(swordsman.team) // The Round Table
 console.log(mage.weapons) // Staff of Shamalama
 console.log(archer.language) // Elvish
 console.log(archer.greet()) // Lilith offers a greeting in Elvish.
-// console.log(mage.takeDamage()) // Bruce took damage.
-// console.log(swordsman.destroy()) // Sir Mustachio was removed from the game.
+console.log(mage.takeDamage()) // Bruce took damage.
+console.log(swordsman.destroy()) // Sir Mustachio was removed from the game.
 
 // Stretch task:
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
