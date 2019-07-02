@@ -21,12 +21,11 @@ calculateAge(35)
 // Principle 2 code example for Implicit Binding
 const me = {
   greetings: 'Hello, my name is',
-  name: 'Arega',
+  name: 'A.D.',
   age: 42,
   sayName: function () {
     console.log(`${this.greetings}, ${this.name}`)
     console.log(this)
-    // this here refers to the me object
   }
 }
 me.sayName()
@@ -67,5 +66,7 @@ const arega = {
 
 sayName.call(dina)
 sayName.apply(arega)
-const newFn = sayName.bind(dina)
-newFn()
+// const newFn = sayName.bind(dina)
+// newFn()
+// an alternative will be 
+sayName.bind(dina)()
