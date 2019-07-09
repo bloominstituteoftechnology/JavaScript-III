@@ -15,16 +15,15 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-
-function GameObject (stats){
+function GameObject(stats) {
     this.createdAt = stats.createdAt;
     this.dimensions = stats.dimensions;
-    // this.name = stats.name; not needed
 }
 
-GameObject.prototype.destroy = function() {
-    return `${this.name} was removed from the game.`
+GameObject.prototype.destroy = function () {
+    return `${this.name} was removed from the game.`;
 }
+
 /*
   === CharacterStats ===
   * healthPoints
@@ -32,22 +31,20 @@ GameObject.prototype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 
-
-function CharacterStats(stats){
-    // Call to parent element, take (this, stats) as params
+function CharacterStats(stats) {
     GameObject.call(this, stats);
-    // health and name
-    //this.xxx = stats.xxx
     this.healthPoints = stats.healthPoints;
     this.name = stats.name;
 }
+
 // link current to parent
-CharacterStats.prototype = Object.create(GameObject.prototype)
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 // damage
 CharacterStats.prototype.takeDamage = function () {
     return `${this.name} took damage.`
 }
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -60,14 +57,7 @@ CharacterStats.prototype.takeDamage = function () {
 */
 // Humanoid should take (stats), not multiple params as the objects get passed in
 
-function Humanoid(stats) {
-    //Call parent (parent.call(this, stats))
-    CharacterStats.call(this, stats)
-    //team, weapons, and language
-    this.team = stats.team;
-    this.weapons = stats.weapons;
-    this.language = stats.language;
-}
+
 
 // var Humanoid = function (team, weapon, language) {
 //     this.team = team;
@@ -76,17 +66,18 @@ function Humanoid(stats) {
 //     this.greet
 // }; Humanoid should take (stats), not all those params as the indiviual Humanoid stats will populate due to being passsed as a parameter
 
-// link to parent
-Humanoid.prototype = Object.create(CharacterStats.prototype)
-
-// Return, not console.log functions.
-// Return the greeting, don't log it.
-Humanoid.prototype.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}`;
+function Humanoid(stats) {
+    CharacterStats.call(this, stats);
+    this.team = stats.team;
+    this.weapons = stats.weapons;
+    this.language = stats.language;
 }
 
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-
+Humanoid.prototype.greet = function () {
+    return `'${this.name} offers a greeting in ${this.language}.`
+}
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
