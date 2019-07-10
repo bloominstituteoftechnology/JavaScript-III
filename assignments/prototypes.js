@@ -87,10 +87,10 @@ const character = new Humanoid({
 });
 
 Humanoid.prototype.greet = function() {
-  return `${this.name} offers a greeting in ${this.language}`; 
+  return `${this.name} says hello in ${this.language}`; 
 }
 
- 
+console.log(character.greet());
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
