@@ -63,6 +63,32 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}.`; 
 }
+// Stretch// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function. 
+
+function Hero(spaceRanger){
+  Humanoid.call(this, spaceRanger);
+  this.team = spaceRanger.team;
+  this.weapons = spaceRanger.weapons;
+  this.language = spaceRanger.language;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Villain(evil){
+  Humanoid.call(this, evil);
+  this.team = evil.team;
+  this.weapons = evil.weapons;
+  this.language = evil.language;
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+
+  
+
+
+  
+
 
 
 /*
@@ -123,6 +149,43 @@ Humanoid.prototype.greet = function(){
     ],
     language: 'Elvish',
   });
+
+  // Stretch// * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  const laser = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 4,
+    }, 
+    healthPoints: 20,
+    name: 'Buzz',
+    team: 'Space Boys',
+    weapons: [
+      'Laser Gun',
+      'Light Saber',
+    ],
+    language: 'Space Talk',
+  });
+
+  const shield = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 4,
+    }, 
+    healthPoints: 20,
+    name: 'Dark Vader',
+    team: 'Evil Click',
+    weapons: [
+      'Photon Blaster',
+      'Shield Bomb',
+    ],
+    language: 'Space Talk',
+  });
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
