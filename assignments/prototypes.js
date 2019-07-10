@@ -41,56 +41,136 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
-  const mage = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 1,
-      height: 1,
-    },
-    healthPoints: 5,
-    name: 'Bruce',
-    team: 'Mage Guild',
-    weapons: [
-      'Staff of Shamalama',
-    ],
-    language: 'Common Tongue',
-  });
+function GameObject(attrs) {
+  this.createdAt = attrs.createdAt;
+  this.name = attrs.name;
+  this.dimensions = attrs.dimensions;
+}
 
-  const swordsman = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 2,
-      width: 2,
-      height: 2,
-    },
-    healthPoints: 15,
-    name: 'Sir Mustachio',
-    team: 'The Round Table',
-    weapons: [
-      'Giant Sword',
-      'Shield',
-    ],
-    language: 'Common Tongue',
-  });
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+};
 
-  const archer = new Humanoid({
-    createdAt: new Date(),
-    dimensions: {
-      length: 1,
-      width: 2,
-      height: 4,
-    },
-    healthPoints: 10,
-    name: 'Lilith',
-    team: 'Forest Kingdom',
-    weapons: [
-      'Bow',
-      'Dagger',
-    ],
-    language: 'Elvish',
-  });
+// const camelot = new GameObject({
+//   createdAt: new Date(),
+//   name: new Name(),
+//   dimensions: {
+//     length: 2, 
+//     width: 1,
+//     height: 3,
+//   },
+//   healthPoints: 15,
+//   name: 'Lady Guinevere',
+//   team: 'Sir Lancelot',
+//   weapons: ['Chastity Belt', 'Silver Armour'],
+//   language: 'English',
+// });
+
+// function game(gameAttrs) {
+//   GameObject.call(this, gameAttrs);
+//   this.newGame = gameAttrs.newGame;
+// }
+// game.prototype = Object.create(GameObject.prototype);
+
+function CharacterStats(stats) {
+  GameObject.call(this, stats);
+  this.healthPoints = stats.healthPoints;
+};
+
+CharacterStats.prototype = (GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
+
+// const arthur = new CharacterStats({
+//   createdAt: new Date(),
+//   name: new Name(),
+//   dimensions: {
+//     length: 2.5,
+//     width: 2,
+//     height: 4,
+//   },
+//   healthPoints: 20,
+//   name: 'King Arthur',
+//   team: 'Merlyn',
+//   weapons: ['Holy Grail', 'Merlyns Beard'],
+//   language: 'English', 'Common Tongue',
+// });
+
+// function character(characterAttrs) {
+//   CharacterStats.call(this, characterAttrs);
+//   this.newCharacter = characterAttrs.newCharacter;
+// }
+// character.prototype = Object.create(CharacterStats.prototype);
+
+function Humanoid(human) {
+  CharacterStats.call(this,human);
+  this.team = human.team;
+  this.weapons = human.weapons;
+  this.language = human.language;
+}
+
+Humanoid.prototype = (CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+const mage = new Humanoid({
+  createdAt: '19 July 2019',
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  healthPoints: 5,
+  name: 'Bruce',
+  team: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Tongue',
+});
+
+const swordsman = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2,
+  },
+  healthPoints: 15,
+  name: 'Sir Mustachio',
+  team: 'The Round Table',
+  weapons: [
+    'Giant Sword',
+    'Shield',
+  ],
+  language: 'Common Tongue',
+});
+
+const archer = new Humanoid({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 2,
+    height: 4,
+  },
+  healthPoints: 10,
+  name: 'Lilith',
+  team: 'Forest Kingdom',
+  weapons: [
+    'Bow',
+    'Dagger',
+  ],
+  language: 'Elvish',
+});
+
+function human(humanAttrs) {
+Humanoid.call(this, humanAttrs);
+this.newHumanoid = humanAttrs.newHumanoid;
+}
+human.prototype = Object.create(Humanoid.prototype);
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
@@ -102,9 +182,69 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
+
+  function Villian(bad) {
+    GameObject.call(this, bad);
+    this.createdAt = bad.createdAt;
+    this.name = bad.name;
+    this.dimensions = bad.dimensions;
+    };
+
+Villian.prototype = (Humanoid.prototype);
+Villian.prototype.kill = function() {
+  return `${this.name} tries to kill them with his ${this.weapons}.`;
+}
+  const gameVillian = new Villian({
+  createdAt: '19 July 2019',
+  dimensions: {
+    length: 3, 
+    width: 2,
+    height: 5,
+  },
+  healthPoints: 10,
+  name: 'The Evil Mordred',
+  team: 'Cave of Mordue',
+  weapons: ['Flaming Sword', 'Black Armour', 'Invisible Sheild'],
+  language: 'Orkish',
+  });
+
+  function Hero(brave) {
+    GameObject.call(this, brave);
+    this.createdAt = brave.createdAt;
+    this.name = brave.name;
+    this.dimensions = brave.dimensions;
+  };
+
+  Hero.prototype = (Villian.prototype);
+  Hero.prototype.save = function() {
+  return `${this.name} tries to save them with his ${this.weapons}.`;
+}
+
+  const gameHero = new Hero({
+  createdAt:'19 July 2019',
+  dimensions: {
+    length: 2, 
+    width: 1.5,
+    height: 3,
+  },
+  healthPoints: 15,
+  name: 'The Handsome Prince Charming',
+  team: 'Lady of the Lake',
+  weapons: ['Sword in the Stone', 'White Armour', 'Golden Sheild'],
+  language: 'English',
+  });
+
+
+console.log(gameHero.name);
+// console.log(gameHero.team);
+// console.log(gameHero.weapons);
+console.log(gameVillian.name);
+// console.log(gameVillian.team);
+// console.log(gameVilian.language);
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
