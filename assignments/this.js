@@ -66,3 +66,23 @@ student2.printStudentInfo();
 
 // code example for Explicit Binding
 
+const fswStudent1 = {
+    id: 'FSW1010',
+    name: 'Saney Alam',
+    department: 'WEBPT8'
+}
+
+const subjects = ['CSS', 'Advanced CSS', 'JavaScript Foundation', 'Advanced JavaScript', 'React'];
+
+function about(subjects){
+    return `ID: ${this.id}  \nName: ${this.name} \nDepartment: ${this.department} \n Topic Covers: ${this.subjects}`;
+}
+
+function tellUsAboutYourself(thing1, thing2, thing3){
+    return `Hi! My name is ${this.name} with Id ${this.id}, and I am studying  ${thing1}, ${thing2}, and ${thing3}. I am in  ${this.department}.`
+  }
+
+
+  console.log(tellUsAboutYourself.call(fswStudent1, ...subjects));
+
+  console.log(about.call(fswStudent1, subjects));
