@@ -52,12 +52,12 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
   * should inherit takeDamage() from CharacterStats
 */
 
-function Humanoid (humans) {
+function Humanoid(humans) {
 CharacterStats.call(this, humans);
 this.team = humans.team;
 this.weapons = humans.weapons;
 this.language = humans.language;
-this.greet = function () {
+Humanoid.prototype.greet = function () {
   return `${this.name} says hello in ${this.language}.`;
  };
 }
