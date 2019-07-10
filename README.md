@@ -3,7 +3,7 @@
 This challenge focuses on using the `this` keyword as well as getting comfortable with prototypes by building out a fantasy themed video game.
 
 ## Set Up The Project With Git
-
+x
 **Follow these steps to set up and work on your project:**
 
 * [ ] Create a forked copy of this project.
@@ -12,7 +12,7 @@ This challenge focuses on using the `this` keyword as well as getting comfortabl
 * [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
 * [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
 * [ ] Push commits: git push origin `<firstName-lastName>`.
-
+x
 **Follow these steps for completing your project.**
 
 * [ ] Submit a Pull-Request to merge <firstName-lastName> Branch into master (student's  Repo). **Please don't merge your own pull request**
