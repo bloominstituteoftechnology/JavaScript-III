@@ -56,4 +56,3 @@ function CordialPerson(greeter) {
 
 // code example for Explicit Binding
 jerry.speak.call(newman);
-newman.speak.apply(jerry);
