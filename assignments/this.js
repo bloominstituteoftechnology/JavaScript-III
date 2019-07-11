@@ -50,4 +50,14 @@ function ThatMe(greeter) {
 
 // Principle 4
 
+  function MyName(name,assignment){
+    this.name = Jbarz;
+    this.assignment = JSIII;
+  }
+
+  function Allwork(name, assignment){
+    MyName.call(this,name,assignment);
+    
+
+  }
 
