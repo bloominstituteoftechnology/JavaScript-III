@@ -187,18 +187,18 @@ human.prototype = Object.create(Humanoid.prototype);
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
 
-  function Villian(bad) {
+  function Villain(bad) {
     GameObject.call(this, bad);
     this.createdAt = bad.createdAt;
     this.name = bad.name;
     this.dimensions = bad.dimensions;
     };
 
-Villian.prototype = (Humanoid.prototype);
-Villian.prototype.kill = function() {
+Villain.prototype = (Humanoid.prototype);
+Villain.prototype.kill = function() {
   return `${this.name} tries to kill them with his ${this.weapons}.`;
 }
-  const gameVillian = new Villian({
+  const gameVillain = new Villain({
   createdAt: '19 July 2019',
   dimensions: {
     length: 3, 
@@ -208,7 +208,7 @@ Villian.prototype.kill = function() {
   healthPoints: 10,
   name: 'The Evil Mordred',
   team: 'Cave of Mordue',
-  weapons: ['Flaming Sword', 'Black Armour', 'Invisible Sheild'],
+  weapons: ['Flaming Sword', 'Black Armour', 'Invisible Shield'],
   language: 'Orkish',
   });
 
@@ -219,7 +219,7 @@ Villian.prototype.kill = function() {
     this.dimensions = brave.dimensions;
   };
 
-  Hero.prototype = (Villian.prototype);
+  Hero.prototype = (Villain.prototype);
   Hero.prototype.save = function() {
   return `${this.name} tries to save them with his ${this.weapons}.`;
 }
@@ -234,7 +234,7 @@ Villian.prototype.kill = function() {
   healthPoints: 15,
   name: 'The Handsome Prince Charming',
   team: 'Lady of the Lake',
-  weapons: ['Sword in the Stone', 'White Armour', 'Golden Sheild'],
+  weapons: ['Sword in the Stone', 'White Armour', 'Golden Shield'],
   language: 'English',
   });
 
@@ -242,9 +242,9 @@ Villian.prototype.kill = function() {
 console.log(gameHero.name);
 // console.log(gameHero.team);
 // console.log(gameHero.weapons);
-console.log(gameVillian.name);
-// console.log(gameVillian.team);
-// console.log(gameVilian.language);
+console.log(gameVillain.name);
+// console.log(gameVillain.team);
+// console.log(gameVillain.language);
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
