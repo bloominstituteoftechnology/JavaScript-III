@@ -145,6 +145,7 @@ Humanoid.prototype.greet = function(){
   function Hero(attributes) {
     Humanoid.call(this, attributes); // implicit binding
   }
+
   Hero.prototype = Object.create(Humanoid.prototype); //inheritence
 
 
