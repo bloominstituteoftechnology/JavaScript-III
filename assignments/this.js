@@ -7,7 +7,7 @@
 
 * 3.  EXPLICIT BINDING - We can tell the JavaScript Engine to set 'this' to point to a value using call, apply or bind.
 
-* 4. BIND is used to create a new function that's permanently bound to a this value
+* 4. NEW BINDING - Using the new keyword constructs a new object, and this points to it 
 *
 * write out a code example of each explanation above
 */
