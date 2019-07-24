@@ -1,8 +1,7 @@
+
 /*
   Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
-
   In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
-
   At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
@@ -15,7 +14,13 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-
+function.GameObject(attributes){
+    this.createdAt= attributes.createdAt;
+    this.dimensions =attributes.dimensions;
+}
+GameObject.prototype.destroy = function(){
+    rerturn ('Object was removed from the game');
+}
 /*
   === CharacterStats ===
   * healthPoints
@@ -23,6 +28,14 @@
   * should inherit destroy() from GameObject's prototype
 */
 
+function CharacterStats(stats) {
+    this.hp=stats.hp;
+    this.name=stat.name;
+}
+CharacterStats.prototype.takeDamage = function(){
+    return ${this.name} + took Damage.;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -32,7 +45,15 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+ Function Humanoid(humanoidAttr){
+     this.faction = humanoidAttr.Faction;
+     this.weapons = humanoidAttr.weapons;
+     this.language = humanoAttr.language;
+ }
+ Humanoid.prototype.greet = function() {
+    return ${''} + offers a greeting in + ${''};
+ }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +62,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+// /*
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -57,7 +78,6 @@
     ],
     language: 'Common Tongue',
   });
-
   const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -74,7 +94,6 @@
     ],
     language: 'Common Tongue',
   });
-
   const archer = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -91,7 +110,6 @@
     ],
     language: 'Elvish',
   });
-
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
