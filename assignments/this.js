@@ -52,3 +52,6 @@ var explicitlySetLogThis = logThis.bind({name: 'Eralp'});
 explicitlySetLogThis(); // {name: 'Eralp'}
 
 // code example for Explicit Binding
+
+console.log('*************** End of "this" keyword! ***********************');
+console.log('*************** End of "this" keyword! ***********************');
