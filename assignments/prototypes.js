@@ -15,6 +15,15 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+function GameObject(obj){
+  this.createdAt = obj.createdAt;
+  this.name = obj.name;
+  this.dimensions = obj.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+};
 
 /*
   === CharacterStats ===
@@ -22,7 +31,16 @@
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+function CharacterStats(plStats) {
+  this.healthPoints = plStats.healthPoints;
 
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+}
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -91,6 +109,7 @@
     ],
     language: 'Elvish',
   });
+
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }

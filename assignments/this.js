@@ -22,13 +22,13 @@ logThis(); // window
 // code example for Window Binding
 
 // Principle 2
-var Obj = {
+var myObj = {
   myMethod: function() {
     console.log(this);
   }
 };
-
-Obj.myMethod(); // myObject
+ 
+myObj.myMethod(); // myObj
 
 // code example for Implicit Binding
 
