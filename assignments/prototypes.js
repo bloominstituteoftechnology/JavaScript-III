@@ -16,9 +16,9 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 function GameObject(attributes){
-  this.newCreatedAt = attirbutes.createdAt,
-  this.newName = attributes.name,
-  this.newDimensions = attributes.dimensions
+  this.createdAt = attributes.createdAt,
+  this.name = attributes.name,
+  this.dimensions = attributes.dimensions
 }
 GameObject.prototype.destroy = function (){
   return `${this.name} was removed from the game.`;
@@ -32,12 +32,13 @@ GameObject.prototype.destroy = function (){
   * should inherit destroy() from GameObject's prototype
 */
 function CharacterStats(attributes){
-  this.newHealthPoints = attributes.healthPoints
+  GameObject.call(this, attributes),
+  this.healthPoints = attributes.healthPoints
 }
-CharacterStats.prototype = Object.create(GameObjects.prototype);
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function (){
-  return `${this.newName} took damage.`
+  return `${this.name} took damage.`
 }
 
 
@@ -52,14 +53,16 @@ CharacterStats.prototype.takeDamage = function (){
 */
 
 function Humanoid(attributes){
-  this.newTeam = attributes.team,
-  this.newWeapons = attributes.weapons,
-  this.newLanguage = attributes.language
+  CharacterStats.call(this, attributes),
+
+  this.team = attributes.team,
+  this.weapons = attributes.weapons,
+  this.language = attributes.language
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype)
 Humanoid.prototype.greet = function (){
-  return `${this.newName} offers a greeting in ${this.newLanguage}.`
+  return `${this.name} offers a greeting in ${this.language}.`
 }
 
  
@@ -68,6 +71,11 @@ Humanoid.prototype.greet = function (){
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+// function Child(childAttributes) {
+//   Person.call(this, childAttributes); // binding this to Person
+//   this.isChild = childAttributes.isChild; // this will be a special attribute to Child
+// }
+
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
