@@ -13,60 +13,60 @@
 
 // code example for Window Binding
 
-// function windowBinding() {
-//     return this;
-// }
+function windowBinding() {
+    return this;
+}
 
-// console.log(windowBinding());
+console.log(windowBinding());
 
 // Principle 2
 
 // code example for Implicit Binding
 
-// const animal =  {
-//     species: "dog",
-//     about: function(name) {
-//         console.log(`${this.name} is a ${this.species}`);
-//     }
-// };
+const animal =  {
+    species: "dog",
+    about: function(name) {
+        console.log(`${this.name} is a ${this.species}`);
+    }
+};
 
-// animal.about("Tucker");
+animal.about("Tucker");
 
 // Principle 3
 
 // code example for New Binding
 
-// function person(attributes) {
-//     this.type = attributes.species,
-//     this.firstName = attributes.name
-//     this.speak = function() {
-//         console.log(`${this.firstName} is a ${this.type}.`);
-//     };
-// };
+function Person(attributes) {
+    this.type = attributes.species,
+    this.firstName = attributes.name
+    this.speak = function() {
+        console.log(`${this.firstName} is a ${this.type}.`);
+    };
+};
 
-// const tyler = new person({
-//     species: "human",
-//     name: "Tyler"
-// });
+const tyler = new Person({
+    species: "human",
+    name: "Tyler"
+});
 
-// tyler.speak();
+tyler.speak();
 
 // Principle 4
 
 // code example for Explicit Binding
 
-function people(attributes) {
+function People(attributes) {
     this.firstName = attributes.name
     this.sayHello = function() {
         console.log(`Hello, I am ${this.firstName}!`);
     };
 };
 
-const rob = new people({
+const rob = new People({
     name: "Rob"
 });
 
-const alex = new people({
+const alex = new People({
     name: "Alex"
 });
 
