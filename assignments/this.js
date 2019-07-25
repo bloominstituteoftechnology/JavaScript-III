@@ -67,5 +67,5 @@ let myAnimal ={
   let newDogSound = dogSound.bind(myAnimal);
   newDogSound();
 
-// code example for Explicit Binding //
+// code example for Explicit Binding //git status
 
