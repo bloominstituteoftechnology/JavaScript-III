@@ -10,9 +10,9 @@
   
 
   function GameObject(specs){
-  this.createdAt =  specs.createdAt;
-  this.name = specs.name;
-  this.dimensions = specs.dimensions; 
+    this.createdAt =  specs.createdAt;
+    this.name = specs.name;
+    this.dimensions = specs.dimensions; 
   }
 
   GameObject.prototype.destroy = function(){
@@ -22,12 +22,12 @@
   // prototype method that returns: `${this.name} was removed from the game.`
 
   function CharacterStats(_attr){
-  GameObject.call(this, _attr)
-  this.healthPoints = _attr.healthPoints;
+    GameObject.call(this, _attr)
+    this.healthPoints = _attr.healthPoints;
   }
-  //CharacterStats.prototype = Object.create(GameObject.prototype);
-  CharacterStats.prototype.takeDamage = function(){
-  return `${this.name}took damage.`
+    CharacterStats.prototype = Object.create(GameObject.prototype);
+    CharacterStats.prototype.takeDamage = function(){
+    return `${this.name}took damage.`
   }
   
     /* prototype method -> returns the string '<object name> took damage.'
@@ -36,16 +36,17 @@
 
 
   function Humanoid (droid){
-  CharacterStats.call(this, droid)
-  this.team = droid.team,
-  this.weapons = droid.weapons,
-  this.language = droid.language
+    CharacterStats.call(this, droid)
+    this.team = droid.team,
+    this.weapons = droid.weapons,
+    this.language = droid.language
   }
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
   Humanoid.prototype.greet = function() {
     return `${this.name} offers a greeting in ${this.language}.`
   }
 
-  //CharacterStats.prototype = Object.create(GameObject.prototype);
+  
   /* prototype method -> returns the string '<object name> offers a greeting in <object language>.'
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats*/
