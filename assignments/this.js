@@ -12,7 +12,7 @@
 // Principle 1
 //Window/Global Object Binding
 // code example for Window Binding
-function myJob(job) {
+/*function myJob(job) {
     console.log(this);
     return job;
   }
@@ -56,4 +56,4 @@ function showMeTheMoney(payment) {
   const payMyBills = new showMeTheMoney('$100 dollars!');
     payMyBills.gimme.call('$100 dollars!'); 
     
-    payBills.gimme('$100 dollars!');
+    payBills.gimme('$100 dollars!');*/
