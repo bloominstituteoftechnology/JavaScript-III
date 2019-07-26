@@ -15,6 +15,7 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+
 function GameObject(character){
   this.newCreatedAt = character.createdAt,
   this.newName = character.name,
@@ -22,8 +23,9 @@ function GameObject(character){
 };
 
 GameObject.prototype.destroy = function(){
-  return `${this.name} was removed from the game.` 
+  return `${this.newName} was removed from the game.` ;
 };
+
 
 
 /*
@@ -33,6 +35,16 @@ GameObject.prototype.destroy = function(){
   * should inherit destroy() from GameObject's prototype
 */
 
+function CharacterStats(stats){
+  GameObject.call(this, stats);
+  this.newHealthPoints = stats.healthPoints;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.newName} took damage`;
+}
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -42,6 +54,17 @@ GameObject.prototype.destroy = function(){
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+function Humanoid(attributes){
+  this.newTeam = attributes.team;
+  this.newWeapons = attributes.weapons;
+  this.newLanguage = attributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function(){
+  return `${this.newName} offers a greeting in ${this.newLanguage}.`
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -49,9 +72,13 @@ GameObject.prototype.destroy = function(){
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+//Humanoid.prototype = Object.create(CharacterStats.prototype);
+//CharacterStats.prototype = Object.create(GameObject.prototype);
+
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+//tests
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -112,7 +139,7 @@ GameObject.prototype.destroy = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+//end tests
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
