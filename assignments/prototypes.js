@@ -8,30 +8,49 @@
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
   
-/*
-  === GameObject ===
-  * createdAt
-  * name
-  * dimensions (These represent the character's size in the video game)
-  * destroy() // prototype method that returns: `${this.name} was removed from the game.`
-*/
 
-/*
-  === CharacterStats ===
-  * healthPoints
-  * takeDamage() // prototype method -> returns the string '<object name> took damage.'
-  * should inherit destroy() from GameObject's prototype
-*/
+  function GameObject(specs){
+    this.createdAt =  specs.createdAt;
+    this.name = specs.name;
+    this.dimensions = specs.dimensions; 
+  }
 
-/*
-  === Humanoid (Having an appearance or character resembling that of a human.) ===
-  * team
-  * weapons
-  * language
-  * greet() // prototype method -> returns the string '<object name> offers a greeting in <object language>.'
+  GameObject.prototype.destroy = function(){
+    return ` ${this.name} was removed from the game.`
+  
+  }  
+  // prototype method that returns: `${this.name} was removed from the game.`
+
+  function CharacterStats(_attr){
+    GameObject.call(this, _attr)
+    this.healthPoints = _attr.healthPoints;
+  }
+    CharacterStats.prototype = Object.create(GameObject.prototype);
+    CharacterStats.prototype.takeDamage = function(){
+    return `${this.name}took damage.`
+  }
+  
+    /* prototype method -> returns the string '<object name> took damage.'
+  * should inherit destroy() from GameObject's prototype*/
+
+
+
+  function Humanoid (droid){
+    CharacterStats.call(this, droid)
+    this.team = droid.team,
+    this.weapons = droid.weapons,
+    this.language = droid.language
+  }
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
+  Humanoid.prototype.greet = function() {
+    return `${this.name} offers a greeting in ${this.language}.`
+  }
+
+  
+  /* prototype method -> returns the string '<object name> offers a greeting in <object language>.'
   * should inherit destroy() from GameObject through CharacterStats
-  * should inherit takeDamage() from CharacterStats
-*/
+  * should inherit takeDamage() from CharacterStats*/
+
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +60,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,7 +111,7 @@
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
+  console.log(mage.createdAt); //Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
   console.log(mage.name); // Bruce
@@ -102,7 +121,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
