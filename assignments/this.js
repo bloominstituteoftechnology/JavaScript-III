@@ -36,18 +36,17 @@ function GoldenGirlPerson(greeter) {
   this.greeting = "Hello ";
   this. greeter = greeter;
   this.speak = function() {
-    console.log(this.greeting + this.greeter);
     console.log(this);
+    console.log(this.greeting + this.greeter);
   };
 }
 const Sophia = new GoldenGirlPerson("Blanche");
 const Blanche = new GoldenGirlPerson("Sophia");
 Sophia.speak();
 Blanche.speak();
-
-
 // code example for New Binding ----------------------------------
 
 // Principle 4 --------------------------------------------------
-
+Sophia.speak.call(Blanche);
+Blanche.speak.apply(Sophia);
 // code example for Explicit Binding ----------------------------
