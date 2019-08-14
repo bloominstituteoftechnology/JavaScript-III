@@ -39,9 +39,17 @@ cat.sound("meow");
 // code example for New Binding
 
 function GoodBand(singer){
-
+    this.instrument = singer.strings;
+    this.clothes = singer.textile;
+    this.voice = function () {
+        console.log(`The best bands have a ${this.instrument} and lead singers who wear ${this.clothes}`)
+    }
 }
-const 
+const Good = new ___
+
+let singer{
+    this instrument = "gita"
+}
 
 // Principle 4
 
