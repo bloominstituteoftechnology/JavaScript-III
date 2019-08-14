@@ -14,12 +14,12 @@ function sayName(name) {
     console.log(this);
     return name;
 }
-sayName('Jim Morrison');
+sayName('Jim');
 // code example for Window Binding
 
 // Principle 2
 const myObj = {
-    greeting: 'You smell',
+    greeting: 'You smell,',
     saySmell: function(name){
         console.log(`${this.greeting} my name is ${name}`);
     }
