@@ -19,10 +19,11 @@ function GameObject(attribute) {
   this.name = attribute.name,
   this.createdAt = attribute.createdAt,
   this.dimensions = attribute.dimensions
-  this.destory = GameObject.prototype.destroy= function() {
+};
+  GameObject.prototype.destroy = function() {
     console.log(`${this.name} was removed from the game.`);
   };
-};
+
 
 
 /*
@@ -34,10 +35,12 @@ function GameObject(attribute) {
 function CharacterStats(attribute) {
   GameObject.call(this, attribute);
   this.healthPoints = attribute.healthPoints;
+  };
+  
   CharacterStats.prototype.takeDamage = function() {
     return `${this.name} took damage.`;
   };
-};
+
 CharacterStats.prototype = GameObject.prototype;
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
