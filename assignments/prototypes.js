@@ -138,5 +138,64 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 
 // Stretch task: 
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
-// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Give the Hero and Villains different methods that could be used to remove health points from objects
+// which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+function Villain (villanAttr){
+  Humanoid.call(this, villanAttr);
+  this.removeHealthPoints = villanAttr.removeHealthPoints;
+}
+ Villain.prototype = Object.create(Humanoid.prototype);//inherit from the Humanoid constructor function
+
+ Villain.prototype.checkIfDestroy = function(){
+     console.log(`${this.name} lost ${this.removeHealthPoints}`)
+   }
+ 
+ const odin = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 4,
+    width: 5,
+    height: 1,
+  },
+  healthPoints: 50,
+  name: 'Carla',
+  team: 'Archers',
+  weapons: [
+    'Arch',
+    'Gun',
+  ],
+  language: 'valyrian',
+  removeHealthPoints:10
+ })
+ console.log(odin.checkIfDestroy());
+
+ function Hero (heroAttr){
+  Humanoid.call(this, heroAttr);
+  this.saveHealthPoints = heroAttr.saveHealthPoints;
+}
+ Hero.prototype = Object.create(Humanoid.prototype);//inherit from the Humanoid constructor function
+
+Hero.prototype.checkIfSaved = function(){
+     console.log(`${this.name} gained ${this.saveHealthPoints}`)
+   }
+ 
+ const bago = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 1,
+  },
+  healthPoints: 14,
+  name: 'Diego',
+  team: 'Savers',
+  weapons: [
+    'Love',
+    'Kind',
+  ],
+  language: 'universal',
+  saveHealthPoints:10
+})
+console.log(bago.checkIfSaved())
