@@ -16,7 +16,7 @@ function howOld (age){
     console.log(this);
     return age;
 }
- howOld('35');
+console.log( 'I am ' + howOld('35') + ' years old');
 // Principle 2
 
 // code example for Implicit Binding
