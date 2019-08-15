@@ -32,18 +32,19 @@ myObj.sayHello("Dorothy Zbornak");
 // code example for Implicit Binding -----------------------------
 
 // Principle 3 ---------------------------------------------------
-function GoldenGirlPerson(greeter) {
+function GoldenGirl(greeter) {
   this.greeting = "Hello ";
   this. greeter = greeter;
   this.speak = function() {
-    console.log(this);
     console.log(this.greeting + this.greeter);
+    return this;
   };
 }
-const Sophia = new GoldenGirlPerson("Blanche");
-const Blanche = new GoldenGirlPerson("Sophia");
-Sophia.speak();
+let Sophia = new GoldenGirl("Blanche");
+let Blanche = new GoldenGirl("Sophia");
 Blanche.speak();
+Sophia.speak();
+
 // code example for New Binding ----------------------------------
 
 // Principle 4 --------------------------------------------------

@@ -25,7 +25,6 @@ function GameObject(attribute) {
   };
 
 
-
 /*
   === CharacterStats ===
   * healthPoints
@@ -36,7 +35,7 @@ function CharacterStats(attribute) {
   GameObject.call(this, attribute);
   this.healthPoints = attribute.healthPoints;
   };
-  
+
   CharacterStats.prototype.takeDamage = function() {
     return `${this.name} took damage.`;
   };
