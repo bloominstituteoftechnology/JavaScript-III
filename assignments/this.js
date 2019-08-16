@@ -19,9 +19,9 @@ sayName('Jim');
 
 // Principle 2
 const myObj = {
-    greeting: 'You smell,',
+    greeting: 'Hello I am smelly,',
     saySmell: function(name){
-        console.log(`${this.greeting} my name is ${name}`);
+        console.log(`${this.greeting} and my name is ${name}`);
     }
 };
 myObj.saySmell('Catalyn');
