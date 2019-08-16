@@ -40,33 +40,35 @@ const MyObject = function (){
 // Principle 3
 // New binding
 // code example for New Binding
-const Movieline = function (){
-   this.name = 'Neo says:';
-   this.line = 'I thought this wasnt real?';
- };
+function StreetVendor(greeter) {
+  this.greeting = 'Hi Friend ';
+  this.greeter = greeter;
+  this.speak = function() {
+    console.log(this.greeting + this.greeter);
+    console.log(this);
+  };
+}
 
- Movieline.prototype.newLine = function (script) {
-   console.log(this.name + ' says ' + script + '!');
- };
+const Luis = new CordialPerson('Luis');
+const customer = new CordialPerson('Customer');
 
- let script = new Movieline();
-
- script.morpheous('If your mind thinks its real then it is');
+jerry.speak();
+newman.speak();
 
 
 // Principle 4B
 // Explicit Binding
 // code example for Explicit Binding
 
-const Surfer = {
-    name: 'laird Hamilton',
-
+const yourObject = {
+  name: 'Jeremy McGrath',
+  city: 'Beaverton OR',
+  favoriteFood: 'Street tacos'
 };
 
- const equipment = ['surfboard', 'wetsuit', 'jetski'];
+const thingsYouEnjoy = ['Surfing', 'Reading', 'Snowboarding', 'Fishing', 'Movies', 'Music'];
 
- function stuff(equipment1, equipment2, equipment3){
-    console.log(`${this.name} Yo Brotha! "Those waves look dope, can you make sure my ${equipment1}, ${equipment2}, ${equipment3} is ready to go?.`);
+function tellUsAboutYourself(thing1, thing2, thing3){
+
+  console.log(`Hi! My name is ${this.name}, I live in ${this.city}, and I enjoy ${thing1}, ${thing2}, and ${thing3}. I love to eat ${this.favoriteFood}.`);
 }
-
- stuff.apply(surfer, equipment);
