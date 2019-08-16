@@ -40,25 +40,33 @@ const MyObject = function (){
 // Principle 3
 // New binding
 // code example for New Binding
-function MovieQuotes(greeter) {
-  this.person = 'Neo says';
-  this.person2 = 'Morpheous says';
-  this.speak = function() {
-    console.log(this.person + this.greeter);
-    console.log(this);
-  };
-}
+const Movieline = function (){
+   this.name = 'Neo says:';
+   this.line = 'I thought this wasnt real?';
+ };
 
-const neo = new MovieQuotes('I thought it wasnt real?');
-const morpheous = new MovieQuotes('Your mind makes it real');
+ Movieline.prototype.newLine = function (script) {
+   console.log(this.name + ' says ' + script + '!');
+ };
 
-neo.speak();
-morpheous.speak();
+ let script = new Movieline();
 
-// Principle 4
+ script.morpheous('If your mind thinks its real then it is');
+
+
+// Principle 4B
 // Explicit Binding
 // code example for Explicit Binding
 
+const Surfer = {
+    name: 'laird Hamilton',
 
-var runner = { name: 'John', myFavoriteActivity: 'running' };
-  MyObject.prototype.doStuff.call(runner, runner.myFavoriteActivity);
+};
+
+ const equipment = ['surfboard', 'wetsuit', 'jetski'];
+
+ function stuff(equipment1, equipment2, equipment3){
+    console.log(`${this.name} Yo Brotha! "Those waves look dope, can you make sure my ${equipment1}, ${equipment2}, ${equipment3} is ready to go?.`);
+}
+
+ stuff.apply(surfer, equipment);
