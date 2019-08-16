@@ -28,8 +28,8 @@ myObj.saySmell('Catalyn');
 // code example for Implicit Binding
 
 // Principle 3
-const Pizza = funtion (flavor, size, price) {
-    this.type = type,
+const Pizza = function (flavor, size, price){
+    this.flavor = flavor,
     this.size = size,
     this.price = price
 }
@@ -38,5 +38,10 @@ console.log(hawaiian);
 // code example for New Binding
 
 // Principle 4
-
+const speakName = function () {
+    console.log(`My name is ${this.name}!`)
+}
+const Emily = {
+    name: 'Emily'
+};
 // code example for Explicit Binding
