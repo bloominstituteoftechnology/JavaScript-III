@@ -49,7 +49,7 @@ function StreetVendor(greeter) {
   };
 }
 
-const Luis = new StreetVendor('Luis');
+const luis = new StreetVendor('Luis');
 const customer = new StreetVendor('Customer');
 
 luis.speak();
