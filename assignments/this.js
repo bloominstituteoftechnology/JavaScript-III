@@ -34,23 +34,40 @@ const cat = {
 cat.sound("meow");
 
 
+
 // Principle 3
 
-// code example for New Binding
+// code example for New Binding. 
 
-function GoodBand(singer){
-    this.instrument = singer.strings;
-    this.clothes = singer.textile;
-    this.voice = function () {
-        console.log(`The best bands have a ${this.instrument} and lead singers who wear ${this.clothes}`)
+function FavoriteRestaurant(food){
+    this.name= "Hanks";
+    this.food= food;
+    this.decor = function(){
+        console.log(`${this.name} is my favorite ${this.food} cuisine and the restaurant has a modern decor`);
+        console.log(this);
     }
-}
-const Good = new ___
+};
 
-let singer{
-    this instrument = "gita"
-}
+const india = new FavoriteRestaurant ("Indian");
+ india.speak();
+
 
 // Principle 4
 
 // code example for Explicit Binding
+
+function FavoriteRestaurant(food){
+    this.name = "Hanks";
+    this.food = food;
+    this.decor = function(){
+        console.log(`${this.name} is my favorite ${this.food} cuisine and the restaurant has a modern decor`);
+        console.log(this);
+    }
+};
+
+const India = new FavoriteRestaurant("Ethiopian");
+const Spain = new FavoriteRestaurant("Spanish");
+
+Spain.decor.call(India);
+
+

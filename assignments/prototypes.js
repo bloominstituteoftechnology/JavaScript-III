@@ -16,13 +16,35 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+function GameObject(attributes){
+  this.createdAt = attributes.createdAt;
+  this.name = attributes.name;
+  this.dimensions = attributes.dimensions;
+
+};
+ 
+GameObject.prototype.destroy = function(){
+ return`${this.name} was removed from game.`; // return prototype instead of using console.log. Because console.log is a print statement doesn't actually assign value. 
+};
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
+
 */
 
+function CharacterStats(att){
+GameObject.call(this, att); // GameObject is the constructor function, intializing this, and passing attributes. 
+this.healthPoints = att.healthPoints;
+};
+
+CharacterStats.prototype = Object.create(GameObject.prototype) // setting up inheratance in relation game object
+
+CharacterStats.prototype.takeDamage = function (){
+return `${this.name} took damage`;
+};
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -33,6 +55,16 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+function Humanoid(Humanoidattributes) { /// find differnt names for parameters and use them
+  CharacterStats.call(this, Humanoidattributes);
+  this.team = Humanoidattributes.team;
+  this.weapon = Humanoidattributes.weapons;
+  this.language = Humanoidattributes.language;
+};
+Humanoid.prototype = Object.create(CharacterStats.prototype); // this is setting up the inheritance binding the two functions together. 
+Humanoid.prototype.greet = function(){
+return `${this.name} + ${this.language}`;
+};
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
