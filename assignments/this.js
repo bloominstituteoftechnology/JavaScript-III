@@ -52,8 +52,8 @@ function StreetVendor(greeter) {
 const Luis = new StreetVendor('Luis');
 const customer = new StreetVendor('Customer');
 
-jerry.speak();
-newman.speak();
+luis.speak();
+customer.speak();
 
 
 // Principle 4B
