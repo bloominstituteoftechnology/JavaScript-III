@@ -15,8 +15,10 @@
 function sayName(name) {
     console.log(this);
     return name;
+ 
   }
-  sayName("joshua");
+console.log(sayName("joshua"));
+  
 
 // Principle 2
 
@@ -24,11 +26,11 @@ function sayName(name) {
 const myObj = {
     greeting: 'Hello',
     sayHello: function(name) {
-      console.log(`${this.greeting} my name is ${name}`);
-      console.log(this);
+      return(`${this.greeting} my name is ${name}`);
+      
     }
   };
-  myObj.sayHello('mud');
+ console.log( myObj.sayHello('mud'));
   
 
 // Principle 3
@@ -54,10 +56,17 @@ function CordialPerson(greeter) {
 // code example for Explicit Binding
 function Person(attributes) {
     this.age = attributes.age;
-    this.name = attributes.josh;
-    this.homeTown = attributes.slc;
+    this.name = attributes.name;
+    this.homeTown = attributes.homeTown;
     this.speak = function () {
-      return `Hello, my name is ${this.name}`;
+    return `hello my name is ${this.name}.`;
     };
   }
-  console.log(Person)
+  
+  const josh = new Person({
+    age:25,
+    name:'Josh',
+    homeTown:'Salt Lake City',
+  });
+
+  console.log(josh); console.log(josh.speak());
