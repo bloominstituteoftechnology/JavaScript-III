@@ -49,8 +49,8 @@ function StreetVendor(greeter) {
   };
 }
 
-const Luis = new CordialPerson('Luis');
-const customer = new CordialPerson('Customer');
+const Luis = new StreetVendor('Luis');
+const customer = new StreetVendor('Customer');
 
 jerry.speak();
 newman.speak();
