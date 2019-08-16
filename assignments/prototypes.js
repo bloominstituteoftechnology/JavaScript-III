@@ -149,7 +149,7 @@ function Villain (villanAttr){
  Villain.prototype = Object.create(Humanoid.prototype);//inherit from the Humanoid constructor function
 
  Villain.prototype.checkIfDestroy = function(){
-     console.log(`${this.name} lost ${this.removeHealthPoints}`)
+     return `${this.name} lost ${this.removeHealthPoints}`
    }
  
  const odin = new Villain({
@@ -178,7 +178,7 @@ function Villain (villanAttr){
  Hero.prototype = Object.create(Humanoid.prototype);//inherit from the Humanoid constructor function
 
 Hero.prototype.checkIfSaved = function(){
-     console.log(`${this.name} gained ${this.saveHealthPoints}`)
+     return `${this.name} gained ${this.saveHealthPoints}`
    }
  
  const bago = new Hero({
