@@ -54,6 +54,6 @@ EXERCISE 2
 - Give cars the ability to crash.
 - A crashed car can't be driven any more. Attempts return a string "I crashed at x miles!", x being the miles in the odometer.
 - Give cars the ability to be repaired.
-- A repaired car can drive again.
+- A repaired car can driven again.
 
 */
