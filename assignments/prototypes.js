@@ -26,13 +26,13 @@
 
   HOW TO TEST OUR SOLUTION:
 
-  const myPlane = new Airplane('Jumbo');
-  console.log(myPlane.name)              // 'Jumbo'
-  console.log(myPlane.isFlying)          // false
-  myPlane.takeOff();
-  console.log(myPlane.isFlying)          // true
-  myPlane.land();
-  console.log(myPlane.isFlying)          // false
+  const jumbo = new Airplane('Jumbo');
+  console.log(jumbo.name)              // 'Jumbo'
+  console.log(jumbo.isFlying)          // false
+  jumbo.takeOff();
+  console.log(jumbo.isFlying)          // true
+  jumbo.land();
+  console.log(jumbo.isFlying)          // false
 */
 
 /*
@@ -40,7 +40,7 @@
   EXERCISE 1
 
   - Build a Person Constructor that takes name and age.
-  - Give persons the ability to greet, returning a string stating name and age.
+  - Give persons the ability to greet by returning a string stating name and age.
   - Give persons the ability to eat edibles.
   - When eating an edible, it should be pushed into a "stomach" property which is an array.
   - Give persons the ability to poop.
@@ -66,7 +66,7 @@
   EXERCISE 4
 
   Use your imagination and come with constructors that allow to build objects
-  With amazing and original capabities. Build 3 small ones, or a very
+  With amazing and original capabilities. Build 3 small ones, or a very
   complicated one with lots of state. Surprise us!
 
 */
