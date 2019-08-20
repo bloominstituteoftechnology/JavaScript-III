@@ -50,10 +50,10 @@ EXERCISE 2
 
 - Build a Car constructor that takes model name and make.
 - Give cars the ability to drive a distance.
-- By driving a car, the driven distance should be added to an "odometer" property.
+- By driving a car, the distance driven should be added to an "odometer" property.
 - Give cars the ability to crash.
 - A crashed car can't be driven any more. Attempts return a string "I crashed at x miles!", x being the miles in the odometer.
 - Give cars the ability to be repaired.
-- A repaired car can driven again.
+- A repaired car can be driven again.
 
 */
