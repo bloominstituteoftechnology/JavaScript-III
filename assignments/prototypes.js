@@ -65,7 +65,7 @@
 
   EXERCISE 4
 
-  Use your imagination and come with constructors that allow to build objects
+  Use your imagination and come up with constructors that allow to build objects
   With amazing and original capabilities. Build 3 small ones, or a very
   complicated one with lots of state. Surprise us!
 
