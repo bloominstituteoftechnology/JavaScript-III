@@ -4,7 +4,7 @@
   constructor functions, methods, prototypes and the `this` keyword.
   Here's an example of an exercise:
 
-  EXERCISE 0:
+  TASK 0:
 
   - Build an Airplane constructor that takes a name.
   - Give airplanes the ability to take off and land.
@@ -37,7 +37,7 @@
 
 /*
 
-  EXERCISE 1
+  TASK 1
 
   - Build a Person Constructor that takes name and age.
   - Give persons the ability to greet by returning a string stating name and age.
@@ -46,7 +46,7 @@
   - Give persons the ability to poop.
   - When pooping, the stomach should empty.
 
-  EXERCISE 2
+  TASK 2
 
   - Build a Car constructor that takes model name and make.
   - Give cars the ability to drive a distance.
@@ -56,14 +56,14 @@
   - Give cars the ability to be repaired.
   - A repaired car can be driven again.
 
-  EXERCISE 3
+  TASK 3
 
   - Build a Baby constructor that subclasses the Person built earlier.
   - Babies of course inherit the ability to greet, which can be strange.
   - Babies should have the ability to play, which persons don't.
   - By playing, a string is returned with some text of your choosing.
 
-  EXERCISE 4
+  TASK 4
 
   Use your imagination and come up with constructors that allow to build objects
   With amazing and original capabilities. Build 3 small ones, or a very
