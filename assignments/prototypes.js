@@ -32,7 +32,7 @@
   myPlane.takeOff();
   console.log(myPlane.isFlying)          // true
   myPlane.land();
-  console.log(myPlane.isFlying)          // Jumbo
+  console.log(myPlane.isFlying)          // false
 */
 
 /*
