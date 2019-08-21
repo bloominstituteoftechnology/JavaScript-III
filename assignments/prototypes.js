@@ -48,7 +48,11 @@ function Humanoid(attr){
   this.name = attr.name,
   this.team = attr.team,
   this.weapons = attr.weapons,
-  this.language = attr.language,
+  this.language = attr.language
+}
+
+Date.prototype.createdAt = function() {
+  return new Date;
 }
 
 Humanoid.prototype.destroy = function(){
@@ -114,6 +118,8 @@ Humanoid.prototype.greet = function(){
     language: 'Elvish',
   });
 
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -124,6 +130,9 @@ Humanoid.prototype.greet = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+
+
 
 
   // Stretch task: 
