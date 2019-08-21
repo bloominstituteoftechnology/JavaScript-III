@@ -35,7 +35,7 @@ GameObject.prototype.destroy = function(){
   * should inherit destroy() from GameObject's prototype
 */
 function CharacterStats (statsAttributes){
-  GameObject.call(this, statsAttributes);
+  GameObject.call(this, statsAttributes);//explicitly binding CharacterStats to GameObject
   this.healthPoints = statsAttributes.healthPoints;
 }
 
@@ -58,8 +58,8 @@ CharacterStats.prototype.takeDamage = function (){
   * should inherit takeDamage() from CharacterStats
 */
 function Humanoid (humanoidAttributes){
-  CharacterStats.call(this, humanoidAttributes)
-  this.team = humanoidAttributes.team;
+  CharacterStats.call(this, humanoidAttributes)//Explicitly binding Humanoid to CharacterStats
+  this.team = humanoidAttributes.team;//this property and everything below are special attributes to Humanoid
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
 }
@@ -72,6 +72,48 @@ Humanoid.prototype.greet = function(){
 
 
 
+
+//----------------HERO---------------------
+function Hero (heroAttributes){
+  Humanoid.call(this, heroAttributes);//explicitly bind Hero to Humanoid
+}
+Hero.prototype = Object.create(Humanoid.prototype);//tells Hero about humanoid prototypes
+
+Hero.prototype.swordOfDawn = function (enemy){
+  enemy.healthPoints = enemy.healthPoints -5;
+  if (enemy.healthPoints <= 0) {
+    return enemy.destroy;
+    } else
+    return `A direct hit! ${enemy.takeDamage(enemy)} and only has ${enemy.healthPoints} hp remaining.`
+};
+
+
+
+//----------------VILLAIN---------------------
+function Villain (villainAttributes){
+  Humanoid.call(this, villainAttributes);//explicitly bind Hero to Humanoid
+}
+Villain.prototype = Object.create(Humanoid.prototype);//tells Hero about humanoid prototypes
+
+Villain.prototype.undeadWarrior = function (enemy){
+  enemy.healthPoints = enemy.healthPoints -5;
+  if (enemy.healthPoints <= 0) {
+    return enemy.destroy;
+    } else
+    return `A direct hit! ${character.takeDamage(enemy)} and only has ${enemy.healthPoints} hp remaining.`
+};
+
+Villain.prototype.darkRitual = function (){
+  this.healthPoints = this.healthPoints +3;
+  return `${this.name} sacrificed one of his ghoul's and now has ${this.healthPoints}.`
+};
+
+
+
+
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -80,6 +122,37 @@ Humanoid.prototype.greet = function(){
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
+const Paladin = new Hero ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 3,
+    height: 3,
+  },
+  healthPoints: 21,
+  name: 'Sir Paladin',
+  team: 'Human',
+  weapons: [
+    'Long Sword',
+  ],
+  language: 'Common Tongue',
+})
+
+const theLich = new Villain ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 4,
+  },
+  healthPoints: 20,
+  name: 'The Lich',
+  team: 'Undead',
+  weapons: [
+    'Frost Magic',
+  ],
+  language: 'Undead',
+})
 
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -141,9 +214,14 @@ Humanoid.prototype.greet = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(Paladin.swordOfDawn(theLich));
+  console.log(theLich.darkRitual());
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
-  // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+  // * Give the Hero and Villains different methods that could be used to remove health points from objects 
+      //which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+  
