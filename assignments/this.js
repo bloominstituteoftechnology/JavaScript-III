@@ -7,23 +7,60 @@
 
 * 3. New Binding: Uses 'new' to create an object 'this' refers to.
 
-* 4. Explicit Binding: Uses 'call', 'apply'and 'bind' to refer directly to values.
+* 4. Explicit Binding: Uses 'call', 'apply' and 'bind' to refer directly to values.
 *
 * write out a code example of each explanation above
 */
 
-// Principle 1
+    // Principle 1
 
-// code example for Window Binding
+function greet(){
+    console.log(this.english);
+}
 
-// Principle 2
+const english = 'Hi.';
+greet();
 
-// code example for Implicit Binding
 
-// Principle 3
 
-// code example for New Binding
+    // Principle 2
 
-// Principle 4
+let spanish = {
+    language: 'Spanish',
+    hungry: 'hambre',
+    sayHungry: function(){
+        console.log(`Yo soy ${this.hungry}.`);
+    }
+}
 
-// code example for Explicit Binding
+spanish.sayHungry();
+
+
+    // Principle 3
+
+function sayBye(bye){
+    this.phrase = bye;
+}
+
+let korean = new sayBye('Annyeonghaseyo!');
+console.log(`${korean.phrase}`);
+
+
+    // Principle 4
+
+function sleep(){
+    console.log(`I ${this.sleeping}.`);
+}
+
+let koreanVerbs = {
+    eating: 'meokda',
+    sleeping: 'jamda',
+}
+
+let spanishVerbs = {
+    eating: 'come',
+    sleeping: 'dorme',
+}
+
+sleep.call(spanishVerbs);
+sleep.call(koreanVerbs);
