@@ -41,8 +41,50 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
-  const mage = new Humanoid({
+ //===========================================================================================================
+function GameObject(attrs){
+  this.createdAt= attrs.createdAt;
+  this.name = attrs.name;
+  this.dimensions= attrs.dimensions;
+};
+ GameObject.prototype.destroy = function(){
+   return `${this.name} was removed from the game.`;
+ };
+  
+ 
+//=============================================================================================================
+function CharacterStats(charAttrs){
+  GameObject.call(this, charAttrs);
+  this.healthPoints = charAttrs.healthPoints;
+  };
+  
+  CharacterStats.prototype = Object.create(GameObject.prototype);
+
+  CharacterStats.prototype.takeDamage =function(){
+  return `${this.name} took damage.`;
+};
+
+
+//===============================================================================================================
+   function Humanoid(humAttrs){
+     CharacterStats.call(this, humAttrs);
+     this.team = humAttrs.team;
+     this.weapons = humAttrs.weapons;
+     this.language = humAttrs.language;
+     
+   };
+  Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+  Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`;
+  };
+
+
+//===============================================================================================================
+
+
+
+const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -58,6 +100,8 @@
     language: 'Common Tongue',
   });
 
+
+
   const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -69,7 +113,7 @@
     name: 'Sir Mustachio',
     team: 'The Round Table',
     weapons: [
-      'Giant Sword',
+      'large Sword',
       'Shield',
     ],
     language: 'Common Tongue',
@@ -102,9 +146,50 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+ 
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  const villain = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 4,
+      height: 15,
+    },
+    healthPoints: 500,
+    name: 'The Forge',
+    team: 'The Black Hand ',
+    weapons: [
+      'smoldering cannon',
+      'large greataxe',
+    ],
+    language: 'Brosch',
+  });
+
+
+
+
+
+
+  const hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 4,
+      height: 7,
+    },
+    healthPoints: 45,
+    name: 'Rolf',
+    team: 'Knights of Order',
+    weapons: [
+      'zweihander',
+    
+    ],
+    language:'Common Tongue',
+  });
+
+  console.log(hero.weapons);
