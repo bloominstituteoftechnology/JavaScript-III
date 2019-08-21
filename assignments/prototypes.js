@@ -38,19 +38,19 @@ CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 };
 
-let goblin = new CharacterStats(
-  new Date(),
-  "Durzog",
-  {
-    length: 2,
-    width: 2,
-    height: 2
-  },
-  100
-);
+// let goblin = new CharacterStats(
+//   new Date(),
+//   "Durzog",
+//   {
+//     length: 2,
+//     width: 2,
+//     height: 2
+//   },
+//   100
+// );
 
-console.log(goblin);
-console.log(goblin.name);
+// console.log(goblin);
+// console.log(goblin.name);
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -61,6 +61,21 @@ console.log(goblin.name);
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(
+  createdAt,
+  name,
+  dimensions,
+  healthPoints,
+  team,
+  weapons,
+  language
+) {
+  CharacterStats.call(this, createdAt, name, dimensions, healthPoints);
+  this.team = team;
+  this.weapons = weapons;
+  this.language = language;
+}
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
