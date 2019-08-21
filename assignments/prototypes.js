@@ -141,3 +141,85 @@ Humanoid.prototype.greet = function() {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Hero(info){
+    Humanoid.call(this, info);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.attack = function(villain) {
+  if (this.healthPoints <= 0) {
+    return(`${this.name} is dead.`);
+  }
+  if (villain.healthPoints > 0 ) {
+    villain.healthPoints -= 5;
+    if (villain.healthPoints <= 0 ) {
+      return(`${this.name} attacks their opponent, 5 damage dealt.  \n ${villain.destroy()}`);
+    }
+    return (`${this.name} attacks their opponent, 5  damage dealt.  \n ${villain.name} - ${villain.healthPoints}`);
+  }
+  else {
+    return (`${villain.name} has already died.`);
+  }
+}
+
+function Villain(info){
+    Humanoid.call(this, info);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+Villain.prototype.stab = function(hero) {
+  if (this.healthPoints <= 0) {
+    return(`${this.name} is dead.`);
+  }
+  if (hero.healthPoints > 0 ) {
+    hero.healthPoints -= 5;
+    if (hero.healthPoints <= 0 ) {
+      return(`${this.name} attacks their opponent, 5  damage dealt.  \n ${hero.destroy()}`);
+    }
+    return (`${this.name} attacks their opponent, 5  damage dealt.  \n ${hero.name} - ${hero.healthPoints}`);
+  }
+  else {
+    return (`${hero.name} has already died.`);
+  }
+}
+
+const yasuo = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 5,
+    width: 5,
+    height: 5,
+  },
+  healthPoints: 25,
+  name: 'Yasuo',
+  team: 'Runeterra',
+  weapons: [
+    'katana'
+  ],
+  language: 'Samurai',
+});
+
+const katarina = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 5,
+    width: 5,
+    height: 5,
+  },
+  healthPoints: 20,
+  name: 'Katarina',
+  team: 'Imperial',
+  weapons: [
+    'daggers'
+  ],
+  language: 'French',
+})
+
+
+console.log(yasuo.attack(katarina)); // Hero attacks
+console.log(katarina.stab(yasuo)); // Villian attacks
+console.log(yasuo.attack(katarina)); // Hero attacks
+console.log(yasuo.attack(katarina)); // Hero attacks
+console.log(yasuo.attack(katarina)); // Hero attacks
