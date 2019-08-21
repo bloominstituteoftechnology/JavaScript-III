@@ -47,6 +47,7 @@
 
 // Principle 3
    // 'new' keyword is involved in creating a new object from a class constructor. 'this' keyword references this new object
+   // you can use 'new' and class constructors to create prototype objects 
 // code example for New Binding
    // 1. define class constructor using this.
    // 2. define new object using new constructorName
@@ -57,10 +58,14 @@
         this.machine = machine,
         this.tool = tool
    }
-   const kevin = new SandwichMaker ('apron', 'panini', 'knife')
+   SandwichMaker.prototype.finish = function(){
+        return `Kevin cooks in his ${this.uniform} and uses a ${this.tool} and ${this.machine} to make his sandwiches`;
+   }
+   const kevin = new SandwichMaker ('apron', 'panini maker', 'knife')
 
-     console.log(kevin);                // SandwichMaker { uniform: 'apron', machine: 'panini maker', tool: 'knife' }
+     console.log(kevin);                                  // SandwichMaker { uniform: 'apron', machine: 'panini maker', tool: 'knife' }
      console.log(`I enjoy using ${kevin.machine}s`);      // I enjoy using panini makers      
+     console.log(kevin.finish());
 
 
 
