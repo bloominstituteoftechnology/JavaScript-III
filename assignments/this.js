@@ -1,10 +1,10 @@
 /* The four principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
+* 1. If a function is in the global scope, the value of this will be the window
 * 2. if you using an object .function, whatever this refers to in the function comes from that object
-* 3. are you defining objects by a constructor, or with new syntax?
-* 4. 
+* 3. are you defining objects by a constructor, or with new syntax? 
+* 4. when call or apply are used, this is defined by that input
 *
 * write out a code example of each explanation above
 */
