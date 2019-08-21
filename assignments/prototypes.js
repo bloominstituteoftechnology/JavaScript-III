@@ -34,6 +34,8 @@ const CharacterStats = function(createdAt, name, dimensions, healthPoints) {
   this.healthPoiints = healthPoints;
 };
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 };
@@ -76,6 +78,30 @@ function Humanoid(
   this.weapons = weapons;
   this.language = language;
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`;
+};
+
+let grilda = new Humanoid(
+  new Date(),
+  "Goblin Queen",
+  {
+    length: 2,
+    width: 4,
+    height: 6
+  },
+  150,
+  "Durzog Clan",
+  ["Axe", "Rolling Pin", "Fingernails"],
+  "Common"
+);
+
+console.log(grilda);
+console.log(grilda.greet());
+console.log(grilda.takeDamage());
+console.log(grilda.destroy());
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
