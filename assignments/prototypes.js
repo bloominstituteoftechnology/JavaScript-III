@@ -14,7 +14,7 @@
 
 const GameObject = function(createdAt, name, dimensions) {
   this.createdAt = createdAt;
-  this.name = this.name;
+  this.name = name;
   this.dimensions = dimensions;
 };
 
@@ -37,6 +37,20 @@ const CharacterStats = function(createdAt, name, dimensions, healthPoints) {
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 };
+
+let goblin = new CharacterStats(
+  new Date(),
+  "Durzog",
+  {
+    length: 2,
+    width: 2,
+    height: 2
+  },
+  100
+);
+
+console.log(goblin);
+console.log(goblin.name);
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
