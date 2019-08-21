@@ -22,13 +22,6 @@ GameObject.prototype.destroy = function() {
   return `${this.name} was removed from the game.`;
 };
 
-const tree = new GameObject({
-  createdAt: new Date(),
-  name: "Treebeard",
-  dimensions: { length: 2, width: 2, height: 4 }
-});
-
-console.log(tree.destroy());
 /*
   === CharacterStats ===
   * healthPoints
@@ -36,9 +29,9 @@ console.log(tree.destroy());
   * should inherit destroy() from GameObject's prototype
 */
 
-const CharacterStats = function(cha) {
-  GameObject.call(this);
-  this.healthPoiints = cha.healthPoints;
+const CharacterStats = function(obj) {
+  GameObject.call(this, obj);
+  this.healthPoiints = obj.healthPoints;
 };
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
@@ -47,6 +40,12 @@ CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage.`;
 };
 
+const tree = new CharacterStats({
+  createdAt: new Date(),
+  name: "Treebeard",
+  dimensions: { length: 2, width: 2, height: 4 },
+  healthPoints: 100
+});
 // let goblin = new CharacterStats(
 //   new Date(),
 //   "Durzog",
@@ -82,25 +81,6 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`;
 };
-
-// let grilda = new Humanoid(
-//   new Date(),
-//   "Goblin Queen",
-//   {
-//     length: 2,
-//     width: 4,
-//     height: 6
-//   },
-//   150,
-//   "Durzog Clan",
-//   ["Axe", "Rolling Pin", "Fingernails"],
-//   "Common"
-// );
-
-// console.log(grilda);
-// console.log(grilda.greet());
-// console.log(grilda.takeDamage());
-// console.log(grilda.destroy());
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
