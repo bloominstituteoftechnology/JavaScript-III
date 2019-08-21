@@ -13,13 +13,13 @@
 
 // code example for Window Binding
 
+console.log(this);
 function characterSpell1(){
         console.log(this.spell);
 
 }
-'use strict';
-characterSpell1();
-const spell = "Q";
+//'use strict';
+//characterSpell1();
 
 
 // Principle 2
@@ -28,7 +28,7 @@ const spell = "Q";
 function characterSpell2(){
     console.log(`This spell is ${this.spell}`);
 }
-let zed = { 
+const zed = { 
     name: 'Zed',
     spell: 'Shuriken',
     characterSpell3: function(){
@@ -57,7 +57,6 @@ qiyana.declare();
 // Principle 4
 
 // code example for Explicit Binding
-
 function talk () {
     console.log(`My champion is ${this.name}`)
 }

@@ -188,9 +188,9 @@ Villain.prototype.stab = function(hero) {
 const yasuo = new Hero({
   createdAt: new Date(),
   dimensions: {
-    length: 5,
-    width: 5,
-    height: 5,
+    length: 2,
+    width: 2,
+    height: 6,
   },
   healthPoints: 25,
   name: 'Yasuo',
@@ -204,9 +204,9 @@ const yasuo = new Hero({
 const katarina = new Villain({
   createdAt: new Date(),
   dimensions: {
-    length: 5,
-    width: 5,
-    height: 5,
+    length: 2,
+    width: 1,
+    height: 3,
   },
   healthPoints: 20,
   name: 'Katarina',
