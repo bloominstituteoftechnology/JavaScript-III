@@ -16,6 +16,8 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+//version 2 below, long way 
+
 function GameObject(attributes){
   this.createdAt = attributes.createdAt,
   this.name = attributes.name,
@@ -61,7 +63,9 @@ Humanoid.prototype.greet = function(){ return `Salutations, ${this.name} offers 
 
 
 
-// version 1 long way 
+// version 1 short way --> problem solved: instead of using the values in the parenthesis, use attributes and attributes.values, make sure to add return in the prototype function, and remove .healthPoints from CharacterStats.call(this, humanoid.healthPoints);
+
+
 // function GameObject(createdAt, name, dimensions){
 //   this.createdAt = createdAt,
 //   this.name = name,
@@ -164,6 +168,8 @@ Humanoid.prototype.greet = function(){ return `Salutations, ${this.name} offers 
     language: 'Elvish',
   });
 
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -180,3 +186,12 @@ Humanoid.prototype.greet = function(){ return `Salutations, ${this.name} offers 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  // function Hero(attributes){
+  //   Humanoid.call(this, attributes)
+  // }
+  // Hero.prototype.attack = function(){
+  //   villian.healthPoints[i]-1;
+  //   console.log(hero.healthPoints)
+  //   if(hero.healthPoints === 0)
+  // }
