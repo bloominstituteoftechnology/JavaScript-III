@@ -34,3 +34,6 @@ The prototype challenge will focus on building prototypes for a fantasy themed g
 
 * Read the instructions found within the file carefully to finish the challenges. 
 * Remember to un-comment the objects and console logs to test your work at the bottom of the page.
+
+
+(test commit)
