@@ -32,17 +32,6 @@ console.log(business);
 
 // Principle 3
 
-// const food = new food ('type of food');
-// function Food (type){
-//     this.type = typeFood;
-//     this.origin = function(){
-//         console.log(`I like to eat ${this.type}`);
-//     }
-// }
-
-// const chiragThesia = new Food('Pizza');
-// console.log(chiragThesia);
-
 const animal = new Animal('param');
 function Animal(food) {
   this.food = food;
@@ -53,9 +42,6 @@ function Animal(food) {
 const zebra = new Animal('grass');
 console.log(zebra);
 zebra.eat();
-
-const lion = new Animal('Meat');
-lion.eat();
 
 // Principle 4
 
