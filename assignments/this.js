@@ -13,9 +13,19 @@
 
 // code example for Window Binding
 
+function sayFood(food){
+    console.log(this);
+    return food;
+}
+
+sayFood("food");
+
 // Principle 2
 
 // code example for Implicit Binding
+
+
+
 
 // Principle 3
 
