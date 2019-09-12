@@ -16,15 +16,16 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
-const GameObject = {
+function GameObject(attributes) {
 
-  createdAt: 0,
-  name : 'Value',
-  dimensions: 100,
-  destroy: function() {
-    return(`${this.name} was removed from the game.`);
-  }
-};
+  this.createdAt = attributes.createdAt;
+  this.name = attributes.name;
+  this.homeTown = attributes.homeTown;
+}
+
+GameObject.prototype.destroy = function() {
+  return(`${this.name} was removed from the game.`);  
+}
 
 /*
   === CharacterStats ===
@@ -33,16 +34,15 @@ const GameObject = {
   * should inherit destroy() from GameObject's prototype
 */
 
-const CharacterStats = new GameObject(Object.create);
+function CharacterStats (characterAttributes) {
+  this.healthPoints = characterAttributes.healthPoints;
+}
 
-const CharacterStats = {
+CharacterStats.prototype = Object.create(GameObject.prototype);
 
-   healthPoints: 0,
-   takeDamage: function() {
-      return(`${this.name} took damage`);
-   }
-
-};
+CharacterStats.prototype.takeDamage = function() {
+  return(`${this.name} took damage`);
+}
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -54,17 +54,18 @@ const CharacterStats = {
   * should inherit takeDamage() from CharacterStats
 */
 
-const Humanoid = new CharacterStats(Object.create);
+function Humanoid(humanoidAttributes) {
+  
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
+  
+}
 
-const Humanoid = {
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
-  team: 'playerx',
-  weapons : 'bat',
-  language : 'english',
-  greet : function() {
-    return(`${this.name} offers a greeting in ${this.language}`);
-  }
-
+Humanoid.prototype.greet = function() {
+    return(`${this.name} offers a greeting in ${this.language}`);  
 }
  
 /*
@@ -92,7 +93,7 @@ const Humanoid = {
     language: 'Common Tongue',
   });
 
-  const swordsman = new Humanoid({
+   const swordsman = new Humanoid({
     createdAt: new Date(),
     dimensions: {
       length: 2,
@@ -141,3 +142,29 @@ const Humanoid = {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Villain(villainAttributes){
+
+    this.laugh = villainAttributes.laugh;
+    this.stature = villainAttributes.stature;
+
+  }
+
+  Villain.constructor = Object.create(Humanoid.prototype);
+
+  Villain.prototype.decrementHealthPoints = function() {
+    this.healthPoints = this.healthPoints--;
+    return (`The villain has taken 1 dmg! This is his current HP ${this.healthPoints}`);
+  }
+
+  function Hero(heroAttributes) {
+    this.nobility = heroAttributes.nobility;
+    this.aura = heroAttributes.aura;
+  }
+
+  Hero.prototype.decrementHealthPoints = function() {
+    this.healthPoints = this.healthPoints - 5;
+    return (`The villain has taken 1 dmg! This is his current HP ${this.healthPoints}`);
+  }
+
+  Hero.constructor = Object.create(Humanoid.prototype);
