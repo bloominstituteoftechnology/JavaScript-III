@@ -60,4 +60,4 @@ function GrumpyPerson(greeter) {
 
 // code example for Explicit Binding
 
-// Potatos.yell.call(Bob); Spuderson.yell.apply(Spudmc);
+Potatos.yell.call(Potatos); Spuderson.yell.apply(Spuderson);
