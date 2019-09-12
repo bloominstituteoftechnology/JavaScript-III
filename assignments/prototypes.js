@@ -196,6 +196,25 @@ function Humanoid(humanoidAttr){
         sprite: 'https://cultofthepartyparrot.com/parrots/hd/laptop_parrot.gif'
     })
    
+    const viking = new Humanoid({
+      
+      createdAt: new Date(),
+        dimensions: {
+          length: 5,
+          width: 3,
+          height: 4,
+        },
+        healthPoints: 100,
+        name: 'Thor',
+        team: 'Love',
+        weapons: [
+          'Sensual Dance',
+          'Intense Stare',
+        ],
+        language: 'Viking',
+        sprite: 'https://cultofthepartyparrot.com/parrots/hd/bouncingparrot.gif'
+    })
+   
     // console.log(hero.takeDamage())
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
@@ -205,7 +224,7 @@ function Humanoid(humanoidAttr){
   window.addEventListener('DOMContentLoaded', (event) => {
     startGame()
 });
-  let character = [hero, villan, angel]
+  let character = [hero, villan, angel, viking]
   function startGame(){
    let gameContainer = document.querySelector('.character-group')
    character.forEach(element=>{
@@ -218,8 +237,6 @@ function Humanoid(humanoidAttr){
 
       `
       gameContainer.innerHTML += html
-      // document.getElementsByClassName(element.name).style.background = element.sprite
-      console.log(element.sprite)
    })
   }
   
