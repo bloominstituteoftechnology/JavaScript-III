@@ -49,7 +49,7 @@ function GrumpyPerson(greeter) {
     };
   }
   
-  const Potatos = new GrumpyPerson('Potato Bob');
+  const Potatos = new GrumpyPerson('Potato');
   const Spuderson = new GrumpyPerson('SpudmcSpuderson');
   
   Potatos.yell();
@@ -60,4 +60,4 @@ function GrumpyPerson(greeter) {
 
 // code example for Explicit Binding
 
-Potatos.yell.call(Bob); Spuderson.yell.apply(Spudmc);
+// Potatos.yell.call(Bob); Spuderson.yell.apply(Spudmc);
