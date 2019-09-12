@@ -32,7 +32,7 @@ let person = {
 
  // Principle 3
 
- const person = new Person('param');
+ const Person = new Person('param');
  function Person(hairColor){
    this.hairColor = hairColor;
    this.color = function() {
