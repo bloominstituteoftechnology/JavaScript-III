@@ -7,7 +7,7 @@
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
-  
+//FUCK YOU JS. I AM GONNA BEAT YOUR A***
 /*
   === GameObject ===
   * createdAt

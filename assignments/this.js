@@ -8,7 +8,7 @@
 *
 * write out a code example of each explanation above
 */
-
+//FUCK YOU JS. I AM GONNA BEAT YOUR A***
 // Principle 1
 
 console.log(this);
