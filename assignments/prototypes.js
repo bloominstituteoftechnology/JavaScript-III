@@ -18,9 +18,9 @@
 
 function GameObject(attributes) {
 
-  this.createdAt = attributes.createdAt;
+  this.createdAt = attributes.createdAt;;
   this.name = attributes.name;
-  this.homeTown = attributes.homeTown;
+  this.dimensions = attributes.dimensions;
 }
 
 GameObject.prototype.destroy = function() {
@@ -35,6 +35,7 @@ GameObject.prototype.destroy = function() {
 */
 
 function CharacterStats (characterAttributes) {
+  GameObject.call(this, characterAttributes);
   this.healthPoints = characterAttributes.healthPoints;
 }
 
@@ -56,6 +57,7 @@ CharacterStats.prototype.takeDamage = function() {
 
 function Humanoid(humanoidAttributes) {
   
+  CharacterStats.call(this, humanoidAttributes);
   this.team = humanoidAttributes.team;
   this.weapons = humanoidAttributes.weapons;
   this.language = humanoidAttributes.language;
@@ -145,26 +147,72 @@ Humanoid.prototype.greet = function() {
 
   function Villain(villainAttributes){
 
+    Humanoid.call(this, villainAttributes);
     this.laugh = villainAttributes.laugh;
     this.stature = villainAttributes.stature;
 
   }
-
   Villain.constructor = Object.create(Humanoid.prototype);
 
-  Villain.prototype.decrementHealthPoints = function() {
-    this.healthPoints = this.healthPoints--;
-    return (`The villain has taken 1 dmg! This is his current HP ${this.healthPoints}`);
+  Villain.prototype.decrementVillianPoints = function() {
+    this.healthPoints = this.healthPoints - 1;
+    console.log(`The villain has taken 1 dmg! This is his current HP ${this.healthPoints}`);
   }
 
   function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
     this.nobility = heroAttributes.nobility;
     this.aura = heroAttributes.aura;
   }
 
-  Hero.prototype.decrementHealthPoints = function() {
+  Hero.prototype.decrementHeroPoints = function() {
     this.healthPoints = this.healthPoints - 5;
-    return (`The villain has taken 1 dmg! This is his current HP ${this.healthPoints}`);
+    console.log(`The villain has taken 1 dmg! This is his current HP ${this.healthPoints}`);
   }
 
   Hero.constructor = Object.create(Humanoid.prototype);
+
+  const Guts = new Hero({
+
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Black Swordsman',
+    team: 'Forest Kingdom',
+    weapons: [
+      'Sword',
+      'Cannon',
+    ],
+    language: 'Elvish',
+
+  });
+
+  const Griffith = new Villain({
+ 
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10000,
+    name: 'Femto',
+    team: 'Demon Army',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'All',
+
+  });
+
+  Guts.decrementHeroPoints();
+
+  for(let i = 0; i < 10; i++)
+  Griffith.decrementVillianPoints()
+
+  Guts.decrementHeroPoints();

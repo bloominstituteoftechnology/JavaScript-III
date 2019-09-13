@@ -19,23 +19,25 @@ console.log(this);
 
 // code example for Implicit Binding
 
-const conceptObject = {
+function conceptObject(conceptAttribute){
 
-    value: 0,
-    speak: function() {
-        console.log(this.value);
-        // the above is the implicit call
-    }
+    this.value = conceptAttribute.value; 
+}
 
-};
+conceptObject.prototype.speak = function() {
+    
+    return(this.value);
+}
 
 // Principle 3
 
 // code example for New Binding
 
-const testNew = new conceptObject();
+const testNew = new conceptObject({
+    value: 15
+});
 
 // Principle 4
 
 // code example for Explicit Binding
-testNew.speak();
+console.log(testNew.speak());
