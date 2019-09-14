@@ -23,73 +23,65 @@ function testFunction(){
 
 // code example for Window Binding
 
-var testFunction = function(){
-
-console.log(this.a);
-
+function sayName(name) {
+  console.log(this);
+  return name;
 }
-
-var a = 10;
-
-testFunction(); //print 10
+sayName("Michael");
 
 // Principle 2
 
 // code example for Implicit Binding
 
-function testFunction(){
-
-console.log(this.a);//here "this" will point to object
-
-}
-
-var testObj= {
-
-a : 10 ,
-
-testFunction : testFunction,
-
-}
+const myObj = {
+  greeting: "Hello",
+  sayHello: function(name) {
+    console.log(`${this.greeting} my name is ${name}`);
+    console.log(this);
+  }
+};
+myObj.sayHello("Robert");
 
 // Principle 3
 
 // code example for New Binding
 
-
-function testFunction(){
-
-console.log(this.name);
-
+function CordialPerson(greeter) {
+  this.greeting = "Hello ";
+  this.greeter = greeter;
+  this.speak = function() {
+    console.log(this.greeting + this.greeter);
+    console.log(this);
+  };
 }
 
-var testObject = {
+const jerry = new CordialPerson("Newman");
+const newman = new CordialPerson("Jerry");
 
-name : "Alex"
-
-}
-
-var test = testFuntion.bind(testObject) //binding testObject explicitly to the testFunction and assign it to test
-
-test(); //it will print "Alex"
+jerry.speak();
+newman.speak();
 
 // Principle 4
 
 // code example for Explicit Binding
 
-function testFunction(){
+jerry.speak.call(newman);
+newman.speak.apply(jerry);
 
-    this.name = "John";
-    
-    this.getName = function(){
-    
-    return "I am "+this.name;
-    
-    }
-    
-    }
-    
-    var name = "Bryan",
-    
-    var testObj = new testFunction();
-    
-    console.log(this.name) //print Bryan
+//function testFunction(){
+
+//  this.name = "John";
+
+//this.getName = function(){
+
+//return "I am "+this.name;
+
+//}
+
+//}
+
+//let name = "Bryan",
+
+//let testObj2 = new testFunction();
+
+//console.log(this.name) //print Bryan

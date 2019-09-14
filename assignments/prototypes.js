@@ -16,17 +16,25 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
-class GameObject {
-  constructor(gameObjectAttrs) {
-    this.createdAt = gameObjectAttrs.createdAt;
-    this.name = gameObjectAttrs.name;
-    this.dimensions = gameObjectAttrs.dimensions;
-  }
-
-  destroy() {
-    return this.name + " was removed from the game.";
-  }
+function GameObject(gameObjectAttrs) {
+  this.createdAt = new Date();
+  this.name = gameObjectAttrs.name;
+  this.dimensions = gameObjectAttrs.dimensions;
+  this.destroy = function() {
+    return `${this.name} was removed from the game`;
+  };
 }
+// class GameObject {
+//   constructor(gameObjectAttrs) {
+//     this.createdAt = new Date();
+//     this.name = gameObjectAttrs.name;
+//     this.dimensions = gameObjectAttrs.dimensions;
+//   }
+
+//   destroy() {
+//     return this.name + " was removed from the game.";
+//   }
+// }
 
 /*
   === CharacterStats ===
@@ -35,14 +43,22 @@ class GameObject {
   * should inherit destroy() from GameObject's prototype
 */
 
-class CharacterStats extends GameObject {
-  constructor(characterStatsAttrs) {
-    super(characterStatsAttrs);
-    this.healthPoints = characterStatsAttrs.healthPoints;
-  }
-  takeDamage() {
-    return super.name + " took damage.";
-  }
+// class CharacterStats extends GameObject {
+//   constructor(characterStatsAttrs) {
+//     super(characterStatsAttrs);
+//     this.healthPoints = characterStatsAttrs.healthPoints;
+//   }
+//   takeDamage() {
+//     return super.name + " took damage.";
+//   }
+// }
+
+function CharacterStats(characterStatsAttrs) {
+  GameObject.call(this, characterStatsAttrs);
+  this.healthPoints = characterStatsAttrs.healthPoints;
+  this.takeDamage = function() {
+    return this.name + " took damage.";
+  };
 }
 
 /*
@@ -55,16 +71,26 @@ class CharacterStats extends GameObject {
   * should inherit takeDamage() from CharacterStats
 */
 
-class Humanoid extends CharacterStats {
-  constructor(humanoidAttrs) {
-    super(humanoidAttrs);
-    this.team = humanoidAttrs.team;
-    this.weapons = humanoidAttrs.weapons;
-    this.language = humanoidAttrs.language;
-  }
-  greet() {
-    return super.name + " offers a greeting in " + this.language;
-  }
+// class Humanoid extends CharacterStats {
+//   constructor(humanoidAttrs) {
+//     super(humanoidAttrs);
+//     this.team = humanoidAttrs.team;
+//     this.weapons = humanoidAttrs.weapons;
+//     this.language = humanoidAttrs.language;
+//   }
+//   greet() {
+//     return super.name + " offers a greeting in " + this.language;
+//   }
+// }
+
+function Humanoid(humanoidAttrs) {
+  CharacterStats.call(this, humanoidAttrs);
+  this.team = humanoidAttrs.team;
+  this.weapons = humanoidAttrs.weapons;
+  this.language = humanoidAttrs.language;
+  this.greet = function() {
+    return this.name + " offers a greeting in " + this.language;
+  };
 }
 
 /*
