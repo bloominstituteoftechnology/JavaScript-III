@@ -11,15 +11,15 @@
 
 // Principle 1
 // code example for Window Binding
-// "use strict";
+"use strict";
 
-// function strictExample() {
-//   console.log(this.example);
-// }
-// strictExample();
-// const example = "x";
+function strictExample() {
+    console.log(this.example);
+}
+strictExample();
+const example = "x";
 
-// strictExample();
+strictExample();
 
 // Principle 2
 // code example for Implicit Binding
