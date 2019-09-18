@@ -40,8 +40,149 @@
 */
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
+function GameObject(object){
+  this.createdAt = object.createdAt;
+  this.name = object.name;
+  this.dimensions = object.dimensions;
+}
 
-/*
+GameObject.prototype.destroy = function(){
+    return`${this.name} was removed from the game.`;
+  }
+
+
+function CharacterStats(stats){
+  this.healthPoints = stats.healthPoints
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);         // Links CharacterStats to GameObject
+
+CharacterStats.prototype.takeDamage = function(){                      // Take Damage Function
+  if(this.healthPoints <= 0)
+  {
+    GameObject.destroy();
+  }
+  else{
+       return`${this.name} took damage.`;
+  }
+  
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+function Humanoid(player){
+  CharacterStats.call(this, player);
+  this.createdAt = player.createdAt;
+  this.name = player.name,
+  this.weapons = player.weapons,
+  this.language = player.language,
+  this.dimensions = player.dimensions,
+  this.team = player.team,
+  this.damage = player.damage,
+  this.spellDamage = player.spellDamage,
+  this.spells = player.spells
+}
+Humanoid.prototype.greet = function(){
+  return`${this.name} offers a greeting in ${this.language}`;
+}
+
+Humanoid.prototype.attack = function(targetPlayer){
+  
+  targetPlayer.healthPoints = targetPlayer.healthPoints - this.damage;
+
+  if (targetPlayer.healthPoints <= 0)
+  {
+    GameObject.prototype.destroy();
+    return`${targetPlayer.name} was killed by ${this.name}.`;
+  }
+
+  return `${targetPlayer.name} took ${this.damage} damage from ${this.name} and now has ${targetPlayer.healthPoints} HP left`;
+}
+
+Humanoid.prototype.castSpell = function(targetPlayer){
+ 
+  targetPlayer.healthPoints = targetPlayer.healthPoints - this.spellDamage;
+
+  if (targetPlayer.healthPoints <= 0)
+  {
+    GameObject.prototype.destroy();
+    return`${targetPlayer.name} was killed by ${this.name}'s ${this.spells}.`;
+  }
+
+  return `${targetPlayer.name} took ${this.spellDamage} damage from ${this.name} and now has ${targetPlayer.healthPoints} HP left`;
+  
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Hero(player){
+  CharacterStats.call(this, player);
+  this.createdAt = player.createdAt;
+  this.name = player.name,
+  this.weapons = player.weapons,
+  this.language = player.language,
+  this.dimensions = player.dimensions,
+  this.team = player.team,
+  this.spells = player.spells,
+  this.heals = player.heals,
+  this.damage = player.damage,
+  this.spellDamage = player.spellDamage
+}
+
+Hero.prototype.heal = function(){
+    this.healthPoints = this.healthPoints + this.heals;
+    return `${this.name} healed for ${this.heals} HP. Current HP is now ${this.healthPoints}`;
+}
+
+Hero.prototype.attack = function(targetPlayer){
+  targetPlayer.healthPoints = targetPlayer.healthPoints - this.damage;
+  
+  if (targetPlayer.healthPoints <= 0)
+  {
+    GameObject.prototype.destroy();
+    return`${targetPlayer.name} was killed by ${this.name}'s ${this.weapons}.`;
+  }
+  
+  return `${targetPlayer.name} took ${this.damage} damage from ${this.name} and now has ${targetPlayer.healthPoints} HP left`;
+}
+
+function Villain(player){
+  CharacterStats.call(this, player);
+  this.createdAt = player.createdAt;
+  this.name = player.name,
+  this.weapons = player.weapons,
+  this.language = player.language,
+  this.dimensions = player.dimensions,
+  this.team = player.team,
+  this.spells = player.spells,
+  this.damage = player.damage,
+  this.spellDamage = player.spellDamage
+}
+
+Villain.prototype.castSpell = function(targetPlayer){
+  targetPlayer.healthPoints = targetPlayer.healthPoints - this.spellDamage;
+  
+  if (targetPlayer.healthPoints <= 0)
+  {
+    GameObject.prototype.destroy();
+    return`${targetPlayer.name} was killed by $${this.name}'s ${this.spells}.`;
+  }
+  
+  return `${targetPlayer.name} took ${this.spellDamage} damage from ${this.spells} and now has ${targetPlayer.healthPoints} HP left`;
+}
+
+Villain.prototype.attack = function(targetPlayer){
+  
+  targetPlayer.healthPoints = targetPlayer.healthPoints - this.damage;
+
+  if (targetPlayer.healthPoints <= 0)
+  {
+    GameObject.prototype.destroy();
+    return`${targetPlayer.name} was killed by ${this.name}'s ${this.weapons}`;
+  }
+  return `${targetPlayer.name} took ${this.damage} damage from ${this.name} and now has ${targetPlayer.healthPoints} HP left`;
+}
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -55,6 +196,9 @@
     weapons: [
       'Staff of Shamalama',
     ],
+    damage: 2,
+    spells: 'Fireball',
+    spellDamage: 5,
     language: 'Common Tongue',
   });
 
@@ -72,6 +216,7 @@
       'Giant Sword',
       'Shield',
     ],
+    damage: 4,
     language: 'Common Tongue',
   });
 
@@ -82,14 +227,50 @@
       width: 2,
       height: 4,
     },
-    healthPoints: 10,
+    healthPoints: 12,
     name: 'Lilith',
     team: 'Forest Kingdom',
     weapons: [
       'Bow',
       'Dagger',
     ],
+    damage: 2,
     language: 'Elvish',
+  });
+
+  const paladin = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 20,
+    name: 'Uther Lightbringer',
+    team: 'Lordaeron',
+    weapons:'Giant Hammer',
+    damage: 3,
+    spells: 'Holy Light',
+    heals: 6,
+    spellDamage: 3,
+    language: 'Common Tongue',
+  });
+
+  const deathKnight = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 3,
+      height: 4,
+    },
+    healthPoints: 20,
+    name: 'Prince Arthas',
+    team: 'The Scourge',
+    weapons:'FrostMourne',
+    damage: 5,
+    spells: 'Death Coil',
+    spellDamage: 6,
+    language: 'Common Tongue',
   });
 
   console.log(mage.createdAt); // Today's date
@@ -102,7 +283,22 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(paladin.spells); //Holy Light
+  console.log(deathKnight.weapons);
+  console.log(mage.castSpell(archer));
+  console.log(mage.castSpell(archer));
+  console.log(archer.healthPoints);
+  console.log(mage.castSpell(archer));
+  console.log(paladin.attack(deathKnight));
+  console.log(paladin.heal());
+  console.log(paladin.healthPoints);
+  console.log(deathKnight.attack(paladin));
+  console.log(deathKnight.castSpell(paladin));
+  console.log(deathKnight.attack(mage));
+
+  
+  
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
