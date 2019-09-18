@@ -297,7 +297,6 @@ Villain.prototype.attack = function(targetPlayer){
   console.log(deathKnight.attack(mage));
 
   
-  
 
 
   // Stretch task: 
