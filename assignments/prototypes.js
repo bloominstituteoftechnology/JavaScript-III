@@ -19,12 +19,19 @@
 function GameObject(attribute) {
   this.newCreated = attribute.createdAt;
   this.newName = attribute.name;
-  this.newDimension = attribute.dimension;
-  this.destroy = function() {
-    return `${this.newName} was removed from the game.`;
-  };
+  this.newDimensions = attribute.dimensions;
+
+  //*************************The below function can be abstracted with a protoype *****************/
+  // this.destroy = function() {
+  //   return `${this.newName} was removed from the game.`;
+  //};
   // console.log(this);
 }
+
+GameObject.prototype.destroy = function() {
+  // Protoype
+  return `${this.newName} was removed from the game.`;
+};
 
 /*
   === CharacterStats ===
@@ -32,14 +39,19 @@ function GameObject(attribute) {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(stat) {
-  this.newHealthPoints = stat.healthPoints;
-  this.takeDamage = function() {
-    return `${this.newName} took damage.`;
-  };
+
+function CharacterStats(stats) {
+  GameObject.call(this, stats);
+  this.newHealthPoints = stats.healthPoints;
   // console.log(this);
 }
 
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  // Protoype
+  return `${this.newName} took damage.`;
+};
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -50,14 +62,17 @@ function CharacterStats(stat) {
   * should inherit takeDamage() from CharacterStats
 */
 function Humanoid(profile) {
+  CharacterStats.call(this, profile);
   this.newTeam = profile.team;
   this.newWeapon = profile.weapons;
   this.newLanguage = profile.language;
   this.greet = function() {
     return `${this.newName} offers a greeting in ${this.newLanguage}.`;
   };
-  console.log(this);
+  // console.log(this);
 }
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -109,6 +124,7 @@ const archer = new Humanoid({
   language: "Elvish"
 });
 
+console.log(mage.newTeam);
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.healthPoints); // 15
