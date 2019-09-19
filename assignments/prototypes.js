@@ -17,9 +17,9 @@
   * 
 */
 function GameObject(attribute) {
-  this.newCreated = attribute.createdAt;
-  this.newName = attribute.name;
-  this.newDimensions = attribute.dimensions;
+  this.createdAt = attribute.createdAt;
+  this.name = attribute.name;
+  this.dimensions = attribute.dimensions;
 
   //*************************The below function can be abstracted with a protoype *****************/
   // this.destroy = function() {
@@ -30,7 +30,7 @@ function GameObject(attribute) {
 
 GameObject.prototype.destroy = function() {
   // Protoype
-  return `${this.newName} was removed from the game.`;
+  return `${this.name} was removed from the game.`;
 };
 
 /*
@@ -42,7 +42,7 @@ GameObject.prototype.destroy = function() {
 
 function CharacterStats(stats) {
   GameObject.call(this, stats);
-  this.newHealthPoints = stats.healthPoints;
+  this.healthPoints = stats.healthPoints;
   // console.log(this);
 }
 
@@ -50,7 +50,7 @@ CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
   // Protoype
-  return `${this.newName} took damage.`;
+  return `${this.name} took damage.`;
 };
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -63,9 +63,9 @@ CharacterStats.prototype.takeDamage = function() {
 */
 function Humanoid(profile) {
   CharacterStats.call(this, profile);
-  this.newTeam = profile.team;
-  this.newWeapon = profile.weapons;
-  this.newLanguage = profile.language;
+  this.team = profile.team;
+  this.weapons = profile.weapons;
+  this.language = profile.language;
   this.greet = function() {
     return `${this.newName} offers a greeting in ${this.newLanguage}.`;
   };
@@ -124,7 +124,6 @@ const archer = new Humanoid({
   language: "Elvish"
 });
 
-console.log(mage.newTeam);
 console.log(mage.createdAt); // Today's date
 console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
 console.log(swordsman.healthPoints); // 15
