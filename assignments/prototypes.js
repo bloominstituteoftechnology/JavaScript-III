@@ -61,9 +61,28 @@ CharacterStats.prototype.takeDamage= function(){
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+function Villain(attr){
+  Humanoid.call(this, attr)
+  this.team = attr.team; 
+  this.weapons = attr.weapons;
+  this.language = attr.language;
+ }
+ Villain.prototype= Object.create(CharacterStats.prototype);
+ Villain.prototype.attack=function(){
+   return`${this.weapons} used to ${this.takeDamage}.`;
+ }
 
+function Hero(attr){
+  Humanoid.call(this, attr)
+  this.team = attr.team; 
+  this.weapons = attr.weapons;
+  this.language = attr.language;
+ }
+ Hero.prototype= Object.create(CharacterStats.prototype);
+ Hero.prototype.greet=function(){
+   return`${this.name} offers a greeting in ${this.language}.`;
+ }
 // Test you work by un-commenting these 3 objects and the list of console logs below:
-
 
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -115,6 +134,23 @@ CharacterStats.prototype.takeDamage= function(){
     language: 'Elvish',
   });
 
+  const Villain = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Joker',
+    team: 'Joke',
+    weapons: [
+      'Bombs',
+      'Magic',
+    ],
+    language: 'Common Tongue'
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -125,7 +161,7 @@ CharacterStats.prototype.takeDamage= function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(Villain,destroy);
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  

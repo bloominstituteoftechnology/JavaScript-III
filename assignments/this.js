@@ -16,40 +16,68 @@ bind used to create a new function that is permanently bound to this value
 // Principle 1
 
 // code example for Window Binding
-
-function ghost(){
-    console.log(this.boo);
+//1
+// function ghost(){
+//     console.log(this.boo);
+// }
+// ghost();
+// const boo = 'boo';
+//2
+function sayName(name) {
+    console.log(this);
+    return name;
 }
-ghost();
-const boo = 'boo';
-
-
+sayName("D'Artagnan");
 // Principle 2
 
 // code example for Implicit Binding
-
-let myGhost = {
-    name: 'Casper',
-    boo: 'booo!',
-    ghost: function(){
-        console.log(this.boo);
+//1
+// let myGhost = {
+//     name: 'Casper',
+//     boo: 'booo!',
+//     ghost: function(){
+//         console.log(this.boo);
+//     }
+// }
+// myGhost.ghost();
+//2
+const myObj = {
+    greeting: 'Hello',
+    sayHello: function(name){
+        console.log(`${this.greeting} my name is ${name}`);
     }
-}
-myGhost.ghost();
+};
+myObj.sayHello('Ryan');
 // Principle 3
 
 // code example for New Binding
+function CordialPerson( greeter ) {
+    this.greeting = 'Hello';
+    this.greeter = greeter;
+    this.speak = function() {
+        console.log(this.greeting + this.greeter);
+        console.log(this);
+    };
+}
+const jerry = new CordialPerson('Newman');
+const newman = new CordialPerson('Jerry');
+
+jerry.speak();
+newman.speak();
 
 // Principle 4
 
 // code example for Explicit Binding
-function ghost(){
-    console.log(this.boo);
-}
-let myGhost ={
-    name:'Casper',
-    boo:'boo',
-}
-friendlyGhost = ghost.bind(myGhost);
 
-friendlyGhost();
+jerry.speak.call(newman); newman.speak.apply(jerry);
+
+// function ghost(){
+//     console.log(this.boo);
+// }
+// let myGhost = {
+//     name:'Casper',
+//     boo:'boo',
+// }
+// friendlyGhost = ghost.bind(myGhost);
+
+// friendlyGhost();
