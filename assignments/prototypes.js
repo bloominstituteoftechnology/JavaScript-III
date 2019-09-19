@@ -21,11 +21,10 @@ function GameObject(attribute) {
   this.name = attribute.name;
   this.dimensions = attribute.dimensions;
 
-  //*************************The below function can be abstracted with a protoype *****************/
+  //******** The below function can be abstracted with a prototype ********/
   // this.destroy = function() {
   //   return `${this.newName} was removed from the game.`;
   //};
-  // console.log(this);
 }
 
 GameObject.prototype.destroy = function() {
@@ -43,9 +42,9 @@ GameObject.prototype.destroy = function() {
 function CharacterStats(stats) {
   GameObject.call(this, stats);
   this.healthPoints = stats.healthPoints;
-  // console.log(this);
 }
 
+//Object.create() allows the constructor function to see/inherit a parent function
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function() {
@@ -66,13 +65,19 @@ function Humanoid(profile) {
   this.team = profile.team;
   this.weapons = profile.weapons;
   this.language = profile.language;
-  this.greet = function() {
-    return `${this.newName} offers a greeting in ${this.newLanguage}.`;
-  };
-  // console.log(this);
+
+  // *** Again abstracting with a prototype below***//
+  // this.greet = function() {
+  //   return `${this.newName} offers a greeting in ${this.newLanguage}.`;
+  // };
 }
 
+//Object.create() allows the constructor function to see/inherit a parent function
 Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.newName} offers a greeting in ${this.newLanguage}.`;
+};
 
 /*
  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
