@@ -10,27 +10,46 @@
 */
 
 // Principle 1
-console.log(this);
+
 // code example for Window Binding
+console.log(this);
+
 
 // Principle 2
-
+// code example for Implicit Binding
 const roll = function(person){
  person.rollCall = function(){
      console.log(this.name)
  }
 }
-var aasa ={
+const aasa ={
     name: 'Aasa',
 }
 roll(aasa);
-aasa.rollCall()
-// code example for Implicit Binding
+aasa.rollCall();
+
 
 // Principle 3
-
 // code example for New Binding
 
-// Principle 4
+const BackPack = function (color, pockets,){
+    this.color = color;
+    this.pockets = pockets
+    this.thePack = (`The ${this.color} backpack has ${this.pockets} pockets.`)
+};
 
+const aasaBackPack = new BackPack('blue', 'ten')
+console.log(aasaBackPack.thePack)
+
+// Principle 4
 // code example for Explicit Binding
+
+var favTeam = function(sport, team){
+    console.log(`Im ${this.name} and my favorite ${sport} team is the ${team}!`);
+};
+var myName1 ={
+    name: 'Aasa',
+};
+var myTeam = ['football','Cowboys' ];
+
+favTeam.apply(myName1, myTeam)
