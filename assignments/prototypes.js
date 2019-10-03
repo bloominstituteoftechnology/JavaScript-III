@@ -165,11 +165,6 @@ const archer = new Humanoid({
   language: 'Elvish',
 });
 
-function human(humanAttrs) {
-Humanoid.call(this, humanAttrs);
-this.newHumanoid = humanAttrs.newHumanoid;
-}
-human.prototype = Object.create(Humanoid.prototype);
 
 
   console.log(mage.createdAt); // Today's date
