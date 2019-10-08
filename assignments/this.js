@@ -1,26 +1,57 @@
 /* The for principles of "this";
-* in your own words. explain the four principle for the "this" keyword below.
-*
-* 1. 
-* 2. 
-* 3. 
-* 4. 
-*
-* write out a code example of each explanation above
-*/
+ * in your own words. explain the four principle for the "this" keyword below.
+ *
+ * 1.
+ * 2.
+ * 3.
+ * 4.
+ *
+ * write out a code example of each explanation above
+ */
 
-// Principle 1
+//* Principle 1
 
-// code example for Window Binding
+//! code example for Window Binding
 
-// Principle 2
+const superman = function() {
+  console.log(this);
+};
+superman();
 
-// code example for Implicit Binding
+//* Principle 2
 
-// Principle 3
+//! code example for Implicit Binding
 
-// code example for New Binding
+var MyObject = function() {
+  this.name = "MyObjectName";
+  this.myProperty = "property";
+};
 
-// Principle 4
+MyObject.prototype.doStuff = function(action) {
+  console.log(this.name + " is " + action + "!");
+};
 
-// code example for Explicit Binding
+var obj = new MyObject();
+
+obj.doStuff("awesome"); // prints 'MyObjectName is awesome!'
+//* Principle 3
+
+//! code example for New Binding
+
+function vintageCar() {
+  console.log(
+    `This ${this.make} is a ${this.year} ${this.model} color ${this.color}`
+  );
+}
+
+let car = {
+  make: "Chevy",
+  model: "Camero",
+  year: "1969",
+  color: "CandyApple Red"
+};
+vintageCar.call(car);
+
+//* Principle 4
+
+//! code example for Explicit Binding
