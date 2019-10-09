@@ -133,3 +133,47 @@ console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
 // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
 
+function Villain(settings) {
+  Humanoid.call(this);
+  this.deadlyAttack = settings.deadlyAttack;
+  this.treacherousnessMultiplier = settings.treacherousnessMultiplier;
+  this.attackDamage = settings.attackDamage;
+}
+Villain.prototype = Object.create()
+Villain.prototype.attack = function(target) {
+  let dmg = this.attackDamage * this.treacherousnessMultiplier;
+  target.healthPoints -= dmg;
+  target.takeDamage();
+  console.log(`(${dmg} damage, ${target.healthPoints} HP)`)
+}
+Villain.prototype.attackDeadly = function(target) {
+  console.log(`${this.name} uses his deadly attack: ${this.deadlyAttack}!`);
+  let dmg = this.attackDamage * this.treacherousnessMultiplier * 5;
+  target.healthPoints -= dmg;
+  target.takeDamage();
+  console.log(`(${dmg} damage, ${target.healthPoints} HP)`)
+}
+
+function Hero(settings) {
+  Humanoid.call(this);
+  this.bestFriend = settings.bestFriend;
+  this.charisma = settings.charisma;
+  this.attackDamage = 100;
+}
+Hero.prototype = Object.create(Humanoid);
+Hero.prototype.attack = function(target) {
+  let dmg = this.attackDamage + this.charisma;
+  target.healthPoints -= dmg;
+  target.takeDamage();
+  console.log(`(${dmg} damage, ${target.healthPoints} HP)`)
+}
+Hero.prototype.heal = function(amount) {
+  this.healthPoints += amount;
+  console.log(`${this.name} heals ${amount} points! (${this.healthPoints} HP)`);
+}
+Hero.prototype.deusExMachina = function(target) {
+  console.log(`A wind rushes past you... You turn to see, ${this.bestFriend} lends you his power!`)
+  console.log("Suddenly, the hero finds courage! A powerful blow to the enemy!");
+  target.healthPoints = 0;
+  target.destroy();
+}
