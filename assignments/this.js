@@ -1,7 +1,7 @@
 /* The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
+* 1. global scope is a window
 * 2. 
 * 3. 
 * 4. 
@@ -10,15 +10,40 @@
 */
 
 // Principle 1
-
+function speak(animal) {
+    console.log(this);
+    return name;
+  }
+  speak("Dog");
 // code example for Window Binding
 
-// Principle 2
 
+// Principle 2
+const myCar = {
+    star: 'tur on',
+    secondStep: function( pushAc) {
+      console.log(`${this.star} im ready ${pushAc}`);
+      console.log(this);
+    }
+  };
+  myCar.secondStep('Go');
 // code example for Implicit Binding
 
 // Principle 3
-
+const makeOrder = obj => {
+    obj.sayName = function() {
+      console.log(`Hello my name is ${this.name}`);
+      console.log(this);
+    };
+  };
+  const me = { name: 'Ryan' };
+  const you = { name: 'Freddy' };
+  sayNameFunc(me);
+  sayNameFunc(you);
+  
+  // Invoke Methods on our objects
+  me.sayName();
+  you.sayName();
 // code example for New Binding
 
 // Principle 4
