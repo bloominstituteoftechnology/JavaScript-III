@@ -15,10 +15,10 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-function GameObject(createdAt, name, dimensions) {
-  this.createdAt = createdAt;
-  this.name = name;
-  this.dimensions = dimensions;
+function GameObject(settings) {
+  this.createdAt = settings.createdAt;
+  this.name = settings.name;
+  this.dimensions = settings.dimensions;
 }
 GameObject.prototype.destroy = function() { return `${this.name} was removed from the game.`; }
 /*
@@ -27,9 +27,9 @@ GameObject.prototype.destroy = function() { return `${this.name} was removed fro
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(createdAt, name, dimensions, healthPoints) {
-  GameObject.call(this, createdAt, name, dimensions);
-  this.healthPoints = healthPoints;
+function CharacterStats(settings) {
+  GameObject.call(this, settings);
+  this.healthPoints = settings.healthPoints;
 }
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.takeDamage = function() { return `${this.name} took damage.` };
@@ -48,7 +48,14 @@ console.log(test.destroy());*/
   * should inherit takeDamage() from CharacterStats
 */
 
-
+function Humanoid(settings) {
+  CharacterStats.call(this, settings);
+  this.team = settings.team;
+  this.weapons = settings.weapons;
+  this.language = settings.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() { return `${this.name} offers a greeting in ${this.language}.`; }
 
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -58,7 +65,7 @@ console.log(test.destroy());*/
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -119,7 +126,7 @@ console.log(test.destroy());*/
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
