@@ -20,8 +20,9 @@ to override what the "this"  keyworod is initially pointing to.
 // Principle 1
 
 // code example for Window Binding
-console.log(this);                                          //this isn't pointing to anything in particular which means it is point to global obj
-
+function dontDoThis(){
+    console.log(this);                                          //this isn't pointing to anything in particular which means it is point to global obj
+};
 // Principle 2
 // code example for Implicit Binding
 const exampleObject = {                                      //define an Obj
