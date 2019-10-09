@@ -23,6 +23,7 @@ function GameObject(gameProp) {
 GameObject.prototype.destroy = function () {
   return `${this.name} was removed from the database.`;
 }
+
 /*
   === CharacterStats ===
   * healthPoints
@@ -30,12 +31,12 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 
-
 function CharacterStats(charProp) {
   GameObject.call(this, charProp)
   this.healthPoints = charProp.healthPoints,
   this.name = charProp.name
 }
+
 CharacterStats.prototype = Object.create(GameObject.prototype);
 
 CharacterStats.prototype.takeDamage = function () {
@@ -51,6 +52,7 @@ CharacterStats.prototype.takeDamage = function () {
     * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
 function Humanoid(humanProp) {
   CharacterStats.call(this, humanProp)
   this.team = humanProp.team;

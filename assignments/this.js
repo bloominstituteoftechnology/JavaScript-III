@@ -13,7 +13,6 @@
 
 // code example for Window Binding
 function sayCity(city) {
-    console.log(this);
     return city;
 }
 sayCity("Miami-Beach");
@@ -27,7 +26,7 @@ const myGreeting = {
     greeting: 'Hello',
     sayHi: function(name) {
         console.log(`${this.greeting} my name is ${name}`);
-        console.log(this);
+
     }
 };
 myGreeting.sayHi("Jesus");
