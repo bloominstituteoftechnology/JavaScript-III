@@ -28,7 +28,7 @@ const myObj = {
     height: "6ft 2in",
     weight: 190,
     sayHello: function() {
-        console.log(`Hi, they call me ${this.name}`);
+        console.log(`Hi, they call me ${this.name}, I'm ${this.height} tall.`);
     }
 }
 console.log(myObj.sayHello());
@@ -40,18 +40,33 @@ console.log(myObj.sayHello());
 function Student(attrs) {
     this.name = attrs.name;
     this.id = attrs.id;
-    this.alertHomeTown = function(hometown) {
-        alert(`Hi my name is ${this.name} and ${hometown} is my home town.`);
+    this.hometown = attrs.hometown;
+    this.alertHomeTown = function() {
+        console.log(`Hi my name is ${this.name} and ${this.hometown} is my home town.`);
     }
 }
 
 const studentOne = new Student({
     name: "John",
     id: 1990,
+    hometown: "Worcester"
 });
 
-console.log(studentOne.alertHomeTown("Worcester"));
+const studentTwo = new Student({
+    name: "Maria",
+    id: 2001,
+    hometown: "Portland"
+});
+
+console.log(studentOne.alertHomeTown());
+console.log(studentTwo.alertHomeTown());
 
 
 // Principle 4
 // code example for Explicit Binding
+
+studentOne.alertHomeTown.apply(studentTwo);
+studentTwo.alertHomeTown.apply(studentOne);
+
+
+
