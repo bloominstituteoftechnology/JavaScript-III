@@ -1,10 +1,13 @@
 /* The for principles of "this";
  * in your own words. explain the four principle for the "this" keyword below.
  *
- * 1.
- * 2.
- * 3.
- * 4.
+ * 1. Default Binding: is a global context, basicly if a function is invoked without any rules
+ *
+ * 2.Implicit Binding: this will create the state in an invisible manner when binding
+ *
+ * 3.Explicit Binding: you call a function to set to a specific object
+ *
+ * 4.New Binding: when new is used this will be bounded to the object.
  *
  * write out a code example of each explanation above
  */
@@ -33,7 +36,7 @@ MyObject.prototype.doStuff = function(action) {
 
 var obj = new MyObject();
 
-obj.doStuff("awesome"); // prints 'MyObjectName is awesome!'
+obj.doStuff("awesome");
 //* Principle 3
 
 //! code example for New Binding
@@ -55,3 +58,8 @@ vintageCar.call(car);
 //* Principle 4
 
 //! code example for Explicit Binding
+function movie(favorite) {
+  this.movie = favorite;
+}
+const myFavoriteMovie = new movie("Hoffa and BIG");
+console.log(`My favorite movie is ${myFavoriteMovie.movie}`);
