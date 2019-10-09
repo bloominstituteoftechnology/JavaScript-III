@@ -25,20 +25,27 @@ function dontDoThis(){
 };
 // Principle 2
 // code example for Implicit Binding
-const exampleObject = {                                      //define an Obj
+const exampleObject = obj =>{                                      //function receiving an object as an argument
 
  
     location: "Nasvhille",                                                      //define Obj properites
-    greeting: function(name){
+    obj.greeting =  function(name){
         
-        console.log(`Hello, my name is ${name} & I live in ${this.location}`)
+        return(`Hello, my name is ${name} & I live in ${this.location}`)                //return statement
         console.log(this);
     }
     };
 
+                                      
+     
+const anotherObject = {                                                                 //create another object this can point to
 
-exampleObject.greeting("Tom");                                                  //the this is exampleObject b/c that is what is to the left
-                                                                                                //of the dot.
+        location: "texas"
+        
+     }  ;
+     exampleObject(anotherObject);
+
+console.log(anotherObject.greeting("Al"));                                      //pass another argument to name when calling the functions
 
 
 // Principle 3

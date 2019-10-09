@@ -17,14 +17,14 @@ Each constructor function has unique properties and methods that are defined in 
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-function GameObject(props){
+function GameObject(props){                       //setup of constructor function & this properties
   this.createdAt = props.createdAt;
   this.name = props.name;
   this.dimensions = props.dimensions;
-
+  
 }
 
-GameObject.prototype.destroy = function(){
+GameObject.prototype.destroy = function(){                    //did this for memory reasons
   return(`${this.name} was removed from the game.`)
 };
 
@@ -35,12 +35,12 @@ GameObject.prototype.destroy = function(){
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(characterProps){
+function CharacterStats(characterProps){                              
   GameObject.call(this, characterProps);
   this.healthPoints = characterProps.healthPoints;
   
 }
-CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype = Object.create(GameObject.prototype);         //copy the prototype function from GameObject
 
 CharacterStats.prototype.takeDamage = function(){
   
@@ -192,13 +192,16 @@ Humanoid.prototype.greet = function(){
   }
 
   Villain.prototype.attack = function(){
-    let health = goodGuy.healthPoints - goodGuy.damage; 
-if(health > 0){return `${this.name} hurt ${goodGuy.name} & decreased his point total ${this.healthPoints - 10}`}
-else{return `${this.name} has vanquished ${goodGuy.name}`}
 
+     
+    return health = goodGuy.healthPoints - goodGuy.damage; 
+    
+if(health > 0){return `${this.name} hurt ${goodGuy.name} & decreased his point total ${this.healthPoints}`}
+else{return `${this.name} has vanquished ${goodGuy.name}`}
+    }
     
 
-  }
+  
 
   function Hero(heroProps){
     Humanoid.call(this, heroProps);
@@ -208,7 +211,7 @@ else{return `${this.name} has vanquished ${goodGuy.name}`}
 
   Hero.prototype.attack = function(){
     let health = this.healthPoints - this.damage; 
-if(health > 0){return `${this.name} hurt ${badGuy.name} & decreased his point total ${this.healthPoints - 10}`}
+if(health > 0){return `${this.name} hurt ${badGuy.name} & decreased his point total ${this.healthPoints}`}
 else{return `${this.name} has vanquished ${badGuy.name}`}
 
     
