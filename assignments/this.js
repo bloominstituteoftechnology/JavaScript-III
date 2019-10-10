@@ -58,8 +58,7 @@ const person = {
     'name': 'Mike'
 }
 
-function introduction(html,css,js) {
-    return `Hello, my name is ${this.name} and i like to program in: ${html}, ${css}, and ${js}`;
+function introduction(food,cat,school) {
+    return `Hello, my name is ${this.name} and i love: ${food}, ${cat}, and ${school}`;
 }
-console.log(introduction.call(person,'html','css','js'));
-
+console.log(introduction.call(person,'Pizza','cats','Lambda School'));
