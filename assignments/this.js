@@ -10,17 +10,56 @@
 */
 
 // Principle 1
-
 // code example for Window Binding
 
-// Principle 2
+function hello (name) {
+    console.log(this);
+    return `Hello ${this.name}`;
+}
+console.log(hello('Mike'))
 
+
+
+
+
+
+// Principle 2
 // code example for Implicit Binding
 
-// Principle 3
+const myName = {
+    fname: 'Mike',
+    lname: 'Lovelace',
+    say: function(){
+        return `Hi, my name is ${this.fname} ${this.lname}`;
+    }
+}
 
+
+console.log(myName.say());
+
+
+
+
+
+
+// Principle 3
 // code example for New Binding
 
-// Principle 4
 
+
+
+
+
+
+// Principle 4
 // code example for Explicit Binding
+
+const person = {
+    'name': 'Mike'
+}
+
+function introduction(html,css,js) {
+    return `Hello, my name is ${this.name} and i like to program in: ${html}, ${css}, and ${js}`;
+}
+console.log(introduction.call(person,'html','css','js'));
+
