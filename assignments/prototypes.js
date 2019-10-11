@@ -54,7 +54,7 @@ CharacterStats.prototype.takeDamage= function() {
 function Humanoid(humanAttributes) {
   this.team = humanAttributes.team;
   this.weapons = humanAttributes.weapons;
-  this.langauge = humanAttributes.langauge;
+  this.language = humanAttributes.language;
   CharacterStats.call (this, humanAttributes);
 }
   Humanoid.prototype = Object.create(CharacterStats.prototype);
