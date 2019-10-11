@@ -55,12 +55,12 @@ function CordialPerson(greeter) {
 
 // code example for Explicit Binding
 function greet () {
-    alert(`Hello, my name is ${this.name}`)
+    alert(`Hello, my name is ${this.name} and I am  ${this.age} years old.`)
   }
   
   const user = {
-    name: 'Tyler',
-    age: 27,
+    name: 'Reginald Alford',
+    age: 38,
   }
 
-  greet.call(user)
+  greet.call(user);
