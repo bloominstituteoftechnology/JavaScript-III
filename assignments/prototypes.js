@@ -17,7 +17,7 @@
 */
 
 function GameObject(gamAttributes) {
-  this.createAt = gamAttributes.createdAt;
+  this.createdAt = gamAttributes.createdAt;
   this.name = gamAttributes.name; 
   this.dimensions = gamAttributes.dimensions; 
 }
