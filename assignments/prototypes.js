@@ -5,6 +5,7 @@
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
+
 function GameObject(attributes) {
   this.createdAt = attributes.createdAt;
   this.dimensions = attributes.dimensions;
@@ -23,6 +24,7 @@ GameObject.prototype.destroy = function() {
 function CharacterStats(characterAttributes) {
   GameObject.call(this, characterAttributes);
   this.healthPoints = characterAttributes.healthPoints;
+  this.name = characterAttributes.name;
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
