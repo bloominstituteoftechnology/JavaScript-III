@@ -2,19 +2,20 @@
 * in your own words. explain the four principle for the "this" keyword below.
 *
 * 1. global scope is a window
-* 2. 
-* 3. 
+* 2. impliciti bilding
+* 3. new 
 * 4. 
 *
 * write out a code example of each explanation above
 */
 
 // Principle 1
-function speak(animal) {
+function sing(singer) {
+
     console.log(this);
     return name;
   }
-  speak("Dog");
+  sing();
 // code example for Window Binding
 
 

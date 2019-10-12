@@ -54,12 +54,12 @@ CharacterStats.prototype.takeDamage=function(){
    CharacterStats.call(this,hummanObj);
    this.team=hummanObj.team;
    this.weapons=hummanObj.weapons;
-   this.languaje=hummanObj.languaje;
+   this.language=hummanObj.language;
      
  }
  Humanoid.prototype=Object.create(CharacterStats.prototype);
  Humanoid.prototype.greet=function(){
-   return `${this.name} speak greet in ${this.languaje} .`;
+   return `${this.name} speak greet in ${this.language} .`;
  }
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
