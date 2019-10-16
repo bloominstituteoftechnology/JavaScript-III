@@ -142,30 +142,66 @@ Humanoid.prototype.greet = function(){
  
  
  
-//   function Hero(attributes){
-//     Humanoid.call(this, attributes);
-//   }
-// Hero.prototype.removeHP = function(){
-//   this.healthPoints--;
-//   console.log(`${this.name} took 1 dmg, new HP is ${this.healthPoints}`);
-//   if (this.healthPoints === 0){
-//     return this.destroy();
-//   }
-// }
+  function Hero(attributes){
+    Humanoid.call(this, attributes);
+  }
+Hero.prototype.removeHP = function(){
+  this.healthPoints--;
+  console.log(`${this.name} took 1 dmg, new HP is ${this.healthPoints}`);
+  if (this.healthPoints === 0){
+    return console.log(`you've been removed from the game`);
+  }
+}
+
+function Villain(attributes){
+  Humanoid.call(this, attributes);
+}
+
+Villain.prototype.removeHP = function(){
+  this.healthPoints--;
+  console.log(`${this.name} took 1 dmg, new HP is ${this.healthPoints}`);
+  if (this.healthPoints === 0){
+    return console.log(`you've been removed from the game`);
+  }
+}
+
+const superMan = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  healthPoints: 3,
+  name: 'Bruce',
+  team: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Tongue',
+}); 
+
+const Venom = new Villain ({
+  createdAt: new Date(),
+  dimensions: {
+    length: 2,
+    width: 1,
+    height: 1,
+  },
+  healthPoints: 3,
+  name: 'alexis',
+  team: 'Mage Guild',
+  weapons: [
+    'Staff of Shamalama',
+  ],
+  language: 'Common Tongue',
+}); 
+superMan.removeHP();
+superMan.removeHP();
+superMan.removeHP();
+
+Venom.removeHP();
+Venom.removeHP();
+Venom.removeHP();
 
 
-// const superMan = new Hero({
-//   createdAt: new Date(),
-//   dimensions: {
-//     length: 2,
-//     width: 1,
-//     height: 1,
-//   },
-//   healthPoints: 1,
-//   name: 'Bruce',
-//   team: 'Mage Guild',
-//   weapons: [
-//     'Staff of Shamalama',
-//   ],
-//   language: 'Common Tongue',
-// }); 
