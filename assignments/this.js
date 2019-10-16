@@ -16,11 +16,41 @@ console.log(this);
 // Principle 2
 
 // code example for Implicit Binding
+let myAnimal = {
+  name: 'Bella',
+  species: 'Dog',
+  speak: 'WOFF WOOF',
+  bark: function() {
+    console.log(this.speak);
+  },
+};
 
+myAnimal.bark();
 // Principle 3
 
 // code example for New Binding
+function Pet(name) {
+  this.petName = name;
+}
 
+let myPet = new Pet('Bella the lovable Pitbull');
+console.log(myPet.petName);
 // Principle 4
 
 // code example for Explicit Binding
+function pet() {
+  console.log(this.petName);
+}
+
+let myDoggo = {
+  name: 'Bella',
+  petName: 'Hi, my name is Bella',
+};
+
+let myOtherDoggo = {
+  name: 'Shy',
+  petName: 'Hi, my name is Shy',
+};
+
+pet.call(myDoggo);
+pet.call(myOtherDoggo);
