@@ -61,4 +61,4 @@ const starPassions = ['sleeping', 'eating', 'hanging with spongebob'];
 console.log = (whatsUp.apply(star, starPassions));
 
 const Spongebob = whatsUp.bind(sponge, 'jellyfish', 'the Krusty Krab', 'Krabby Paddies');
-console.log(Spongebob());
+// console.log(Spongebob());
