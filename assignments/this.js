@@ -1,36 +1,40 @@
 /* The for principles of "this";
  * in your own words. explain the four principle for the "this" keyword below.
  *
- * 1. Window - works in global scope
- * 2. Implicit -  only communicates inside of the function/object that it lives in
- * 3. New - works with constructor functions, constructors always have a capital letter
- * 4. Explicit - 'this' is defined when the call or apply method is used
+ * 1. Window - works in global scope, "this" refers to window or console object.
+ 
+ * 2. Implicit -  only communicates inside of the function/object that it lives in. 
+ * "this" points to what comes to the left of the dot.
+ 
+ * 3. New - works with constructor functions, constructors always have a capital letter. 
+ "this" refers to the new object created.
+
+ * 4. Explicit - "this" is defined when the call or apply method is used.
  *
  * write out a code example of each explanation above
  */
 
-// Principle 1
+
+ // Principle 1
 
 // code example for Window Binding
-function myFunc(prop) {
-    console.log(this);
-    return prop;
-  }
-  myFunc("This is a window binding");
+
+    console.log(this); //"this" refers to the global scope
+
 
 // Principle 2
 
 // code example for Implicit Binding
-const jessIMP = {
+const jessNOV = {
     name: 'Jess',
     color: 'orange',
-    food: 'thanksgiving dinner',
+    food: 'Thanksgiving dinner',
     favoriteColor: function() {
      console.log(`${this.name}'s favorite color is ${this.color}.`)
     }
    }
    
-   jessIMP.favoriteColor();
+   jessNOV.favoriteColor(); //"this" refers to name and color (left of the dots)
 
 // Principle 3
 
@@ -40,9 +44,9 @@ function Person(name, color) {
     this.color = color;
    }
    
-   const bobby = new Person('bob', 'yellow');
+   const jane = new Person('jane doe', 'yellow');
    
-   console.log(bobby);
+   console.log(jane); //"this" refers to Person
 
 // Principle 4
 
@@ -51,4 +55,4 @@ let favoriteFood = function() {
     console.log(`${this.name}'s favorite food is ${this.food}.`)
    }
    
-   favoriteFood.call(jessIMP);
+   favoriteFood.call(jessNOV); //"this" refers to jessNOV
