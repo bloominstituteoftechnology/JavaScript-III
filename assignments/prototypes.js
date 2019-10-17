@@ -15,6 +15,18 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
+function GameObject (attributes) {
+  this.createdAt = attributes.createdAt;
+  this.name = attributes.name;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function () {
+  return `${this.name} was removed from the game.`;
+};
+
+//TEST
+console.log(swordsman.destroy());
 
 /*
   === CharacterStats ===
@@ -23,6 +35,17 @@
   * should inherit destroy() from GameObject's prototype
 */
 
+function CharacterStats (attributes) {
+  //Dot Call Method
+  GameObject.call(this, attributes);
+  this.healthPoints = attributes.healthPoints;
+}
+//Inheriting Game Object
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage.`;
+};
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -102,7 +125,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  */
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
