@@ -31,11 +31,13 @@ function GameObject (mainat) {
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-function CharacterStats(CharInfo) {
-  GameObject.call(this, CharInfo);
-  this.healthPoints = CharInfo.healthPoints;
-  this.name = CharInfo.name;
+function CharacterStats(mainat) {
+  GameObject.call(this, mainat);
+  this.healthPoints = mainat.healthPoints;
+  this.name = mainat.name;
 }
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
 CharacterStats.prototype.takeDamage = function() {
   return `${this.name} took damage`;
 };
@@ -49,11 +51,11 @@ CharacterStats.prototype.takeDamage = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
-function Humanoid(player1) {
-  CharacterStats.call(this, player1);
-  this.team = player1.team;
-  this.weapon = player1.weapon;
-  this.language = player1.language;
+function Humanoid(mainat) {
+  CharacterStats.call(this, mainat);
+  this.team = mainat.team;
+  this.weapons = mainat.weapons;
+  this.language = mainat.language;
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);
