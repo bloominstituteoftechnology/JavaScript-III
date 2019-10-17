@@ -44,7 +44,25 @@ console.log(users.sayHi(12));
 // ===== Principle 3 ======
 // code example for New Binding
 
+function CordialPerson(greeter) {
+    this.greeting = "Hello ";
+    this.greeter = greeter;
+    this.speak = function() {
+        console.log(this.greeting + this.greeter);
+        console.log(this);
+    };
+}
+
+const jerry = new CordialPerson("Newman");
+const newman = new CordialPerson("Jerry");
+
+jerry.speak();
+newman.speak();
+
 // function AllUsers()
 
 // ===== Principle 4 ======
 // code example for Explicit Binding
+
+jerry.speak.call(newman);
+newman.speak.apply(jerry);
