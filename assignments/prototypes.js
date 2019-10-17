@@ -63,7 +63,50 @@ Humanoid.prototype.greet = function(){
   return `${this.name} offers a greeting in ${this.language}.`
 };
 
-
+function Villian(attributes) {
+  Humanoid.call(this, attributes),
+  this.name = attributes.name,
+  this.weapons = attributes.weapons,
+  this.damage = attributes.damage,
+  this.hp = attributes.hp
+  }
+  Villian.prototype = Object.create(Humanoid);
+  Villian.prototype.Damage = function (char){
+    return `${this.name} attacks ${char.name} with a ${this.weapons} and did ${this.damage} damage to the hero! The hero now has ${char.hp-this.damage} health.`
+  },
+  Villian.prototype.Destruction = function (char1, char2){
+    if (this.hp <= 0){
+      return `${this.name} has 0 hp! ${this.name} is now unconscious.`
+    }else if (this.hp < 5){
+      return `${this.name} has ${this.hp}! They are very low on health!`
+    }else { return `currently ${char1.name} has ${char1.hp -char2.damage} health`}
+  
+  };
+  
+  
+  
+  
+  function Hero(attributes){
+    Humanoid.call(this, attributes),
+    this.name = attributes.name,
+    this.weapons = attributes.weapons,
+    this.damage = attributes.damage,
+    this.hp = attributes.hp
+    }
+    
+    Hero.prototype = Object.create(Villian);
+    let currentHealth2 = this.hp-Villian.damage;
+    Hero.prototype.Damage = function (char){
+      return `${this.name} attacks the ${char.name} with a ${this.weapons} and did ${this.damage} damage to the villian! The Villian now has ${char.hp - this.damage} health.`
+    };
+    Hero.prototype.Destruction = function (char1, char2){
+      if (this.hp <= 0){
+        return `${this.name} has 0 hp! ${this.name} is now unconscious.`
+      }else if (this.hp < 5){
+        return `${this.name} has ${this.hp}! They are very low on health!`
+      }else { return `currently ${char1.name} has ${char1.hp -char2.damage} health`}
+    
+    };
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -122,7 +165,19 @@ Humanoid.prototype.greet = function(){
     ],
     language: 'Elvish',
   });
-
+  const Snyder = new Villian({
+    name: 'Snyder the Villian',
+    weapons: 'Sythe of Loathing',
+    damage: 25,
+    hp: 250
+    });
+    
+    const Stan = new Hero({
+    name: 'Stan the Hero',
+    weapons: 'Lance of Light',
+    damage: 30,
+    hp: 180
+    });
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -133,7 +188,10 @@ Humanoid.prototype.greet = function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-
+  console.log(Snyder.Damage(Stan));
+  console.log(Snyder.Destruction(Stan, Snyder));
+  console.log(Stan.Damage(Snyder));
+  console.log(Stan.Destruction(Snyder, Stan));
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
