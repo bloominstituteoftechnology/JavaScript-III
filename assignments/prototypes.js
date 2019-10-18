@@ -70,8 +70,29 @@ Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}.`
 };
 
+//VILLAIN CONSTRUCTOR (Stretch Task) 
+function Villain (attributes) {
+  // .call Method - calls the object you want to pull from
+  Humanoid.call(this, attributes);
+  this.goodOrEvil = attributes.goodOrEvil;
+}
+
+//Inheriting Humanoid Object - references the current function and links to the function you want to pull from
+Villain.prototype = Object.create(Humanoid.prototype);
+
+//HERO CONSTRUCTOR (Stretch Task) 
+function Hero (attributes) {
+  // .call Method 
+  Humanoid.call (this, attributes);
+  this.goodOrEvil = attributes.goodOrEvil;
+}
+
+//Inheriting Humanoid Object
+Hero.prototype = Object.create(Humanoid.prototype);
+
+
 /*
-  * Inheritance chain: GameObject -> CharacterStats -> Humanoid
+  * Inheritance chain: GameObject -> CharacterStats -> Humanoid -> Villain & Hero
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
@@ -93,6 +114,7 @@ Humanoid.prototype.greet = function () {
       'Staff of Shamalama',
     ],
     language: 'Common Tongue',
+
   });
 
   const swordsman = new Humanoid({
@@ -110,6 +132,7 @@ Humanoid.prototype.greet = function () {
       'Shield',
     ],
     language: 'Common Tongue',
+    goodOrEvil: 'Evil',
   });
 
   const archer = new Humanoid({
