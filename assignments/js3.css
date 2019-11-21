@@ -1,0 +1,46 @@
+html {
+  width: 900px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: lightgrey;
+}
+
+.par {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#btn {
+  width: 250px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 5%;
+  background: black;
+  color: white;
+}
+
+#btn2 {
+  width: 190px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 5%;
+  background: black;
+  color: white;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+#p1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+#p2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
