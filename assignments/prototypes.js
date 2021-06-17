@@ -134,9 +134,8 @@ const prompt = require('prompt-sync')();
 function GameObject(gameAttr) {
   this.createdAt = new Date();
 }
-
-GameObject.prototype.destroy = function() {
-  return `${this.name} was removed from the game`
+GameObject.prototype.destroy = function(target, winner) {
+  return `${target.name} has been defeated by ${winner.name}!! ${target.name} deleted from game.`
 }
 
 // === CharacterStats === //
@@ -147,43 +146,40 @@ function CharacterStats(charAttr) {
   this.hp = charAttr.hp;
   this.faction = charAttr.faction;
 }
+
 CharacterStats.prototype = Object.create(GameObject.prototype);
-CharacterStats.prototype.takeDamage = function(obj) {return `${this.name} took damage`};
+CharacterStats.prototype.attack = function(target) {
+  let damage = Math.round(Math.random() * 30);
+  target.hp -= damage;
+  if (target.hp <= 0) {
+    return this.destroy(target)
+  } else {
+    return  `${target.name} has taken ${damage} damage. ${target.name} has ${target.hp} hit points remaining.`
+  } 
+}
 
 //  ====  HERO  ====  //
-
 function Hero(heroAttr){
   CharacterStats.call(this, heroAttr);
 }
 Hero.prototype = Object.create(CharacterStats.prototype)
 
+//  ====  VILLAIN  ====  //
 function Villain(villianAttr) {
   CharacterStats.call(this, villianAttr);
 }
 Villain.prototype = Object.create(CharacterStats.prototype);
-Villain.prototype.villianAttack = function() {
-  let damage = Math.round(Math.random() * 30);
-  hero.hp -= damage;
-  return  `${target.name} has taken ${damage} damage. ${target.name} has ${target.hp} hit points remaining.`
-}
-
-let hero = new Hero({name: 'Hero', hp: 100, faction: 'Good'})
-let villain = new Hero({name: 'Villain', hp: 100, faction: 'Bad'})
-console.log(hero);
-console.log(villain);
-console.log(hero.heroAttack());
-console.log(villain);
 
 /*
-
 name: ,
 hp: ,
 faction: ,
-inventory:[] ,
-
-
 */
-
-// ar = ['sword', 'knife', 'spear', 'axe'];
-// const equipWeapon = prompt('Which weapon do you wish to equip?')
-// console.log(ar.includes(equipWeapon) ? `${equipWeapon} is now equipped` : `You possess no such weapon`);
+let hero = new Hero({name: 'Hero', hp: 100, faction: 'Good'})
+let villain = new Villain({name: 'Villain', hp: 100, faction: 'Bad'})
+console.log(hero.attack(hero));
+console.log(hero.attack(villain));
+console.log(hero.attack(hero));
+console.log(hero.attack(villain));
+console.log(hero.attack(hero));
+console.log(hero.attack(villain));
