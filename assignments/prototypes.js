@@ -149,10 +149,11 @@ function CharacterStats(charAttr) {
 
 CharacterStats.prototype = Object.create(GameObject.prototype);
 CharacterStats.prototype.attack = function(target) {
+  if (target.hp <= 0) return `${target.name} has already been defeated`
   let damage = Math.round(Math.random() * 30);
   target.hp -= damage;
   if (target.hp <= 0) {
-    return this.destroy(target)
+    return this.destroy(target, this)
   } else {
     return  `${target.name} has taken ${damage} damage. ${target.name} has ${target.hp} hit points remaining.`
   } 
@@ -177,6 +178,12 @@ faction: ,
 */
 let hero = new Hero({name: 'Hero', hp: 100, faction: 'Good'})
 let villain = new Villain({name: 'Villain', hp: 100, faction: 'Bad'})
+console.log(hero.attack(hero));
+console.log(hero.attack(villain));
+console.log(hero.attack(hero));
+console.log(hero.attack(villain));
+console.log(hero.attack(hero));
+console.log(hero.attack(villain));
 console.log(hero.attack(hero));
 console.log(hero.attack(villain));
 console.log(hero.attack(hero));
