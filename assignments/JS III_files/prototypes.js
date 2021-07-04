@@ -11,17 +11,15 @@
 /*
   === GameObject ===
   * createdAt
-  * name
   * dimensions (These represent the character's size in the video game)
-  * destroy() // prototype method that returns: `${this.name} was removed from the game.`
+  * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
-
 function GameObject(attributes){
     this.createdAt = attributes.createdAt;
     this.dimensions = attributes.dimensions;
 }
-GameObject.prototype.destroy = function(char){
-    return `${char.name} was removed from the game.`
+GameObject.prototype.destroy = function(name){
+    return `${this.name} was removed from the game.`
 }
 
 function CharacterStats(charAttributes){
@@ -41,6 +39,7 @@ CharacterStats.prototype.attack = function(char, power){
 /*
   === CharacterStats ===
   * healthPoints
+  * name
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
@@ -142,37 +141,23 @@ Humanoid.prototype.greet = function(){
     Humanoid.call(this, heroAttrs);
     this.power = heroAttrs.power;
   }
+
   Hero.prototype = Object.create(Humanoid.prototype);
-  Hero.prototype.attack = function(char, power){
-     let finalBlow = power();
-    if(char.healthPoints>0){
-     alert(`Attacking ${char.name} for ${finalBlow}`);
-     char.healthPoints -= finalBlow;
-     document.getElementById("vilhealth").innerHTML = `Health: ${char.healthPoints}`;
-     if(char.healthPoints <= 0){
-      alert(this.destroy(char));
-      document.getElementById("vilhealth").innerHTML = `Health: 0`;
-     }
-    } 
-  }
- 
-  function Villain(villAttrs){
-    Humanoid.call(this, villAttrs);
-    this.power = villAttrs.power;
-  }
 
-  Villain.prototype = Object.create(Humanoid.prototype);
-  Villain.prototype.spell = function(char, power){
-      let blow = power();
-     alert(`Casting a spell on ${char.name} for ${blow}`);
-     char.healthPoints -= blow;
-     document.getElementById("herohealth").innerHTML = `Health: ${char.healthPoints}`;
-     if(char.healthPoints <= 0){
-      alert(this.destroy(char));
-      document.getElementById("herohealth").innerHTML = `Health: 0`;
-     }
-    };
 
+  Hero.prototype.attack = function(){
+    if(this.healthPoints > 1){
+      console.log(`I'm attacking ${this.name}`);
+      this.healthPoints -= 3;
+      console.log(`Their health is ${this.healthPoints}`);
+      if(this.healthPoints == 0){
+        console.log(this.destroy(`${this.name}`))
+      }
+      }
+    else{
+      console.log(this.destroy(`${this.name}`))
+    }
+  }
   const matt = new Hero ({
     createdAt: new Date(),
     dimensions: {
@@ -188,10 +173,29 @@ Humanoid.prototype.greet = function(){
       'Dagger',
     ],
     language: 'Elvish',
-    power: function(){
-      return Math.floor(Math.random() * Math.floor(11));
-    },
+    power: 3,
   });
+ 
+ 
+  function Villain(villAttrs){
+    Humanoid.call(this, villAttrs);
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+  Villain.prototype.spell = function(){
+    if(this.healthPoints > 1){
+      console.log(`I'm attacking ${this.name}`);
+      this.healthPoints -= 2;
+      console.log(`Their health is ${this.healthPoints}`);
+      if(this.healthPoints == 0){
+        console.log(this.destroy(`${this.name}`))
+      }
+      }
+    else{
+      console.log(this.destroy(`${this.name}`))
+    }
+  }
+
   const witch = new Villain ({
     createdAt: new Date(),
     dimensions: {
@@ -207,18 +211,20 @@ Humanoid.prototype.greet = function(){
       'Dagger',
     ],
     language: 'Elvish',
-    power: function(){
-      return Math.floor(Math.random() * Math.floor(11));
-    },
   });
- 
-  // console.log(matt.attack(witch, matt.power))
-  // console.log(witch.healthPoints)
+  // matt.attack.call(witch);
+  // witch.spell.call(matt);
+  // matt.attack.call(witch);
+  // witch.spell.call(matt);
+  // matt.attack.call(witch);
+  // witch.spell.call(matt);
+  // matt.attack.call(witch);
   
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
   
-  document.getElementById("herohealth").innerHTML = `Health: ${matt.healthPoints}`;
-  document.getElementById("vilhealth").innerHTML = `Health: ${witch.healthPoints}`;
-  
- 
+
+function newFunction() {
+  document.getElementById("myP").innerHTML = "Hello Dolly.";
+}
+newFunction();
