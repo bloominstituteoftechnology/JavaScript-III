@@ -39,9 +39,43 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+function GameObject(gameobj){
+  this.createdAt = gameobj.createdAt;
+  this.dimensions = gameobj.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this} was removed from the game.`;
+}
+
+function CharacterStats(cstats){
+  GameObject.call(this, cstats);
+  this.healthPoints = cstats.healthPoints;
+  this.name = cstats.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
+
+function Humanoid(human) {
+  CharacterStats.call(this, human);
+  this.team = human.team;
+  this.weapons = human.weapons;
+  this.language = human.language; 
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +136,142 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+  function Anathemanoid(anatha) {
+    CharacterStats.call(this, anatha);
+    this.team = anatha.team;
+    this.weapons = anatha.weapons;
+    this.language = anatha.language; 
+    this.darknessbuff = 10;
+  }
+
+  Anathemanoid.prototype = Object.create(CharacterStats.prototype);
+
+  var villanweaponsarray = ['Division Strikes',
+  'Force Field',
+  'Slimebow',];
+
+  const Villan = new Anathemanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 2,
+      height: 6,
+    },
+    healthPoints: 60,
+    name: 'Xap',
+    team: 'pride',
+    weapons: villanweaponsarray,
+    language: 'Uncommon Tongue',
+  });
+
+  var heroweaponsarray = ['Broadsword',
+  'Concentrated Energy',
+  'Sunchucks',];
+
+  const Hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 3,
+      height: 4,
+    },
+    healthPoints: 70,
+    name: 'Pax',
+    team: 'Good People',
+    weapons: heroweaponsarray,
+    lightbuff: 5,
+    language: 'Humanisheseic',
+  });
+
+  var ttlweapons = heroweaponsarray.length;
+
+  //FIGHT!
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }  
+
+    var heropts = 75;
+    var villpts = 70;
+
+    console.log(heropts);
+
+
+    console.log('BATTLE TIME!');
+
+    var weapttl = ttlweapons;
+    var turn = getRandomInt(2);
+    var weap = getRandomInt(weapttl);
+
+    function herobattle() {
+      console.log("Hero's turn!");
+      var ttldmg = 0;
+      ttldmg = getRandomInt(11);
+      weap = getRandomInt(weapttl);
+      console.log(`${Hero.name} hit the enemy with ${Hero.weapons[weap]} for ` + ttldmg + `dmg`);
+      villpts -= ttldmg;
+      turn += 1;
+    }
+
+    function villanbattle() {
+      console.log("Villan's turn!");
+      var ttldmg = 0;
+      ttldmg = getRandomInt(11);
+      weap = getRandomInt(weapttl);
+      console.log(`${Villan.name} hit the enemy with ${Villan.weapons[weap]} for ` + ttldmg + `dmg`);
+      heropts -= ttldmg;
+      turn -= 1;
+    }
+
+  do {
+    if (turn === 0 && heropts > 0) {
+      console.log("Hero's turn!");
+      var ttldmg = 0;
+      ttldmg = getRandomInt(11);
+      weap = getRandomInt(weapttl);
+      console.log(`${Hero.name} hit the enemy with ${Hero.weapons[weap]} for ` + ttldmg + `dmg`);
+      document.getElementById('hbo').innerHTML = `${Hero.name} hit the enemy with ${Hero.weapons[weap]} for ` + ttldmg + `dmg`;
+      villpts -= ttldmg;
+      turn += 1;
+      continue;
+    } else if (turn === 1 && villpts > 0) {
+      console.log("Villan's turn!");
+      var ttldmg = 0;
+      ttldmg = getRandomInt(11);
+      weap = getRandomInt(weapttl);
+      console.log(`${Villan.name} hit the enemy with ${Villan.weapons[weap]} for ` + ttldmg + `dmg`);
+      document.getElementById('vbo').innerHTML = `${Villan.name} hit the enemy with ${Villan.weapons[weap]} for ` + ttldmg + `dmg`;
+      heropts -= ttldmg;
+      turn -= 1;
+      continue;
+    } else {
+      break;
+    }
+   } while (heropts >= 0 && villpts >= 0 );
+
+   if (villpts < 0) {
+     villpts = 0;
+   } else if (heropts < 0) {
+     heropts = 0;
+   }
+
+
+
+    document.getElementById('hph').innerHTML = heropts;
+
+    document.getElementById('hpv').innerHTML = villpts;
+
+   if (heropts <= 0) {
+    document.getElementById('outcome').innerHTML = "THE HERO HAS PERISHED!";
+   } else {
+    document.getElementById('outcome').innerHTML = "Evil has been overcome!";
+   }
+
