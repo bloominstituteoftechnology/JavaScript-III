@@ -16,12 +16,39 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+function GameObject(objectAttributes){
+  this.createdAt = objectAttributes.createdAt;
+  this.dimensions = objectAttributes.dimensions;
+};
+
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;
+};
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+function CharacterStats(charAttributes){
+  GameObject.call(this, charAttributes);
+  this.healthPoints = charAttributes.healthPoints;
+  this.name = charAttributes.name;
+};
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+};
+
+CharacterStats.prototype.checkHP = function() {
+  if (this.healthPoints <= 0){
+    this.destroy();
+  }
+}
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,7 +59,81 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+function Humanoid(humAttributes){
+  CharacterStats.call(this, humAttributes);
+  this.team = humAttributes.team;
+  this.weapons = humAttributes.weapons;
+  this.language = humAttributes.language;
+}
+
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}.`;
+};
+
+Hero.prototype = Object.create(Humanoid.prototype);
+
+function Hero(heroAttributes){
+  Humanoid.call(this, heroAttributes);
+  this.powers = heroAttributes.powers;
+  // this.nemesis = function(nemTarget){
+  //   Villain.call(nemTarget, villainAttributes);
+  // };
+}
+
+Hero.prototype.determination = function(){
+  if (this.powers == 'Willpower'){
+    this.healthPoints += 5;
+  }
+  else {
+    console.log(`${this.name} lacks the will`);
+  }
+  
+}
+
+
+
+
+
+Villain.prototype = Object.create(Humanoid.prototype);
+
+function Villain(villainAttributes){
+  Humanoid.call(this, villainAttributes);
+  this.powers = villainAttributes.powers;
+  // this.nemesis = function(nemTarget){
+  //   Hero.call(nemTarget, heroAttributes);
+  // };
+}
+
+Hero.prototype.dispenseJustice = function(nemTarget){
+  if (this.weapons.includes('Guillotine Sword') === true && this.powers == 'Willpower') {
+    if (nemTarget.powers === 'Schemes') {
+      let hitOrMiss = Math.random();
+      if (hitOrMiss > .9) {
+        console.log(nemTarget.destroy());
+      }
+      else if(hitOrMiss > .3 && hitOrMiss <= .9) {
+        nemTarget.healthPoints -= 5;
+        console.log(nemTarget.takeDamage());
+        nemTarget.checkHP();
+      }
+      else {
+        console.log(`${this.name} missed`)
+      }
+    }
+    else {
+      console.log(nemTarget.destroy());
+    }
+    // console.log(nemTarget.powers)
+    
+  }
+  else {
+      console.log(`Not today, ${this.name}`);
+    }  
+}
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,7 +142,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +193,42 @@
     language: 'Elvish',
   });
 
+  const soldier = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 12,
+    name: 'Zargon',
+    team: 'Red Army',
+    weapons: [
+      'Guillotine Sword'
+    ],
+    language: 'Dialectic',
+    powers: 'Willpower',
+    // nemesis: 'baron'
+  });
+
+  var baron = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 24,
+    name: 'Gooblgar',
+    team: 'Blue Empire',
+    weapons: [
+      'Staff of Domination'
+    ],
+    language: 'Evilese',
+    powers: 'Schemes',
+    // nemesis: 'soldier'
+  });
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -102,7 +239,19 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  // console.log(soldier.weapons);
+  // console.log(soldier.nemesis.name);
+  // console.log(soldier.weapons.includes('Guillotine Sword'));
+
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+  soldier.dispenseJustice(baron);
+
+  //he better be dead after this
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
