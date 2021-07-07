@@ -7,7 +7,59 @@
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
-  
+function GameObject(attribute) {
+  this.createdAt = attribute.createdAt;
+  this.dimensions = attribute.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+    return `${this.name} was removed from the game.`;
+}
+
+
+function CharacterStats(charAttribute) {
+  GameObject.call(this, charAttribute);
+  this.hp = charAttribute.hp;
+  this.name = charAttribute.name;
+  }
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`;
+}
+
+
+
+function Humanoid(humanAttribute) {
+  CharacterStats.call(this, humanAttribute);
+  this.faction = humanAttribute.faction;
+  this.weapons = humanAttribute.weapons;
+  this.language = humanAttribute.language;
+  }
+Humanoid.prototype = Object.create(CharacterStats.prototype);  
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`}
+
+
+function Hero(heroAttribute) {
+  Humanoid.call(this, heroAttribute);
+  this.charitable = heroAttribute.charitable;
+}
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.charity = function () {
+  return `${this.name} is so heroic, they donated $${this.charitable} to charities last year.`}
+
+
+function Villian(villianAttribute) {
+  Humanoid.call(this, villianAttribute);
+  this.evilAct = villianAttribute.evilAct;
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+Villian.prototype.evil = function () {
+  return `Oh yeah? Well ${this.name} did ${this.evilAct} evil things last year!`}
+
+
 /*
   === GameObject ===
   * createdAt
@@ -41,7 +93,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +144,42 @@
     language: 'Elvish',
   });
 
+  const catHero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 4,
+    },
+    hp: 20,
+    name: 'Ember',
+    faction: 'Spirit Ghosts',
+    weapons: [
+      'Claws',
+      'Teeth',
+    ],
+    language: 'Meowith',
+    charitable: 10
+  })
+
+  const catVillian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 4,
+      height: 2,
+    },
+    hp: 30,
+    name: "Lulu",
+    faction: 'Conquerers of Yesterday',
+    weapons: [
+      'Stares of Apathy',
+      'Very hard Bops',
+    ],
+    language: "Meowith",
+    evilAct: 10000
+  })
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -102,7 +190,8 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  console.log(catHero.charity());
+  console.log(catVillian.evil());
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
