@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+
+.container{
+    background-color: gray;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+#reset {
+    padding: 1.3%;
+    background-color: gray;
+    margin: 0 auto;
+    display: block;
+    margin-top: 5%;
+}

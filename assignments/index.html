@@ -1,17 +1,37 @@
 <!doctype html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>JS III</title>
+        <title>JS III</title>
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <script src="this.js"></script>
+        <script src="prototypes.js"></script>
+        <script src="fight.js"></script>
+    </head>
 
-  <script src="this.js"></script>
-  <script src="prototypes.js"></script>
-</head>
+    <body>
+        <h1>JS III - Check your work in the console!</h1>
+    <div class="container">
+            <div class="Sagat">
+               <div id="congrat"> </div>
+                <div><img src="https://vignette.wikia.nocookie.net/streetfighter/images/8/8c/Sagat-hdstance.gif/revision/latest?cb=20100718231908"> </div>
+                <button>Score:<span id="span1">0</span> </button>
+                <button id="AttackSagat">Attack</button>
+                <button id="defendSagat">defend</button>
 
-<body>
-<h1>JS III - Check your work in the console!</h1>
-</body>
+            </div>   
+            <div class="Rio"> 
+                <div id="Rio-div"> </div>
+                <div><img src="https://i.pinimg.com/originals/a4/e3/16/a4e3165030a3715c35a7ac38960c55fe.gif " width="230px;"> 
+                </div>
+                <button>Score:<span id="span2">0</span> </button>
+                <button id="attackRio">Attack</button>
+                <button id="defendRio">defend</button>
+            </div>
+        </div>
+        <button id="reset"> Reset score</button>
+    </body>
 </html>
