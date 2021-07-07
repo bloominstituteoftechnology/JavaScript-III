@@ -15,14 +15,33 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-
+function GameObject(gameAttributes) {
+  this.createdAt = new Date('November 28, 2018 15:00:00');
+  this.dimensions = gameAttributes.dimensions;
+  this.destroy = function() {
+    return `${this.name} was removed from the game.`;
+  }
+}
+// const tester = new GameObject({dimensions: 'who cares'});
+// console.log(tester.destroy());
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
+function CharacterStats(characterAttributes) {
+  GameObject.call(this, characterAttributes);
+  this.healthPoints = characterAttributes.healthPoints;
+  this.name = characterAttributes.name;
+  this.takeDamage = function() {
+    return `${this.name} took damage.`
+  }
+}
+// const charTester = new CharacterStats({dimensions: 'who cares', name: "Dingus", healthPoints: 2});
+// console.log(charTester);
+// console.log(charTester.takeDamage());
+// console.log(charTester.destroy());
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -32,16 +51,77 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+ function Humanoid(humanoidAttributes) {
+  CharacterStats.call(this, humanoidAttributes);
+  this.team = humanoidAttributes.team;
+  this.weapons = humanoidAttributes.weapons;
+  this.language = humanoidAttributes.language;
+  this.greet = function() {
+    return `${this.name} offers a greeting in ${this.language}.`;
+  }
+ }
+//  const humanoidTester = new Humanoid({
+//    name: 'Dingus',
+//    team: "The testers",
+//    weapons: "Knowledge",
+//    language: "Armenian"
+//  });
+//  console.log(humanoidTester);
+//  console.log(humanoidTester.greet());
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
+function Villain(villainAttributes) {
+  Humanoid.call(this, villainAttributes);
+  this.screwYou = function(otherCharacter) {
+    return `Screw you, ${otherCharacter.name}!`;
+  }
+  this.burn = function(opponent) {
+    opponent.healthPoints -= 2;
+    console.log(opponent.takeDamage());
+    if (opponent.healthPoints <= 0) {
+      console.log(opponent.destroy());
+      alert(`${opponent.name} says "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"`);
+    }
+  }
+}
 
+function Hero(heroAttributes) {
+  Humanoid.call(this, heroAttributes);
+  this.screwYou = function(otherCharacter) {
+    return `Screw you, ${otherCharacter.name}!`;
+  }
+  this.banjo = function(opponent) {
+    opponent.healthPoints -= 2;
+    console.log(opponent.takeDamage());
+    if (opponent.healthPoints <= 0) {
+      console.log(opponent.destroy());
+      alert(`${opponent.name} says "The banjo hurts so good!"`);
+    }
+  }
+}
+const Ryan = new Villain({
+  dimensions: {
+    length: 2,
+    width: 2,
+    height: 2,
+  },
+  healthPoints: 15,
+  name: 'Sir Mustachio',
+  team: 'The Round Table',
+  weapons: [
+    'fire'
+  ],
+  language: 'Common Tongue',
+
+});
+
+  
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,17 +172,23 @@
     language: 'Elvish',
   });
 
-  console.log(mage.createdAt); // Today's date
-  console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.healthPoints); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
-  console.log(mage.weapons); // Staff of Shamalama
-  console.log(archer.language); // Elvish
-  console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-  console.log(mage.takeDamage()); // Bruce took damage.
-  console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+  // console.log(mage.createdAt); // Today's date
+  // console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+  // console.log(swordsman.healthPoints); // 15
+  // console.log(mage.name); // Bruce
+  // console.log(swordsman.team); // The Round Table
+  // console.log(mage.weapons); // Staff of Shamalama
+  // console.log(archer.language); // Elvish
+  // console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+  // console.log(mage.takeDamage()); // Bruce took damage.
+  // console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+  console.log(dingusTester.screwYou(mage));
+  console.log(mage.healthPoints);
+  console.log(dingusTester.burn(mage));
+  console.log(mage.healthPoints);
+  console.log(dingusTester.burn(mage));
+  console.log(dingusTester.burn(mage));
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
