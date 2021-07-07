@@ -7,7 +7,7 @@
   
   Each constructor function has unique properties and methods that are defined in their block comments below:
 */
-  
+
 /*
   === GameObject ===
   * createdAt
@@ -16,12 +16,35 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.prototype.destroy = function() {
+  return 'Object was removed from the game.';
+}// GameObject
+
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(charAttributes) {
+  GameObject.call(this, charAttributes);
+  this.healthPoints = charAttributes.healthPoints;
+  this.name = charAttributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}// CharacterStats
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,6 +55,19 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+function Humanoid(humanAttributes) {
+  CharacterStats.call(this, humanAttributes);
+  this.team = humanAttributes.team;
+  this.weapons = humanAttributes.weapons;
+  this.language = humanAttributes.language;
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -39,9 +75,30 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+// const character = new Humanoid({
+//   createdAt: 'beginning of time',
+//   dimensions: {
+//     length: 2,
+//     width: 1,
+//     height: 1,
+//   },
+//   healthPoints: 10,
+//   name: 'Gandalf',
+//   team: 'wizards',
+//   weapons: [
+//     'staff'
+//   ],
+//   language: 'Common'
+// });
+
+// console.log(character);
+// console.log(character.destroy());
+// console.log(character.takeDamage());
+// console.log(character.greet());
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,9 +159,84 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Hero(heroAttributes) {
+    Humanoid.call(this, heroAttributes);
+  }
+  
+  Hero.prototype = Object.create(Humanoid.prototype);
+  
+  Hero.prototype.swingSword = function(villainObj) {
+    console.log(villainObj.takeDamage());
+    villainObj.healthPoints -= 5;
+    if( villainObj.healthPoints <= 0) {
+      console.log(villainObj.destroy());
+    }
+  }
+
+  const meldon = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    healthPoints: 20,
+    name: 'Meldon',
+    team: 'Knights Templar',
+    weapons: [
+      'Sword',
+      'Dagger',
+    ],
+    language: 'Common Tongue',
+  });
+
+
+  function Villain(villainAttributes) {
+    Humanoid.call(this, villainAttributes);
+  }
+  
+  Villain.prototype = Object.create(Humanoid.prototype);
+  
+  Villain.prototype.castSpell = function(heroObj) {
+    console.log(heroObj.takeDamage());
+    heroObj.healthPoints -= 8;
+    if( heroObj.healthPoints <= 0) {
+      console.log(heroObj.destroy());
+    }
+  }
+
+
+  const lazarus = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 20,
+    name: 'Lazarus',
+    team: 'Wizard\'s Council',
+    weapons: [
+      'Staff of Wonders',
+      'Poison',
+    ],
+    language: 'Draconian',
+  });
+
+
+  console.log(lazarus);
+  console.log(meldon);
+
+  meldon.swingSword(lazarus);
+  lazarus.castSpell(meldon);
+  meldon.swingSword(lazarus);
+  lazarus.castSpell(meldon);
+  meldon.swingSword(lazarus);
+  lazarus.castSpell(meldon);
