@@ -16,12 +16,33 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+function GameObject(attrib){
+  this.createdAt = attrib.createdAt;
+  this.dimensions = attrib.dimensions;
+}
+
+GameObject.prototype.destroy = function(){
+  return `${this.name} was removed from the game.`;
+}
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+function CharacterStats(attrib){
+  this.hp = attrib.hp;
+  this.name = attrib.name;
+  GameObject.call(this, attrib);
+}
+
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`;
+}
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,6 +53,61 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+function Humanoid(attrib){
+  this.faction = attrib.faction;
+  this.weapons = attrib.weapons;
+  this.language = attrib.language;
+  CharacterStats.call(this, attrib);
+}
+
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`;
+}
+
+// Stretch goal constructors
+
+Villian.prototype = Object.create(Humanoid.prototype);
+function Villian(attrib){
+  Humanoid.call(this, attrib);
+}
+
+Villian.prototype.attack = function(){
+  let successChance = Math.random()
+  if (successChance > 0.5 && this.hp >= 1 && hero.hp >=1) {
+    hero.hp--;
+    return `The hero has ${hero.hp} health left! You have ${this.hp} health remaining.`;
+  } else if (successChance < 0.49 && this.hp >= 1 && hero.hp >=1) {
+    this.hp--;
+    return `You're strike missed and you've been hit instead! The hero has ${hero.hp} and you have ${this.hp} health remaining.`;
+  } else if (this.hp < 1 && hero.hp >= 1){
+    return `Sad trombone. You've been defeated!`
+  } else if (hero.hp <1 && this.hp >= 1){
+    return `You are victorious! The hero has been defeated! You have ${this.hp} health remaining.`;
+  } 
+}
+
+
+Hero.prototype = Object.create(Humanoid.prototype);
+function Hero(attrib){
+  Humanoid.call(this, attrib);
+}
+
+Hero.prototype.attack = function(){
+  let successChance = Math.random()
+  if (successChance > 0.5 && this.hp >= 1 && villian.hp >=1) {
+    villian.hp--;
+    return `The villian has ${villian.hp} health left! You have ${this.hp} health remaining.`;
+  } else if (successChance < 0.49 && this.hp >= 1 && villian.hp >=1) {
+    this.hp--;
+    return `You're strike missed and you've been hit instead! The villian has ${villian.hp} and you have ${this.hp} health remaining.`;
+  } else if (this.hp < 1 && villian.hp >= 1){
+    return `Sad trombone. You've been defeated!`
+  } else if (villian.hp <1 && this.hp >= 1){
+    return `You are victorious! The villian has been defeated! You have ${this.hp} health remaining.`;
+  } 
+}
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -41,7 +117,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +168,43 @@
     language: 'Elvish',
   });
 
+  const hero = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 5,
+    },
+    hp: 5,
+    name: 'Captain',
+    faction: 'Hero Tribe',
+    weapons: [
+      'Greatsword',
+      'Bow',
+      'Mace',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const villian = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 3,
+    },
+    hp: 5,
+    name: 'Evil',
+    faction: 'Villian Tribe',
+    weapons: [
+      'Throwing Knives',
+      'Crossbow',
+      'Poison Darts',
+    ],
+    language: 'Elvish',
+  });
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -102,7 +215,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
