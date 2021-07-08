@@ -15,14 +15,12 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
-
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -32,6 +30,66 @@
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+// ======GAME OBJECT======
+
+function GameObject(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`;
+}
+
+
+
+// ======CHARACTER STATS======
+
+function CharacterStats(attributes) {
+  GameObject.call(this, attributes)
+  this.hp = attributes.hp;
+  this.name = attributes.name;
+}
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage.`;
+}
+
+
+
+// ======HUMANOID======
+
+function Humanoid(attributes) {
+  CharacterStats.call(this, attributes);
+  this.faction = attributes.faction;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+}
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}.`;
+}
+
+
+
+// ======VILLAIN======
+function Villain(attributes) {
+  Humanoid.call(this, attributes);
+}
+Villain.prototype = Object.create(Humanoid.prototype);
+// Villain.prototype.attack = function() {
+//   return `${this.name} attacks using ${this.weapons}.`;
+// }
+
+
+
+// ======HERO======
+function Hero(attributes) {
+  Villain.call(this, attributes);
+}
+Hero.prototype = Object.create(Villain.prototype);
+// Hero.prototype.save = function() {
+//   return `${this.name} saves a life.`;
+// }
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
